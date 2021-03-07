@@ -1,14 +1,14 @@
 % created on 2019-12-13
 % @author : bmazoyer
-\documentclass[a4paper, twoside]{report}
+\documentclass[a4paper, twoside, openright]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{geometry}
 \geometry{
-left=16mm,
+left=22mm,
 top=30mm,
-right=16mm,
+right=22mm,
 bottom=30mm
 }
 \usepackage{xcolor}
@@ -23,6 +23,14 @@ bottom=30mm
 \usepackage{afterpage}
 \usepackage{setspace}
 \usepackage{pgffor}
+% Zach added packages--------||
+\usepackage{comment}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{color,soul}
+\usepackage{fancyhdr}
+%----------------------------||
 \setlength{\columnseprule}{0pt}
 \setlength\columnsep{10pt}
 
@@ -55,6 +63,16 @@ bottom=30mm
 	pdftitle={\PhDTitle}
 }
 
+% Zach added configuration --------------------------------------------------
+
+% Place title on top of each page and page numbers
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[EL]{\nouppercase\leftmark}
+\fancyhead[OR]{\nouppercase\rightmark}
+\fancyhead[ER,OL]{\thepage}
+
+%------------------------------------------------------------------------------
 
 \begin{document}
 	\doublespacing
