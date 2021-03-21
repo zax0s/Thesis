@@ -1,0 +1,48 @@
+%\thispagestyle{plain}
+%\chaptermark{Abbreviation}
+%\addcontentsline{toc}{chapter}{Abbreviations} \noindent
+%\renewcommand{\nomname}{List of Abbreviations}
+
+%--- Acronyms -----------------------------------------------------------------%
+% \acrodef{label}[acronym]{written out form} % acronym syntax
+%\acrodef{etacar}[$\eta$ Car]{Eta Carinae}   % acronym example
+%--- Acronyms -----------------------------------------------------------------%
+% how to use acronyms:
+% \ac = use acronym, first time write both, full name and acronym
+% \acf = use full name (text + acronym)
+% \acs = only use acronym
+% \acl = only use long text
+% \acp, acfp, acsp, aclp = use plural form for acronym (append 's')
+% \acsu, aclu = write + mark as used
+% \acfi = write full name in italics and acronym in normal style
+% \acused = mark acronym as used
+% \acfip = full, emphasized, plural, used
+%--- Acronyms -----------------------------------------------------------------%
+%\chapter*{List of Abbreviations}
+%\begin{acronym}
+%        \acro{pet}[PET]{Positron Emission Tomography}
+%\end{acronym}
+
+
+\newacronym{pet}{PET}{Positron Emission Tomography}
+\newacronym{lor}{LOR}{Line of Response}
+\newacronym{pmt}{PMT}{Photomultiplier tube}
+\newacronym{sipm}{SiPM}{Silicon photomultiplier}
+\newacronym{fov}{FOV}{Field of View}
+\newacronym{ct}{CT}{Computed tomography}
+
+% nomenclature:
+\newglossaryentry{angelsperarea}{
+  name = $a$ ,
+  description = The number of angels per unit area,
+}
+\newglossaryentry{numofangels}{
+  name = $N$ ,
+  description = The number of angels per needle point
+}
+\newglossaryentry{areaofneedle}{
+  name = $A$ ,
+  description = The area of the needle point
+}
+
+

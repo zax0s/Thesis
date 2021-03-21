@@ -14,7 +14,7 @@ bottom=30mm
 \usepackage{xcolor}
 \definecolor{bordeau}{rgb}{0.3515625,0,0.234375}
 \usepackage[absolute,overlay]{textpos}
-\usepackage{graphicx}
+\usepackage[draft]{graphicx}
 \usepackage{lipsum}
 \usepackage{array}
 \usepackage{caption}
@@ -30,6 +30,33 @@ bottom=30mm
 \usepackage{tikz}
 \usepackage{color,soul}
 \usepackage{fancyhdr}
+
+% acronyms 
+\usepackage[acronym, toc]{glossaries}
+\glsdisablehyper 
+\makeglossaries
+\input{acronyms}
+% No new paragraphs indentation 
+\usepackage[parfill]{parskip}
+
+% Add some colours for highlighting 
+\usepackage{color,soul}
+
+%Degree symbol
+\usepackage{gensymb}
+
+%SI units 
+\usepackage{siunitx}
+
+% Rules for tables with extra space around
+\usepackage{booktabs }
+
+% Chemistry and isotopes
+\usepackage[version=4]{mhchem}
+
+% Greek !!
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta}
 %----------------------------||
 \setlength{\columnseprule}{0pt}
 \setlength\columnsep{10pt}
@@ -41,20 +68,15 @@ bottom=30mm
     \newpage}
 
 %Bibliography style
-\usepackage[square, numbers]{natbib}
-\bibliographystyle{abbrvnat}
+\usepackage[sort&compress, square, numbers]{natbib}
+%\bibliographystyle{abbrvnat}
+\bibliographystyle{unsrtnat}
 
 % Thesis title
 \newcommand{\PhDTitle}{Modelling and Reconstruction of a 3-D Whole Body parametric map in Hybrid PET-MRI Pharmacological imaging} 
 
 % Name
 \newcommand{\PhDname}{Zacharias Chalampalakis} 
-
-% Change this variable if you add or remove chapters
-\newcommand*{\NumOfChapters}{6}
-
-% Change this variable if you add or remove appendices
-\newcommand*{\NumOfAppendices}{3}
 
 % PDF metadata
 \hypersetup{
@@ -73,7 +95,11 @@ bottom=30mm
 \fancyhead[ER,OL]{\thepage}
 
 %------------------------------------------------------------------------------
+    \makeglossaries
+    \printglossary[type=\acronymtype,title=Abbreviations]
 
+    \printglossary[title=Nomenclature]
+    
 \begin{document}
 	\doublespacing
 	
@@ -89,21 +115,26 @@ bottom=30mm
     \tableofcontents
     \listoffigures
     \listoftables
+    \printglossary[type=\acronymtype,title=Abreviations,nonumberlist]
     
 
-    \foreach \i in {1,2,...,\NumOfChapters}{
-        \input{\i}
-        \cleardoublepage
-    }
+
     
+
+    \input{./1_Introduction/Introduction_main}
+
+    \input{./2_Theory_Methods/Theory_Methods_main}
+    
+    \input{./3_Results/Results}
+    
+    \input{./4_Discussion/Discussion}
+
+        
     \appendix
-    \foreach \i in {1,2,...,\NumOfAppendices}{
-        \input{appendices/\i}
-        \cleardoublepage
-    }
+    
     
     \bibliography{bibliography.bib}
     \pagebreak
-    
+
     \input{layout/lastpage.tex}
 \end{document}
