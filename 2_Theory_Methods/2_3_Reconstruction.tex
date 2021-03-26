@@ -1,31 +1,58 @@
-Image reconstruction is required to produce images of activity distribution from the acquired tomographic measurements. The methods of that process can be separated in two categories, analytical methods and statistical or iterative methods.  
-Analytical reconstruction methods make use of linear analytic approaches based on analytical formulations of the acquisition and reconstruction process to estimate an image. These methods treat the measured LOR data as line integrals over image space and necessitate corrections to be applied on projection data prior of reconstruction, in order to result to valid and quantitatively accurate images. The most commonly used and fastest analytical reconstruction method is the Filtered Back Projection which is covered briefly in this chapter. 
-Statistical reconstruction treat the reconstruction problem as a non-linear problem that require iterative optimisation methods to reach a solution. The aim of iterative reconstruction is to reach a solution that best explain the tomographic data, by incorporating a model of the imaging system and accurate modeling of the noise in the raw data from the detection process. This approach is generic and allow for multiple effects , including corrections, to be accounted for in the system model as well as additional prior information about the image or the dynamic processes in the data. These are the main reasons for which iterative reconstruction is nowadays the standard reconstruction in clinical PET and it is the reconstruction process used in this thesis due to its ability to incorporate complex system models and dynamic models. 
+Image reconstruction is required to produce maps or images of activity distribution from the acquired tomographic measurements. Reconstruction algorithms used for this process can be categorised as either analytical reconstruction methods or statistical reconstruction methods.  
+Analytical reconstruction methods seek to invert the transformation that links between image and data domain, using linear analytic approaches based on analytical formulations of the acquisition process. These methods treat the measured LOR data as line integrals over image space and necessitate corrections to be applied on projection data prior to reconstruction, in order to result to valid and quantitatively accurate images. The most commonly used analytical reconstruction method is the Filtered Back Projection which is described briefly in this chapter. 
+Statistical reconstruction algorithms are derived from statistical formulations of the detection process and allow for the use of complex system models that account for the effects that result in degrading image quality and quantification.  These methods result in a non-linear formulation of the reconstruction problem which require iterative optimisation methods to reach a solution. The solution sought is a set of image parameters (that describe the activity distribution) which best describes the acquired projection data. 
+In this thesis we made exclusive use of statistical reconstruction methods due to their ability to incorporate complex system models, including dynamic models which is imperative for the aims of this thesis.
+
 
 \subsection{Projection and back-projection process}
 Coincidence detection of annihilation photons in PET leads naturally to a line-integral model where the number of coincidence events is an \gls{lor} is approximately linearly proportional to the integral of tracer density along the volume joining the two detectors. 
 In the simplified case of a 2D image space and a single ring 2D PET scanner, the projection process can be written as:
-
 \begin{equation}
    \bm y = proj\{\bm{\lambda}\}  \\, 
   \label{eqn:Radon}
 \end{equation}
+where $\bm{\lambda}$ is the continuous distribution of radiotracer and $\bm{y}$ the continuous projection data (or else sinogram data). 
+The projection operation is also known as the Radon transform~\cite{radon1917} and translates from the image to the projection data domain. 
+The inverse operation is back-projection, which translates from data domain to image domain.
 
-where $\bm{\lambda}$ is the continuous distribution of radiotracer in the imaging system's FOV and $\bm{y}$ the projection data (or else sinogram data). 
+\subsubsection{Image representation}
+In practice the spatio-temporal radiotracer distribution is described using a model of a finite number of parameters. The most common choice is the use of equally sized non-overlapping voxels that cover the useful \gls{fov}. Their use extends also to the temporal domain where each temporal bin is described independent of each other. 
+If for a moment we only consider the spatial domain, we can model the spatial radiotracer distribution $\bm{\lambda}$ using voxels with the  $rect$ function as
+\begin{equation}
+   g(\bm{r};\bm\lambda) = \sum_{j=1}^{n_{j}} \lambda_j {rect}(\bm{r}-\bm{r}_j)  \\, 
+\end{equation}
+for ${n_{j}}$ voxels, with $r_j$ coordinates and intensity $\lambda_j$.
+For the case where the model is linear as in this case, the set of functions describing the distribution are referred to as 'basis functions'. We will be using the $\bm\lambda$ notation to refer to the ${n_{j}}$ vector of  $\lambda_j$ voxel weights that describe the spatial activity distribution. 
+\begin{equation}
+   \bm\lambda = \Big\{ \lambda_j,j=1..n_j \Big\} \\.
+\end{equation}
+Regarding the temporal aspect of the activity distribution, traditionally the data are binned temporally (in frames), with each considered as an individual acquisition. This leads to a similar modeling for the image data, where the $rect$ function is used for each frame, set from the frame start and frame end time points. In this project we explore and use additional types of modeling the dynamic aspect of activity distributions, which are described in more detail in the following sections. For the image data representation it is common to separate the temporal aspect as a separate index. The activity distribution can be written as
+\begin{equation}
+   \bm{\lambda} = \Big\{ {\bm{\lambda}_m,m=1,...,n_m} \Big\} \\,
+\end{equation}
+where
+\begin{equation}
+   \bm{\lambda_m} = \Big\{ {\lambda_{mj},j=1,...,n_j} \Big\} \\.
+\end{equation}
+Equivalently the projection space is also effectively modeled according to the discretization imposed by the \glspl{lor} as $y_i,i=1..n_i$, where $i$ is the projection bin index and $n_m$ the total number of \glspl{lor}. For multiple time frames we define $y_{mi}$ as the number of events for bin $i$ at frame $m$ for a number of $n_m$ frames. The dynamic data can then be written as
+\begin{equation}
+   \bm{y} = \Big\{ {\bm{y}_m,m=1,...,n_m} \Big\} \\,
+\end{equation}
+where
+\begin{equation}
+   \bm{y_m} = \Big\{ {y_{mi},i=1,...,n_i} \Big\} \\.
+\end{equation}
 
-The projection operation is also known as the Radon transform~\cite{radon1917} and translates the data from the image to the projection domain. The inverse operation that translates from data space to image space is back-projection.
 
-The radiotracer distribution is modelled using a set of spatial basis functions that described the distribution as a set of parameters. The use of equally sized non-overlapping voxels is commonly chosen, or alternatively use of overlapping spheres (blobs)~\cite{Matej1996}. Here we consider voxels, which result in a discrete representation of the radiotracer distribution $\lambda_j$, with $j=1..n_j$ being the voxel index. 
-Equivalently the projection space is discretised based on the \glspl{lor} defined by the detectors as $y_i$ , with $i=1..n_m$ the projection bin index.
-
-Projection and back-projection can be treated by summing contributions of voxels to each projection bin. Different projector methods exist that model the contribution of voxels differently depending on their placement in the \gls{lor}. The short list that follows list some commonly used methods that can also be used in CASToR. 
+\subsubsection{Projection}
+Projection of image to data space can be treated by summing contributions of voxels across each projection ~\gls{lor}. Different projection strategies exist that model the contribution of voxels differently depending on their placement in the \gls{lor}. As this is a computationally heavy process in practice, different methods have been proposed that balance between accuracy and consistency and computing requirements. A short follows list with basic description of the methods that are implemented in CASToR.
 
 \begin{itemize}
-\item  Siddon projector~\cite{Siddon1985}: Weights the contribution of an LOR to each by the length of the line that intersects the voxel.
-\item  Distance driven~\cite{DeMan2004}: An optimised method for calculating weights by mapping pixel boundaries and detector boundaries for each projection to a common axis .
-\item  Incremental Siddon~\cite{Jacobs2015}.
-\item  Joseph~\cite{Joseph1982}: Estimates contribution of voxels to LOR based on linear interpolation and their distance from the LOR. 
-\item  Multi-Siddon~\cite{Moehrs2008}: Uses multiple lines from the faces of the detectors in each LOR to approximate the volume intersected between the two detectors and the voxel.
+\item  \textbf{Siddon projector}~\cite{Siddon1985}: Weights the contribution of an LOR to each by the length of the line that intersects the voxel.
+\item  \textbf{Distance driven}~\cite{DeMan2004}: An optimised method for calculating weights by mapping pixel boundaries and detector boundaries for each projection to a common axis .
+\item  \textbf{Incremental Siddon}~\cite{Jacobs2015}:
+\item  \textbf{Joseph}~\cite{Joseph1982}: Estimates contribution of voxels to LOR based on linear interpolation and their distance from the LOR. 
+\item  \textbf{Multi-Siddon}~\cite{Moehrs2008}: Uses multiple lines from the faces of the detectors in each LOR to approximate the volume intersected between the two detectors and the voxel.
 \end{itemize}
 
 \begin{figure} [h!]
@@ -35,41 +62,113 @@ Projection and back-projection can be treated by summing contributions of voxels
 \label{fig_3:back_projection.}
 \end{figure} 
 
-The analytical reconstruction method of filtered back projection estimates the image though the process of back-projecting all the data in image space where the contributions from all LORs are superimposed. In practice a filtered version of the projections is back-projected to account for the non-uniform number of contributions from LORs in image space, which gives the name of filtered back projection to this analytical reconstruction method. The method can be extended to 3D via use of the 3D X-ray transform and approximations of missing data projections~\cite{Kinahan1989}. 
+The inverse process of back-projection assigns the contribution from each bin across the \gsl{lor}, using the same strategies described above. 
+Analytical reconstruction methods estimate an image though the process of back-projecting all the data in image space where the contributions from all \glspl{lor} are superimposed. In practice a filtered version of the projections is back-projected to account for the non-uniform number of contributions from LORs in differnt regions of the image space, which gives the processes the name of filtered back projection. The method can be extended to 3D via use of the 3D X-ray transform and approximations of missing data projections~\cite{Kinahan1989}. 
 
-But while analytical reconstruction are linear processes that produce estimates relatively fast, accuracy is limited by the assumptions of the line integral model , positron range effects, variations in response across an LOR etc. Finally these methods do not account for the statistical properties of the data. They assume noise-free data and equal weighting between LORs, which for noisy data results to image artefacts that require post reconstruction smoothing to be reduced. 
+But while analytical reconstruction are linear processes that result to estimates at relatively little computing time, accuracy is limited by the assumptions of the line integral model, positron range effects, variations in response across an LOR etc. In addition these methods do not account for the statistical properties of the data. They assume noise-free data and equal weighting between LORs, which for noisy data results to image artefacts that necessitate post reconstruction smoothing and processing.
+
+\subsection{Formulation of the system model}
+One main advantage of iterative reconstruction methods is the ability to make use of complex models that map the radiotracer distribution from image space to data space, which can include physical processes such as positron range, scatter and random contributions, attenuation effects, normalisation factors etc.
+The projection process described above can be modelled using a matrix $\bm{X}$ of $n_ixn_j$ dimensions. This is the projection or system matrix and each ${X}_{ij}$ element is the average probability of detecting an emission from voxels site $j$ at the data bin $i$. With that the projection of an image $\mb{\lambda}$ at bin $i$ can be written as a sum over the contribution of all voxels from the image
+\begin{equation}
+   \hat{y_i} = \sum_{j=1}^{n_j} X_{ij} \lambda_j  \\,
+\end{equation}
+where $\hat{y_i}$ is the modelled data or expectation of the data.  A more realistic system model can be expressed as 
+\begin{equation}
+   \hat{y_i} = \sum_{j=1}^{n_j} A_{i}N_{i}X_{ij} \lambda_j + B_{i} \\,
+\end{equation}
+where vectors $A$ and $N$ account for attenuation and efficiency factors at bin $i$ , and $B$ for scatter and randoms which are modelled as additive terms. In addition \gls{psf} modeling can be included to model voxel value at voxel j using a \gls{psf} model. 
+For shortness all the effects can be written as a matrix $P$ and the system model can be re-written as
+\begin{equation}
+   \hat{y_i} = \sum_{j=1}^{n_j} P_{ij} \lambda_j + B_{i} \\.
+   \label{eqn:system_model}
+\end{equation}
+
+\subsection{Formulation of the objective function}
+The second most important advantage of iterative reconstruction methods is the inherent accounting for the statistical variations in the detection process This is achieved by the use of a probabilistic model in the derivation of the objective function, which is used in the optimisation process of the iterative reconstruction algorithm.
+The total number of detection from annihilation photons in each projection bin can be modelled as a random sample from a Poisson distribution. According to the Poisson probability model, the conditional probability or likelihood function for $\hat{y_i}$ given the measured data ${y_i}$ will be
+\begin{equation}
+p({y_i}|{\hat{y_i}}) = L({\hat{y_i}}|{y_i}) = e^{-\hat{y_i}} \frac{\hat{y_i}^{y_i}}{{y_i}!}  \\  .
+\end{equation}
+With the assumption that measurements of counts in each bin are independent random processes, the likelihood of the data over all bins will be
+\begin{equation}
+p(\bm{y}|\bm{\hat{y}}) = L(\bm{\hat{y}}|\bm{y}) = \prod_i e^{-\hat{y_i}} \frac{\hat{y_i}^{y_i}}{{y_i}!} 
+\label{eqn:probability}
+\end{equation}
+By substituting equation \ref{eqn:system_model} in equation~\ref{eqn:probability} , we can write an expression of likelihood of the image $\bm{\lambda}$ given the measured data $\bm{y}$.
+\begin{equation}
+    L(\bm{\lambda}|\bm{y})  = \prod_i e^{-(\sum_{j=1}^{n_j} P_{ij} \lambda_j + B_{i} )} \frac{(\sum_{j=1}^{n_j} P_{ij} \lambda_j + B_{i} )^{y_i}}{{y_i}!}
+\end{equation}It is more convenient to take the expression of the log likelihood in the following derivation. Since the log function is monotonic, the likelihood $L$ and its log $logL$ can be used to arrive to the same solutions when used as cost functions.The log likelihood expression is
+\begin{equation}
+    lnL(\bm{\lambda}|\bm{y})  = \sum_{i=1}^{n_i}\left[  -\sum_{j=1}^{n_j} (P_{ij} \lambda_j + B_i) + y_i ln(\sum_{j=1}^{n_j} P_{ij} \lambda_j + B_i) - ln({y_i}!) \right] \\.
+\label{eqn:log_likelihood}
+\end{equation}
+This expression is the famous  "Poisson log-likelihood"  which will be used to arrive to the maximum likelihood estimate image $\bm\lambda$, which will be noted as $\bm{\lambda}^{ML}$, that maximises the likelihood of the modelled data given the measured data  $\bm{y}$
 
 
-\subsection{Statistical formulation of the problem \& iterative reconstruction}
-One main advantage of iterative reconstruction methods is the ability to make use of complex models that map the radiotracer distribution from image space to data space, which can include physical processes such as positron range effects, scatter, random contributions, attenuation effects etc. The ability to accurately model the detection process leads to improvements in image resolution. The second most important advantage of iterative reconstruction methods is the inherent accounting for the statistical variations in the detection process via the use of a probabilistic model. Some of the disadvantages of these methods is that they are computationally more demanding, although this is a lesser problem with continuing advancements in computing technology. Another disadvantage is that these methods are non linear and could result in unpredictable behaviour under certain conditions and when terminated before convergence (which is commonly the case in practice, where early termination is used to limit the induction of image noise). 
+\subsection{Expectation Maximisation}
+We can seek to solve equation~\ref{eqn:log_likelihood)} to find directly the maximum likelihood image $\bm{\lambda}^{ML}$ by taking its first partial derivative to $\lambda_j$ to be equal to zero. 
+\begin{equation}
+\frac{\partial lnL(\bm{\lambda}|\bm{y})}{\partial \lambda_j} = \sum_{i=1}^{n_i}\left[  -\sum_{j=1}^{n_j} P_{ij} + 
+y_i \frac{\sum_{j=1}^{n_j} P_{ij} }{\sum_{j=1}^{n_j} (P_{ij} \lambda_j + B_i)}
+- ln({y_i}!) \right]  = 0 \\. 
+\end{equation}
+By ignoring the constant term, this expression simplifies to 
+\begin{equation}
+\sum_{i=1}^{n_i}\left[  -\sum_{j=1}^{n_j} P_{ij} + 
+y_i \frac{\sum_{j=1}^{n_j} P_{ij} }{\sum_{j=1}^{n_j} (P_{ij} \lambda_j + B_i)} \right]  = 0 \\,
+\end{equation}
+which has no closed form solution. The arrival to this expression shows that the statistical modelled reconstruction requires iterative methods to find the $\bm{\lambda}^{ML}$ solution. The most common algorithm used for this problem is the Expectation Maximisation algorithm that was first applied on the statistical PET reconstruction by two key works by Shepp and Vardi~\cite{Vardi1985} and Lange and Carson~\cite{Lange1984}. In these works the solution is derived though the introduction of the "complete data" concept~\cite{Dempster1977}. The complete data is an unknown dataset of $z_{ij}$ values which describes the exact number of emissions from voxel $j$ that contribute to the measurement at projection bin $i$. This is an unknown dataset, but the \textit{expectation} of the complete dataset can be expressed by taking measured data $\bm{y}$ and an image estimate (a guess) noted as $\bm{\lambda}^{(k)}$, as a ratio of fractions
+\begin{equation}
+\frac{z_{ij}}{y_i} = 
+\frac{P_{ij} \lambda_j^{(k)}}{\sum_{d=1}^{n_j} (P_{id}\lambda_d^{(k)} + B_i)} \\,
+\end{equation}
+which is set by the ratio between complete data and measured (incomplete) data for a projection bin $i$, arising from voxel $j$, to be equal to the fraction of their modelled means which is calculated from the current estimate of the data image  $\bm{\lambda}^k$. From this expression the conditional expectation of the complete complete data is given by
+\begin{equation}
+\hat{z}_{ij}(\bm{\lambda}^{(k)},y_i) = 
+\frac{P_{ij} \lambda_j^{(k)}}{\sum_{d=1}^{n_j} (P_{id}\lambda_d^{(k)} + B_i)}y_i\\.
+\end{equation}
+for which the log-likelihood expression becomes
+\begin{equation}
+lnL(\bm{\lambda}|\bm{\hat{z}})  =
+\sum_{i=1}^{n_i} \sum_{j=1}^{n_j} \left[ -(P_{ij} \lambda_j) + \hat{z}_{ij} ln( P_{ij} \lambda_j ) - ln(\hat{z}_{ij}!) \right] \\,
+\label{eqn:log_likelihood_z}
+\end{equation}
+for which the maximum can be found by partial differentiation to $\lambda_j$, resulting in the solution:
+\begin{equation}
+\lambda_j^{(EM)} = \frac{\sum_{i=1}^{n_i} \hat{z}_{ij} }{\sum_{i=1}^{n_i} P_{ij} } \\.
+\label{eqn:EMupdate}
+\end{equation}
+This solution provides a new image estimate which maximises the expectation of the complete data, and is referred as the EM image. 
+Together with the expression for the conditional expectation of the complete data, the two step process of Expectation Maximisation and  Maximum likelihood estimation can be written in a single update equation. Given data $\bm{y}$ and an image estimate $\bm{\lambda}^{(k)}$ , the updated image estimate $\bm{\lambda}^{(k+1)}$ is given from:
+\begin{equation}
+\lambda_j^{(k+1)} = \frac{\lambda_j^{(k)}}{\sum_{i=1}^{n_i} P_{ij}} 
+\sum_{i=1}^{n_i} P_{ij} 
+\frac{y_i}{\sum_{d=1}^{n_j} P_{id}\lambda_d^{(k)} + B_i } \\.
+\label{eqn:MLEM}
+\end{equation}. 
+This equation forms a single update of the MLEM algorithm, which when evaluated over all voxels $j$ provides an updated image $\bm{\lambda}^{(k+1)}$. 
+
+The use of the conditional expectation of the data is in fact an example of the general concept of optimisation transfer, where the construction of surrogate functions is made to be used with simpler optimisation process, that leads to optimisation of the main function as well.
+
+\subsection{Optimization transfer}
+%\include{2_Theory_Methods/2_3_Optimization_Transfer}
+
+\subsection{NestedEM}
+
+
+
+
+
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+
+Some of the disadvantages of these methods is that they are computationally more demanding, although this is a lesser problem with continuing advancements in computing technology. Another disadvantage is that these methods are non linear and could result in unpredictable behaviour under certain conditions and when terminated before convergence (which is commonly the case in practice, where early termination is used to limit the induction of image noise). 
 
 \subsubsection{system model and statistical model}
 The detection system is modelled as a linear process that maps the activity distribution $\bm\lambda$ to the data $\bm{y}$ though a projection or system matrix $\bm{P}$. 
 
-We will assume that: 
-\begin{itemize}
-\begin{small}
-\item $\lambda_j^{(k)}$: static image intensity for voxel $j$ of $n_j$ voxels, at iteration $k$
-\item $y_i$: number of events for bin $i$
-\item $\bm{y}$: event data \{$y_i, i=1,...,n_i$\}
-\item $d $: decay factor
-\item $\Delta t$: Duration of acquired data
-\item $X_{ij}$: geometrical projector 
-\item $ A_i$: attenuation factor
-\item $N_i$: efficiency factor
-\item $r_i, s_i$: rate of scattered and random coincidences
-\item $R_i, S_i$: Total scattered and random coincidences
-\end{small}
-\end{itemize}
-
-Given an initial guess of the image $\bm\lambda^{(k)}$ , the model of the mean or expectation of the data can be written as
-
-\begin{equation}
-   \bm\hat{y_i} = \sum_j X_{ij} \lambda_j^{(k)} + R_i + S_i  = \sum_j X_{ij} \lambda_j^{(k)} + r_i\Delta t + s_i\Delta t  \\.
-  \label{eqn:model_mean)}
-\end{equation}
-
-As the detection of annihilation photons can be modelled by a Bernoulli process, the number of counts in each projection bin will be a sample from a Poisson distribution. According to the Poisson probability model, the conditional probability or likelihood function for $\hat{y_i}$ given the measured data ${y_i}$ will be
 
 \begin{equation}
 p({y_i}|{\hat{y_i}}) = L({\hat{y_i}}|{y_i}) = e^{-{y_i}} \frac{\hat{y_i}^{y_i}}{{y_i}!}  \\ \\  , 
@@ -83,7 +182,7 @@ p(\bm{y}|\bm{\hat{y}}) = L(\bm{\hat{y}}|\bm{y}) = \prod_i e^{-\hat{y_i}} \frac{\
 \label{eqn:likelihood)}
 \end{equation}
 
-In this process we seek to find an image estimate  $\bm\lambda^{(k)}$ that maximises the likelihood. Equation~\ref{log_likelihood} can be written more simply as the log likelihood
+In this process we seek to find an image estimate  $\bm\lambda^{(k)}$ that maximises the likelihood. Equation~\ref{eqn:log_likelihood)} can be written more simply as the log likelihood
 
 \begin{equation}
     lnL(\bm{\hat{y}}|\bm{y})  = \sum_i  -\hat{y_i} + y_i ln(\hat{y_i}) - ln({y_i}!)  \\ ,
@@ -99,21 +198,29 @@ This expression serves as the cost function for the iterative reconstruction pro
 
 \subsubsection{Optimization}
 
-For simplicity in the derivation process we temporarily will ignore the additive corrections from the system model, and the log-likelihood function is:
+The optimization seeks to find the an radiotracer distribution $\bm\hat\lambda$  that maximises the log-likelihood function. 
 
 \begin{equation}
-    lnL(\bm{\lambda}|\bm{y})  = \sum_i\left[  -\sum_j (X_{ij} \lambda_j) + y_i ln(\sum_j X_{ij} \lambda_j) - ln({y_i}!) \right]
+\bm\hat\lambda = \argmax{\bm{\lambda}}(lnL(\bm{\lambda}|\bm{y}))
+\end{equation}
+
+\subsection{Iterative reconstruction}
+
+A direct solution to the maximisation problem can be sought by getting the first derivative of the objective function in relation to $\bm{\lambda}$ and setting it to zero. This will result in an relationship for the most likely image $\lambda^{ML}$ given the data $y$. Unfortunately the result relationship has no closed form solution. 
+
+\begin{equation}
+\bm\lambda^{ML} = \Bigg\{ \bm{\hat{\lambda}}:  \frac{\partial \ lnL(\bm{\lambda}|\bm{y})}{\partial \bm\lambda} = 0 \Bigg\}
+\label{eqn:MLImage}
+\end{equation}
+
+For simplicity we temporarily will ignore the additive corrections from the system model, and the log-likelihood function will be written as
+
+\begin{equation}
+    lnL(\bm{\lambda}|\bm{y})  = \sum_i\left[  -\sum_j (X_{ij} \lambda_j) + y_i ln(\sum_j X_{ij} \lambda_j) - ln({y_i}!) \right] \\.
     \label{eqn:simpleloglikelihood}
 \end{equation}
 
-The optimization seeks to find an image $\bm\hat\lambda$ distribution that maximises the log-likelihood function.
-
-\begin{equation}
-\bm\hat\lambda = \argmax{\bm{\lambda}}lnL(\bm{\lambda}|\bm{y})
-\end{equation}
-
-
-
+By substituting equation~\ref{eqn:simpleloglikelihood} in equation~\ref{eqn:MLImage} we get a relationship for the $\bm\lambda^{ML}$ image
 
 
 

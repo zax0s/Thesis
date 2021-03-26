@@ -1,0 +1,65 @@
+We then seek to find the estimate $\bm{\lambda}$ which maximises the log-likelihood equation~\ref{eqn:log_likelihood},
+\begin{equation}
+\argmax{\bm{\lambda}}lnL(\bm{\lambda}|\bm{y}) \\, 
+\end{equation}
+by taking advantage of optimisation transfer transfer principles (and avoiding the use of the missing data concept). We seek to find a surrogate $Q(\bm{\lambda}|\bm{\lambda}^{(k)})$ based on a estimate/guess of the activity distribution $\bm{\lambda}^{(k)}$ , for which : 
+\begin{equation}
+L(\bm{\lambda}|\bm{y}) \geq Q(\bm{\lambda}|\bm{\lambda}^{(k)}) 
+\end{equation}
+Then the optimisation can be split in the two steps: 
+\begin{itemize}
+\item Expectation: Find function $Q(\bm{\lambda}|\bm{\lambda}^{(k)})$ 
+\item Maximisation: Update estimate $\bm{\lambda}^{(k+1)}$ from $\argmax{\bm{\lambda}} Q(\bm{\lambda}|\bm{\lambda}^{(k)})$ 
+\end{itemize}
+For a convex function $f$:
+\begin{equation}
+f(\sum_i \alpha_i x_i ) \leq \sum_i \alpha_i f(x_i )\quad  \text{for}  \quad \sum_i \alpha_i = 1,\quad  \alpha_i \geq 0
+\end{equation}
+and thus for two vectors $\bm{c}$ and $\bm{w}$ with positive components $c_i$ and $w_i$, 
+\begin{equation}
+f(\bm{c}^t \bm{v}) \leq \sum_i \frac{c_iw_i}{\bm{c}^t\bm{w}}f(\frac{\bm{c}^t\bm{w}}{w_i}v_i)
+\label{eqn:optimisation_transfer}
+\end{equation}
+if we set $f$ to be the $-ln$ function, $\bm{c}^t$ as $\sum_j P_{ij} $ and $\bm{v}$ as $\bm{\lambda}$ in equation \ref{eqn:simpleloglikelihood} we have: 
+\begin{equation}
+    lnL(\bm{\lambda}|\bm{y})  \geq \sum_i \left[  -\sum_j (P_{ij} \lambda_j) + y_i  \sum_j \frac{P_{ij} \lambda^{(k)}_j}{\sum_k P_{ik} \bm{\lambda}^{(k)}} ln(\frac{\sum_k P_{ik} \bm{\lambda}^{(k)}}{\lambda^{(k)}_j} \lambda_j ) - ln({y_i}!) \right]
+\end{equation}
+\begin{equation}
+\geq \sum_i \left[  -\sum_j (P_{ij} \lambda_j) + y_i  \sum_j \frac{P_{ij}\lambda^{(k)}_j}{\sum_k P_{ik} \bm{\lambda^{(k)}}} ln(\frac{\sum_k P_{ik}  \bm{\lambda}^{(k)}}{\lambda^{(k)}_j} \lambda_j )  \right]
+\end{equation}
+\begin{equation}
+= \sum_i \left[  -\sum_j (P_{ij} \lambda_j) + y_i  \sum_j \frac{P_{ij}\lambda^{(k)}_j}{\sum_k P_{ik} \bm{\lambda}^{(k)}} (ln(\sum_k P_{ik} \bm{\lambda}^{(k)}) - ln(\lambda^{(k)}_j) + ln( \lambda_j ) )  \right]
+\end{equation}
+\begin{equation}
+= \sum_j \left[  -\sum_i (P_{ij} \lambda_j) + \sum_i y_i \frac{P_{ij}\lambda^{(k)}_j}{\sum_k P_{ik} \bm{\lambda}^{(k)}} ln( \lambda_j )  \right]  + \underbrace {\sum_j  \sum_i y_i \frac{P_{ij}\lambda^{(k)}_j}{\sum_k P_{ik} \bm{\lambda}^{(k)}} (ln(\sum_k P_{ik} \bm{\lambda}^{(k)})- ln(\lambda^{(k)}_j))}_{const}
+\end{equation} 
+\begin{equation}
+\geq \sum_j \left[  -\sum_i (P_{ij} \lambda_j) + \sum_i y_i \frac{P_{ij}\lambda^{(k)}_j}{\sum_k P_{ik} \bm{\lambda}^{(k)}} ln( \lambda_j )  \right]  
+\end{equation} 
+\begin{equation}
+=  \sum_j Q(\bm{\lambda}|\bm{\lambda}^{(k)})
+\end{equation} 
+
+Which satisfies: 
+\begin{equation}
+\frac{\partial }{\partial \lambda_j} Q(\bm{\lambda}|\bm{\lambda}^{(k)})|_{\lambda=\lambda^{(k)}} = \frac{\partial }{\partial \lambda_j} lnL(\bm{\lambda}|\bm{y})|_{\lambda=\lambda^{(k)}}
+\end{equation} 
+
+The surrogate function can now can be maximised :
+\begin{equation}
+\bm{\lambda}^{(k+1)} = \argmax{\bm{\lambda}}Q(\bm{\lambda}|\bm{\lambda}^{(k)}) 
+\end{equation}
+\begin{equation}
+\frac{\partial }{\partial \lambda_j} Q(\bm{\lambda}|\bm{\lambda}^{(k)}) = \sum_j \left[  -\sum_i P_{ij}  + \sum_i y_i \frac{P_{ij} \lambda^{(k)}}{\sum_k P_{ik} \bm{\lambda}^{(k)}} \frac{1}{\lambda_j}  \right]  
+\end{equation}
+
+, set to zero to find the value of $\lambda$ that maximises the function, $\bm{\lambda} = \bm{\lambda}^{(k+1)}$
+\begin{equation}
+0 =  -\sum_i P_{ij}  + \sum_i y_i \frac{P_{ij} \lambda^{(k)}}{\sum_k P_{ik} \bm{\lambda}^{(k)}} \frac{1}{\bm\lambda^{(k+1)}} 
+\end{equation}
+\begin{equation}
+\sum_i P_{ij} =  \sum_i y_i \frac{P_{ij} \lambda^{(k)} }{\sum_k P_{ik} \bm{\lambda}^{(k)}} \frac{1}{\bm\lambda^{(k+1)}} 
+\end{equation}
+\begin{equation}
+\bm\lambda^{(k+1)} = \frac{\bm\lambda^{(k)}}{\sum_i P_{ij}} \sum_i P_{ij} \frac{y_i}{\sum_k P_{ik} \bm{\lambda}^{(k)}}
+\end{equation}
