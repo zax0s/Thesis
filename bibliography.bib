@@ -621,3 +621,184 @@ title = {{Acceleration of the direct reconstruction of linear parametric images 
 volume = {55},
 year = {2010}
 }
+
+@article{Carson1985,
+author = {Carson, Richard E. and Lange, Kenneth},
+doi = {10.1080/01621459.1985.10477120},
+file = {:C\:/Users/chalampalakis/Downloads/carson1985.pdf:pdf},
+issn = {1537274X},
+journal = {Journal of the American Statistical Association},
+mendeley-groups = {Thesis/Reconstruction/4DReview},
+number = {389},
+pages = {20--22},
+title = {{Comment: The EM parametric image reconstruction algorithm}},
+volume = {80},
+year = {1985}
+}
+
+@article{Matthews1995,
+abstract = {The aim of this work is to calculate, directly from raw projection data, clear and concise images characterising the spatial and temporal distribution of labelled compounds. Conventionally, image reconstruction and the calculation of parametric images are performed separately. By combining both processes, low noise parametric images are obtained, bypassing the expensive computations of image reconstruction. The calculation of the images is performed by restricting the pixel time activity curves to a positive linear sum of predefined time characteristics. The weights in this sum are calculated directly from the PET projection data, using an iterative algorithm derived from a Maximum Likelihood (ML) iterative algorithm commonly used for tomographic reconstruction. Combining reconstruction and parametric estimation also produces a computational advantage. The ability of the algorithm to extract known kinetic components from the raw data is assessed, using data from both a phantom experiment and from clinical studies. The calculated parametric images indicate differential kinetic behaviour and have been used to aid in the identification of tissues which exhibit variations in the handling of labelled compounds.},
+author = {Matthews, Julian and Ashburner, John and Bailey, Dale and Harte, Robert and Price, Pat and Jones, Terry},
+doi = {10.1109/nssmic.1995.510499},
+file = {:C\:/Users/chalampalakis/Downloads/matthews1997.pdf:pdf},
+journal = {IEEE Nuclear Science Symposium & Medical Imaging Conference},
+mendeley-groups = {Thesis/Reconstruction/4DReview},
+pages = {1311--1315},
+title = {{Direct calculation of parametric images from raw pet data using maximum likelihood iterative reconstruction}},
+volume = {2},
+year = {1995}
+}
+
+@article{Tsoumpas2008,
+abstract = {In dynamic positron emission tomography (PET) studies, the time changing activity of the radiotracer is measured through multiple consecutive frames. Subsequent pixel-by-pixel application of the appropriate kinetic model provides quantitative information in terms of images of the distribution of the physiological parameter of interest. In this context, iterative reconstruction methods may be used to reconstruct for each time frame a static image of appreciable higher quality than the analytical algorithms, especially in low-count cases. Furthermore, if the reconstruction algorithm also models the kinetics of the measured counts, the parametric image is expected to be of even higher quality. In this work, we investigate the methodology to directly reconstruct parametric images in three-dimensional PET when the kinetic model is linear in its parameters (Patlak plot) and compare with indirectly estimated parametric maps, where the radioactivity distribution was estimated by the filtered back projection and ordered subsets expectation maximization algorithms. Both real and simulated data for tracers with irreversible kinetics in brain studies are included. The results demonstrate appreciable smaller standard deviation and mean squared error characteristics for the direct reconstruction. However, some regions may converge slowly. The FBP and ordered subsets expectation maximization (OSEM) indirect estimations have a similar level of bias after matching their resolutions, but OSEM has smaller standard deviation. {\textcopyright} 2008 American Association of Physicists in Medicine.},
+author = {Tsoumpas, Charalampos and Turkheimer, Federico E. and Thielemans, Kris},
+doi = {10.1118/1.2885369},
+file = {:C\:/Users/chalampalakis/Downloads/tsoumpas2008.pdf:pdf},
+issn = {00942405},
+journal = {Medical Physics},
+keywords = {Kinetic modeling,Positron emission tomography,Reconstruction},
+mendeley-groups = {Thesis/Reconstruction/4DReview},
+number = {4},
+pages = {1299--1309},
+pmid = {18491524},
+title = {{Study of direct and indirect parametric estimation methods of linear models in dynamic positron emission tomography}},
+volume = {35},
+year = {2008}
+}
+
+@article{Hong2008,
+abstract = {Fully 40 image reconstruction, through its use of temporally extensive basis functions, is able to reduce spatiotemporal noise in dynamic PET imaging. This noise reduction has the potential to benefit post-reconstruction kinetic analysis, resulting in improved parametric images. However these benefits come at a significant computational cost: fully 40 reconstruction requires access to the entire time series of fully 30 sinograms (along with the same number of fully 30 scatter and randoms sinogram estimates) in the innermost iterative reconstruction loop. This results in a huge in-memory storage requirement combined with a projection/backprojection workload in the innermost reconstruction loop which is up to 1040 times greater than conventional static 30 reconstruction (depending on the number of frames). This work presents a practical 40 methodology which i) uses an extremely efficient symmetry & SIMO forward and backprojector for ultra fast computation, ii) compresses the time series of dynamic sonogram data sets without information loss, and iii) permits the use of any user-specified set of temporal basis functions. The result is an extremely fast and flexible fully 40 iterative reconstruction methodology, greatly facilitating the determination of the (perhaps study-specific) optimal temporal basis functions. Whereas single CPU processing for fully 40 list-mode data reconstruction can take in excess of 2 weeks on a single node, the proposed method (using two quad-core CPUs, with span 9 projection data) takes approximately 3.5 hours, giving close to two orders of magnitude acceleration. The method is demonstrated on measured HRRT (High Resolution Research Tomograph) PET data for a [18F]flumazenil study and for an [18F]MPPF study. {\textcopyright} 2008 IEEE.},
+author = {Hong, Inki and Reader, Andrew J.},
+doi = {10.1109/NSSMIC.2008.4774492},
+file = {:C\:/Users/chalampalakis/Downloads/hong2008.pdf:pdf},
+isbn = {9781424427154},
+issn = {10957863},
+journal = {IEEE Nuclear Science Symposium Conference Record},
+mendeley-groups = {Thesis/Reconstruction/4DReview},
+pages = {5475--5478},
+title = {{Ultra fast 4D PET image reconstruction with user-definable temporal basis functions}},
+year = {2008}
+}
+
+@article{Angelis2011,
+abstract = {In dynamic positron emission tomography data many researchers have attempted to exploit kinetic models within reconstruction such that parametric images are estimated directly from measurements. This work studies a direct parametric maximum likelihood expectation maximization algorithm applied to [18F]DOPA data using reference-tissue input function. We use a modified version for direct reconstruction with a gradually descending scheme of subsets (i.e. 18-6-1) initialized with the FBP parametric image for faster convergence and higher accuracy. The results compared with analytic reconstructions show quantitative robustness (i.e. minimal bias) and clinical reproducibility within six human acquisitions in the region of clinical interest. Bland-Altman plots for all the studies showed sufficient quantitative agreement between the direct reconstructed parametric maps and the indirect FBP (-0.035x+0.48E-5). {\textcopyright} 2011 Elsevier Ltd.},
+author = {Angelis, Georgios I. and Thielemans, Kris and Tziortzi, Andri C. and Turkheimer, Federico E. and Tsoumpas, Charalampos},
+doi = {10.1016/j.compmedimag.2011.01.002},
+file = {:C\:/Users/chalampalakis/Downloads/angelis2011.pdf:pdf},
+issn = {08956111},
+journal = {Computerized Medical Imaging and Graphics},
+keywords = {FDOPA,Kinetic modelling,Parametric reconstruction,Patlak plot,Physiological parameters},
+mendeley-groups = {Thesis/Reconstruction/4DReview},
+number = {5},
+pages = {407--416},
+pmid = {21295443},
+publisher = {Elsevier Ltd},
+title = {{Convergence optimization of parametric MLEM reconstruction for estimation of Patlak plot parameters}},
+url = {http://dx.doi.org/10.1016/j.compmedimag.2011.01.002},
+volume = {35},
+year = {2011}
+}
+
+@article{Matthews2010,
+abstract = {Direct application of the expectation maximisation (EM) algorithm to the spatiotemporal maximum likelihood problem results in a convenient separation of the image based problem from the projection based problem. This enables any spatiotemporal 4D image model to be incorporated into MLEM image reconstruction with relative ease, only requiring tailored calculation of the fitting weights. As a preliminary example, assessment using direct estimation of spectral analysis coefficients is presented, exploiting an image based non-negative least squares algorithm, where a specially-weighted least squares update is equivalent to the required update towards the maximum likelihood estimate. The proposed approach demonstrates a reduced root mean square error (RMSE) in the estimates of volume of distribution. Future work will include the exploration of alternative spatiotemporal models.},
+author = {Matthews, Julian C. and Angelis, Georgios I. and Kotasidis, Fotis A. and Markiewicz, Pawel J. and Reader, Andrew J.},
+doi = {10.1109/NSSMIC.2010.5874225},
+file = {:C\:/Users/chalampalakis/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Matthews et al. - 2010 - Direct reconstruction of parametric images using any spatiotemporal 4D image based model and maximum likelihood.pdf:pdf},
+isbn = {9781424491063},
+issn = {10957863},
+journal = {IEEE Nuclear Science Symposium Conference Record},
+mendeley-groups = {PhD/Andrew Reader/Nested,Thesis,Thesis/Reconstruction/4DReview},
+number = {4},
+pages = {2435--2441},
+title = {{Direct reconstruction of parametric images using any spatiotemporal 4D image based model and maximum likelihood expectation maximisation}},
+year = {2010}
+}
+
+@article{Wang2013,
+abstract = {Dynamic positron emission tomography (PET) can monitor spatiotemporal distribution of radiotracer in vivo. The spatiotemporal information can be used to estimate parametric images of radiotracer kinetics that are of physiological and biochemical interests. Direct estimation of parametric images from raw projection data allows accurate noise modeling and has been shown to offer better image quality than conventional indirect methods, which reconstruct a sequence of PET images first and then perform tracer kinetic modeling pixel-by-pixel. Direct reconstruction of parametric images has gained increasing interests with the advances in computing hardware. Many direct reconstruction algorithms have been developed for different kinetic models. In this paper we review the recent progress in the development of direct reconstruction algorithms for parametric image estimation. Algorithms for linear and nonlinear kinetic models are described and their properties are discussed.},
+author = {Wang, Guobao and Qi, Jinyi},
+doi = {10.7150/thno.5130},
+file = {:C\:/Users/chalampalakis/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Wang, Qi - 2013 - Direct estimation of kinetic parametric images for dynamic PET.pdf:pdf},
+isbn = {1838-7640 (Electronic)\r1838-7640 (Linking)},
+issn = {18387640},
+journal = {Theranostics},
+keywords = {Direct estimation,Dynamic positron emission tomography},
+mendeley-groups = {PhD,Thesis/Reconstruction/4DReview},
+number = {10},
+pages = {802--815},
+pmid = {24396500},
+title = {{Direct estimation of kinetic parametric images for dynamic PET}},
+volume = {3},
+year = {2013}
+}
+
+@article{Gravel2015,
+abstract = {This work assesses the one-step late maximum likelihood expectation maximization (OSL-MLEM) 4D PET reconstruction algorithm for direct estimation of parametric images from raw PET data when using the simplified reference tissue model with the basis function method (SRTM-BFM) for the kinetic analysis. To date, the OSL-MLEM method has been evaluated using kinetic models based on two-tissue compartments with an irreversible component. We extend the evaluation of this method for two-tissue compartments with a reversible component, using SRTM-BFM on simulated 3D + time data sets (with use of [11C]raclopride time-activity curves from real data) and on real data sets acquired with the high resolution research tomograph. The performance of the proposed method is evaluated by comparing voxel-level binding potential (BPND) estimates with those obtained from conventional post-reconstruction kinetic parameter estimation. For the commonly chosen number of iterations used in practice, our results show that for the 3D + time simulation, the direct method delivers results with lower %RMSE at the normal count level (decreases of 9-10 percentage points, corresponding to a 38-44% reduction), and also at low count levels (decreases of 17-21 percentage points, corresponding to a 26-36% reduction). As for the real 3D data set, the results obtained follow a similar trend, with the direct reconstruction method offering a 21% decrease in %CV compared to the post reconstruction method at low count levels. Thus, based on the results presented herein, using the SRTM-BFM kinetic model in conjunction with the OSL-MLEM direct 4D PET MLEM reconstruction method offers an improvement in performance when compared to conventional post reconstruction methods.},
+author = {Gravel, Paul and Reader, Andrew J.},
+doi = {10.1088/0031-9155/60/11/4533},
+file = {:C\:/Users/chalampalakis/Downloads/gravel2015.pdf:pdf},
+issn = {13616560},
+journal = {Physics in Medicine and Biology},
+keywords = {binding potential,image reconstruction,positron emission tomography,tracer kinetic modeling},
+mendeley-groups = {Thesis/Reconstruction/4DReview},
+number = {11},
+pages = {4533--4549},
+pmid = {25992999},
+title = {{Direct 4D PET MLEM reconstruction of parametric images using the simplified reference tissue model with the basis function method for [11C]raclopride}},
+volume = {60},
+year = {2015}
+}
+
+@article{Angelis2014,
+abstract = {Objective: Estimation of nonlinear micro-parameters is a computationally demanding and fairly challenging process, since it involves the use of rather slow iterative nonlinear fitting algorithms and it often results in very noisy voxel-wise parametric maps. Direct reconstruction algorithms can provide parametric maps with reduced variance, but usually the overall reconstruction is impractically time consuming with common nonlinear fitting algorithms.
+Methods: In this work we employed a recently proposed direct parametric image reconstruction algorithm to estimate the parametric maps of all micro-parameters of a two-tissue compartment model, used to describe the kinetics of [(Formula presented.)F]FDG. The algorithm decouples the tomographic and the kinetic modelling problems, allowing the use of previously developed post-reconstruction methods, such as the generalised linear least squares (GLLS) algorithm.
+Results: Results on both clinical and simulated data showed that the proposed direct reconstruction method provides considerable quantitative and qualitative improvements for all micro-parameters compared to the conventional post-reconstruction fitting method. Additionally, region-wise comparison of all parametric maps against the well-established filtered back projection followed by post-reconstruction non-linear fitting, as well as the direct Patlak method, showed substantial quantitative agreement in all regions.
+Conclusions: The proposed direct parametric reconstruction algorithm is a promising approach towards the estimation of all individual microparameters of any compartment model. In addition, due to the linearised nature of the GLLS algorithm, the fitting step can be very efficiently implemented and, therefore, it does not considerably affect the overall reconstruction time.},
+author = {Angelis, Georgios I. and Matthews, Julian C. and Kotasidis, Fotis A. and Markiewicz, Pawel J. and Lionheart, William R. and Reader, Andrew J.},
+doi = {10.1007/s12149-014-0881-2},
+file = {:C\:/Users/chalampalakis/Downloads/angelis2011(1).pdf:pdf},
+isbn = {9781467301206},
+issn = {18646433},
+journal = {Annals of Nuclear Medicine},
+keywords = {GLLS,Kinetic modelling,PET reconstruction,Parametric imaging},
+mendeley-groups = {Thesis/Reconstruction/4DReview},
+number = {9},
+pages = {860--873},
+pmid = {25073760},
+title = {{Evaluation of a direct 4D reconstruction method using generalised linear least squares for estimating nonlinear micro-parametric maps}},
+volume = {28},
+year = {2014}
+}
+@article{Kotasidis2012,
+abstract = {Abdominal and thoracic [18F]FDG PET/CT imaging is routinely used in clinical practice and drug development but parametric imaging based on full kinetic analysis is rarely used due to noise induced bias and variance in kinetic parameters and analysis is usually restricted to semi-quantitative indices. Direct parametric estimation using 4D image reconstruction can potentially provide parametric maps of reduced bias and variance but little or no evaluation has been done in the body. Previous studies have demonstrated that body [18F]FDG PET/CT imaging can benefit from these methods but analysis was restricted to macroparameters of interest. In work, we implement and apply a recently proposed direct 4-D algorithm using a 2 tissue compartment model on simulated and real oncology [18F]FDG PET/CT data to directly estimate microparameters of interest and assess potential improvements over the traditional post-reconstruction kinetic analysis. Results on the simulated data suggest clear reduction in bias for K1, k2 and blood volume and less for k3. Similarly, variance reduction was observed for K1, k2, k3 and Ki and less for blood volume. Evaluation on patient data demonstrated similar improvements using the direct 4-D method in agreement with simulations. {\textcopyright} 2012 IEEE.},
+author = {Kotasidis, Fotis A. and Matthews, Julian C. and Reader, Andrew J. and Angelis, Georgios I. and Price, Patricia M. and Zaidi, Habib},
+doi = {10.1109/NSSMIC.2012.6551770},
+file = {:C\:/Users/chalampalakis/Downloads/kotasidis2012.pdf:pdf},
+isbn = {9781467320306},
+issn = {10957863},
+journal = {IEEE Nuclear Science Symposium Conference Record},
+keywords = {4-D image reconstruction,dynamic FDG imaging,kinetic modelling},
+mendeley-groups = {Thesis/Reconstruction/4DReview},
+pages = {3383--3386},
+title = {{Direct parametric reconstruction for dynamic [18F]-FDG PET/CT imaging in the body}},
+year = {2012}
+}
+
+@article{Lange2000,
+abstract = {The well-known EM algorithm is an optimization transfer algorithm that depends on the notion of incomplete or missing data. By invoking convexity arguments, one can construct a variety of other optimization transfer algorithms that do not involve missing data. These algorithms all rely on a majorizing or minorizing function that serves as a surrogate for the objective function. Optimizing the surrogate function drives the objective function in the correct direction. This article illustrates this general principle by a number of specific examples drawn from the statistical literature. Because optimization transfer algorithms often exhibit the slow convergence of EM algorithms, two methods of accelerating optimization transfer are discussed and evaluated in the context of specific problems.},
+author = {Lange, Kenneth and Hunter, Avid R. and Yang, Ilsoon},
+doi = {10.1080/10618600.2000.10474858},
+file = {:C\:/Users/chalampalakis/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Lange, Hunter, Yang - 2000 - Optimization Transfer Using Surrogate Objective Functions.pdf:pdf},
+isbn = {106186006X},
+issn = {15372715},
+journal = {Journal of Computational and Graphical Statistics},
+keywords = {Convexity,EM algorithm,Majorization,Maximum likelihood,Newton's method},
+mendeley-groups = {PhD/Andrew Reader/Nested,PhD,Thesis/Reconstruction/4DReview},
+number = {1},
+pages = {1--20},
+pmid = {173399323},
+title = {{Optimization Transfer Using Surrogate Objective Functions}},
+volume = {9},
+year = {2000}
+}
+
