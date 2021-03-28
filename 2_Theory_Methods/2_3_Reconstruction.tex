@@ -146,7 +146,7 @@ Together with the expression for the conditional expectation of the complete dat
 \sum_{i=1}^{n_i} P_{ij} 
 \frac{y_i}{\sum_{d=1}^{n_j} P_{id}\lambda_d^{(k)} + B_i } \\.
 \label{eqn:MLEM}
-\end{equation}. 
+\end{equation} 
 This equation forms a single update of the MLEM algorithm, which when evaluated over all voxels $j$ provides an updated image $\bm{\lambda}^{(k+1)}$. 
 
 The use of the conditional expectation of the data is in fact an example of the general concept of optimisation transfer, where the construction of surrogate functions is made to be used with simpler optimisation process, that leads to optimisation of the main function as well.
@@ -236,8 +236,35 @@ f_{tb}^{(EM)}(\bm{\theta}^{(k)})
 \end{equation}
 By the use of the complete data we have separated the problem into an update over PET raw data for each voxel and each time frame using~\ref{eqn:EM_Update_image}, followed by an image based optimisation of the dynamic model parameters using equation~\ref{eqn:NestedOptimization}. 
 
-
-\subsubsection{Linear dynamic models}
+\subsubsection{Linear dynamic models - direct 4D reconstruction}
+As described in the \textit{Pharmacokinetics} section, many useful models utilised in practice are linear models which are constructed from transformations of the input function into sets of basis functions.
+The model of the activity distribution using a linear model of $n_b$ parameters is
+\begin{equation}
+\lambda_{tj} = \sum_{p=1}^{n_p} B_{tp}   \theta_{pj} \\, 
+\end{equation}
+\begin{equation}
+\bm\lambda_{t} = \sum_{p=1}^{n_p} B_{tp}  \bm\theta_{p}  \\.
+\end{equation}
+The inverse operation, wielding the model parameters from dynamic series of images is
+\begin{equation}
+\bm\theta_{p}  = \sum_{t=1}^{n_t} B_{tp} \bm\lambda_{t}  \\.
+\end{equation}
+In this particular case of linear dynamic models it is straightforward to incorporate the model in the MLEM update equation ,in equation~\ref{eqn:MLEM}. as
+%
+%
+%
+\begin{equation}
+\theta_{pj}^{(k+1)} = \frac{\theta_{pj}^{(k)}}
+{\sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{ij}} 
+\sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{ij}
+\frac{y_{ti}}
+{\sum_{d=1}^{n_j} P_{id} \sum_{p=1}^{n_p} B_{tp}\theta_{pj}^{(k)} + B_i } \\.
+\label{eqn:4DMLEM}
+\end{equation} 
+%
+%
+%
+\subsubsection{Linear dynamic models - Nested EM}
 As described in the \textit{Pharmacokinetics} section, many useful models utilised in practice are linear models which are constructed from transformations of the input function into sets of basis functions.
 The model of the activity distribution using a linear model of $n_b$ parameters:
 \begin{equation}
@@ -264,5 +291,13 @@ The right parenthesis of this expression is similar to the log-likelihood from t
 \sum_{p=1}^{n_p} B_{pj} 
 \frac{f_{j}^{(EM)}(\bm{\theta}^{(k)})}{\sum_{d=1}^{n_j} B_{pd}\theta_d^{(k)} } \\.
 \end{equation}
+
+This is a simple EM update equation applied over image space to update the model parameters. 
+
+The advantages or the use of nested EM optimisation, even for liner dynamic models where it is not , is that it provides decoupling of the update over data and the dynamic model parameters update. With the first being the most computationally demanding, the parameters update step can be run multiple times within the loop of the two update equations. The advantage of this practice is accelerated convergence as demonstrated in the original work on nested-EM by Wang \textit{et al}~\cite{Wang2010}. 
+
+
+
+
 
 \subsubsection{Non-linear dynamic models}
