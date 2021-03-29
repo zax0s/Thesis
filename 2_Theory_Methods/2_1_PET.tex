@@ -1,10 +1,9 @@
-
 % Positron Emission tomography (includes Physics, detector basics, Event types and data types, PET ring systems and acquisition modes (2D and 3D) , Corrections, , PET WB acquisition mode and fussion -> multibed, Hybrid PET systems (PET-CT, PET-MR)) 
-This section covers aspects of the main principles of \gls{pet} and serves as a brief introduction into the notions that are necessary for the description of the work carried out in this thesis. It is not an exhaustive review of the processes involved in \gls{pet} imaging. Readers can find more basics principles explained in detail in the textbooks that are frequently referenced in this chapter.
+This section covers aspects of the main principles of \gls{pet} and serves as a brief introduction into the notions that are necessary for the description of the work carried out in this thesis. It is not an exhaustive review of the processes involved in \gls{pet} imaging. Readers can find more basics principles explained in detail in the textbooks which are frequently referenced in this chapter.
 
-\subsection{Brief history of PET imaging }
+\subsection{Historical Perspective}
 The main principles of a \Gls{pet} imaging system were developed and demonstrated with a working scanner prototype in late 1970s by Ter-Pogossian et al.~\cite{Ter-Pogossian1975} and Phelps et al.~\cite{Phelps1975}. The main concept of their prototype, which forms the basis of \gls{pet} devices, was the placement of detectors in a circular formation around the imaged object and the detection of annihilation photon pairs which serves as "Electronic" collimation. The combination of these principles makes \gls{pet} imaging superior to single photon based imaging devices still until today. 
-Early systems were limited due to cost and engineering limitations to an axial coverage of a few axial planes, and were mostly used in brain imaging. Development of scanner models with higher axial \gls{fov} enabled use for imaging of other organs than the brain, where in combination with the FDG tracer ( a glucose analogue tracer ) quickly showed potential in detection of extra-cranial tumours~\cite{Nutt2002}.
+Early systems were limited due to cost and engineering limitations to an axial coverage of a few axial planes, and were mostly used in brain imaging. Development of scanner models with higher axial \gls{fov} enabled use for imaging of other organs than the brain, where in combination with the FDG tracer (a glucose analogue tracer) quickly showed potential in detection of extra-cranial tumours~\cite{Nutt2002}.
 The expanded \gls{fov} along with the capability of achieving whole-body coverage by use of shifted axial acquisitions~\cite{Dahlbom1992} (multiple axial bed positions to achieve whole-body coverage) have secured the use of \gls{pet} in oncology~\cite{Bomanji2001} and driven many more technological developments towards higher sensitivity for  improved small lesion detectability and reduction of scan time~\cite{Jones2017}.
 
 
@@ -12,8 +11,8 @@ The expanded \gls{fov} along with the capability of achieving whole-body coverag
 
 \subsubsection{Positron emission}
 As its name suggests, \gls{pet} is an imaging method based in positron emission. Positron emission is a spontaneous process that happens as part of the β$^{+}$ decay process of radionuclides. 
-Radionuclides are unstable atoms with excess energy that decay to stable forms via routes that result to emission of radiation.
-The rate at which a radionuclide undergoes decay depends on its characteristic half-life $T_{1/2}$. This is defined as the time taken for half of the nuclei of a specific radionuclide to decay. The rate of decay at any time $t$ is defined as the activity $A(t)$, which changes over time according to
+Radionuclides are comprised of atoms with excess energy that decay to stable forms via routes that result to emission of radiation.
+The rate at which a radionuclide undergoes decay depends on its characteristic half-life $T_{1/2}$. This is defined as the time taken for half of the nuclei of a specific radionuclide to decay. The rate of decay at any time $t$ is defined as the activity $A(t)$,measured in Becquerels (Bq), which changes over time according to
 \begin{equation} \label{Decay}
 A(t) = A_0 e^{-\lambda t} \ ,
 \end{equation}
@@ -21,9 +20,9 @@ where $A_0$ is the activity at reference time $t_0=0$ and $\lambda$ is the decay
 \begin{equation} \label{Decayconstant}
 \lambda = \frac{ln(2)}{T_{1/2}} \ .
 \end{equation}
-
-Proton-rich radioisotopes decay via emission of a positron (β$^{+}$) particle and a neutrino (ν). The positron is given part of the excess radioisotope energy in the form of kinetic energy. When emitted within a material the positrons energy is gradually lost from continuous interactions with other atoms of the material until it almost reaches a rest. During this period the positron follows a tortuous path from which the positron range is defined as the distance between the emission and annihilation position.This range value will depend on the positrons energy spectrum and the interaction material properties. After most of its energy has been expended, the positron rapidly interacts with an electron and annihilates. This interaction results in the conversion of the two particles into two photons of 511 \si{k\electronvolt} which are emitted in almost opposite directions ($\sim$180\degree). Due to the non-zero kinetic energy during the annihilation, the excess energy sometimes results to a small acollinearity of the photon pair.\\
- 
+%
+Proton-rich radioisotopes decay via emission of a positron (β$^{+}$) particle and a neutrino (ν). The positron is given part of the excess radioisotope energy in the form of kinetic energy, which when emitted within a material is gradually lost from continuous interactions with other atoms of the material until the positron approaches close to a rest. During this period the positron follows a tortuous random path. The positron range can be defined for a sufficient large number of emissions as either the FWHM or mean of the distances between the emission and annihilation position. The positron range value will depend on the positrons energy spectrum and the interacting material properties. After most of its energy has been expended, the positron rapidly interacts with an electron and annihilates. This interaction results in the conversion of the two particles into two photons of 511 \si{k\electronvolt} which are emitted in almost opposite directions ($\sim$180\degree). Due to the non-zero kinetic energy during the annihilation, the excess energy sometimes results to a small acollinearity of the photon pair.
+%
 A list of commonly used positron emitting radioisotopes used for \gls{pet} imaging is given in table~\ref{tab:radioisotopes} along with relevant characteristics for PET imaging \cite{Conti2016}.
 
 \begin{table}[htbp]
@@ -31,7 +30,7 @@ A list of commonly used positron emitting radioisotopes used for \gls{pet} imagi
 \makebox[\textwidth][c]{
     \begin{tabular}{cccc}
 \toprule
-  Radioisotope & Half-life & \multicolumn{1}{c}{ β$^{+}$ maximum energy (\si{M\electronvolt})} & \multicolumn{1}{c}{Average range in water (mm)} \\
+  Radioisotope & Half-life & \multicolumn{1}{c}{ β$^{+}$ maximum energy (\si{M\electronvolt})} & \multicolumn{1}{c}{Mean range in water (mm)} \\
 \midrule
 \ce{^15O} & 2 min & 1.732 &  3.0    \\
 \ce{^13N} & 10.0 min & 1.199  & 1.8  \\
@@ -47,40 +46,40 @@ A list of commonly used positron emitting radioisotopes used for \gls{pet} imagi
 \end{table}%
 
 \subsubsection{Interactions with matter}
-The range of positrons within tissue is relatively short, with the majority of positrons being annihilated within the imaged object (e.g. the human body).
-On the other hand the 511 \si{k\electronvolt} photons has less chances of interacting within the object and a fraction of them will exit the imaged object without interacting. 
+The range of positrons within tissue is relatively short, with the majority of positrons being annihilated within the body.
+On the other hand the 511 \si{k\electronvolt} photons have less chances of interacting within the body and a large fraction of them will exit the imaged object without interacting. 
 
-The two possible interactions for high energy photons such as the 511 \si{k\electronvolt} photon pair are photoelectric absorption and Compton scattering. In photoelectric absorption the photon is completely absorbed while interacting with an atomic electron, to which it provides all of its energy. In Compton scattering the photon interacts with an atomic electron, to which it passes part of its energy. The process results in a change of direction and reduction of the energy of the photon. Between the two , the Compton effect is the dominant interaction for 511 \si{k\electronvolt} photons in tissue. 
-
+The two most probable interactions for high energy photons of 511 \si{k\electronvolt} are photoelectric absorption and Compton scattering. In photoelectric absorption the photon is completely absorbed while interacting with an atomic electron, to which it provides all of its energy. In Compton scattering the photon interacts with an atomic electron, to which it passes part of its energy. This process results in a change of direction and reduction of the energy of the original photon. Between the two processes, the Compton effect is the dominant interaction for 511 \si{k\electronvolt} photons in tissue. 
+%
 \begin{figure} [h!]
 \centering
 \includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/Bailey_gamma_interactions.png}
 \caption{The two main interactions of 511 \si{k\electronvolt} photons in matter, the photoelectric absorption (left) and Compton scattering effect (right)~\cite{Bailey2005}.} 
 \label{fig_2:511_interactions}
 \end{figure} 
-
+%
 \subsubsection{Attenuation}
-Knowledge of the probabilities for interaction of the 511 \si{k\electronvolt} photons in a material can be used to calculate an precise attenuation factor that can be applied at the macroscopic level for photon beam. Given a well collimated photon beam of intensity $I_0$, the intensity $I_x$ at depth $x$ within the material (along the direction of the beam) will be
+Knowledge of the probabilities for interaction of the 511 \si{k\electronvolt} photons in a material can be used to calculate a precise attenuation factor that can be applied at the macroscopic level. Given a well collimated photon beam of intensity $I_0$, the intensity $I_x$ at depth $x$ within the material (along the direction of the beam) will be reduced due to interactions with the material acording to
 \begin{equation} \label{Attenuation}
 I_x = I_0 e^{-\mu x} \ ,
 \end{equation}
-where $\mu$ is the linear attenuation coefficient ( in $cm^{-1}$). This factor accounts for all possible interactions, resulting in either absorption or scattering, and its value depends on the material properties and the energy of the photons.
-
-Specifically for pet and \glspl{lor} of coincidence events, the attenuation in the direction of the \gls{lor} can be summed up, resulting in a factor that is independed of the position of the annihilation and is only depending on the attenuation coefficient of the tissues or materials crossed by the \gls{lor}. 
+where $\mu$ is the linear attenuation coefficient ( in $cm^{-1}$). This factor accounts for all possible interactions, whether absorption or scattering, and its value depends on the material properties and the energy of the photons.
+%
+Specifically for \gls{pet} where we are interested in the detection of both anihilation photons, the attenuation in the direction of the photon pair can be summed up, resulting in a factor that is independent of the depth of the annihilation and is only depended of the attenuation coefficient of the tissues or materials crossed by the line connecting the two photon detections and the total length of the line within the body, as shown in figure~\ref{fig_2:511_attenuation}~\cite{Phelps1975}. 
 
 \begin{figure} [h!]
 \centering
 \includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/Phelps_LOR_attenuation_correction.png}
 \caption{Attenuation of LORs TODO:  to include in text ! } 
-\label{fig_2:511_interactions}
+\label{fig_2:511_attenuation}
 \end{figure} 
 
 \subsection{PET Systems}
 
 \subsubsection{PET Detectors}
-The goal of a PET imaging system is to stop and detect the annihilation generated photon pairs and record information that can be used to deduce an estimate of the annihilation event's position.  \\
-The basic component for the detection of annihilation gammas is the scintillation crystal. These are inorganic crystals that emit light (photons) upon interaction with the gammas. The amount of produced light is proportional to the deposited energy by the gammas interaction and can be used to deduce energy information of the interaction. Photosensitive detectors are coupled with the crystals to capture the produced light and output an electronic signal that can be digitally registered. Traditionally \glspl{pmt} are used in most PET scanners, while some more recent scanners make use of \glspl{sipm}. Depending on their mode of operation these detectors can allow for better efficiency and response speed and can be used in conditions where \glspl{pmt} could not, such as within the MR field of an PET-MR hybrid system.
-
+The goal of a PET imaging system is to stop and detect the annihilation photon pairs and record information that can be used to estimate the annihilation event's position.
+The basic component for the detection of annihilation gammas is the scintillation crystal. These are inorganic crystals that emit light (lower energy photons) upon interaction with the gammas. The amount of produced light is proportional to the energy deposited by the gamma interactions and can be used to deduce energy information of the interaction. Photosensitive detectors are coupled with the crystals to capture the produced light and output an electronic signal that can be digitally registered. Traditionally \glspl{pmt} are used in most PET systems, while some more recent systems make use of \glspl{sipm}. Depending on their mode of operation \glspl{sipm} can allow for better efficiency and response speed and can be used in conditions where \glspl{pmt} could not, such as within the MR field of PET-MR hybrid systems.
+%
 \footnotetext{https://www.radiologycafe.com/radiology-trainees/frcr-physics-notes/pet-imaging}
 \begin{figure} [h!]
 \centering
@@ -88,35 +87,33 @@ The basic component for the detection of annihilation gammas is the scintillatio
 \caption{Example PMT based block detector diagram and their placement within the PET ring (source: www.radiologycafe.com) } 
 \label{fig_2:BlockDetectorAndRing}
 \end{figure} 
-
-
-The most common configuration of the PET detectors is within a block or module configuration, where a smaller number of photosensitive detectors to number of crystals is used. Examples are shown in figure~\ref{fig_2:BlockDetectorAndRing} for PMT based scanners and figure [Ref PET-MR Geometry figure] for SiPMs within a hybrid PET-MR system. 
-The blocks or modules are placed in a ring configuration that provides full 360degrees of coverage in the transaxial direction. Multiple rings can be placed together to increase axial coverage and the solid angle coverage that effectively increase the detection sensitivity. 
-
-\subsubsection{PET acquisition}
-Using a system with multiple rings as described above can allow for \glspl{lor} using multiple ring combinations. But early multi ring systems were making use of 2D acquisition, where only direct and cross-plane ring coincidences were allowed. This was enforced using tungsten septa between rings. This acquisition mode resulted in uniform detection sensitivity over the axial direction. 
-
-With the evolving technology 3D acquisition became possible and is now the standard acquisition mode. 3D acquisition offers the same data as 2D acquisition and includes all the oblique \glspl{lor} data which results in an increase of sensitivity (4 to 6 times)~\cite{Fahey2002}. The use of oblique views results to non-uniform sensitivity profiles in the axial direction with a maximum sensitivity at the centre and a minimum at the edges of the axial \gls{fov}. Further more the higher sensitivity and acceptance of events results in a higher randoms and scatters events rate being recorded. 
-
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.30,angle=0]{2_Theory_Methods/figures/Phelps_2D_3D_Acquisition.png}
-\caption{Example of 2D (left) and 3D (right) acquisition mode LORs for an 8 ring scanner.} 
-\label{fig_2:2D3D}
+\includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/SignaPETMR_Integrated_System.png}
+\caption{Schematic of an hybrid PET-MR system with, comprising of detector module units (bottom) in a ring formation within the MR RF body coil (top)~\cite{Levin2016}.} 
+\label{fig_2:SignaPETMR_Integrated_System}
 \end{figure} 
-
-
-In 3D mode the maximum angle of events accepted in the axial direction is often limited by enforcing a maximum ring difference limit on the permitted \glspl{lor}. This results in a uniform axial sensitivity profile at the central region of the axial \gls{fov}, as seen in figure [make figures of axial sensitivity profiles].
-
-This can be of practical use when acquiring multiple beds to cover an larger length object than that of the scanner \gls{fov} and maintain an uniform axial sensitivity. In that case the bed positions will have to be overlapped a distance equal to the half of slopped portion of the sensitivity profile, to result in a combination of the bed positions with uniform axial sensitivity. 
+%
+%
+%
+The most common configuration of the PET detectors is within a block or module configuration, where a smaller number of photosensitive detectors to number of crystals is used. Examples are shown in figure~\ref{fig_2:BlockDetectorAndRing} for PMT based scanners and figure~\ref{fig_2:SignaPETMR_Integrated_System} for SiPMs within a hybrid PET-MR system. 
+The blocks or modules are placed in ring configurations that provide full 360degrees of coverage in the transaxial direction. Multiple rings are often placed adjacent to each together to increase axial coverage and solid angle coverage that effectively increases the detection sensitivity. 
 
 \subsubsection{PET Data coincidence sorting}
-Individual events recorded by the detectors are called "single" events. But in \gls{pet} detection of annihilation events requires detection of both photons that originates from that event. When both of these are detected at the same time that forms a "coincidence" event. But due to uncertainties in the photosensitive detectors results in an timing uncertainly that defines the timing resolution τ of the system. A coincidence timing window, set at 2τ, is used to sort pairs of events that are detected within that time difference from each other as a coincidence. \\
-
-As detectors and systems improve on timing resolution it is possible to record the difference in arrival time of two coincidence photons that is owing to the difference in distance travelled from annihilation to detection. That difference provides "time-of-flight" information for each detection. This additional information can be used for better positional estimation of annihilation events and improve image quality and sensitivity.  \\
-
-The recorded coincidence events that are originating from an annihilation are refereed to as true events. But not all events recorded within the coincidence window will always be originating from an annihilation event, they could also be one of the following. 
-
+Individual events recorded by the detectors are called "single" events. In \gls{pet} detection of annihilation events requires the detection of both annihilation generated photons. To identify these photons the detection system makes use of "coincidence detection", which sorts pairs of single events detected within a predefined timing window as photons originating from an annihilation, or else true coincidence events. 
+Due to uncertainties in the photosensitive detectors which result in timing uncertainly, a timing resolution τ is defined for the system.The coincidence timing window is then set at 2τ to sort pairs of events as coincidences. 
+As detectors and systems improve on timing resolution it now also possible to record the difference in arrival time between two coincidence photons, owing to the difference in distance travelled from annihilation to detection and the finite speed of light. That difference provides additional information for each detection refereed to as "time-of-flight (TOF)". This additional information can be used for better positional estimation of annihilation events across the \gsl{lor}, as shown in figure~\ref{fig_2:TOF_bin}, resulting in improved reconstructed image quality and sensitivity. 
+%
+%
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.55,angle=0]{2_Theory_Methods/figures/TOF_bin.png}
+\caption{Comparison of non-TOF (top) and TOF of annihilation event position across an \gsl{lor} (bottom)~\cite{Conti2009}.} 
+\label{fig_2:TOF_bin}
+\end{figure} 
+%
+But not all events recorded within the coincidence window will always be originating from an annihilation event, they could also be one of the following. 
+%
 \begin{itemize}
 
 \item\textbf{Random event}\\
@@ -125,60 +122,81 @@ The rate of random events is directly proportional to the size of the timing win
 Randoms estimations can be made using the rates of single events or using delayed coincidence windows, which can then be applied as corrections during the image reconstruction process. 
 
 \item\textbf{Scatter events}\\
-As described above scattering of the annihilation gammas results in a change of energy and direction. Subsequent detection of scattered gammas results in mis-positioned \glspl{lor} that also degrade the data, image quality and quantification. 
+As described scattering of the annihilation gammas results in a change of energy and direction. Subsequent detection of scattered gammas results in mis-positioned \glspl{lor} that also degrade the data, image quality and quantification. 
 Because scattered gammas have lower energy than 511 \si{k\electronvolt}, they can be rejected by applying a lower energy threshold in the detectors. Due to energy resolution limitations this threshold is set to a low value that will result in some scatter events to be still recorded as coincidences. 
-To correct for these events, special scatter simulation algorithms are employed to estimate the amount of scatter in the data and account for it during the image reconstruction process. 
+To correct for these events, special scatter simulation algorithms are employed to estimate the amount of scatter in the data and account for it during the image reconstruction process~\cite{Polycarpou2011}. 
 
 \item\textbf{Multiple events}\\
-Multiple events (more than a pair) can be are recorded within the coincidence timing window with no information on which of the events (if any) correspond to a true coincidence. As these cannot be used to resolve \glspl{lor}, they are commonly rejected completely or in some cases further processed to deduce which events are related to true coincidences using techniques that vary between scanner models and manufacturers. 
-
+Multiple events (more than two) can be are recorded within the coincidence timing window with no information on which of the events (if any) correspond to a true coincidence. As these cannot be used to resolve \glspl{lor}, they are commonly rejected completely or in some cases further processed to deduce which events are related to true coincidences using techniques that vary between scanner models and manufacturers. 
 \end{itemize}
-
+%
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.30,angle=0]{2_Theory_Methods/figures/Bailey_Scatter_Random_events.png}
+\includegraphics[scale=0.22,angle=0]{2_Theory_Methods/figures/Bailey_Scatter_Random_events.png}
 \caption{Representation of different types of detected coincidence events~\cite{Bailey2005}. } 
 \label{fig_2:BlockDetectorAndRing}
 \end{figure} 
+%
+%
+\subsubsection{PET acquisition}
+As described the ring formation of PET detectors is the dominant geometry used in PET systems. Using multiple rings resuts in increase of axial \gsl{fov}, solid angle coverage and possible combinations of detectors meaning higher number of ~\glspl{lor}. But early multi ring systems were making use of 2D acquisition, where only direct and cross-plane ring coincidences were allowed. 
+This was enforced using tungsten septa between rings, as seen in figure~\ref{fig_2:2D3D}.The use of cross-planes allowed for the increase in axial resolution and the septa result in an uniform axial sensitivity profile as seen in figure~\ref{}. 
 
-
-
+With evolving detector and electronics technology, 3D acquisition became possible and is now the standard acquisition mode. 3D acquisition offers the same data as 2D acquisition but also includes all the oblique \glspl{lor} data resulting in an increase of sensitivity (4 to 6 times)~\cite{Fahey2002}. The use of oblique views leads to non-uniform sensitivity profiles in the axial direction due to the higher number of \glspl{lor} closer to the center of the A-FOV, with the maximum sensitivity at the centre and a minimum at the edges of the axial \gls{fov}. A comparison between the 2D and 3D sensitivity on the same 45 direct planes is shown as an example in figure~\ref{fig_2:2D3DSensitivityProfiles}.
+In addition to more coincidence events, the higher sensitivity and acceptance of events results to an increase of randoms scatter events, which now as well may be originating from activity outside the A-FOV of the system. 
+%
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.40,angle=0]{2_Theory_Methods/figures/Phelps_2D_3D_Acquisition.png}
+\caption{Example of 2D (left) and 3D (right) acquisition mode LORs for an 8 ring scanner.} 
+\label{fig_2:2D3D}
+\end{figure} 
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.30,angle=0]{2_Theory_Methods/figures/2_2_2D3DSensitivityProfiles.png}
+\caption{Example of 2D and 3D axial sensitivity profiles for a scanner with 45 direct planes.} 
+\label{fig_2:2D3DSensitivityProfiles}
+\end{figure} 
+%
+%
+In 3D mode the maximum angle of events accepted in the axial direction can be sometimes limited by enforcing a maximum ring difference permitted \glspl{lor}. This results in a uniform axial sensitivity profile at a central region of the axial \gls{fov}.
+%
+In multiple beds acquisition, used to image objects with a length larger than the scanner A-\gls{fov}, in order to maintain an uniform axial sensitivity a degree of overlapping is used. This allows for the regions at the edges of the bed positions to be sampled in two bed acquisitions and even out the sensitivity of the combined acquisition. The degree of overlapping can vary, depending on requirements of sensitivity uniforming and speed of acquisition.
+%
 \subsubsection{Storage of PET coincidence events}
-The recorded coincidence data needs to be stored digitally to allow post processing and reconstruction of image data.
-The different methods for storing the data can result in different types of storage requirements, allow or not allow for specific event information to be stored and have different memory requirements or even reconstruction techniques. 
+The recorded coincidence data are stored digitally to allow post processing and reconstruction of image data.
+The different methods for storing the data can result to different storage requirements, allow or not allow for specific event information to be stored and even necessitate different reconstruction techniques. 
 
 \begin{itemize}
 
 \item\textbf{List Mode}\\
-In the simplest form events can be stored in a binary file as a stream of coincidence events by the order of their detection. This format follows naturally the detection process and allows for multiple detector information to be included in each event. The minimum information recorded per event includes the time stamp the detection and the detector pair IDs. Any additional information such as time-of-flight, detection energy etc. can also be recorded per event.
-The use of list-mode files is practical for dynamic studies as it takes less storage space that the other alternative formats and it allows for subsequent re-binning into any required temporal framing.
+In the simplest form coincidence events can be stored in a binary file as a stream of events by the order of their detection. This format follows naturally the detection process and allows for multiple detector information to be included in each event. A time tag is normally included in the data stream every millisecond. The minimum information recorded per event is the detector pair IDs. Any additional information such as time-of-flight, detection energy etc. can also be included with each event.
+The use of list-mode files is practical for dynamic studies as they takes less storage space than the other alternative formats described bellow, and furthermore they allows for subsequent re-binning into any required temporal framing. Reconstruction algorithms can be derived to reconstruct data directly using the list-mode stream.
 
 \item\textbf{Histogram}\\
-Coincidence events per detector pair (\gls{lor}) can be summed together and stored into a single entry. The total number of entries will be equal to the total number of detector pairs. These entries make up a histogram, where effectively all the events have been histogrammed into the detector pairs. No timing information is preserved and hence multiple histograms are required if data are recorded dynamically, in a predefined temporal framing. 
+Coincidence events per detector pair (\gls{lor}) can be summed together and stored into a single entry. The total number of entries will be equal to the total number of detector pairs. These entries make up a histogram, where effectively all the events have been histogrammed into the detector pairs. No timing information is preserved and hence multiple histograms are required if data are recorded dynamically, in a predefined temporal binning. 
 This format can result in smaller files for static imaging compared to list-mode, but in the case of dynamic imaging it frequently results in much larger total size of files as multiple detector pair entries are empty (zero) for some time frames. Furthermore if time-of-flight information is also available, separate histograms need to be created for each time-of-flight bin (discretization of the TOF resolution), which further increases the zero entries and storage requirements. 
 
 \item\textbf{Sinogram}\\
-Sinograms are representations of the data in projections though the process of a Radon transform. Each pixel of the sinogram represents the integral of events over a specific direction and offset from the centre of the image space. The name "sinogram" comes from the fact that a point source (off-centred) is represented as a sine wave in the sinogram, as seen in figure.
-
+Sinograms are representations of the data in projections though the process of a Radon transform~\cite{radon1917}. Each pixel of the sinogram represents the integral of events over a specific line though the image space. The name "sinogram" comes from the fact that a point source (off-centred) is represented as a sine wave in the sinogram, as seen in figure~\ref{fig_2:Sinogram}.
+%
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.30,angle=0]{2_Theory_Methods/figures/Sinogram.png}
-\caption{An example point source in space (left) and the resulting sinogram (right)~\cite{Fahey2002}.} 
+\includegraphics[scale=0.24,angle=0]{2_Theory_Methods/figures/Sinogram_Alessio.png}
+\caption{Sinogram data representation though the process of integration across \glspl{lor} at an angle and example of point source representation~\cite{Tong2010}.} 
 \label{fig_2:Sinogram}
 \end{figure} 
-
-Use of sinograms is inherited from other tomographic imaging methods where data are acquired as projections. In \gls{pet}, contrary to list-mode and histograms where the data are directly related to detector elements, conversion of data to sinograms requires certain processing steps. As seen in figure, parallel \glspl{lor} at a specific direction are used to form the sinogram along a particular row. The sampling of the sinogram space will depend on the size of the sinograms required, and data conversions will be required  to match the required sinogram sampling \cite{Fahey2002}. 
-
+%
+Use of sinograms is inherited from other tomographic imaging methods where data are acquired as projections. In \gls{pet}, contrary to list-mode and histograms where the data are directly related to detector elements, conversion of data to sinograms requires certain processing steps. As seen in figure~\ref{fig_2:Sinogram_detector_to_Sino}, parallel \glspl{lor} at a specific direction are used to form the sinogram along a particular row. The sampling of the sinogram space will depend on the size of the sinograms required, and data conversions will be required  to match the required sinogram sampling \cite{Fahey2002}. 
+%
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.30,angle=0]{2_Theory_Methods/figures/Sinogram_detector_to_Sino.png}
+\includegraphics[scale=0.15,angle=0]{2_Theory_Methods/figures/Sinogram_detector_to_Sino.png}
 \caption{Example projection though the PET field of view for a specific direction~\cite{Fahey2002}.} 
 \label{fig_2:Sinogram_detector_to_Sino}
 \end{figure} 
-
-In practice events can be detected in any angle within the transaxial plane as well as the axial planes that are defined by the multiple detector rings that form a \gls{pet} scanner. This is called 3D acquisition at which all crystals from all rings (or under certain maximum ring difference limitations) are allowed to record coincidences. In this case the number of sinograms increases to allow all the possible co-planar angle combinations. 
-With the introduction of time-of-flight information, a separate set of sinograms is required for each TOF bin and when dynamic data are captured a separate set per frame bin. 
-In practice different types of compression can be used to reduce the total size of sinogram raw data per study.
+%
+In practice events can be detected in any angle within the transaxial plane as well as the axial planes that are defined by the multiple detector rings that form the \gls{pet} system. In 3D acquisition, crystals from all rings (or under certain maximum ring difference limitations) are allowed to record coincidences. In this case the number of sinograms increases to allow all the possible co-planar angle combinations, and the radon transform is extended in 3D. With the introduction of time-of-flight information, a separate set of sinograms is required for each TOF bin and when dynamic data are captured a separate set per temporal bin. In practice different types of compression have been used to reduce the total size of sinogram raw data.
 
 \end{itemize}
 
@@ -186,24 +204,24 @@ In practice different types of compression can be used to reduce the total size 
 
 \begin{itemize}
 \item\textbf{Randoms correction}\\
-As discussed previously, an estimate of random events can be made using a sufficiently delayed coincidence window or by measurements of single event rates between all \glspl{lor}. The random rates are provided as a separate stream or events in list mode or in sinogram/histogram datasets and are used as additive corrections within statistical reconstruction methods. 
+As discussed previously, an estimate of random events can be made using a sufficiently delayed coincidence window or by measurements of single event rates between all \glspl{lor}. The random rates are provided as a separate stream of events in list mode or in sinogram/histogram datasets and are used as additive corrections within statistical reconstruction methods. 
 \item\textbf{Normalisation}\\ 
-\Glspl{lor} will have slightly different sensitivity from others, due to detector and geometric efficiencies effects. Normalisation coefficients for each \gls{lor} are estimated using measurements and modelling of the normalisation components that form the normalisation coefficient.
+\Glspl{lor} will have slightly different sensitivity from others, due to detector and geometric efficiencies effects. Normalisation coefficients for each \gls{lor} are estimated using measurements and modelling of the normalisation components that form the normalisation coefficient, and are subsequently used in reconstruction to correct for these efficiencies.
 \item\textbf{Dead-time correction}\\
 After every detection event a certain amount of time is required for sub-systems involved in the detection to become ready for detection again and so interaction events occurring during that recovery time will not be registered. As the number of interactions increases at higher imaged activities, the proportion of events not registered is also increasing. This results is a non-linear system response for different levels of imaged activities. Dead-time correction is applied by the use of lookup tables and live dead-time monitoring measurements during acquisition.
 \item\textbf{Scatter correction}\\
-As described previously, a certain amount of the annihilation gammas will scatter with the atoms of the travelling medium via Compton scattering , which results in changes of energy and direction of the gamma. Even after energy filtering, an amount of those scattered gammas will be detected and recorded as coincidence events and degrade the PET data and affect image quality and quantification. The most commonly used approach to account for scatter in clinical scanners is the use of analytical simulation based scatter estimates. These simulations are based on an initial activity distribution estimate from the uncorrected PET data and knowledge of the probability of scattering. Scatter estimates, similar to random estimates, are used as additive corrections within statistical reconstruction methods.
+As described previously, a certain amount of the annihilation gammas will scatter with the atoms of the travelling medium via Compton scattering, which results in changes of energy and direction of the gamma. Even after energy filtering, an amount of those scattered gammas will be detected and recorded as coincidence events and degrade the PET data and affect image quality and quantification. The most commonly used approach to account for scatter in clinical scanners is the use of analytical simulation based scatter estimates. These simulations are based on an initial activity distribution estimate from the uncorrected PET data and knowledge of the probability of scattering. Scatter estimates, similar to random estimates, are used as additive corrections within statistical reconstruction methods.
 \item\textbf{Attenuation correction}\\
-Absorption or scatter interactions within the body result in loss of gammas detection. Even if one of the two annihilation gammas is lost the result is a non registered \gls{lor} and so the probability of attenuation depends on the total probability within a \gls{lor} and is independent of the annihilation position within that line. The attenuation factors within the body can be estimated using transmission measurements, using sources or X-rays.  For these measurements earlier scanners made use of positron or single gamma sources to estimate attenuation while more recent machines make use of \gls{ct} scans. 
+Absorption or scatter interactions within the body result in loss of gammas detection. Even if one of the two annihilation gammas is lost the result is a non registered event and so the probability of attenuation depends on the total probability of interaction within a \gls{lor} and is independent of the annihilation position within that line. The attenuation factors within the body can be estimated using transmission measurements, either with radioactive sources or X-rays. For these measurements earlier scanners made use of positron or single gamma sources to estimate attenuation while most modern clinical systems make use of \gls{ct} or \gls{mr} scans. 
 \item\textbf{Calibration Factor}\\
-Contrary to other nuclear medicine techniques, \gls{pet} is fully quantitative and can be used to deduce absolute activity measurements from the reconstructed image data. For those measurements to be accurate a calibration factor needs to be set by cross-calibration measurements against a reference instrument. For dynamic studies where blood sampling is involved, it is also important to calibrate the scanner against the well-counter used for blood sample counting. The result of these measurement is a global calibration factor that converts counts to activity concentration. 
+Contrary to other nuclear medicine techniques, \gls{pet} is fully quantitative and can be used to deduce absolute activity measurements from the reconstructed image data. For those measurements to be accurate a calibration factor needs to be set by cross-calibration measurements against a reference instrument. For dynamic studies where blood sampling is involved, it is also important to calibrate the scanner against the well-counter used for blood sample counting. The result of these measurement is a global calibration factor that converts detected counts to activity concentration. 
 \end{itemize}
 
 
 \subsection{Hybrid PET Systems}
 As described above attenuation correction is essential for quantitative \gls{pet} imaging. Before hybrid systems \gls{pet} scanner made use of external sources to acquire a transmission scan. Those would be either positron sources or single photon sources. Some of the drawbacks of these methods were that transmission scans would contribute to an increase of image noise on PET images and that transmission scan acquisition was increasing the total duration of the examination. 
 Apart from attenuation correction the transmission scan was also used to find anatomical landmarks for correlation with findings in the PET scans. In clinical practice image fusion is preferred when possible, to combine information from CT and MRI scans with PET when those are available. 
-These needs led to the development of hybrid PET systems, with the first PET/CT system being introduced in late 1990s and the first simultaneous PET/MR system in 2010~\cite{Townsend2008,}. [Find PET/MR Reference]
+These needs led to the development of hybrid PET systems, with the first PET/CT system being introduced in late 1990s and the first simultaneous PET/MR system in 2010~\cite{Townsend2008}. [Find PET/MR Reference]
 
 \subsubsection{PET-CT}
 The birth of hybrid PET/CT was driven by the clinical need of anatomical information needed to improve the diagnostic examination provided by functional images that PET provides. The first PET/CT prototype was designed with this aim in order to provide clinical quality CT with clinical quality PET~\cite{Townsend2008}. The first PET/CT was able to acquire a whole body PET/CT scan within an hour with precisely co-registered CT and PET images that were acquire close in time~\cite{Beyer2000}. The CT scan was also used for PET attenuation correction via scaling of attenuation factors that were measured for the CT X-ray energy to \si{k\electronvolt} of annihilation photons~\cite{Kinahan1998}. PET/CT eliminated the requirement for an additional transmission scan and the problems with added noise associated with transmission images. 
@@ -224,4 +242,3 @@ The desired whole body coverage is achieved with acquisition of multiple bed pos
 \subsubsection{Latest technological advancements}
 Longer axial coverage was always a desirable characteristic for PET, but limitations in technology and costs only made it possible only during the recent years. Longer A-FOV scanners, with 70cm and 194cm length have been developed within the Explorer project in collaboration with United Imaging~\cite{Cherry2017,Badawi2019}. A 106cm long PET-CT scanner is also now commercially available by Siemens~\cite{Siegel2020}.  The models that are able to encompass the entire body at once, are referred as total-body systems. 
 The increase of axial length offers many potential benefits for clinical and research applications. Most of those are linked to the increase in sensitivity offered by the greater A-FOV and number of total detectors. From 20cm to 100cm A-FOV an sensitivity increase of 2-3x is expected for single organ studies, but that is increased to 10-20x for whole body examinations~\cite{Vandenberghe2020}. The increased sensitivity can be used for performing ultra short or ultra low dose imaging, or a combination of both. This type of technology also offers the opportunity for whole-body dynamic imaging in clinical and research applications. 
-
