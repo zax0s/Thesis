@@ -148,7 +148,6 @@ Together with the expression for the conditional expectation of the complete dat
 \label{eqn:MLEM}
 \end{equation} 
 This equation forms a single update of the MLEM algorithm, which when evaluated over all voxels $j$ provides an updated image $\bm{\lambda}^{(k+1)}$. 
-
 The use of the conditional expectation of the data is in fact an example of the general concept of optimisation transfer, where the construction of surrogate functions is made to be used with simpler optimisation process, that leads to optimisation of the main function as well.
 
 \subsection{Fully 4D reconstruction}
@@ -302,7 +301,7 @@ The right parenthesis of this expression is similar to the log-likelihood from t
 
 This is a simple EM update equation applied over image space to update the model parameters. 
 
-The advantages or the use of nested EM optimisation, even for liner dynamic models where it is not , is that it provides decoupling of the update over data and the dynamic model parameters update. With the first being the most computationally demanding, the parameters update step can be run multiple times within the loop of the two update equations. The advantage of this practice is accelerated convergence as demonstrated in the original work on nested-EM by Wang \textit{et al}~\cite{Wang2010}. 
+The advantages or the use of nested EM optimisation, even for liner dynamic models where it is not necessary to use this two step process, is that it provides decoupling of the update over data and the dynamic model parameters update. With the first being the most computationally demanding, the parameters update step can be run multiple times within the loop of the two update equations. The advantage of this practice is accelerated convergence as demonstrated in the original work on nested-EM by Wang \textit{et al}~\cite{Wang2010}. 
 
 
 

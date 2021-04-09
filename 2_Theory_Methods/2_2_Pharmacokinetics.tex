@@ -20,7 +20,7 @@ The three key assumptions underlying compartmental modelling are:
 By common convention in modelling the first compartment is the plasma pool from where the tracer distributes to tissues. The concentration of tracer in the plasma is measured and applied to the model as a known input function that powers the system. If the tracer is metabolised during the study, this needs to be accounted for and the metabolite corrected input function must be used instead. Compartmental models behave according to a set of first-order ordinary differential equations, which means that change of concentration in one compartment is a linear function of the concentrations of all other compartments. This linearity establishes that the measured tissue activity concentration will be the convolution of the input function with the impulse response function (IRF) of the system, which is described by the compartmental model and its parameters. \par
 \hl{When a measurement of tissue activity concentration is taken with PET $C_{PET}$, the measurement will include the tissue activity and activity from the intravascular blood in this tissue. The proportion of tissue volume occupied by intravascular blood is $V_B$, which is commonly referred to as simply blood fraction.}\par
 
-\subsection{Two-compartment model (one-tissue compartment model)}
+\subsection{One-tissue compartment model}
 As the simplest model, the two compartment model or one-tissue compartment model (1TCM) can be described using two constant rates for the input and output of tracer from the tissue, $K_1$ and $k_2$ respectively.
 
 \begin{figure}[ht]
@@ -50,7 +50,7 @@ The rate of change of the activity concentration in tissue $C_T$ will depend on 
 
 Equation \ref{eqn:1TCM} is the solution of the differential equation \ref{eqn:1TCM_Diff}, which becomes \ref{eqn:1TCM_CPET} for the PET measurement which includes the fractional blood volume. In equation \ref{eqn:1TCM_CPET} it is important to note that the blood fraction is related to the whole blood activity concentration $C_B$ , rather than the metabolite corrected activity concentration $C_A$. When the tracer metabolic activity is negligible and under the assumption of negligible tracer delay and diffusion from arterial to venous blood TACs, the two concentrations ( $C_A = C_B$) can be set equal in favour if simplified models and estimations. 
 
-\subsection{Three-compartment model (two-tissue compartment model)}
+\subsection{Two-tissue compartment model}
 The three compartment model or two-tissue compartment model (2TCM) is a commonly used model as it describes the behaviour of ${}^{18}F$-Fluorodeoxyglucose (${}^{18}\mathrm{F}$-FDG), which is commonly used radiopharmaceutical in clinical PET. The separation into two tissue compartments is made to distinguish between free and trapped tracer, with the trapping caused by the tracer being metabolised by mitochondria to FDG-6-PO4. The reverse pathway of tracer from the trapped to the free state, via the process of dephosphorylation, is commonly neglected as its consider too slow to be significant during the scan duration of PET studies. With the assumption of $k_4=0$ the two differential equations in \ref{eqn:2TCM_Diff} simplify to the system \ref{eqn:2TCM_Diff_k4=0} which when solved results to equation \ref{eqn:2TCM}. 
 
 \begin{subequations}
