@@ -82,6 +82,35 @@ K_i = \frac{K_1 k_3}{k_2+k_3}
 
 The parameter $K_i$ is the influx rate constant that for FDG is proportional to the influx rate of glucose. 
 
+\subsection{Graphical Analyses Methods}
+
+\subsubsection{Patlak}
+\begin{equation}
+{C_{T}}(t) = {K_i} \int_{0}^{t} C_{A}(\tau) d\tau +  {V_{\alpha}} C_{A}(t) \ , \;  t>t_{ss} \ ,
+\end{equation}
+%
+\begin{equation} 
+{C_{PET}}(t)  = (1-V_{B}){C_{T}}(t) + V_{B}C_{B}(t),
+\end{equation}
+%
+%
+\begin{equation} 
+{C_{PET}}(t)  = (1-V_{B}){K_i} \int_{0}^{t} C_{A}(\tau) d\tau +  (1-V_{B}) {V_{\alpha}} C_{A}(t) + V_{B}C_{B}(t).
+\end{equation}
+Assuming that arterial blood tracer concentration $C_{A}$ is equal to whole blood activity concentration $C_{B}$, the PET measured concentration is modelled as
+\begin{equation} 
+{C_{PET}}(t)  = (1-V_{B}){K_i} \int_{0}^{t} C_{A}(\tau) d\tau +  ((1-V_{B}) {V_{\alpha}}+ V_{B})C_{A}(t).
+\end{equation}
+Assuming that the blood fraction $V_B$ is small and $(1-V_B) \xrightarrow[]{}1$, this equation becomes
+%
+%
+\begin{equation} 
+{C_{PET}}(t)  = {K_i} \int_{0}^{t} C_{A}(\tau) d\tau +  \underbrace{({V_{\alpha}}+ V_{B})}_{V_D} C_{A}(t).
+\end{equation}
+%
+%
+%
+
 \subsection{Linearisation methods}
 The analytical solutions of the first order differential equations that describe the compartment models involve exponential terms with all model parameters on the exponents, with the exception of $K_1$. The estimation of the model parameters from measured data requires non-linear fitting methods. These methods, such as the commonly used Marquardt-Levenberg algorithm, are iterative search algorithms which are demanding in execution time, sensitive to variations due to noise and do not guarantee convergence to a global minimum. These factors pose significant limitations on the use of non-linear algorithms, especially in the case of parametric imaging as we will see later on where the search algorithm needs to be applied on every voxel of the series of dynamic images.\par
 Assumptions and simplifications can be made by transformation of the models in a form that enables the use of regular linear least-squares fitting, in a process that is named linearisation. Depending on the model and the method used, linearisations can result in forms that allow complete estimation of the model parameters or in forms that provide restricted information about the model. 

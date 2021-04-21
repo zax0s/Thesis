@@ -641,7 +641,7 @@ abstract = {The aim of this work is to calculate, directly from raw projection d
 author = {Matthews, Julian and Ashburner, John and Bailey, Dale and Harte, Robert and Price, Pat and Jones, Terry},
 doi = {10.1109/nssmic.1995.510499},
 file = {:C\:/Users/chalampalakis/Downloads/matthews1997.pdf:pdf},
-journal = {IEEE Nuclear Science Symposium & Medical Imaging Conference},
+journal = {IEEE Nuclear Science Symposium \& Medical Imaging Conference},
 mendeley-groups = {Thesis/Reconstruction/4DReview},
 pages = {1311--1315},
 title = {{Direct calculation of parametric images from raw pet data using maximum likelihood iterative reconstruction}},
@@ -667,7 +667,7 @@ year = {2008}
 }
 
 @article{Hong2008,
-abstract = {Fully 40 image reconstruction, through its use of temporally extensive basis functions, is able to reduce spatiotemporal noise in dynamic PET imaging. This noise reduction has the potential to benefit post-reconstruction kinetic analysis, resulting in improved parametric images. However these benefits come at a significant computational cost: fully 40 reconstruction requires access to the entire time series of fully 30 sinograms (along with the same number of fully 30 scatter and randoms sinogram estimates) in the innermost iterative reconstruction loop. This results in a huge in-memory storage requirement combined with a projection/backprojection workload in the innermost reconstruction loop which is up to 1040 times greater than conventional static 30 reconstruction (depending on the number of frames). This work presents a practical 40 methodology which i) uses an extremely efficient symmetry & SIMO forward and backprojector for ultra fast computation, ii) compresses the time series of dynamic sonogram data sets without information loss, and iii) permits the use of any user-specified set of temporal basis functions. The result is an extremely fast and flexible fully 40 iterative reconstruction methodology, greatly facilitating the determination of the (perhaps study-specific) optimal temporal basis functions. Whereas single CPU processing for fully 40 list-mode data reconstruction can take in excess of 2 weeks on a single node, the proposed method (using two quad-core CPUs, with span 9 projection data) takes approximately 3.5 hours, giving close to two orders of magnitude acceleration. The method is demonstrated on measured HRRT (High Resolution Research Tomograph) PET data for a [18F]flumazenil study and for an [18F]MPPF study. {\textcopyright} 2008 IEEE.},
+abstract = {Fully 40 image reconstruction, through its use of temporally extensive basis functions, is able to reduce spatiotemporal noise in dynamic PET imaging. This noise reduction has the potential to benefit post-reconstruction kinetic analysis, resulting in improved parametric images. However these benefits come at a significant computational cost: fully 40 reconstruction requires access to the entire time series of fully 30 sinograms (along with the same number of fully 30 scatter and randoms sinogram estimates) in the innermost iterative reconstruction loop. This results in a huge in-memory storage requirement combined with a projection/backprojection workload in the innermost reconstruction loop which is up to 1040 times greater than conventional static 30 reconstruction (depending on the number of frames). This work presents a practical 40 methodology which i) uses an extremely efficient symmetry \& SIMO forward and backprojector for ultra fast computation, ii) compresses the time series of dynamic sonogram data sets without information loss, and iii) permits the use of any user-specified set of temporal basis functions. The result is an extremely fast and flexible fully 40 iterative reconstruction methodology, greatly facilitating the determination of the (perhaps study-specific) optimal temporal basis functions. Whereas single CPU processing for fully 40 list-mode data reconstruction can take in excess of 2 weeks on a single node, the proposed method (using two quad-core CPUs, with span 9 projection data) takes approximately 3.5 hours, giving close to two orders of magnitude acceleration. The method is demonstrated on measured HRRT (High Resolution Research Tomograph) PET data for a [18F]flumazenil study and for an [18F]MPPF study. {\textcopyright} 2008 IEEE.},
 author = {Hong, Inki and Reader, Andrew J.},
 doi = {10.1109/NSSMIC.2008.4774492},
 file = {:C\:/Users/chalampalakis/Downloads/hong2008.pdf:pdf},
@@ -915,7 +915,7 @@ abstract = {In whole body 3D PET, acquiring at distinct bed positions results in
 author = {Schubert, Scott F. and Pajevic, Sinisa and Carson, Richard E.},
 doi = {10.1109/nssmic.1996.591681},
 file = {:C\:/Users/chalampalakis/Downloads/whole-body-pet-using-overlapped-3d-acquisition-and-weighted-imag.pdf:pdf},
-journal = {IEEE Nuclear Science Symposium & Medical Imaging Conference},
+journal = {IEEE Nuclear Science Symposium \& Medical Imaging Conference},
 mendeley-groups = {PhD/GAP study,Thesis,Thesis/3_1_MultiBedOptimization},
 pages = {1285--1289},
 title = {{Whole body PET using overlapped 3D acquisition and weighted image summation}},
@@ -963,7 +963,7 @@ year = {2014}
 }
 
 @article{Panin2014,
-abstract = {With the addition of variable bed speed capabilities, continuous bed motion (CBM) becomes an acquisition generalization for axial sensitivity modeling and therefore a flexible tool in axial local image quality adjustment. In this paper, we describe the principles behind CBM mode planning and its influence on image reconstruction. The data correction method underwent the most changes compared to the commonly used step and shoot (S&S) mode. The CBM normalization array accommodates for activity decay, dead time correction, and the fact that various detector pairs acquire the same data for different durations. The normalization array is computed by simulating the movement of an object through the scanner, assisted by the monitoring of basic scanner acquisition parameters such as the singles rate. The sensitivity, which is the number of counts acquired per image plane, is an intrinsic part of normalization computing. Basic equations to estimate acquisition time at matched sensitivity between single speed CBM and S&S mode are presented. The CBM feature was implemented on a Siemens clinical scanner and initial studies of phantoms and patients are presented. The equivalence of single speed CBM and S&S image quality is demonstrated.},
+abstract = {With the addition of variable bed speed capabilities, continuous bed motion (CBM) becomes an acquisition generalization for axial sensitivity modeling and therefore a flexible tool in axial local image quality adjustment. In this paper, we describe the principles behind CBM mode planning and its influence on image reconstruction. The data correction method underwent the most changes compared to the commonly used step and shoot (S\&S) mode. The CBM normalization array accommodates for activity decay, dead time correction, and the fact that various detector pairs acquire the same data for different durations. The normalization array is computed by simulating the movement of an object through the scanner, assisted by the monitoring of basic scanner acquisition parameters such as the singles rate. The sensitivity, which is the number of counts acquired per image plane, is an intrinsic part of normalization computing. Basic equations to estimate acquisition time at matched sensitivity between single speed CBM and S\&S mode are presented. The CBM feature was implemented on a Siemens clinical scanner and initial studies of phantoms and patients are presented. The equivalence of single speed CBM and S\&S image quality is demonstrated.},
 author = {Panin, V. Y. and Smith, A. M. and Hu, J. and Kehren, F. and Casey, M. E.},
 doi = {10.1088/0031-9155/59/20/6153},
 file = {:C\:/Users/chalampalakis/Downloads/panin2014.pdf:pdf},
@@ -977,4 +977,203 @@ pmid = {25255170},
 title = {{Continuous bed motion on clinical scanner: Design, data correction, and reconstruction}},
 volume = {59},
 year = {2014}
+}
+
+@inproceedings{Siegel2020,
+author = {Siegel, SB and Mehmet, A and Bal, H and Bendriem, B and Bharkhada, D and Cabello, J and Eriksson, L and Panin, V and Rothfuss, H and Conti, M},
+booktitle = {2020 IEEE Nuclear Science Symposium and Medical Imaging Conference (NSS/MIC)},
+mendeley-groups = {PhD/GAP study},
+pages = {1--2},
+title = {{Preliminary Performance of a Prototype, One Meter Long PET Tomograph}},
+year = {2020}
+}
+
+@article{Karp2020,
+abstract = {We report on the development of the PennPET Explorer whole-body imager. Methods: The PennPET Explorer is a multiring system designed with a long axial field of view. The imager is scalable and comprises multiple 22.9-cm-long ring segments, each with 18 detector modules based on a commercial digital silicon photomultiplier. A prototype 3-segment imager has been completed and tested with an active 64-cm axial field of view. Results: The instrument design is described, and its physical performance measurements are presented. These include sensitivity of 55 kcps/MBq, spatial resolution of 4.0 mm, energy resolution of 12%, timing resolution of 256 ps, and a noise-equivalent count rate above 1,000 kcps beyond 30 kBq/mL. After an evaluation of lesion torso phantoms to characterize quantitative accuracy, human studies were performed on healthy volunteers. Conclusion: The physical performance measurements validated the system design and led to high-quality human studies.},
+author = {Karp, Joel S. and Viswanath, Varsha and Geagan, Michael J. and Muehllehner, Gerd and Pantel, Austin R. and Parma, Michael J. and Perkins, Amy E. and Schmall, Jeffrey P. and Werner, Matthew E. and Daube-Witherspoon, Margaret E.},
+doi = {10.2967/jnumed.119.229997},
+file = {:C\:/Users/chalampalakis/Downloads/136.full.pdf:pdf},
+issn = {2159662X},
+journal = {Journal of Nuclear Medicine},
+keywords = {NEMA performance,PET,Whole-body imager},
+mendeley-groups = {PhD/GAP study},
+number = {1},
+pages = {136--143},
+pmid = {31227573},
+title = {{PennPET explorer: Design and preliminary performance of a whole-body imager}},
+volume = {61},
+year = {2020}
+}
+
+@article{Cherry2018,
+abstract = {PET is widely considered the most sensitive technique available for noninvasively studying physiology, metabolism, and molecular pathways in the living human being. However, the utility of PET, being a photon-deficient modality, remains constrained by factors including low signal-to-noise ratio, long imaging times, and concerns about radiation dose. Two developments offer the potential to dramatically increase the effective sensitivity of PET. First by increasing the geometric coverage to encompass the entire body, sensitivity can be increased by a factor of about 40 for total-body imaging or a factor of about 4{\{}$\backslash$textendash{\}}5 for imaging a single organ such as the brain or heart. The world{\{}$\backslash$textquoteright{\}}s first total-body PET/CT scanner is currently under construction to demonstrate how this step change in sensitivity affects the way PET is used both in clinical research and in patient care. Second, there is the future prospect of significant improvements in timing resolution that could lead to further effective sensitivity gains. When combined with total-body PET, this could produce overall sensitivity gains of more than 2 orders of magnitude compared with existing state-of-the-art systems. In this article, we discuss the benefits of increasing body coverage, describe our efforts to develop a first-generation total-body PET/CT scanner, discuss selected application areas for total-body PET, and project the impact of further improvements in time-of-flight PET.},
+author = {Cherry, Simon R and Jones, Terry and Karp, Joel S and Qi, Jinyi and Moses, William W and Badawi, Ramsey D},
+doi = {10.2967/jnumed.116.184028},
+issn = {0161-5505},
+journal = {Journal of Nuclear Medicine},
+mendeley-groups = {PhD/GAP study},
+month = {jan},
+number = {1},
+pages = {3--12},
+publisher = {Society of Nuclear Medicine},
+title = {{Total-Body PET: Maximizing Sensitivity to Create New Opportunities for Clinical Research and Patient Care}},
+url = {https://jnm.snmjournals.org/content/59/1/3 http://jnm.snmjournals.org/lookup/doi/10.2967/jnumed.116.184028},
+volume = {59},
+year = {2018}
+}
+
+@article{Vandenberghe2020,
+abstract = {The idea of a very sensitive positron emission tomography (PET) system covering a large portion of the body of a patient already dates back to the early 1990s. In the period 2000–2010, only some prototypes with long axial field of view (FOV) have been built, which never resulted in systems used for clinical research. One of the reasons was the limitations in the available detector technology, which did not yet have sufficient energy resolution, timing resolution or countrate capabilities for fully exploiting the benefits of a long axial FOV design. PET was also not yet as widespread as it is today: the growth in oncology, which has become the major application of PET, appeared only after the introduction of PET-CT (early 2000).The detector technology used in most clinical PET systems today has a combination of good energy and timing resolution with higher countrate capabilities and has now been used since more than a decade to build time-of-flight (TOF) PET systems with fully 3D acquisitions. Based on this technology, one can construct total body PET systems and the remaining challenges (data handling, fast image reconstruction, detector cooling) are mostly related to engineering. The direct benefits of long axial FOV systems are mostly related to the higher sensitivity. For single organ imaging, the gain is close to the point source sensitivity which increases linearly with the axial length until it is limited by solid angle and attenuation of the body. The gains for single organ (compared to a fully 3D PET 20-cm axial FOV) are limited to a factor 3–4. But for long objects (like body scans), it increases quadratically with scanner length and factors of 10–40 × higher sensitivity are predicted for the long axial FOV scanner. This application of PET has seen a major increase (mostly in oncology) during the last 2 decades and is now the main type of study in a PET centre. As the technology is available and the full body concept also seems to match with existing applications, the old concept of a total body PET scanner is seeing a clear revival. Several research groups are working on this concept and after showing the potential via extensive simulations; construction of these systems has started about 2 years ago. In the first phase, two PET systems with long axial FOV suitable for large animal imaging were constructed to explore the potential in more experimental settings. Recently, the first completed total body PET systems for human use, a 70-cm-long system, called PennPET Explorer, and a 2-m-long system, called uExplorer, have become reality and first clinical studies have been shown. These results illustrate the large potential of this concept with regard to low-dose imaging, faster scanning, whole-body dynamic imaging and follow-up of tracers over longer periods. This large range of possible technical improvements seems to have the potential to change the current clinical routine and to expand the number of clinical applications of molecular imaging. The J-PET prototype is a prototype system with a long axial FOV built from axially arranged plastic scintillator strips.This paper gives an overview of the recent technical developments with regard to PET scanners with a long axial FOV covering at least the majority of the body (so called total body PET systems). After explaining the benefits and challenges of total body PET systems, the different total body PET system designs proposed for large animal and clinical imaging are described in detail. The axial length is one of the major factors determining the total cost of the system, but there are also other options in detector technology, design and processing for reducing the cost these systems. The limitations and advantages of different designs for research and clinical use are discussed taking into account potential applications and the increased cost of these systems.},
+author = {Vandenberghe, Stefaan and Moskal, Pawel and Karp, Joel S.},
+doi = {10.1186/s40658-020-00290-2},
+file = {:C$\backslash$:/Users/chalampalakis/Downloads/s40658-020-00290-2.pdf:pdf},
+issn = {21977364},
+journal = {EJNMMI Physics},
+keywords = {PET,PET-CT,Sensitivity},
+mendeley-groups = {PhD/GAP study},
+number = {1},
+pmid = {32451783},
+publisher = {EJNMMI Physics},
+title = {{State of the art in total body PET}},
+volume = {7},
+year = {2020}
+}
+
+@article{Karakatsanis2013,
+abstract = {Static whole-body PET/CT, employing the standardized uptake value (SUV), is considered the standard clinical approach to diagnosis and treatment response monitoring for a wide range of oncologic malignancies. Alternative PET protocols involving dynamic acquisition of temporal images have been implemented in the research setting, allowing quantification of tracer dynamics, an important capability for tumor characterization and treatment response monitoring. Nonetheless, dynamic protocols have been confined to single-bed-coverage limiting the axial field-of-view to ∼15–20 cm, and have not been translated to the routine clinical context of whole-body PET imaging for the inspection of disseminated disease. Here, we pursue a transition to dynamic whole-body PET parametric imaging, by presenting, within a unified framework, clinically feasible multi-bed dynamic PET acquisition protocols and parametric imaging methods. We investigate solutions to address the challenges of: (i) long acquisitions, (ii) small number of dynamic frames per bed, and (iii) non-invasive quantification of kinetics in the plasma. In the present study, a novel dynamic (4D) whole-body PET acquisition protocol of ∼45 min total length is presented, composed of (i) an initial 6 min dynamic PET scan (24 frames) over the heart, followed by (ii) a sequence of multi-pass multi-bed PET scans (six passes × seven bed positions, each scanned for 45 s). Standard Patlak linear graphical analysis modeling was employed, coupled with image-derived plasma input function measurements. Ordinary least squares Patlak estimation was used as the baseline regression method to quantify the physiological parameters of tracer uptake rate K i and total blood distribution volume V on an individual voxel basis. Extensive Monte Carlo simulation studies, using a wide set of published kinetic FDG parameters and GATE and XCAT platforms, were conducted to optimize the acquisition protocol from a range of ten different clinically acceptable sampling schedules examined. The framework was also applied to six FDG PET patient studies, demonstrating clinical feasibility. Both simulated and clinical results indicated enhanced contrast-to-noise ratios (CNRs) for K i images in tumor regions with notable background FDG concentration, such as the liver, where SUV performed relatively poorly. Overall, the proposed framework enables enhanced quantification of physiological parameters across the whole body. In addition, the total acquisition length can be reduced from 45 to ∼35 min and still achieve improved or equivalent CNR compared to SUV, provided the true K i contrast is sufficiently high. In the follow-up companion paper, a set of advanced linear regression schemes is presented to particularly address the presence of noise, and attempt to achieve a better trade-off between the mean-squared error and the CNR metrics, resulting in enhanced task-based imaging. (Some figures may appear in colour only in the online journal)},
+archivePrefix = {arXiv},
+arxivId = {NIHMS150003},
+author = {Karakatsanis, Nicolas A. and Lodge, Martin A. and Tahari, Abdel K. and Zhou, Y. and Wahl, Richard L. and Rahmim, Arman},
+doi = {10.1088/0031-9155/58/20/7391},
+eprint = {NIHMS150003},
+file = {:C\:/Users/chalampalakis/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Karakatsanis et al. - 2013 - Dynamic whole-body PET parametric imaging I. Concept, acquisition protocol optimization and clinical applic.pdf:pdf},
+isbn = {1361-6560 (Electronic)\r0031-9155 (Linking)},
+issn = {00319155},
+journal = {Physics in Medicine and Biology},
+mendeley-groups = {PhD/Karakatsanis,MIC,PhD/MIC2020,PhD/GAP study,Thesis/3_1_MultiBedOptimization},
+pmid = {24080962},
+title = {{Dynamic whole-body PET parametric imaging: I. Concept, acquisition protocol optimization and clinical application}},
+year = {2013}
+}
+
+@article{Hu2020,
+author = {Hu, Jicun and Panin, Vladimir and Smith, Anne M. and Spottiswoode, Bruce and Shah, Vijay and {CA von Gall}, Carl and Baker, Matthew and Howe, William and Kehren, Frank and Casey, Michael and Bendriem, Bernard},
+doi = {10.1109/TRPMS.2020.2994316},
+file = {:C\:/Users/chalampalakis/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Hu et al. - 2020 - Design and Implementation of Automated Clinical Whole Body Parametric PET With Continuous Bed Motion.pdf:pdf},
+issn = {2469-7311},
+journal = {IEEE Transactions on Radiation and Plasma Medical Sciences},
+mendeley-groups = {PhD/Karakatsanis,PhD/GAP study,Thesis/3_1_MultiBedOptimization},
+month = {nov},
+number = {6},
+pages = {696--707},
+title = {{Design and Implementation of Automated Clinical Whole Body Parametric PET With Continuous Bed Motion}},
+url = {https://ieeexplore.ieee.org/document/9093074/},
+volume = {4},
+year = {2020}
+}
+@inproceedings{Karakatsanis2011,
+abstract = {Multi-Bed FDG PET/CT as applied to oncologic imaging is currently widely
+and routinely used for assessment of localized and metastatic disease
+involvement. In the past, based on conventional (single-bed) dynamic PET
+imaging, standard tracer kinetic modeling techniques have been developed
+to estimate the FDG uptake rate K-i. However, routine clinical multi-bed
+FDG PET imaging commonly involves a single time frame per bed, i.e.
+static imaging, and the standardized uptake value (SUV), a surrogate of
+metabolic activity, is employed to estimate the uptake rate K-i. The
+accuracy depends on two conditions:(i) in the voxel or region of
+interest, contribution of non-phosphorylated FDG is negligible relative
+to phosphorylated FDG, and (ii) time integral of plasma FDG
+concentration is proportional to injected dose divided by lean body
+mass, which can fail in clinical FDG PET imaging and pose problems in
+differentiating malignant from benign tumors. The objective of the
+proposed work is to facilitate, for the fist time, a transition from
+static to dynamic multi-bed FDG PET/CT imaging in clinically feasible
+times where, given the challenge of sparse temporal sampling at each
+bed, novel dynamic acquisition schemes should be employed to yield
+quantitative whole-body imaging of FDG uptake. Thus, a set of novel
+dynamic multi-bed PET image acquisition schemes have been modeled, using
+Monte Carlo simulations, to quantitatively evaluate the clinical
+feasibility of the method and optimize the number of passes per bed and
+the total study duration. It has been determined that a data acquisition
+scheme consisting of 6 whole-body passes and constant time frames of
+45sec produces parametric images with the optimal noise vs. bias
+performance. Finally, clinical whole-body patient data have been
+acquired dynamically and results demonstrate the potential of the
+proposed method in enhancing treatment response monitoring capabilities
+of clinical PET studies.},
+annote = {IEEE Nuclear Science Symposium/Medical Imaging Conference (NSS/MIC)/18th
+International Workshop on Room-Temperature Semiconductor X-Ray and
+Gamma-Ray Detectors, Valencia, SPAIN, OCT 23-29, 2011},
+author = {Karakatsanis, Nicolas A and Lodge, Martin A and Zhou, Yun and Mhlanga, Joyce and Chaudhry, Muhammad A and Tahari, Abdel K and Segars, William P and Wahl, Richard L and Rahmim, Arman},
+booktitle = {2011 IEEE NUCLEAR SCIENCE SYMPOSIUM AND MEDICAL IMAGING CONFERENCE (NSS/MIC)},
+file = {:C\:/Users/chalampalakis/Downloads/karakatsanis2011.pdf:pdf},
+isbn = {978-1-4673-0120-6},
+issn = {1095-7863},
+mendeley-groups = {PhD/Karakatsanis,PhD/GAP study},
+organization = {IEEE; Inst Elect \& Elect Engineers Nucl \& Plasma Sci Soc (IEEE NPSS)},
+pages = {3863--3870},
+series = {IEEE Nuclear Science Symposium and Medical Imaging Conference},
+title = {{Dynamic Multi-Bed FDG PET Imaging: Feasibility and Optimization}},
+year = {2011}
+}
+
+@article{Fahrni2019,
+author = {Fahrni, Guillaume and Karakatsanis, Nicolas A. and {Di Domenicantonio}, Giulia and Garibotto, Valentina and Zaidi, Habib},
+doi = {10.1007/s00330-018-5966-1},
+file = {:C$\backslash$:/Users/chalampalakis/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Fahrni et al. - 2019 - Does whole-body Patlak 18F-FDG PET imaging improve lesion detectability in clinical oncology.pdf:pdf},
+issn = {14321084},
+journal = {European Radiology},
+keywords = {Molecular imaging,Positron emission tomography,Tumors},
+mendeley-groups = {PhD/Karakatsanis,MIC,PhD,PhD/MIC2020,PhD/GAP study},
+title = {{Does whole-body Patlak 18F-FDG PET imaging improve lesion detectability in clinical oncology?}},
+year = {2019}
+}
+
+@article {Dias2020,
+	author = {Dias, Andr{\'e} and Pedersen, Mette and Danielsen, Helle and Munk, Ole and Gormsen, Lars},
+	title = {Improved lesion detection in Whole-Body Parametric 18F-FDG PET/CT vs. Static 18F-FDG PET/CT},
+	volume = {61},
+	number = {supplement 1},
+	pages = {97--97},
+	year = {2020},
+	publisher = {Society of Nuclear Medicine},
+	abstract = {97Introduction: 18F-FDG PET/CT is a cornerstone in the diagnostic of malignant and non-malignant diseases, with imaging guidelines endorsing static PET images at a single time-point, usually 60 minutes after tracer administration. The method is well-proven and robust, but hampered by the inherent omission of tracer kinetics from injection to acquisition. Recently introduced methodology allows for whole-body dynamic PET/CT scans using conventional PET cameras. The dynamic whole-body data can be used to calculate parametric images of the metabolic rate of glucose using Patlak linearization1, thus utilizing the entire information contained in the blood input function and tissue time-activity curves. It was our goal to retrospectively evaluate whether parametric 18F-FDG PET/CT images have superior lesion target-to-background and if this translates into clinically valuable information. Methods: Retrospective analysis of 48 patients scanned using a multiparametric PET acquisition protocol on a Siemens Biograph Vision 600 PET/CT scanner. Of the 48 patients, 25 had pathological lesions spanning a range of mostly malignant diseases (7 lung cancer, 5 lymphoma, 8 infection \&amp; inflammation, 2 colon cancer, 1 paraganglioma, 1 ovarian cancer and 1 cancer of unknown primary origin.) A 70-min dynamic whole-body PET scan was performed immediately after injection of 18F-FDG, 4 Mbq per kg. The scan included a 6-min dynamic scan of the chest region followed by multiple whole-body passes from 6-70 min. Parametric Patlak images were reconstructed using data from 40-70 min and an image-derived aorta input function [Reconstruction parameters: TrueX+TOF, 8 iterations, 5 subsets, 440 matrix, 2 mm Gaussian filter]. In addition, a standard-of-care static PET image was reconstructed using data from 60-70min [Reconstruction parameters: TrueX+TOF, 4 iterations, 5 subsets, 440 matrix, 2mm Gaussian filter]. Parametric Patlak images of metabolic rate (K) and distribution volume (V) were compared to standard 60-min static SUV images using PMOD 4.0. Target lesions were selected by an experienced nuclear medicine physician and PMOD{\textquoteright}s isocontour tool was used (threshold set to 50\% of max), to obtain the final target region. Background regions were manually drawn in adjoining tissue. Standard SUV values were compared with parameters obtained from dynamic scanning using Patlak reconstructions (K and V). Results: Whole-body parametric Patlak images were of good visual quality and comparable to standard static SUV images. Observed lesion target to background contrast was superior in the parametric K images (p\&lt;0.001), allowing for easier detection of lesions, particularly in organs with high blood pool signal. There was no observable difference between disease groups in background normalized K/SUV ratios. In three patients with focal FDG uptake in the upper arm, Patlak imaging correctly omitted the signal from the K-image avoiding false positives and subsequent biopsies. However, although lesions were easier to detect by Patlak K-images than static images, no additional lesions were detected. Conclusion: Whole-body parametric Patlak-PET/CT imaging provides supplementary information, which may improve the evaluation of PET images. Pointedly, parametric imaging reduced the number of false positive lesions and had superior target-to-background ratios enabling easier image interpretation. Future prospective studies will clarify if parametric 18F-FDG PET/CT may also detect more lesions in diseases characterized by relatively low target-to-background ratios on conventional static PET/CT.},
+	issn = {0161-5505},
+	URL = {https://jnm.snmjournals.org/content/61/supplement_1/97},
+	eprint = {https://jnm.snmjournals.org/content},
+	journal = {Journal of Nuclear Medicine}
+}
+
+@article{Zaker2020,
+abstract = {Purpose Hybrid dynamic imaging allows not only the estimation of whole-body (WB) macroparametric maps but also the estimation of microparameters in the initial bed position targeting the blood pool region containing the pathology owing to the limited axial field of view of PET scanners. In this work, we assessed the capability of multipass WB F-FDG PET parametric imaging in terms of lesion detectability through qualitative and quantitative evaluation of simulation and clinical studies. Methods Simulation studies were conducted by generating data incorporating 3 liver and 3 lung lesions produced by 3 noise levels and 20 noise realizations for each noise level to estimate bias and lesion detection features. The total scan time for the clinical studies of 8 patients addressed for lung and liver lesions staging, including dynamic and static WB imaging, lasted 80 minutes. An in-house-developed MATLAB code was utilized to derive the microparametric and macroparametric maps. We compared lesion detectability and different image-derived PET metrics including the SUVs, Patlak-derived influx rate constant (K) and distribution volume (V) and K, k2, k3, blood volume (bv) microparameters, and K estimated using the generalized linear least square approach. Results In total, 104 lesions were detected, among which 47 were located in the targeted blood pool bed position where all quantitative parameters were calculated, thus enabling comparative analysis across all parameters. The evaluation encompassed visual interpretation performed by an expert nuclear medicine specialist and quantitative analysis. High correlation coefficients were observed between SUVmax and Kimax derived from the generalized linear least square approach, as well as K generated by Patlak graphical analysis. Moreover, 3 contrast-enhanced CT-proven malignant lesions located in the liver and a biopsy-proven malignant liver lesion not visible on static SUV images and Patlak maps were clearly pinpointed on K and k2 maps. Conclusions Our results demonstrate that full compartmental modeling for the region containing the pathology has the potential of providing complementary information and, in some cases, more accurate diagnosis than conventional static SUV imaging, favorably comparing to Patlak graphical analysis.},
+author = {Zaker, Neda and Kotasidis, Fotis and Garibotto, Valentina and Zaidi, Habib},
+doi = {10.1097/RLU.0000000000002954},
+file = {:C\:/Users/chalampalakis/Downloads/zaker2020.pdf:pdf},
+isbn = {0000000000},
+issn = {15360229},
+journal = {Clinical Nuclear Medicine},
+keywords = {PET,Patlak graphical analysis,compartmental modeling,lesion detectability,oncology},
+mendeley-groups = {PhD/GAP study},
+number = {5},
+pages = {E221--E231},
+pmid = {32108696},
+title = {{Assessment of Lesion Detectability in Dynamic Whole-Body PET Imaging Using Compartmental and Patlak Parametric Mapping}},
+volume = {45},
+year = {2020}
+}
+@article{Marie2019,
+author = {Marie, Sol{\`{e}}ne and Comtat, Claude and Caill{\'{e}}, Fabien and Becquemont, Laurent and Bottlaender, Michel and Tournier, Nicolas},
+doi = {10.1212/WNL.0000000000007378},
+file = {:C$\backslash$:/Users/Zach/Downloads/marie2019.pdf:pdf},
+issn = {0028-3878},
+journal = {Neurology},
+mendeley-groups = {PhD/MIC2020,Thesis/3{\_}1{\_}MultiBedOptimization},
+month = {apr},
+number = {17},
+pages = {813--814},
+pmid = {31010910},
+title = {{11 C-glyburide PET imaging unveils the negligible brain penetration of glyburide in humans}},
+url = {http://www.neurology.org/lookup/doi/10.1212/WNL.0000000000007378},
+volume = {92},
+year = {2019}
 }
