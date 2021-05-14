@@ -1,6 +1,6 @@
 % created on 2019-12-13
 % @author : bmazoyer
-\documentclass[a4paper, twoside, openright]{report}
+\documentclass[a4paper, twoside, openright]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
@@ -34,10 +34,38 @@ bottom=30mm
 \usepackage{tikz}
 \usepackage{dirtree}
 
+% For CASToR algorithms -----------------------------------------------||
+\usepackage[skins]{tcolorbox}
+\usepackage[ruled]{algorithm2e} %vlined to gain room
+% new comment style for algorithm package
+\newcommand\mybluecomm[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mybluecomm}
+%add a "step" keyword
+\SetKw{KwStep}{step}
+%------------------------------------------------------------------------||
+% ToDo packages --------- -----------------------------------------------||
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage{xargs} 
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+%------------------------------------------------------------------------||
+
+
+% Package for chapter summary in each chapter start
+\usepackage{minitoc}
+
+
 % Zach Commands 
 \newcommand{\argmax}[1]{\underset{#1}{\operatorname{arg}\,\operatorname{max}}\;}
 \newcommand{\br}{\ms\bhline\ms}
 \newcommand{\mr}{\ms\hline\ms}
+
+\DeclareMathSizes{10}{10}{7}{8}   % For size 10 text
+
+
 
 % acronyms 
 \usepackage[acronym, toc]{glossaries}
@@ -104,9 +132,9 @@ bottom=30mm
 
 %------------------------------------------------------------------------------
     \makeglossaries
-    \printglossary[type=\acronymtype,title=Abbreviations]
+    %\printglossary[type=\acronymtype,title=Abbreviations]
 
-    \printglossary[title=Nomenclature]
+    %\printglossary[title=Nomenclature]
     
 \begin{document}
 	\doublespacing
@@ -119,20 +147,22 @@ bottom=30mm
     \input{layout/acknowledgements.tex}
     \cleardoublepage
     
-    \pagenumbering{arabic}
+    %\pagenumbering{arabic}
+    \frontmatter
+    \dominitoc % Initialize minitoc
+    \setcounter{tocdepth}{1} % Set depth for table of contents
     \tableofcontents
     \listoffigures
     \listoftables
-    \printglossary[type=\acronymtype,title=Abreviations,nonumberlist]
+    \printglossary[type=\acronymtype,title=Acronyms,nonumberlist]
     
-
-
     
-
     \input{./1_Introduction/Introduction_main}
-
+    \mainmatter
+    \part{Theory and Methods}
     \input{./2_Theory_Methods/Theory_Methods_main}
     
+    \part{Contributions}
     \input{./3_Results/Results}
     
     \input{./4_Discussion/Discussion}

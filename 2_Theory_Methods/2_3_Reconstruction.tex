@@ -4,7 +4,7 @@ Statistical reconstruction algorithms are derived from statistical formulations 
 In this thesis we made exclusive use of statistical reconstruction methods due to their ability to incorporate complex system models, including dynamic models which is imperative for the aims of this thesis.
 
 
-\subsection{Projection and back-projection process}
+\section{Projection and back-projection process}
 Coincidence detection of annihilation photons in PET leads naturally to a line-integral model where the number of coincidence events is an \gls{lor} is approximately linearly proportional to the integral of tracer density along the volume joining the two detectors. 
 In the simplified case of a 2D image space and a single ring 2D PET scanner, the projection process can be written as:
 \begin{equation}
@@ -15,7 +15,7 @@ where $\bm{\lambda}$ is the continuous distribution of radiotracer and $\bm{y}$ 
 The projection operation is also known as the Radon transform~\cite{radon1917} and translates from the image to the projection data domain. 
 The inverse operation is back-projection, which translates from data domain to image domain.
 
-\subsubsection{Image representation}
+\subsection{Image representation}
 In practice the spatio-temporal radiotracer distribution is described using a model of a finite number of parameters. The most common choice is the use of equally sized non-overlapping voxels that cover the useful \gls{fov}. Their use extends also to the temporal domain where each temporal bin is described independent of each other. 
 If for a moment we only consider the spatial domain, we can model the spatial radiotracer distribution $\bm{\lambda}$ using voxels with the  $rect$ function as
 \begin{equation}
@@ -44,7 +44,7 @@ where
 \end{equation}
 
 
-\subsubsection{Projection}
+\subsection{Projection}
 Projection of image to data space can be treated by summing contributions of voxels across each projection ~\gls{lor}. Different projection strategies exist that model the contribution of voxels differently depending on their placement in the \gls{lor}. As this is a computationally heavy process in practice, different methods have been proposed that balance between accuracy and consistency and computing requirements. A short follows list with basic description of the methods that are implemented in CASToR.
 
 \begin{itemize}
@@ -62,16 +62,16 @@ Projection of image to data space can be treated by summing contributions of vox
 \label{fig_3:back_projection.}
 \end{figure} 
 
-The inverse process of back-projection assigns the contribution from each bin across the \gsl{lor}, using the same strategies described above. 
+The inverse process of back-projection assigns the contribution from each bin across the \gls{lor}, using the same strategies described above. 
 Analytical reconstruction methods estimate an image though the process of back-projecting all the data in image space where the contributions from all \glspl{lor} are superimposed. In practice a filtered version of the projections is back-projected to account for the non-uniform number of contributions from LORs in differnt regions of the image space, which gives the processes the name of filtered back projection. The method can be extended to 3D via use of the 3D X-ray transform and approximations of missing data projections~\cite{Kinahan1989}. 
 
 But while analytical reconstruction are linear processes that result to estimates at relatively little computing time, accuracy is limited by the assumptions of the line integral model, positron range effects, variations in response across an LOR etc. In addition these methods do not account for the statistical properties of the data. They assume noise-free data and equal weighting between LORs, which for noisy data results to image artefacts that necessitate post reconstruction smoothing and processing.
 
-\subsection{Formulation of the system model}
+\section{Formulation of the system model}
 One main advantage of iterative reconstruction methods is the ability to make use of complex models that map the radiotracer distribution from image space to data space, which can include physical processes such as positron range, scatter and random contributions, attenuation effects, normalisation factors etc.
 The projection process described above can be modelled using a matrix $\bm{X}$ of $n_i$x$n_j$ dimensions. This is the projection or system matrix and each ${X}_{ij}$ element is the average probability of detecting an emission from voxels site $j$ at the data bin $i$. With that the projection of an image $\mb{\lambda}$ at bin $i$ can be written as a sum over the contribution of all voxels from the image
 \begin{equation}
-   \hat{y_i} = \sum_{j=1}^{n_j} X_{ij} \lambda_j  \\,
+   \hat{y_i} = \sum_{j=1}^{n_j} X_{ij} \lambda_j  ,
 \end{equation}
 where $\hat{y_i}$ is the modelled data or expectation of the data.  A more realistic system model can be expressed as 
 \begin{equation}
@@ -84,7 +84,7 @@ For shortness all the effects can be written as a matrix $P$ and the system mode
    \label{eqn:system_model}
 \end{equation}
 
-\subsection{Formulation of the objective function}
+\section{Formulation of the objective function}
 The second most important advantage of iterative reconstruction methods is the inherent accounting for the statistical variations in the detection process This is achieved by the use of a probabilistic model in the derivation of the objective function, which is used in the optimisation process of the iterative reconstruction algorithm.
 The total number of detection from annihilation photons in each projection bin can be modelled as a random sample from a Poisson distribution. According to the Poisson probability model, the conditional probability or likelihood function for $\hat{y_i}$ given the measured data ${y_i}$ will be
 \begin{equation}
@@ -106,7 +106,7 @@ By substituting equation \ref{eqn:system_model} in equation~\ref{eqn:probability
 This expression is the famous  "Poisson log-likelihood"  which will be used to arrive to the maximum likelihood estimate image $\bm\lambda$, which will be noted as $\bm{\lambda}^{ML}$, that maximises the likelihood of the modelled data given the measured data  $\bm{y}$
 
 
-\subsection{Expectation Maximisation}
+\section{Expectation Maximisation}
 We can seek to solve equation~\ref{eqn:log_likelihood)} to find directly the maximum likelihood image $\bm{\lambda}^{ML}$ by taking its first partial derivative to $\lambda_j$ to be equal to zero. 
 \begin{equation}
 \frac{\partial lnL(\bm{\lambda}|\bm{y})}{\partial \lambda_j} = \sum_{i=1}^{n_i}\left[  -\sum_{j=1}^{n_j} P_{ij} + 
@@ -150,7 +150,8 @@ Together with the expression for the conditional expectation of the complete dat
 This equation forms a single update of the MLEM algorithm, which when evaluated over all voxels $j$ provides an updated image $\bm{\lambda}^{(k+1)}$. 
 The use of the conditional expectation of the data is in fact an example of the general concept of optimisation transfer, where the construction of surrogate functions is made to be used with simpler optimisation process, that leads to optimisation of the main function as well.
 
-\subsection{Fully 4D reconstruction}
+\section{Fully 4D reconstruction}
+\label{section:Fully_4D_reconstruction}
 Soon after the proposition of the EM algorithm for iterative PET reconstruction by Shepp and Vardi~\cite{Vardi1985} and Lange and Carson~\cite{Lange1984}, the former group proposed an extension of the EM algorithm to update parameters of a dynamic model and a version of the update algorithm that iterates through the whole of dynamic PET data in each iteration~\cite{Carson1985}. Dynamic PET data are traditionally divided among many time bins (frames) resulting in limited counts in each bin. Reconstruction of each bin and post-reconstruction kinetic modeling results in noisy and potentially biased parameter estimates. Furthermore the noise in each frame image estimate is spatially correlated and is hard to be accounted for in the post-reconstruction modelling. The use of an EM approach that updates over parameters using all the dynamic PET raw data offers the advantages of accurate noise modeling of the raw data and accurate system modeling directly in the process of parameter estimation. Unfortunately one major disadvantage of this approach was very slow convergence properties making it difficult for use in practice~\cite{Carson1985}. \\
 More than 10 years later the approach was revisited by Mathews \textit{et al}\cite{Matthews1995} where it was combined with linear models. As it will be shown bellow the EM algorithm can be easily extended to parametric space with use of linear models. There the benefits in reducing parametric image noise were seen, at the cost of slow convergence. For use with linear models, attempts to accelerate convergence were made by use of OSEM~\cite{Tsoumpas2008} and computing acceleration and compression techniques~\cite{Hong2008}. In the case of fully 4D reconstruction with OSEM it was shown that the algorithms exhibits the “traditional” OSEM problem of limit-cycles, for which an decreasing subsets scheme was used to eliminate this effect~\cite{Angelis2011}. \\
 It was not until the work of two groups in 2010, Wang \textit{et al}~\cite{Wang2010} and Matthews \textit{et al}~\cite{Matthews2010}, that allowed for practical and more widespread use of 4D reconstruction. Their methods, based on principles of optimisation transfer principles by Lange~\cite{Lange2000}, decouple 4D reconstruction to an EM update over all data and to an ML problem in image space. The first step iterates though the data and updates the activity estimate images, while the second simply updates the model parameters over the  updated activity images. With the second step being much faster, multiple dynamic model updates can be conducted for each update over data and result in acceleration of overall convergence. Results were demonstrated by Wang \textit{et al}~\cite{Wang2010} for EM and PCG based optimisations using linear models~\cite{Wang2010}. While that work was limited to linear dynamic models, the work by Matthews \textit{et al} generalised on the optimisation of the image space ML problem by the use of an equivalence to a weighted least-square minimisation problem~\cite{Matthews2010}. This formulation allowed for use of existing LS optimisation algorithms, which are commonly used for post-reconstruction model fitting, to be used in 4D reconstruction with both linear and non-linear models. The disadvantage of this approach is that the resulting ML formulation is not concave and thus does not guarantee monotonic convergence to a global maximum. Nevertheless convergence behaviour has been observed in practice with different weighting schemes~\cite{Gravel2015,Wang2013}. \\
@@ -158,10 +159,10 @@ The used of non-linear models with 4D reconstruction has shown clear benefits in
 
 
 
-\subsection{Optimization transfer}
+\section{Optimization transfer}
 %\include{2_Theory_Methods/2_3_Optimization_Transfer}
 
-\subsection{Dynamic reconstruction - NestedEM}
+\section{Dynamic reconstruction - NestedEM}
 As described in \textit{Image representation}, the common model used for describing and discretizing the radiotracer distribution is the voxel, where for dynamic data they are extended to individual sets of voxels for each temporal bin. 
 As described in section \textit{Kinetics}, dynamic data are used to seek parameters of a kinetic model that aims in explaining the behaviour of the pharmacokinetics. Conventionally the data of each frame are reconstructed individually in individual 3D reconstructions and the result images are used for post-reconstruction modelling. When the parameters sought are calculated at the voxel level, the result is a set of parameters for each voxel of the 3D reconstruction voxels, which are referred to as parametric maps. If we an example dynamic model that describes the dynamic evolution of the radiotracer distribution with parameters $\theta_{pj}$ of $p=1..n_p$ parameters for each voxel $j$, we can write the radiotracer activity distribution as 
 \begin{equation}
@@ -181,7 +182,7 @@ When the spatio-temporal data $\bm{\lambda}$ are reconstructed form individual 3
 Instead of this two-step process, it is possible to derive reconstruction algorithms that include dynamic models and can be applied on the whole of the dynamic PET data. These reconstruction algorithms, which are referred to as 4D reconstruction algorithms due to their application in 4 dimensions, seek to reduce the problem of limited counts that would else be used in individual frame bins by making use of the whole of the dynamic PET data. The dynamic models used are chosen to provide meaningful constrains and when the model of interest that would otherwise be used post-reconstruction is included, the 4D reconstruction algorithms can directly provide the parameters and parametric images of interest. 
 Typically (although its not always the case) the number of parameters of dynamic models is smaller than the number of time frames in a study and so the use of 4D reconstruction effectively reduces the number of parameters to estimate, that along with the constraints imposed by the dynamic model result in an important reduction of noise and potentially improved bias. Furthermore direct use of dynamic models in reconstructions allows for the use of the noise-model that describes the PET data detection to be accounted for in the estimation of the final dynamic model parameters. 
 
-\subsubsection{4D reconstruction optimisation}
+\subsection{4D reconstruction optimisation}
 Using the generic dynamic model $f()$ the conditional expectation of the complete complete data is given by 
 \begin{equation}
 \hat{z}_{tij}(\bm{\theta}^{(k)},y_{ti}) = 
@@ -243,11 +244,12 @@ f_{tb}^{(EM)}(\bm{\theta}^{(k)})
 \end{equation}
 By the use of the complete data we have separated the problem into an update over PET raw data for each voxel and each time frame using~\ref{eqn:EM_Update_image}, followed by an image based optimisation of the dynamic model parameters using equation~\ref{eqn:NestedOptimization}. 
 
-\subsubsection{Linear dynamic models - direct 4D reconstruction}
+\subsection{Linear dynamic models - direct 4D reconstruction}
 As described in the \textit{Pharmacokinetics} section, many useful models utilised in practice are linear models which are constructed from transformations of the input function into sets of basis functions.
 The model of the activity distribution using a linear model of $n_b$ parameters is
 \begin{equation}
 \lambda_{tj} = \sum_{p=1}^{n_p} B_{tp}   \theta_{pj} \\, 
+\label{eqn:2_3_LinearBasis}
 \end{equation}
 \begin{equation}
 \bm\lambda_{t} = \sum_{p=1}^{n_p} B_{tp}  \bm\theta_{p}  \\.
@@ -271,7 +273,7 @@ In this particular case of linear dynamic models it is straightforward to incorp
 %
 %
 %
-\subsubsection{Linear dynamic models - Nested EM}
+\subsection{Linear dynamic models - Nested EM}
 As described in the \textit{Pharmacokinetics} section, many useful models utilised in practice are linear models which are constructed from transformations of the input function into sets of basis functions.
 The model of the activity distribution using a linear model of $n_b$ parameters:
 \begin{equation}
@@ -307,4 +309,4 @@ The advantages or the use of nested EM optimisation, even for liner dynamic mode
 
 
 
-\subsubsection{Non-linear dynamic models}
+\subsection{Non-linear dynamic models}

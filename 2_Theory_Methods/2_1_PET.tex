@@ -1,15 +1,15 @@
 % Positron Emission tomography (includes Physics, detector basics, Event types and data types, PET ring systems and acquisition modes (2D and 3D) , Corrections, , PET WB acquisition mode and fussion -> multibed, Hybrid PET systems (PET-CT, PET-MR)) 
 This section covers aspects of the main principles of \gls{pet} and serves as a brief introduction into the notions that are necessary for the description of the work carried out in this thesis. It is not an exhaustive review of the processes involved in \gls{pet} imaging. Readers can find more basics principles explained in detail in the textbooks which are frequently referenced in this chapter.
 
-\subsection{Historical Perspective}
+\section{Historical Perspective}
 The main principles of a \Gls{pet} imaging system were developed and demonstrated with a working scanner prototype in late 1970s by Ter-Pogossian et al.~\cite{Ter-Pogossian1975} and Phelps et al.~\cite{Phelps1975}. The main concept of their prototype, which forms the basis of \gls{pet} devices, was the placement of detectors in a circular formation around the imaged object and the detection of annihilation photon pairs which serves as "Electronic" collimation. The combination of these principles makes \gls{pet} imaging superior to single photon based imaging devices still until today. 
 Early systems were limited due to cost and engineering limitations to an axial coverage of a few axial planes, and were mostly used in brain imaging. Development of scanner models with higher axial \gls{fov} enabled use for imaging of other organs than the brain, where in combination with the FDG tracer (a glucose analogue tracer) quickly showed potential in detection of extra-cranial tumours~\cite{Nutt2002}.
 The expanded \gls{fov} along with the capability of achieving whole-body coverage by use of shifted axial acquisitions~\cite{Dahlbom1992} (multiple axial bed positions to achieve whole-body coverage) have secured the use of \gls{pet} in oncology~\cite{Bomanji2001} and driven many more technological developments towards higher sensitivity for  improved small lesion detectability and reduction of scan time~\cite{Jones2017}.
 
 
-\subsection{Fundamental physics of PET}
+\section{Fundamental physics of PET}
 
-\subsubsection{Positron emission}
+\subsection{Positron emission}
 As its name suggests, \gls{pet} is an imaging method based in positron emission. Positron emission is a spontaneous process that happens as part of the β$^{+}$ decay process of radionuclides. 
 Radionuclides are comprised of atoms with excess energy that decay to stable forms via routes that result to emission of radiation.
 The rate at which a radionuclide undergoes decay depends on its characteristic half-life $T_{1/2}$. This is defined as the time taken for half of the nuclei of a specific radionuclide to decay. The rate of decay at any time $t$ is defined as the activity $A(t)$,measured in Becquerels (Bq), which changes over time according to
@@ -45,7 +45,7 @@ A list of commonly used positron emitting radioisotopes used for \gls{pet} imagi
 \label{tab:radioisotopes}%
 \end{table}%
 
-\subsubsection{Interactions with matter}
+\subsection{Interactions with matter}
 The range of positrons within tissue is relatively short, with the majority of positrons being annihilated within the body.
 On the other hand the 511 \si{k\electronvolt} photons have less chances of interacting within the body and a large fraction of them will exit the imaged object without interacting. 
 
@@ -58,7 +58,7 @@ The two most probable interactions for high energy photons of 511 \si{k\electron
 \label{fig_2:511_interactions}
 \end{figure} 
 %
-\subsubsection{Attenuation}
+\subsection{Attenuation}
 Knowledge of the probabilities for interaction of the 511 \si{k\electronvolt} photons in a material can be used to calculate a precise attenuation factor that can be applied at the macroscopic level. Given a well collimated photon beam of intensity $I_0$, the intensity $I_x$ at depth $x$ within the material (along the direction of the beam) will be reduced due to interactions with the material acording to
 \begin{equation} \label{Attenuation}
 I_x = I_0 e^{-\mu x} \ ,
@@ -74,9 +74,9 @@ Specifically for \gls{pet} where we are interested in the detection of both anih
 \label{fig_2:511_attenuation}
 \end{figure} 
 
-\subsection{PET Systems}
+\section{PET Systems}
 
-\subsubsection{PET Detectors}
+\subsection{PET Detectors}
 The goal of a PET imaging system is to stop and detect the annihilation photon pairs and record information that can be used to estimate the annihilation event's position.
 The basic component for the detection of annihilation gammas is the scintillation crystal. These are inorganic crystals that emit light (lower energy photons) upon interaction with the gammas. The amount of produced light is proportional to the energy deposited by the gamma interactions and can be used to deduce energy information of the interaction. Photosensitive detectors are coupled with the crystals to capture the produced light and output an electronic signal that can be digitally registered. Traditionally \glspl{pmt} are used in most PET systems, while some more recent systems make use of \glspl{sipm}. Depending on their mode of operation \glspl{sipm} can allow for better efficiency and response speed and can be used in conditions where \glspl{pmt} could not, such as within the MR field of PET-MR hybrid systems.
 %
@@ -99,10 +99,10 @@ The basic component for the detection of annihilation gammas is the scintillatio
 The most common configuration of the PET detectors is within a block or module configuration, where a smaller number of photosensitive detectors to number of crystals is used. Examples are shown in figure~\ref{fig_2:BlockDetectorAndRing} for PMT based scanners and figure~\ref{fig_2:SignaPETMR_Integrated_System} for SiPMs within a hybrid PET-MR system. 
 The blocks or modules are placed in ring configurations that provide full 360degrees of coverage in the transaxial direction. Multiple rings are often placed adjacent to each together to increase axial coverage and solid angle coverage that effectively increases the detection sensitivity. 
 
-\subsubsection{PET Data coincidence sorting}
+\subsection{PET Data coincidence sorting}
 Individual events recorded by the detectors are called "single" events. In \gls{pet} detection of annihilation events requires the detection of both annihilation generated photons. To identify these photons the detection system makes use of "coincidence detection", which sorts pairs of single events detected within a predefined timing window as photons originating from an annihilation, or else true coincidence events. 
 Due to uncertainties in the photosensitive detectors which result in timing uncertainly, a timing resolution τ is defined for the system.The coincidence timing window is then set at 2τ to sort pairs of events as coincidences.
-As detectors and systems improve on timing resolution it now also possible to record the difference in arrival time between two coincidence photons, owing to the difference in distance travelled from annihilation to detection and the finite speed of light. That difference provides additional information for each detection, refereed to as \textit{time-of-flight} (TOF). This additional information can be used for better positional estimation of annihilation events across the \gsl{lor}, as shown in figure~\ref{fig_2:TOF_bin}, resulting in improved reconstructed image quality and sensitivity.
+As detectors and systems improve on timing resolution it now also possible to record the difference in arrival time between two coincidence photons, owing to the difference in distance travelled from annihilation to detection and the finite speed of light. That difference provides additional information for each detection, refereed to as \textit{time-of-flight} (TOF). This additional information can be used for better positional estimation of annihilation events across the \gls{lor}, as shown in figure~\ref{fig_2:TOF_bin}, resulting in improved reconstructed image quality and sensitivity.
 %
 %
 \begin{figure} [h!]
@@ -138,8 +138,8 @@ Multiple events (more than two) can be are recorded within the coincidence timin
 \end{figure} 
 %
 %
-\subsubsection{PET acquisition}
-As described the ring formation of PET detectors is the dominant geometry used in PET systems. Using multiple rings resuts in increase of axial \gsl{fov}, solid angle coverage and possible combinations of detectors meaning higher number of ~\glspl{lor}. But early multi ring systems were making use of 2D acquisition, where only direct and cross-plane ring coincidences were allowed. 
+\subsection{PET acquisition}
+As described the ring formation of PET detectors is the dominant geometry used in PET systems. Using multiple rings resuts in increase of axial \gls{fov}, solid angle coverage and possible combinations of detectors meaning higher number of ~\glspl{lor}. But early multi ring systems were making use of 2D acquisition, where only direct and cross-plane ring coincidences were allowed. 
 This was enforced using tungsten septa between rings, as seen in figure~\ref{fig_2:2D3D}.The use of cross-planes allowed for the increase in axial resolution and the septa result in an uniform axial sensitivity profile as seen in figure~\ref{}. 
 
 With evolving detector and electronics technology, 3D acquisition became possible and is now the standard acquisition mode. 3D acquisition offers the same data as 2D acquisition but also includes all the oblique \glspl{lor} data resulting in an increase of sensitivity (4 to 6 times)~\cite{Fahey2002}. The use of oblique views leads to non-uniform sensitivity profiles in the axial direction due to the higher number of \glspl{lor} closer to the center of the A-FOV, with the maximum sensitivity at the centre and a minimum at the edges of the axial \gls{fov}. A comparison between the 2D and 3D sensitivity on the same 45 direct planes is shown as an example in figure~\ref{fig_2:2D3DSensitivityProfiles}.
@@ -163,7 +163,7 @@ In 3D mode the maximum angle of events accepted in the axial direction can be so
 %
 In multiple beds acquisition, used to image objects with a length larger than the scanner A-\gls{fov}, in order to maintain an uniform axial sensitivity a degree of overlapping is used. This allows for the regions at the edges of the bed positions to be sampled in two bed acquisitions and even out the sensitivity of the combined acquisition. The degree of overlapping can vary, depending on requirements of sensitivity uniforming and speed of acquisition.
 %
-\subsubsection{Storage of PET coincidence events}
+\subsection{Storage of PET coincidence events}
 The recorded coincidence data are stored digitally to allow post processing and reconstruction of image data.
 The different methods for storing the data can result to different storage requirements, allow or not allow for specific event information to be stored and even necessitate different reconstruction techniques. 
 
@@ -200,7 +200,7 @@ In practice events can be detected in any angle within the transaxial plane as w
 
 \end{itemize}
 
-\subsubsection{PET Corrections and Quantification}
+\subsection{PET Corrections and Quantification}
 
 \begin{itemize}
 \item\textbf{Randoms correction}\\
@@ -218,27 +218,27 @@ Contrary to other nuclear medicine techniques, \gls{pet} is fully quantitative a
 \end{itemize}
 
 
-\subsection{Hybrid PET Systems}
+\section{Hybrid PET Systems}
 As described above attenuation correction is essential for quantitative \gls{pet} imaging. Early \gls{pet} systems made use of external sources to acquire a transmission scan. Those would be either positron sources or single photon sources. Some of the drawbacks of these methods were that transmission scans would contribute to an increase of image noise on PET images and that transmission scan acquisition was increasing the total duration of the examination. 
 Apart from attenuation correction the transmission scan was also used to find anatomical landmarks for correlation with findings in the PET scans. In clinical practice image fusion is preferred when possible, to combine information from CT and MRI scans with PET when those are available. 
 These needs led to the development of hybrid PET systems, with the first PET/CT system being introduced in late 1990s and the first simultaneous PET/MR system in 2010~\cite{Townsend2008}. [Find PET/MR Reference]
 
-\subsubsection{PET-CT}
+\subsection{PET-CT}
 The birth of hybrid PET/CT was driven by the clinical need of anatomical information needed to improve the diagnostic examination provided by functional images that PET provides. The first PET/CT prototype was designed with this aim in order to provide clinical quality CT with clinical quality PET~\cite{Townsend2008}. The first PET/CT was able to acquire a whole body PET/CT scan within an hour with precisely co-registered CT and PET images that were acquire close in time~\cite{Beyer2000}. The CT scan was also used for PET attenuation correction via scaling of attenuation factors that were measured for the CT X-ray energy to \si{k\electronvolt} of annihilation photons~\cite{Kinahan1998}. PET/CT eliminated the requirement for an additional transmission scan and the problems with added noise associated with transmission images. 
 
-\subsubsection{PET-MR}
+\subsection{PET-MR}
 MRI provides anatomical images with higher soft-tissue contrast from CT imaging. The option of different acquisitions sequences allow for different type of MR imaging to be performed, which also includes functional MR imaging applications such as perfusion, diffusion, and spectroscopy for metabolites imaging. 
 The fusion of PET and MR was challenging due to interference between the two systems~\cite{Disselhorst2014}. The use of PMT based detectors was possible only with long optical fibbers that shifted the detection of events at a distance away from the centre of the magnetic field~\cite{Shao1997,Mackewn2010}, while advancements with SiPM based detectors allowed for development of PET inserts~\cite{Kolb2012} and development of fully integrated PET-MR systems that perform synchronous acquisitions~\cite{Delso2011,Grant2016,Levin2016}.
 
  %Research tool ? Research focus !
 
-\subsection{Whole Body \& Total Body PET}
+\section{Whole Body \& Total Body PET}
 For many clinical applications as for example in oncology, PET imaging over the whole body is essential for detection and characterisation of metastatic disease. Developments in PET detectors technology and reduction of production costs has resulted in increasing axial length of PET scanners, with current widespread use of models(in 2021) offering between 10 to 26 cm of axial coverage.
 A typical whole body examination will actually cover about half of the body , from base of the skull to the knees, and can be accomplished with as little as 5 bed positions and within a total examination time of 30 minutes. Certain diseases in oncology require full whole body coverage, in which case more bed positions are added and additional time is taken. 
 The desired whole body coverage is achieved with acquisition of multiple bed positions, shifted in the axial direction. With scanners operated in 3D acquisition mode and the resulting varying axial sensitivity profile, the bed positions have to be overlapped to result in an even sensitivity profile and similar image noise across axial slices in the reconstructed PET images. 
 
 !For the Signa PET/MR a total of 89 2.78 slices are imaged per bed position, using the set of xxx crystals. !
 
-\subsubsection{Latest technological advancements}
+\subsection{Latest technological advancements}
 Longer axial coverage was always a desirable characteristic for PET, but limitations in technology and costs only made it possible only during the recent years. Longer A-FOV scanners, with 70cm and 194cm length have been developed within the Explorer project in collaboration with United Imaging~\cite{Cherry2017,Badawi2019}. A 106cm long PET-CT scanner is also now commercially available by Siemens~\cite{Siegel2020}.  The models that are able to encompass the entire body at once, are referred as total-body systems. 
 The increase of axial length offers many potential benefits for clinical and research applications. Most of those are linked to the increase in sensitivity offered by the greater A-FOV and number of total detectors. From 20cm to 100cm A-FOV an sensitivity increase of 2-3x is expected for single organ studies, but that is increased to 10-20x for whole body examinations~\cite{Vandenberghe2020}. The increased sensitivity can be used for performing ultra short or ultra low dose imaging, or a combination of both. This type of technology also offers the opportunity for whole-body dynamic imaging in clinical and research applications. 

@@ -1177,3 +1177,34 @@ url = {http://www.neurology.org/lookup/doi/10.1212/WNL.0000000000007378},
 volume = {92},
 year = {2019}
 }
+
+@article{Merlin2018,
+	abstract = {In tomographic medical imaging (PET, SPECT, CT), differences in data acquisition and organization are a major hurdle for the development of tomographic reconstruction software. The implementation of a given reconstruction algorithm is usually limited to a specific set of conditions, depending on the modality, the purpose of the study, the input data, or on the characteristics of the reconstruction algorithm itself. It causes restricted or limited use of algorithms, differences in implementation, code duplication, impractical code development, and difficulties for comparing different methods. This work attempts to address these issues by proposing a unified and generic code framework for formatting, processing and reconstructing acquired multi-modal and multi-dimensional data. The proposed iterative framework processes in the same way elements from list-mode (i.e. events) and histogrammed (i.e. sinogram or other bins) data sets. Each element is processed separately, which opens the way for highly parallel execution. A unique iterative algorithm engine makes use of generic core components corresponding to the main parts of the reconstruction process. Features that are specific to different modalities and algorithms are embedded into specific components inheriting from the generic abstract components. Temporal dimensions are taken into account in the core architecture. The framework is implemented in an open-source C++ parallel platform, called CASToR (customizable and advanced software for tomographic reconstruction). Performance assessments show that the time loss due to genericity remains acceptable, being one order of magnitude slower compared to a manufacturer's software optimized for computational efficiency for a given system geometry. Specific optimizations were made possible by the underlying data set organization and processing and allowed for an average speed-up factor ranging from 1.54 to 3.07 when compared to more conventional implementations. Using parallel programming, an almost linear speed-up increase (factor of 0.85 times number of cores) was obtained in a realistic clinical PET setting. In conclusion, the proposed framework offers a substantial flexibility for the integration of new reconstruction algorithms while maintaining computation efficiency.},
+	author = {Merlin, Thibaut and Stute, Simon and Benoit, Didier and Bert, Julien and Carlier, Thomas and Comtat, Claude and Filipovic, Marina and Lamare, Fr{\'{e}}d{\'{e}}ric and Visvikis, Dimitris},
+	doi = {10.1088/1361-6560/aadac1},
+	issn = {1361-6560},
+	journal = {Physics in Medicine {\&} Biology},
+	keywords = {CT,PET,SPECT,image reconstruction,multimodal,software,tomographic},
+	mendeley-groups = {MIC,PhD/MIC2020},
+	month = {sep},
+	number = {18},
+	pages = {185005},
+	title = {{CASToR: a generic data organization and processing code framework for multi-modal and multi-dimensional tomographic reconstruction}},
+	volume = {63},
+	year = {2018}
+}
+
+@article{Jan2011,
+author = {Jan, S and Benoit, D and Becheva, E and Carlier, T and Cassol, F and Descourt, P and Frisson, T and Grevillot, L and Guigues, L and Maigne, L and Morel, C and Perrot, Y and Rehfeld, N and Sarrut, D and Schaart, D R and Stute, S and Pietrzyk, U and Visvikis, D and Zahra, N and Buvat, I},
+doi = {10.1088/0031-9155/56/4/001},
+file = {:C\:/Users/chalampalakis/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/cb5fcc9e17392aaecf02be163a47106f72e151bf.html:html},
+issn = {0031-9155},
+journal = {Physics in Medicine and Biology},
+month = {feb},
+number = {4},
+pages = {881--901},
+title = {{GATE V6: a major enhancement of the GATE simulation platform enabling modelling of CT and radiotherapy}},
+url = {https://pubmed.ncbi.nlm.nih.gov/21248393/ https://iopscience.iop.org/article/10.1088/0031-9155/56/4/001},
+volume = {56},
+year = {2011}
+}
