@@ -69,7 +69,7 @@ But while analytical reconstruction are linear processes that result to estimate
 
 \section{Formulation of the system model}
 One main advantage of iterative reconstruction methods is the ability to make use of complex models that map the radiotracer distribution from image space to data space, which can include physical processes such as positron range, scatter and random contributions, attenuation effects, normalisation factors etc.
-The projection process described above can be modelled using a matrix $\bm{X}$ of $n_i$x$n_j$ dimensions. This is the projection or system matrix and each ${X}_{ij}$ element is the average probability of detecting an emission from voxels site $j$ at the data bin $i$. With that the projection of an image $\mb{\lambda}$ at bin $i$ can be written as a sum over the contribution of all voxels from the image
+The projection process described above can be modelled using a matrix $\bm{X}$ of $n_i$x$n_j$ dimensions. This is the projection or system matrix and each ${X}_{ij}$ element is the average probability of detecting an emission from voxels site $j$ at the data bin $i$. With that the projection of an image $\bm{\lambda}$ at bin $i$ can be written as a sum over the contribution of all voxels from the image
 \begin{equation}
    \hat{y_i} = \sum_{j=1}^{n_j} X_{ij} \lambda_j  ,
 \end{equation}

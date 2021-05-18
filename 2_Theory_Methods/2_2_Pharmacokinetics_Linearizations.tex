@@ -1,0 +1,83 @@
+\begin{zach}
+\section{Linearisation methods}
+The analytical solutions of the first order differential equations that describe the compartment models involve exponential terms with all model parameters on the exponents, with the exception of $K_1$. The estimation of the model parameters from measured data requires non-linear fitting methods. These methods, such as the commonly used Marquardt-Levenberg algorithm, are iterative search algorithms which are demanding in execution time, sensitive to variations due to noise and do not guarantee convergence to a global minimum. These factors pose significant limitations on the use of non-linear algorithms, especially in the case of parametric imaging as we will see later on where the search algorithm needs to be applied on every voxel of the series of dynamic images.\par
+Assumptions and simplifications can be made by transformation of the models in a form that enables the use of regular linear least-squares fitting, in a process that is named linearisation. Depending on the model and the method used, linearisations can result in forms that allow complete estimation of the model parameters or in forms that provide restricted information about the model. 
+
+\subsection{1TCM linearization}
+The 1TCM described by the differential equation in \ref{eqn:1TCM_Diff} can be simply transformed by integrating over time which results in the form of equation \ref{eqn:1TCM_Lin}. This can be writen in the form of equation \ref{eqn:1TCM_Lin_2} which cannot be used to describe the model, as $C_T$ appears on both sides of the equation, it can be used to estimate the model parameters $K_1$ and $k_2$ from a simple least-squares linear fit using measured data of $C_T$ and the input function $C_A$. 
+
+\begin{equation}
+C_T = K_1 \int_{0}^{t} C_A d\tau  - k_2 \int_{0}^{t} C_T d\tau
+\label{eqn:1TCM_Lin}
+\end{equation}
+
+\begin{equation}
+\frac{C_T}{\int_{0}^{t} C_A d\tau} = K_1 - k_2 \frac{\int_{0}^{t} C_T d\tau}{\int_{0}^{t} C_A d\tau} 
+\label{eqn:1TCM_Lin_2}
+\end{equation}
+
+If the case of the model applied in perfusion measurements, using an inert and diffusible tracer, the radioactivity of vascular blood inside the measured PET volume can be taken into account by including the arterial volume fraction  $V_A$ of the arterial concentration $C_A$ in the equation. The result solution is the form \ref{eqn:1TCM_Lin_3}, which can be solved using linear least square algorithms.
+
+\begin{equation}
+C_{PET} = K_1 \int_{0}^{t} C_A d\tau - k_2 \int_{0}^{t} C_T d\tau + V_A \cdot C_A
+\label{eqn:1TCM_Lin_3}
+\end{equation}
+
+\subsection{2TCM linearization}
+The system describing the 2TCM in \ref{eqn:2TCM_Diff} can be integrated twice and following rearrangements be written in the following form, according to the rearrangements from Cai et al. \cite{Cai2002}.   
+
+\begin{equation} \label{microLinearization_with_k4}
+C_{PET} = P_1 C_A + P_2 \int_0^t \! C_A \, \mathrm{d}\tau + P_3 \int_0^t \int_0^\tau \! C_A \,\mathrm{d}s \mathrm{d}\tau
++ P_4 \int_0^t \! C_{PET} \, \mathrm{d}\tau + P_5 \int_0^t \int_0^\tau \! C_{PET} \,\mathrm{d}s \mathrm{d}\tau
+\end{equation}
+\newline From which the kinetic parameters can be extracted as: 
+
+\begin{equation} \label{ParamsLinearization_with_k4}
+K_1=\frac{P_1 P_4 + P_2}{1-P_1} ,\  K_2=- \frac{P_1 P_5 + P_3}{P_1 P_4 + P_2} - P_4 ,\ K_3=-(k_2 + k_4 + P_4) 
+,\ K_4=-(P_5/k_2) ,\  V_B = P_1 
+\end{equation}
+
+
+if prior knowledge of the kinetics behaviour allows to assume that $k_{4} = 0 $ the relationship becomes: 
+
+\begin{equation} \label{microLinearization_no_k4}
+C_{PET} = P_1 C_A + P_2 \int_0^t \! C_A \, \mathrm{d}\tau + P_3 \int_0^t \int_0^\tau \! C_A \,\mathrm{d}s \mathrm{d}\tau
++ P_4 \int_0^t \! C_{PET} 
+\end{equation}
+ From which the kinetic parameters can be extracted as: 
+
+\begin{equation} \label{ParamsLinearization_no_k4}
+K_1=\frac{P_1 P_4 + P_2}{1-P_1} ,\  K_2=- \frac{P_3}{P_1 P_4 + P_2} - P_4 ,\ K_3=\frac{P_3}{P_1 P_4 + P_2} ,\  V_B = P_1
+\end{equation}
+
+\section{Basis functions method}
+For the 2TCM the solution of the system in its general form, with the assumption of $k_4 = 0$, can be re-written according to \cite{Hong2010} as 
+
+\begin{equation} \label{BFM_FullSolution_no_k4}
+C_{PET} = (\theta_1 + \theta_2 e^{-\alpha_2 t } ) \otimes C_A + V_B C_B
+\end{equation}
+\begin{equation} \label{BFM_FullSolution_no_k4_simplified}
+C_{PET} = \theta_1 \otimes C_A + \theta_2 e^{-\alpha_2 t } \otimes C_A   + V_B C_B
+\end{equation}
+
+In the form of the 2TCM \ref{BFM_FullSolution_no_k4_simplified} the non linear term involving the exponent can estimated via a search within a range of possible values. A large set (for example N=100) basis functions can be pre-calculated for the non-linear term, which can then be used along with a linear least-square solution of the other terms in \ref{BFM_FullSolution_no_k4_simplified_BasisFunctions} to find the solution with the lowest residual sum of squares. From that solution the found $\alpha_2$ parameter and the fitted $\theta_1$ and $\theta_2$ can be used to estimate the 2TCM microparameters using
+
+\begin{equation} \label{BFM_FullSolution_no_k4_simplified_BasisFunctions}
+C_{PET} = \theta_1 \int_0^t \! C_A \, \mathrm{d}\tau + \theta_2 B_{2j}   + V_B C_B
+\end{equation}
+
+\begin{equation} \label{BasisFunctions}
+B_{2j} = e^{-\alpha_2 t } \otimes C_A   \ \ ; \  j=1..N \textrm{ for different } \alpha_2 \in [0.06,0.6]min^{-1}
+\end{equation}
+
+
+\begin{subequations}
+\begin{align}
+K_1 = \frac{\theta_1 + \theta_2}{1-V_b} \\
+k_2 = \frac{\theta_2\alpha_2}{\theta_1 + \theta_2} \\
+k_3 = \frac{\theta_1\alpha_2}{\theta_1 + \theta_2}
+\end{align}
+\label{eqn:FDG_microparameters}
+\end{subequations}
+
+\end{zach}
