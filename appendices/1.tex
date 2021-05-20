@@ -1,5 +1,141 @@
 % created on 2019-12-13
 % @author : bmazoyer
 
-\chapter{Acquisition optimization}
+\chapter{Acquisition optimization: Data exportation and processing}
+\label{chap:AppendixA}
+
+\begin{table}[]
+\centering
+\label{tab:IsotPK_CE_details}
+\caption{Details of Whole Body Sweeps of IsotoPK DWB protocol.}
+\begin{tabular}{|l|l|l|}
+\toprule
+\textbf{Whole Body Sweep ID} & \textbf{PET Bed Frame Duration (s)}                   & \textbf{MRAC (Acquired or copied)} \\
+\midrule
+CE00 blanc          & {N/A}                                          & Yes  \\
+Liver               & 10x18                                          & Yes  \\
+CE01                & 20                                             & From CE00     \\
+CE02                & 20                                             & From CE00     \\
+CE03                & 20                                             & Yes           \\
+CE04                & 20                                             & From CE03     \\
+CE05                & 20                                             & Yes  \\
+CE06                & 20                                             & From CE05     \\
+CE07                & 20                                             & Yes  \\
+CE08                & 20                                             & From CE07     \\
+CE09                & 20                                             & Yes  \\
+CE10                & 30                                             & Yes  \\
+CE11                & 30                                             & From CE10     \\
+CE12                & 30                                             & Yes  \\
+CE13                & 30                                             & Yes  \\
+CE14                & 30                                             & From CE13     \\
+CE15                & 30                                             & Yes  \\
+CE16                & 30                                             & Yes  \\
+CE17                & 30                                             & From CE16     \\
+CE18                & 40                                             & Yes  \\
+CE19                & 40                                             & Yes  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\section{Export and offline reconstruction of IsotoPK DWB data}
+Reconstruction of DWB on the Signa PET-MR console is made with certain limitations and does not allow for full and accurate use of the acquired data, with the correct timing information per bed acquisition which is especially important in estimation of parametric maps. \\
+To make better use of these datasets, an export and offline processing pipeline was developed as part of this PhD project. The pipeline is based on custom-made python scripts and matlab scripts, that integrate with the GE-PET toolbox. This is a toolbox provided by GE for certain offline reconstruction operations. In this pipeline the Toolbox is used for generation of image corrections. These include normalisation factors, attenuation factors from MRACs, random and scatter corrections as well as dead-time corrections. 
+
+\subsection{Export from Console}
+DWB studies are exported from the PET-MR console using a custom export tool provided by GE, that provides the whole study in the following directory structure.  \\
+\dirtree{%
+.1 {20200110\_e02066\_02-DF-10\ (Date “YYYY-MM-DD”,  StudyID)}.
+.2 LST.
+.3 LST\_30501\_PET\_CE\_00\_a\_blanc.
+.3 LST\_30502\_PET\_Liver.
+.3 LST\_30503\_PET\_CE\_01.
+.3 LST\_30504\_PET\_CE\_02.
+.3 LST\_30505\_PET\_CE\_03.
+.3 $\dots$.
+.2 MRAC.
+.3 WATER\_1\_PET\_CE\_00\_a\_blanc.
+.3 WATER\_1\_PET\_Liver.
+.3 WATER\_1\_PET\_PET\_CE\_03.
+.3 $\dots$.
+}
+
+Those are then processed using the custom-made pipeline as follows:
+\begin{itemize}
+    \item \textbf{Step1: Verify Injection Time} \\
+    Before organising the DWB data, it is important to verify the injection time point, to which all the DWB will be decay corrected to. 
+    In this pipeline we verify the injection time by inspecting the total prompt to time curve from the list-mode dataset of the single-bed dynamic phase, as shown in figure. 
+    \item \textbf{Step2: DWB data sorting} \\
+    The data are re-sorted to single directories per WB sweep, where each directory includes the list-mode data of sweep's five bed positions and their corresponding MRACs if acquired. Subsequently, for sweeps with no acquired MRAC, the MRACs of previous sweeps are copied in these directories.
+    At this step all the timing information from the headers of the PET list and MRAC files are extracted and saved in a database. 
+    \item \textbf{Step3: GE-PET Toolbox processing } \\
+    The data in each sweep's directory are unlisted and reconstructed with the GE-PET Toolbox as individual static acquisitions. This process generates the required corrections for reconstruction. Similar processing is applied for the single-bed dynamic phase, which is reconstructed by the toolbox as a dynamic study.
+    \item \textbf{Step4: Conversion to CASToR datafiles} \\
+    The list-mode raw data and the generated corrections are used to make CASToR list-mode datafiles as well as normalization files for each bed position of the acquisition and for all dynamic frames of the single-bed dynamic phase. 
+    The time-tags of each list-mode file are modified accordingly, to the injection time point reference, using the database information build earlier. 
+\end{itemize}
+
+\begin{table}[]
+\begin{tabular}{lrlrrrrrlr}
+\toprule
+{Index} &  Bed Instance &  List\ Frame\ Time &  Frame\ Duration & MRAC Number &  MRAC\_AC &  FrameStartTime \\
+\midrule
+5  &         1 &  152358.301552 &            270 &           18 &          True &         -93.200 \\
+6  &         1 &  152854.357026 &             20 &           12 &          False &         202.855 \\
+7  &         2 &  152919.427076 &             20 &           13 &          False &         227.925 \\
+8  &         3 &  152944.578076 &             20 &           14 &          False &         253.076 \\
+9  &         4 &  153009.716076 &             20 &           15 &          False &         278.214 \\
+10 &         5 &  153034.852076 &             20 &           16 &          False &         303.350 \\
+11 &         1 &  153121.372932 &             20 &           12 &          False &         349.871 \\
+12 &         2 &  153146.440050 &             20 &           13 &          False &         374.938 \\
+13 &         3 &  153211.581050 &             20 &           14 &          False &         400.079 \\
+14 &         4 &  153236.720050 &             20 &           15 &          False &         425.218 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[ht!]
+\centering
+\label{tab:TimmingTable}
+\caption{Example Timing Table, used as input for the fully automated DWB protocol.}
+\begin{tabular}{|l|l|l|l|}
+\toprule
+\textbf{} & \multicolumn{3}{c|}{Durations(s)} \\ 
+\textbf{Sweep} & \textbf{Bed-1} & \textbf{Bed-2} & \textbf{Bed-3} \\
+\midrule
+1     & 10    & 10   & 10    \\
+2     & 10    & 10                        & 10    \\
+3     & 10    & 10                        & 10    \\
+4     & 20    & 20                        & 20    \\
+5     & 20    & 20                        & 20    \\
+6     & 20    & 20                        & 20    \\
+7     & 20    & 20                        & 20    \\
+8     & 20    & 20                        & 20    \\
+9     & 30    & 30                        & 30    \\
+10    & 30    & 30                        & 30    \\
+11    & 30    & 30                        & 30    \\
+12    & 30    & 30                        & 30    \\
+13    & 30    & 30                        & 30    \\
+14    & 45    & 45                        & 45    \\
+15    & 45    & 45                        & 45    \\
+\multicolumn{4}{|l|}{$\dots$} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+A short \gls{sop} for the use of the protocol is given in the following steps:
+
+\begin{enumerate}
+    \item Load "IsotoPK\_Commander" python class and create new object on a terminal in the PET-MR console. 
+    \item Perform scout of subject, plan the desired bed positions for PET acquisition and perform MRAC acquisition. 
+    \item Capture the position of the planned PET bed positions.
+    \item Load the "Timing Table" with the frame duration per bed positions and sweep number.
+    \item If a dynamic phase is required, plan the acquisition and acquire an MRAC for this position. 
+    \item Enable table emulation. 
+    \item Initiate a one hour long PET acquisition and once acquisition is ongoing perform injection of the subject. 
+    \item After adequate time has passed for the single-bed dynamic phase start the automated DWB procedure. 
+    \item Once the acquisition has been completed, disable table emulation. 
+\end{enumerate}
 
