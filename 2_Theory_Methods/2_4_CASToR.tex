@@ -49,19 +49,25 @@ The platform is designed to handle three temporal levels of binning. It makes te
     \emph{index start}$\leftarrow$ current subset\;
     \emph{index step}$\leftarrow$ number of subsets\;
     Perform Image-based Convolution (forward step)\;
-    \tcp{Parallel loop}\
-    \For{$e\leftarrow$ index start \KwTo nb events \KwStep index step}
+    \tcp{loop over bed positions}
+    \For{$s\leftarrow 1$ \KwTo nb of beds}
     {
-      \textbf{Get Event corresponding to }\emph{\textbf{e}}\;
-      %Check Image (forward) Deformation for \emph{e}\;
-      \If{Deformation required for $e$}{
-      Perform Image-Based Deformation(forward step)\;}
-      \tcp{Recover system matrix elements associated with this event}
-      \textbf{Compute/load the system matrix elements associated to this Event}\;
-      \tcp{Compute the update term associated to the optimization algorithm}
-      \textbf{Compute the forward model}\;
-      \textbf{Compute the update term(s) to be back-projected}\;
-      \textbf{Back-project update term(s)}\;
+      \tcp{Parallel loop}\  
+      \For{$e\leftarrow$ index start \KwTo nb events \KwStep index step}
+      {
+        \textbf{Get Event corresponding to }\emph{\textbf{e}}\;
+        %Check Image (forward) Deformation for \emph{e}\;
+        \If{Deformation required for $e$}{
+        Perform Image-Based Deformation(forward step)\;}
+        \tcp{apply axial offset for bed}
+        \textbf{Apply bed offset}\;
+        \tcp{Recover system matrix elements associated with this event}
+        \textbf{Compute/load the system matrix elements associated to this Event}\;
+        \tcp{Compute the update term associated to the optimization algorithm}
+        \textbf{Compute the forward model}\;
+        \textbf{Compute the update term(s) to be back-projected}\;
+        \textbf{Back-project update term(s)}\;
+      }
     }
     %\textbf{Synchronize all data}\;
     Perform Image-based Convolution (backward step)\;
@@ -72,12 +78,11 @@ The platform is designed to handle three temporal levels of binning. It makes te
     Estimate/Fit dynamic model \;
     Estimate image from fitted dynamic model \;
     }
-    }
+   }
   }
+\caption{CASToR core iterative loop}
 \label{algo:CASToR_Core}
-\caption{}
 \end{algorithm}
-
 
 \subsection{Motion correction and image deformation}
 Image based deformations can be performed within the iterative loop, over gate bins or bins defined by involuntary motion, that can counteract effects of motion in the data and result in motion free reconstruction using all data (without need of rejection or individual reconstructions per gate).
@@ -95,3 +100,33 @@ As discussed previously in~\autoref{section:Fully_4D_reconstruction}, dynamic re
 To perform this in \gls{castor} a new component was created (named \textit{oDynamicModelManager}) to handle preparation and fitting of dynamic models. The component and its accompanying abstract and specific classes were developed and tested as part of this project, in collaboration and with guidance by this project participants and Dr Thibaut Merlin.
 The developments are described in detail in the !Results! 
 \todo[inline,size=\Large, color=red!40]{Add reference details here after written results!}
+
+\subsection{Multi-bed reconstruction}
+
+With the generic description of the geometry implemented in CASToR, system matrix elements related to each detection event are computed on-the-fly, by projecting a ray though image space, or they are read from a pre-computed system matrix. 
+The on-the-fly computation allow for additional flexibility, which has been used to enable direct multi-bed reconstruction. 
+As described in section~\ref{WB_Static_SS}, multi-bed Step and Shoot (SS) acquisitions make use of overlapping beds to increase the sensitivity at the edges of each bed's FOV. This the raw PET data for a static WB acquisition comprise of a number of acquisition datasets, one for each bed position. We can define the WB raw PET dataset as the collection
+
+\begin{equation}
+   \bm{y} = \Big\{ {\bm{y}_s,s=1,...,n_s} \Big\} \\ , \\
+\end{equation}
+where
+\begin{equation}
+   \bm{y_s} = \Big\{ {y_{si},i=1,...,n_i} \Big\} \\ , \\
+\end{equation}
+
+with $s$ being the index of the $n_s$ number of axial bed positions.
+
+By incorporating the offset of each bed position in the projection operation, equation~\ref{eqn:MLEM} can be re-written for direct reconstruction of the whole acquisition effective \gls{fov}, using all acquired raw data, as
+\begin{equation}
+\lambda_j^{(k+1)} = \frac{\lambda_j^{(k)}}{\sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij}} 
+\sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij} 
+\frac{y_{si}}{\sum_{d=1}^{n_j} P_{sid}\lambda_d^{(k)} + B_{si} } \\ , \\
+\label{eqn:MLEM}
+\end{equation} 
+
+where now the image estimate $\lambda_j^{(k)}$ has the dimensions of the whole effective \gls{fov}, and the additive correction terms $B_{si}$ is provided for each respective bed position $s$. 
+
+Direct reconstruction of multi-bed data, which combines data from overlapping acquisitions within the iterative reconstruction loop, improves the statistics of the overlapping region that are available for each iteration. It has been shown that this technique can result in improved contrast to noise ratios at the overlapping regions, for specific levels of acquisition statistics~\cite{Ross2004}. 
+
+This method has been implemented in CASToR by making use of an additional loop over bed positions and an "Apply bed offset" function, which applies the bed offset to the projector for each bed, as seen in the CASToR iterative algorithm~\ref{algo:CASToR_Core}.
