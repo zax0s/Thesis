@@ -129,4 +129,4 @@ where now the image estimate $\lambda_j^{(k)}$ has the dimensions of the whole e
 
 Direct reconstruction of multi-bed data, which combines data from overlapping acquisitions within the iterative reconstruction loop, improves the statistics of the overlapping region that are available for each iteration. It has been shown that this technique can result in improved contrast to noise ratios at the overlapping regions, for specific levels of acquisition statistics~\cite{Ross2004}. 
 
-This method has been implemented in CASToR by making use of an additional loop over bed positions and an "Apply bed offset" function, which applies the bed offset to the projector for each bed, as seen in the CASToR iterative algorithm~\ref{algo:CASToR_Core}.
+This method has been implemented in CASToR by making use of an additional loop over bed positions and an "Apply bed offset" function, as seen in the CASToR iterative algorithm~\ref{algo:CASToR_Core}, which applies the bed offset to the projector for each bed~\cite{Stute2014}. 
