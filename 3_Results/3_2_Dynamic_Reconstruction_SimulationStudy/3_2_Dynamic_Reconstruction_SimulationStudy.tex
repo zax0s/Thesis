@@ -7,7 +7,7 @@ Finally we present a novel work conducted towards reduction of kinetic modelling
 
 \section{Methods}
 
-\subsection{Development of dynamic reconstruction framework}
+\subsection{Development of dynamic reconstruction framework in CASToR}
 The framework for dynamic reconstruction was developed within the general framework and following the general principles of CASToR, to allow for future expansions including more dynamic models and in order to make our developments publicly available with the public CASToR version. 
 To handle use of dynamic models in reconstruction a new component was implemented (called Dynamic-Model-Manager) that interacts with the reconstruction process within the main CASToR iterative loop (steps \textit{Estimate/Fit dynamic model} and \textit{Estimate image from fitted dynamic model} of algorithm~\ref{algo:CASToR_Core}). 
 The main tasks of the Dynamic-Model-Manager are to fit dynamic models, given an estimate of a time series of image data, and then estimate the time series image data from the fitted dynamic model. 
@@ -17,22 +17,25 @@ In the examples and evaluations in this project the nested framework was used fo
 
 A diagram of the implemented framework for dynamic models is given in figure~\ref{fig3_2:DynamicModelManager}. 
 A generic dynamic model (vDynamicModel) was designed, which implements the requirements for model fitting processes, as well as some common optimization algorithms (Least-Squares (LS) and Non-Negative Least-Squares (NNLS) optimization algorithms).
-Specific dynamic models can be directly implemented by inheriting these functions from the vDynamicModel class, such as the 1TC and 2TC models in our implementation. These are specific models, based on estimation of micro-parameters of the respective compartmental models, and make use of non-linear optimization of linearization techniques that are unique to these implementations of these models. 
+Specific dynamic models can be directly implemented by inheriting these functions from the vDynamicModel class, such as the 1TC and 2TC models which were implemented in CASToR using common optimization techniques~\cite{YunZhou2001,Angelis2014}. These are specific models, based on estimation of micro-parameters of the respective compartmental models, and make use of non-linear optimization of linearization techniques that are unique to these implementations of these models. 
 Many models used in practice are linear models and share common optimization methods. For this reason a generic Linear model (iLinearModel) was created, which implements EM optimization (in image space) and allows for the use of LS and NNLS algorithms. The linear model can be used directly, if an input of basis functions is provided. Alternatively specific linear models can be implemented, which can inherit the optimization functions of the generic linear model. These specific linear models need only to define a function for calculating the needed basis functions. 
 In our implementation we have implemented two specific linear models, the Patlak model and the spectral analysis model. 
 Finally, as most dynamic models that relate to physiological kinetic parameters require information of the blood input function an input function class was created (oArterialInputFunction). This class takes a provided input function and performs linear interpolation of the input data, before providing it for use to the dynamic model. 
 
 \begin{figure} [ht!]
 \centering
-\includegraphics[scale=0.5,angle=0]{3_Results/3_2_DWB_Reconstruction/figures/oDynamicModelManager.pdf}
+\includegraphics[scale=0.48,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/oDynamicModelManager.pdf}
 \caption{CASToR framework for dynamic reconstructions.} 
 %TODO: Add over-scan in the CBM DWB protocols. 
 \label{fig3_2:DynamicModelManager}
 \end{figure}
 
-\subsection{Simulation and demonstration of dynamic reconstruction}
-In similar fashion to the design of the dynamic reconstruction framework, a similar approach was used to implemented dynamic models in an in-house developed analytical PET simulator~\cite{Stute2015}. 
-The simulator was used to validate the implemented dynamic reconstruction framework and for conducting an simulation study that is presented in the following chapter.
+\subsection{Simulation of dynamic data}
+In similar fashion to the design of the dynamic reconstruction framework, a dynamic models framework was implemented within an existing in-house developed analytical PET simulator~\cite{Stute2015}. Specifically the 1TC and 2TC models were implemented, using equation~\ref{eqn:1TCM} and equation~\ref{eqn:2TCM}, while accounting for blood fractions also with equation~\ref{eqn:CPET}. 
+The simulator was used to validate the implemented dynamic reconstruction framework and for conducting the simulation study that is presented in this chapter.
 
--- Demonstration with 2D Brain
--- Real Data validation and demonstration (H\&N Data ?)
+\section{Simulation-Study (copy-paste + Non-ToF data)}
+%\includepdf[pages=-]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/GAP_STUDY_IOP_Submission.pdf}
+%\input{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/GAP_STUDY_IOP}
+
+\section{Conclusions to this Chapter}

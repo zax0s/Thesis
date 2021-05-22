@@ -62,6 +62,13 @@ bottom=30mm
 
 % Zach Commands 
 \newcommand{\argmax}[1]{\underset{#1}{\operatorname{arg}\,\operatorname{max}}\;}
+
+\def\bhline{\noalign{\ifnum0=`}\fi\hrule \@height  
+\boldarrayrulewidth \futurelet \@tempa\@xhline}
+
+\def\@xhline{\ifx\@tempa\hline\vskip \doublerulesep\fi
+      \ifnum0=`{\fi}}
+      
 \newcommand{\br}{\ms\bhline\ms}
 \newcommand{\mr}{\ms\hline\ms}
 
