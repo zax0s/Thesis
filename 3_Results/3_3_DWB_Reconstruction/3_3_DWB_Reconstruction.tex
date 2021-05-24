@@ -97,12 +97,21 @@ f_{tb}^{(EM)}(\bm{\theta}^{(k)})
 \end{cases}
 \end{equation}
 
-The tomographic update of this two-step optimization process is effectively an update over the DWB data for independent frame reconstruction, similar to the process described for the NHP example above. Then the second step is an image space optimization
+The tomographic update of this two-step optimization process is effectively an update over the DWB data for independent frame reconstruction, similar to the process described for the NHP example above. The second step is an image space optimization process that now needs to consider the sensitivity $\sum_{s=1}^{n_s} \sum_{i=1}^{n_i}  P_{sib}$ of each time point $t$ in the TAC of each voxel. For linear models, where before an image based MLEM algorithm was used for this image space optimization process, an weighted MLEM update can be used with the sensitivity of each time point $t$ as the weight. Or alternatively non-linear optimization algorithms can be used for non-linear dynamic models estimation, by making use of weighted optimization with the same sensitivity values.
 
+\iffalse 
+\begin{equation}
+\theta_j^{(k+1)} = \frac{\theta_j^{(k)}}
+{\sum_{p=1}^{n_p} w B_{pj}} 
+\sum_{p=1}^{n_p} w B_{pj} 
+\frac{f_{j}^{(EM)}(\bm{\theta}^{(k)})}{\sum_{d=1}^{n_j} B_{pd}\theta_d^{(k)} } \\.
+\label{eqn3_3:WeightedNestedEM}
+\end{equation}
+\fi
 
+\section{Results}
 
-
-
+\subsection{IsotoPK-Study}
 
 \section{Discussion}
 We have presented a framework for direct multi-bed reconstruction of DWB datasets, for individual frame reconstruction as well as dynamic reconstructions. The flexibility offered by this framework and by the CASToR reconstruction platform allows for the use of the DSB data that are commonly acquired prior to DWB acquisition, in the same reconstruction loop. We have shown how the framework can be extended for use with nested optimization for dynamic reconstruction.
