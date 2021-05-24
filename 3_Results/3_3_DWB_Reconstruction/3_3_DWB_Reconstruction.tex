@@ -36,21 +36,24 @@ The choice of the appropriate frames for each location in image space, whether w
 This type of mask could be used for post-reconstruction parametric imaging that relies on estimation of kinetic models on each voxel's TAC. 
 
 With CASToR the use of multi-bed data can be made directly within its unique iterative loop, using the methodology described in section~\ref{chap2_4:MultiBedRecon}. The same framework can be extended to dynamic reconstruction of DWB datasets within the same iterative loop. Specifically in dynamic reconstruction where a dynamic model is applied over the frames of the acquisition, the model will consider all frames of the DWB acquisition. But incorporation of the bed offset information in the projection operation for each voxel $j$ will naturally lead to the selection of frames that correspond to the sampled time points for the location of voxel $j$ in the DWB dataset.
-In the case of dynamic reconstruction using linear models, we description provided above can be shown by combining equations~\ref{eqn:4DMLEM} and ~\ref{eqn2_4:MLEM_multibed}. Their combination provides
+In the case of dynamic reconstruction using linear models, we description provided above can be shown by combining equations~\ref{eqn:4DMLEM} and ~\ref{eqn2_4:MLEM_multibed}. \textbf{We can incorporate the positional information of each bed offset into the frame depedent information of the projection $P$}
+
+This provides
 
 \begin{equation}
 \theta_{pj}^{(k+1)} = \frac{\theta_{pj}^{(k)}}
-{\sum_{t=1}^{n_t} B_{tp} \sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij}} 
-\sum_{t=1}^{n_t} B_{tp} \sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij} 
-\frac{y_{tsi}}
-{\sum_{d=1}^{n_j} P_{sid} \sum_{p=1}^{n_p} B_{tp}\theta_{pj}^{(k)} + B_i } \\, \\
+{\sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{tij}} 
+\sum_{t=1}^{n_t} B_{tp}  \sum_{i=1}^{n_i} P_{tij} 
+\frac{y_{ti}}
+{\sum_{d=1}^{n_j} P_{tid} \sum_{p=1}^{n_p} B_{tp}\theta_{pj}^{(k)} + B_{ti} } \\, \\
 \label{eqn:4DMLEM_Multibed}
 \end{equation} 
+\textbf{Not sure this is correct with the separation of time and beds}!
 
-where the set of basis functions $B$ is precomputed for all time frames $t$ of the DWB acquisition, but is effectively applied in each voxel $j$ for the time frames that are not masked by the back-projection operation $\sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij}$. It is important to note that with this operation there is no additional need for consideration of overlapping after reconstruction and parametric images $\boldsymbol\theta$ have dimensions of the effective FOV. 
+where the set of basis functions $B$ is precomputed for all time frames $t$ of the DWB acquisition, but is effectively applied in each voxel $j$ for the time frames that are not masked by the back-projection operation $\sum_{t=1}^{n_t} \sum_{i=1}^{n_i} P_{tij}$. It is important to note that with this operation there is no additional need for consideration of overlapping after reconstruction and parametric images $\boldsymbol\theta$ have dimensions of the effective FOV. 
 
-Use of this framework to perform individual frame reconstructions is also permitted, where matrix $\boldsymbol{B}$ will be the identity matrix meaning that frame reconstructions will be independent of each other. 
-An example from the use of this framework for frame reconstructions is shown in figure~\ref{fig_3_3:Macaque} for a group of three consecutive frames. The sensitivity images for the same frames, as estimated by the back-projection operation $\sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij}$, are shown in figure~\ref{fig_3_3:Macaque_Sensitivity}.
+Use of this framework to perform individual frame reconstructions is also permitted, where matrix $\boldsymbol{B}$ will be the identity matrix meaning that frame reconstructions will be independent of each other. This will be equivalent to performing the following reconstruction for each frame $t$. 
+An example from the use of this framework for frame reconstructions is shown in figure~\ref{fig_3_3:Macaque} for a group of three consecutive frames. The sensitivity images for the same frames, as estimated by the back-projection operation $\sum_{t=1}^{n_t} \sum_{i=1}^{n_i} P_{tij}$, are shown in figure~\ref{fig_3_3:Macaque_Sensitivity}.
 The sensitivity images clearly show the sampled locations per frame and the overlapping locations for adjacent frames. 
 %In this three bed acquisition a total of 243 axial slices are allocated in image space per frame, from which 89 will be sampled at each frame and bed. The overlap locations, in this case for 12 axial slices, which are sampled over consecutive frames can be identified from the frames sensitivity image. 
 Individual frame reconstruction of DWB data, using the effective FOV and by accounting for the bed offset in image space, can easily be used for post-reconstruction kinetic model fitting without the need for considerations on bed positions after reconstruction. In addition for post-reconstruction kinetic model fitting, the result sensitivity frame images can be used as a mask for the dynamic model as described above. 
@@ -85,11 +88,11 @@ For direct multi-bed reconstruction of DWB data the two step process needs to be
 \label{eq3_3:NestedMultibed}
 \text{}
 \begin{cases}  
-f_{tj}^{(EM)} = \frac{f_j(\bm\theta^{(k)})}{\sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij}} 
-\sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij} 
-\frac{y_{tsi}}{\sum_{d=1}^{n_j} P_{sid} f_d(\bm\theta^{(k)}) + B_{si} } \\ \\
+f_{tj}^{(EM)} = \frac{f_j(\bm\theta^{(k)})}{\sum_{i=1}^{n_i} P_{tij}} 
+\sum_{i=1}^{n_i} P_{tij} 
+\frac{y_{ti}}{\sum_{d=1}^{n_j} P_{tid} f_d(\bm\theta^{(k)}) + B_{ti} } \\ \\
 \argmax{\bm{\theta}} 
-\sum_{t=1}^{n_t} \sum_{b=1}^{n_j} \left[ \sum_{s=1}^{n_s} \sum_{i=1}^{n_i}  P_{sib} \right]
+\sum_{t=1}^{n_t} \sum_{b=1}^{n_j} \left[ \sum_{i=1}^{n_i}  P_{tib} \right]
 \left[ -f_b(\bm\theta^{(k)}) + 
 ln( f_b(\bm\theta^{(k)})) 
 f_{tb}^{(EM)}(\bm{\theta}^{(k)})
