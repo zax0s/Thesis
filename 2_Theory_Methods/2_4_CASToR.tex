@@ -102,7 +102,7 @@ The developments are described in detail in the !Results!
 \todo[inline,size=\Large, color=red!40]{Add reference details here after written results!}
 
 \subsection{Multi-bed reconstruction}
-
+\label{chap2_4:MultiBedRecon}
 With the generic description of the geometry implemented in CASToR, system matrix elements related to each detection event are computed on-the-fly, by projecting a ray though image space, or they are read from a pre-computed system matrix. 
 The on-the-fly computation allow for additional flexibility, which has been used to enable direct multi-bed reconstruction. 
 As described in section~\ref{WB_Static_SS}, multi-bed Step and Shoot (SS) acquisitions make use of overlapping beds to increase the sensitivity at the edges of each bed's FOV. This the raw PET data for a static WB acquisition comprise of a number of acquisition datasets, one for each bed position. We can define the WB raw PET dataset as the collection
@@ -117,12 +117,12 @@ where
 
 with $s$ being the index of the $n_s$ number of axial bed positions.
 
-By incorporating the offset of each bed position in the projection operation, equation~\ref{eqn:MLEM} can be re-written for direct reconstruction of the whole acquisition effective \gls{fov}, using all acquired raw data, as
+By incorporating the offset of each bed position in the projection operation, equation~\ref{eqn2_4:MLEM_multibed} can be re-written for direct reconstruction of the whole acquisition effective \gls{fov}, using all acquired raw data, as
 \begin{equation}
 \lambda_j^{(k+1)} = \frac{\lambda_j^{(k)}}{\sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij}} 
 \sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij} 
 \frac{y_{si}}{\sum_{d=1}^{n_j} P_{sid}\lambda_d^{(k)} + B_{si} } \\ , \\
-\label{eqn:MLEM}
+\label{eqn2_4:MLEM_multibed}
 \end{equation} 
 
 where now the image estimate $\lambda_j^{(k)}$ has the dimensions of the whole effective \gls{fov}, and the additive correction terms $B_{si}$ is provided for each respective bed position $s$. 

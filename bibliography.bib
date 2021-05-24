@@ -867,19 +867,47 @@ title = {{Implementation of true continuous bed motion in 2-D and 3-D whole-body
 volume = {48},
 year = {2001}
 }
-@article{Karakatsanis2016,
-abstract = {Continuous bed motion (CBM) has been recently introduced in the clinic as an alternative PET acquisition mode with respect to the traditional time-discretized step-and-shoot (SS) multi-bed acquisitions. In CBM mode, each slice can be considered as a different bed, since it is scanned over a different acquisition window. By reducing scan time discretization from a whole bed down to a single slice, the CBM acquisition offers additional degrees of freedom when designing acquisition protocols and thus larger margins for their optimization. Therefore, CBM mode could be particularly important for protocols of higher complexity, such as whole-body (WB) dynamic PET acquisitions. However, only a few studies have quantitatively validated the 2 modes on clinical data. In this work, we evaluate CBM vs. SS quantitative performance on a set of clinical data acquired over a 0-60min period using a WB dynamic PET acquisition protocol with a Biograph mCT TOF scanner. The TOF resolution (580ps) of the scanner allowed selecting faster CBM speeds (4.2mm/sec) and equivalent SS frames (30sec/bed), eventually permitting acquisition of 12 WB total passes of which half were performed in CBM mode and half in SS mode. The two modes were alternated between successive passes to allow a balanced interleaving of post-injection time between them to ensure an objective comparison. The evaluation of the 2 modes in terms of target-to-background (TBR) contrast and contrast-to-noise ratio (CNR) has been conducted for various noise levels by gradually adding all respective passes from each mode as well as in the parametric images after applying post-reconstruction WB Patlak analysis. Our results indicate a bias of ∼10% between the 2 modes for the low count frames, reducing to <3% as we gradually add all respective frames. In addition, a small bias of <10% was observed in Patlak images at overlapped slices between beds, which is attributed to the non-uniformity of the axial sensitivity profile of SS mode.},
+
+@article{Karakatsanis2016a,
+	abstract = {{\{}{\textcopyright}{\}} 2016 Institute of Physics and Engineering in Medicine.Whole-body (WB) dynamic PET has recently demonstrated its potential in translating the quantitative benefits of parametric imaging to the clinic. Post-reconstruction standard Patlak (sPatlak) WB graphical analysis utilizes multi-bed multi-pass PET acquisition to produce quantitative WB images of the tracer influx rate K i as a complimentary metric to the semi-quantitative standardized uptake value (SUV). The resulting K i images may suffer from high noise due to the need for short acquisition frames. Meanwhile, a generalized Patlak (gPatlak) WB post-reconstruction method had been suggested to limit K i bias of sPatlak analysis at regions with non-negligible 18F-FDG uptake reversibility; however, gPatlak analysis is non-linear and thus can further amplify noise. In the present study, we implemented, within the open-source software for tomographic image reconstruction platform, a clinically adoptable 4D WB reconstruction framework enabling efficient estimation of sPatlak and gPatlak images directly from dynamic multi-bed PET raw data with substantial noise reduction. Furthermore, we employed the optimization transfer methodology to accelerate 4D expectation-maximization (EM) convergence by nesting the fast image-based estimation of Patlak parameters within each iteration cycle of the slower projection-based estimation of dynamic PET images. The novel gPatlak 4D method was initialized from an optimized set of sPatlak ML-EM iterations to facilitate EM convergence. Initially, realistic simulations were conducted utilizing published 18F-FDG kinetic parameters coupled with the XCAT phantom. Quantitative analyses illustrated enhanced K i target-to-background ratio (TBR) and especially contrast-to-noise ratio (CNR) performance for the 4D versus the indirect methods and static SUV. Furthermore, considerable convergence acceleration was observed for the nested algorithms involving 10-20 sub-iterations. Moreover, systematic reduction in K i {\{}{\%}{\}} bias and improved TBR were observed for gPatlak versus sPatlak. Finally, validation on clinical WB dynamic data demonstrated the clinical feasibility and superior K i CNR performance for the proposed 4D framework compared to indirect Patlak and SUV imaging.},
+	archivePrefix = {arXiv},
+	arxivId = {15334406},
+	author = {Karakatsanis, Nicolas A. and Casey, Michael E. and Lodge, Martin A. and Rahmim, Arman and Zaidi, Habib},
+	doi = {10.1088/0031-9155/61/15/5456},
+	eprint = {15334406},
+	file = {:C$\backslash$:/Users/chalampalakis/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Karakatsanis et al. - 2016 - Whole-body direct 4D parametric PET imaging employing nested generalized Patlak expectation-maximization re.pdf:pdf},
+	isbn = {0031-9155},
+	issn = {13616560},
+	journal = {Physics in Medicine and Biology},
+	keywords = {4D reconstruction,Patlak,imaging,parametric,quantification,whole-body},
+	mendeley-groups = {PhD/Karakatsanis,PhD},
+	number = {15},
+	pages = {5456--5485},
+	pmid = {27383991},
+	publisher = {IOP Publishing},
+	title = {{Whole-body direct 4D parametric PET imaging employing nested generalized Patlak expectation-maximization reconstruction}},
+	volume = {61},
+	year = {2016}
+}
+
+@inproceedings{Karakatsanis2016b,
+abstract = {Continuous bed motion (CBM) has been recently introduced in the clinic as an alternative PET acquisition mode with respect to the traditional time-discretized step-and-shoot (SS) multi-bed acquisitions. In CBM mode, each slice can be considered as a different bed, since it is scanned over a different acquisition window. By reducing scan time discretization from a whole bed down to a single slice, the CBM acquisition offers additional degrees of freedom when designing acquisition protocols and thus larger margins for their optimization. Therefore, CBM mode could be particularly important for protocols of higher complexity, such as whole-body (WB) dynamic PET acquisitions. However, only a few studies have quantitatively validated the 2 modes on clinical data. In this work, we evaluate CBM vs. SS quantitative performance on a set of clinical data acquired over a 0-60min period using a WB dynamic PET acquisition protocol with a Biograph mCT TOF scanner. The TOF resolution (580ps) of the scanner allowed selecting faster CBM speeds (4.2mm/sec) and equivalent SS frames (30sec/bed), eventually permitting acquisition of 12 WB total passes of which half were performed in CBM mode and half in SS mode. The two modes were alternated between successive passes to allow a balanced interleaving of post-injection time between them to ensure an objective comparison. The evaluation of the 2 modes in terms of target-to-background (TBR) contrast and contrast-to-noise ratio (CNR) has been conducted for various noise levels by gradually adding all respective passes from each mode as well as in the parametric images after applying post-reconstruction WB Patlak analysis. Our results indicate a bias of 10\% between the 2 modes for the low count frames, reducing to <3\% as we gradually add all respective frames. In addition, a small bias of <10\% was observed in Patlak images at overlapped slices between beds, which is attributed to the non-uniformity of the axial sensitivity profile of SS mode.},
 author = {Karakatsanis, Nicolas A. and Garibotto, Valentina and Rager, Olivier and Zaidi, Habib},
+booktitle = {2015 IEEE Nuclear Science Symposium and Medical Imaging Conference, NSS/MIC 2015},
 doi = {10.1109/NSSMIC.2015.7582184},
-file = {:C\:/Users/chalampalakis/Downloads/07582184.pdf:pdf},
 isbn = {9781467398626},
-journal = {2015 IEEE Nuclear Science Symposium and Medical Imaging Conference, NSS/MIC 2015},
-mendeley-groups = {Thesis/3_1_MultiBedOptimization},
-pages = {1--6},
-publisher = {IEEE},
+mendeley-groups = {PhD/GAP study,Thesis/Reconstruction},
+month = {oct},
+publisher = {Institute of Electrical and Electronics Engineers Inc.},
 title = {{Continuous bed motion Vs. step-and-shoot acquisition on clinical whole-body dynamic and parametric PET imaging}},
 year = {2016}
 }
+
+
+
+
+
+
 @article{Schatka2016,
 abstract = {PURPOSE: Continuous bed motion has recently been introduced for whole-body PET/CT, and represents a paradigm shift towards individualized and flexible acquisition without the limitations of bed position-based planning. Increased patient comfort due to lack of abrupt table position changes may be another albeit still unproven advantage. For robust clinical implementation, image quality and quantitative accuracy should at least be equal to the prior standard of bed position-based step-and-shoot imaging. METHODS: The study included 68 consecutive patients referred for whole-body PET/CT for various malignancies. The patients underwent traditional step-and-shoot and novel continuous bed motion acquisition in the same session in a randomized crossover design. The patients and two independent observers were blinded to the sequence of scan techniques. Patient comfort/satisfaction was examined using a standardized questionnaire. SUVs were compared for reference tissue (liver, muscle) and tumour lesions. PET image quality and misalignment with CT images were evaluated on a scale of 1 - 4. RESULTS: Patients preferred continuous bed motion over step-and-shoot (P = 0.0001). It was considered to be more relaxing (38 % vs. 8 %), quieter (34 % vs. 8 %), and more fluid (64 % vs. 8 %). Image quality, SUV and CT misalignment did not differ between the techniques. Continuous bed motion resulted in better end-plane image quality (P < 0.0001). Regardless of the technique, second examinations had significantly higher tumour lesion SUVmax values (P = 0.0002), and a higher CT misalignment score (P = 0.0017). CONCLUSION: Oncological PET/CT with continuous bed motion enhances patient comfort and is associated with image quality at least comparable to that with traditional bed position-based step-and-shoot acquisition.qq.},
 author = {Schatka, Imke and Weiberg, Desiree and Reichelt, Stephanie and Owsianski-Hille, Nicole and Derlin, Thorsten and Berding, Georg and Bengel, Frank M.},
@@ -1011,7 +1039,6 @@ volume = {59},
 year = {2018}
 }
 
-
 @article{Karakatsanis2013,
 abstract = {Static whole-body PET/CT, employing the standardized uptake value (SUV), is considered the standard clinical approach to diagnosis and treatment response monitoring for a wide range of oncologic malignancies. Alternative PET protocols involving dynamic acquisition of temporal images have been implemented in the research setting, allowing quantification of tracer dynamics, an important capability for tumor characterization and treatment response monitoring. Nonetheless, dynamic protocols have been confined to single-bed-coverage limiting the axial field-of-view to ∼15–20 cm, and have not been translated to the routine clinical context of whole-body PET imaging for the inspection of disseminated disease. Here, we pursue a transition to dynamic whole-body PET parametric imaging, by presenting, within a unified framework, clinically feasible multi-bed dynamic PET acquisition protocols and parametric imaging methods. We investigate solutions to address the challenges of: (i) long acquisitions, (ii) small number of dynamic frames per bed, and (iii) non-invasive quantification of kinetics in the plasma. In the present study, a novel dynamic (4D) whole-body PET acquisition protocol of ∼45 min total length is presented, composed of (i) an initial 6 min dynamic PET scan (24 frames) over the heart, followed by (ii) a sequence of multi-pass multi-bed PET scans (six passes × seven bed positions, each scanned for 45 s). Standard Patlak linear graphical analysis modeling was employed, coupled with image-derived plasma input function measurements. Ordinary least squares Patlak estimation was used as the baseline regression method to quantify the physiological parameters of tracer uptake rate K i and total blood distribution volume V on an individual voxel basis. Extensive Monte Carlo simulation studies, using a wide set of published kinetic FDG parameters and GATE and XCAT platforms, were conducted to optimize the acquisition protocol from a range of ten different clinically acceptable sampling schedules examined. The framework was also applied to six FDG PET patient studies, demonstrating clinical feasibility. Both simulated and clinical results indicated enhanced contrast-to-noise ratios (CNRs) for K i images in tumor regions with notable background FDG concentration, such as the liver, where SUV performed relatively poorly. Overall, the proposed framework enables enhanced quantification of physiological parameters across the whole body. In addition, the total acquisition length can be reduced from 45 to ∼35 min and still achieve improved or equivalent CNR compared to SUV, provided the true K i contrast is sufficiently high. In the follow-up companion paper, a set of advanced linear regression schemes is presented to particularly address the presence of noise, and attempt to achieve a better trade-off between the mean-squared error and the CNR metrics, resulting in enhanced task-based imaging. (Some figures may appear in colour only in the online journal)},
 archivePrefix = {arXiv},
@@ -1044,6 +1071,7 @@ url = {https://ieeexplore.ieee.org/document/9093074/},
 volume = {4},
 year = {2020}
 }
+
 @inproceedings{Karakatsanis2011,
 abstract = {Multi-Bed FDG PET/CT as applied to oncologic imaging is currently widely
 and routinely used for assessment of localized and metastatic disease
@@ -1432,4 +1460,15 @@ pages = {1--14},
 title = {{Generalized linear least squares algorithms for modeling glucose metabolism in the human brain with corrections for vascular effects}},
 volume = {68},
 year = {2002}
+}
+
+@inproceedings{chalampalakis2020EANM,
+  title={Application of a generic dynamic reconstruction algorithm on PET whole-body pharmacokinetic studies},
+  author={Chalampalakis, Z and Stute, S and Filipovic, M and Marie, S and Bottlaender, M and Tournier, N and Comtat, C},
+  booktitle={EUROPEAN JOURNAL OF NUCLEAR MEDICINE AND MOLECULAR IMAGING},
+  volume={47},
+  number={SUPPL 1},
+  pages={S416--S416},
+  year={2020},
+  organization={SPRINGER ONE NEW YORK PLAZA, SUITE 4600, NEW YORK, NY, UNITED STATES}
 }

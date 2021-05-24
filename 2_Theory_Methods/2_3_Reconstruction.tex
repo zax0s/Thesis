@@ -258,7 +258,7 @@ The inverse operation, wielding the model parameters from dynamic series of imag
 \begin{equation}
 \bm\theta_{p}  = \sum_{t=1}^{n_t} B_{tp} \bm\lambda_{t}  \\.
 \end{equation}
-In this particular case of linear dynamic models it is straightforward to incorporate the model in the MLEM update equation ,in equation~\ref{eqn:MLEM}. as
+In this particular case of linear dynamic models it is straightforward to incorporate the model in the MLEM update equation ,in equation~\ref{eqn:MLEM} as
 %
 %
 %
@@ -299,6 +299,7 @@ The right parenthesis of this expression is similar to the log-likelihood from t
 {\sum_{p=1}^{n_p} B_{pj}} 
 \sum_{p=1}^{n_p} B_{pj} 
 \frac{f_{j}^{(EM)}(\bm{\theta}^{(k)})}{\sum_{d=1}^{n_j} B_{pd}\theta_d^{(k)} } \\.
+\label{eqn:NestedEM}
 \end{equation}
 
 This is a simple EM update equation applied over image space to update the model parameters. 
