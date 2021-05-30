@@ -1,28 +1,4 @@
-
-\title{Use of dynamic reconstruction for parametric Patlak imaging in dynamic whole body PET}
-
-\author{
-Zacharias Chalampalakis$^1$, Simon Stute$^{2,3}$, Marina Filipović$^1$, Florent Sureau$^1$ and Claude Comtat$^1$}
-
-%\maketitle
-
-\section{Abstract}
-Dynamic Whole Body (DWB) PET acquisition protocols enable the use of whole body parametric imaging for clinical applications.
-In FDG imaging, accurate parametric images of Patlak $K_i$ can be complementary to standard SUV images and improve on current applications or enable new ones. 
-In this study we consider DWB protocols implemented on clinical scanners with limited axial field of view with use of multiple whole body sweeps. These protocols result in temporal gaps in the dynamic data which produce noisier and potentially more biased parametric images, compared to single bed dynamic protocols.
-Dynamic reconstruction using the Patlak model has been previously proposed to overcome these limits and shown improved DWB parametric images of $K_i$. 
-In this work we propose and make use of a spectral analysis based model for DWB dynamic reconstruction and parametric imaging of Patlak $K_i$. Both dynamic reconstruction methods were evaluated and compared against 3D reconstruction based parametric imaging from single bed dynamic protocols.
-This work was conducted on simulated data and results were tested against a real FDG dynamic dataset.
-We showed that dynamic reconstruction can achieve levels of parametric image noise and bias comparable to 3D reconstruction in single bed dynamic studies, with the spectral analysis model offering additional flexibility and further reduction of image noise. 
-Comparisons were also made between step and shoot and Continuous Bed Motion (CBM) protocols, which showed that CBM can achieve lower parametric image noise due to reduced acquisition temporal gaps. 
-Finally, our results showed that dynamic reconstruction improved VOI parametric mean estimates but did not result to fully converged values before resulting in undesirable levels of noise.
-Additional regularisation methods need to be considered for DWB protocols to ensure both accurate quantification and acceptable noise levels for clinical applications.
-
-
-%\noindent{\it Keywords\/}: Dynamic Whole Body PET, Dynamic Reconstruction, Patlak Reconstruction
-
-
-\section{Introduction}
+\section*{Introduction}
 Positron Emission Tomography (PET) imaging is well known and established in clinical applications and pathways, with an important role towards the delivery of precision medicine~\cite{Subramaniam2017}. The established clinical practices rely on static imaging after a certain uptake period and semi-quantitative measures, such as the standardised uptake value (SUV). But these measures are vulnerable to many unknown factors that can vary between PET examinations, such as body composition, retention clearance, inconsistencies in uptake time and imaging practices~\cite{Boellaard2011}. On the other hand dynamic PET imaging can be used to fully characterise underlying tracer kinetics and provide fully quantitative measures, that could overcome many limitations of current static imaging practices and enable use of PET for new applications in clinical practice~\cite{Lammertsma2017,Dimitrakopoulou2021,Meikle2021}. \\
 Current clinical scanners are limited in coverage by their axial field of view (A-FOV), with values ranging from 15 to 26 cm \cite{Vandenberghe2020}. This is sufficient for single organ dynamic studies but cannot directly provide synchronous whole-body coverage, which is essential for some clinical applications such as tumour staging in oncology. 
 In practice for static imaging whole-body coverage is achieved using multiple bed positions at different axial locations to provide the desired axial coverage~\cite{Schubert1996}, or alternatively via continuous axial bed motion (CBM) during the acquisition~\cite{Panin2014}. 
@@ -45,9 +21,9 @@ In detail we evaluate for WB Patlak $K_i$ parametric imaging
 (3) the use of two different optimization algorithms for dynamic reconstruction
 and finally (4) the impact of different DWB acquisition strategies.
 
-\section{Methods}
+\section*{Methods}
 
-\subsection{Simulated acquisition protocols}
+\subsection*{Simulated acquisition protocols}
 A single bed (SB) dynamic protocol (continuous in time with no temporal gaps) and three DWB acquisition protocols of five bed positions (with temporal gaps) were simulated for this study, using the geometry characteristics of the GE Signa PET/MR scanner~\cite{Grant2016}. With the provided 25 cm A-FOV per bed and a bed overlap of 3.34 cm, axial coverage of 110.3 cm can be achieved with five bed positions. The relatively small overlap (approximately half compared to routine clinical protocols) was selected to reduce the number of beds and subsequently the acquisition temporal gaps.
 %All three DWB protocols mimic the timing characteristics of the Signa PET/MR but differ in acquisition strategy.
 A total study duration of 60 minutes was used in the design of all protocols, including an initial single bed dynamic phase of 3 minutes centred over the aorta to mimic requirements for IDIF estimation.
@@ -64,6 +40,10 @@ A total study duration of 60 minutes was used in the design of all protocols, in
 Our study focuses on the second axial bed location for the DWB simulations, centred over the upper chest as seen in figure~\ref{fig:DWBprotocols}.
 The PET data simulations were conducted solely for this bed position using the framing of the protocols described above. The exact framing information are available in the supplementary material.%  as shown in table~\ref{table:FrameTimings}.
 
+\textcolor{blue}{ The above protocols were 
+A fourth DWB protocol (DWB-4) was simulated in addition to the above protocols, for evaluating parameters estimation that depends on early dynamic information. For this protocol the timing of the DWB-1 was considered, with the addition of the early dynamic single bed information that was split into nine frames of 20 seconds each.}
+
+
 \begin{figure} [ht!]
 \centering
 \includegraphics[scale=1.03,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/protocols.pdf}
@@ -72,12 +52,20 @@ The PET data simulations were conducted solely for this bed position using the f
 \label{fig:DWBprotocols}
 \end{figure}
 
-\subsection{Digital phantom \& analytical simulation}
+\begin{figure} [ht!]
+\centering
+\includegraphics[scale=0.52,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/AdditionalProtocolDWB4.pdf}
+\caption{Fourth dynamic whole-body acquisition protocol considered for simulation, which includes the initial single bed dynamic phase.} 
+%TODO: Add over-scan in the CBM D-WB protocols. 
+\label{fig:DWB4_Protocol}
+\end{figure}
+
+\subsection*{Digital phantom \& analytical simulation}
 The Zubal brain phantom~\cite{Zubal1994} was chosen for the simulations of PET [$^{18}$F]FDG data, even though its anatomy doesn't correspond to the anatomy that would be found in the axial location of the simulated bed position. The choice of the phantom was made to incorporate higher complexity structures than those offered from common lung/chest phantoms. Furthermore the use of the brain phantom, centred in the FOV, aided in avoiding analysis of areas falling in the overlapping regions, whose behaviour under DWB acquisition and reconstruction is yet another subject for investigation. The Zubal brain phantom was segmented into 19 unique regions and a non-reversible two tissue compartment model was assigned uniformly to each region to simulate realistic FDG kinetics, with $K_1$, $k_2$, $k_3$ and $V_b$ values drawn from the literature and a real measured input function. A selection of the simulated kinetic parameters is provided in the supplementary material.
 An analytical simulator was used to generate raw PET sinogram data~\cite{Stute2015}. The simulations included attenuation and detector resolution effects, scattered and random coincidences, while Poisson noise was added to the sinogram data. % to \textbf{match noise levels from typical FDG-PET examinations performed on the Signa PET-MR}.
 The simulation did not include time of flight (TOF) information in the data. Fifty different noise realisations were simulated for each DWB protocol. For the SB protocol the number of noise realisation was reduced to twenty as simulation and reconstruction times of the SB datasets were substantially higher.
 
-\subsection{Reconstruction and kinetic modelling}
+\subsection*{Reconstruction and kinetic modelling}
 Both 3D and dynamic iterative reconstructions were used. All reconstructions were run within an OSEM framework, for 40 iterations and 28 subsets, using the open source fully quantitative reconstruction platform CASToR~\cite{Merlin2018}. 
 All reconstructions were performed with a voxel size of $2.2~\mathrm{mm}\times2.2~\mathrm{mm}\times2.8~\mathrm{mm}$ and included resolution modeling as well as corrections for attenuation and for random and scattered coincidences (generated from the simulation).
 Dynamic reconstructions are made by combining dynamic models that describe the tracer kinetics with the tomographic reconstruction process. When the dynamic model of interest is used this technique results in direct reconstruction of parametric images of interest and allows for accurate modeling of the raw data noise in the estimation process~\cite{Carson1985,Matthews1995,Kamasak2003,Wang2008}. Use of generic dynamic models can also be made for dynamic reconstruction, where dynamic models impose temporal regularisation in the frame activity estimation process. Post-reconstruction (indirect) estimation of parametric images can then be made and indirectly benefit from the use of dynamic reconstruction~\cite{Reader2014,Novosad2016b}.
@@ -127,9 +115,14 @@ chosen to be logarithmic spaced within a range of values that covers the expecte
 In our tests we used 3 different sets of numbers of basis functions (M+1=17, 9 and 6), with $\beta_1 ... \beta_{M-1}$ logarithmically spaced within the range of 3 to 0.001 $\mathrm{min}^{-1}$. \\
 Unlike the Patlak model, the spectral analysis model is valid from the start of the acquisition and by default was applied to all time frames. The parameters $\boldsymbol{\phi_b}$ of the spectral model have physiological meaning and in combination can be used to derive macro-parameters maps such as $\boldsymbol{K_1}$ and either $\boldsymbol{K_i}$ or $\boldsymbol{V_D}$, 
 depending on the irreversible or reversible kinetic behaviour~\cite{Gunn2002}.
-However, this derivation implies that the acquisition starts at the injection time, which is not the case for DWP protocols, except for the bed position corresponding to the initial dynamic phase used for IDIF estimation.
-In our study, the spectral analysis model is used to enforce temporal regularisation without any strong assumptions on an underlying
-model~\cite{Reader2007}.
+However, this derivation implies that the acquisition starts at the injection time, which is not the case for DWB protocols, except for the bed position corresponding to the initial dynamic phase used for IDIF estimation. 
+\textcolor{blue}{For this reason the DWB-4 protocol was designed to evaluate estimation of $\boldsymbol{K_1}$ parametric images for bed positions of DWB protocols that are covered by the single bed dynamic phase. Accurate $K_1$ estimation requires to account for blood fraction ratio using \ref{eqn:SpectralCPET_AllEquations}, but we ignored this term for estimation of parametric images to avoid the introduction of noise by the voxel-to-voxel division with the blood fraction image. In this project $\boldsymbol{K_1}$ parametric images were estimated using}
+
+\begin{equation} \label{SpectralK1}
+\boldsymbol{K_1} = \sum_{b=0}^{M-1} \boldsymbol{\phi_b} \\ . \\
+\end{equation}
+
+In the rest of the study where the main focus is parametric imaging of Patlak ${K_i}$, the spectral analysis model is used to enforce temporal regularisation without any strong assumptions on an underlying model~\cite{Reader2007}.
 The  activity estimates of the 4D Spectral reconstruction are fitted post-reconstruction with the Patlak model
 to estimate the parametric images of Patlak ${K_i}$. 
 In this sense the use of 4D Spectral reconstruction for parametric $K_i$ imaging can be regarded as indirect dynamic reconstruction.
@@ -139,7 +132,7 @@ As highlighted above the spectral analysis model makes use of all frame data, wh
 
 With the exception of 4D Patlak reconstructions that directly output parametric images of $K_i$, all other 4D and 3D reconstruction activity maps were fitted post-reconstruction with the Patlak model at the voxel level, using the Ordinary Least Squares (OLS) optimization algorithm, to generate parametric $K_i$ images. For all 4D reconstructions and post-reconstruction fitting processes the true input function was used.
 
-The reconstruction's namings and parameters are summarised in table\ref{tab:ReconstructionNames} and table~\ref{tab:ReconstructionNamesTss}.
+The reconstruction's namings and parameters are summarised in table~\ref{tab:ReconstructionNames} and table~\ref{tab:ReconstructionNamesTss}.
 
 \begin{table}[]
 \caption{\label{tab:ReconstructionNames}Evaluated reconstruction parameters.}
@@ -171,7 +164,7 @@ The reconstruction's namings and parameters are summarised in table\ref{tab:Reco
 \end{tabular}
 \end{table}
 
-\subsection{Evaluation metrics}
+\subsection*{Evaluation metrics}
 The reconstructed and generated parametric $K_i$ images were evaluated across noise realisations for voxel based and Volumes of Interest (VOI) based metrics. We define $\theta_{j,n}$ as the image $K_i$ value for voxel $j$ in noise realisation $n$, $\theta_{VOI,n}$ the VOI $K_i$ mean value and $\theta_{VOI}^{GT}$ the ground truth value (as measured from Patlak analysis on the noiseless simulated TACs). The following voxel-based metrics were calculated, where (\ref{eq:VoxMetrics}) is the Root Mean Square (RMS) spatial average of (\ref{eq:BiasImage}) and (\ref{eq:CoVImage}) within a VOI.
 
 %(\ref{eq:BiasImage}), (\ref{eq:CoVImage}) and (\ref{eq:VoxMetrics}), where (\ref{eq:VoxMetrics}) is the RMS spatial average of (\ref{eq:BiasImage}) and (\ref{eq:CoVImage}) within a VOI.
@@ -214,6 +207,7 @@ The cortex and an eroded thalamus VOI were evaluated in the analysis.
 The thalamus VOI was eroded by 2 voxels 
 in order to be less susceptible to partial volume effects. By contrast the cortex VOI is subject to partial volume effects.
 
+\textcolor{blue}{The same metrics were applied to the parametric $K_1$ images, for which where $\theta_{j}$ represents the parametric image $K_1$ value for voxel $j$ and $\theta_{VOI}^{GT}$ the ground truth $K_1$ values.}
 
 \begin{table}[]
 \centering
@@ -229,12 +223,12 @@ Cortex     & 0.0390 & 0.0391 & 0.0392 & 0.0388 & 0.0410\\
 
 \end{table}
 
-
-\subsection{Real Data}
+\subsection*{Real Data}
 A single-bed dynamic examination centred over the lungs region was used to test performance of the evaluated algorithms and to compare results against the simulation findings. Approval for the retrospective use of the real patient data  was obtained for this study. The data had been collected with approval from an local ethics committee.
 The original dataset was acquired on a Signa PET/MR, starting at the injection of 177 MBq of FDG tracer to the patient, for a duration of 1 hour. The imaged patient had been diagnosed with a non small cell lung cancer (NSCLC) at the left lung. 
 The raw list-mode dataset was retrospectively reprocessed (replayed) to create two new datasets. One dataset using the framing of the simulated single bed (SB) study and one dataset using the framing of the simulated DWB-1 study (DWB) including temporal gaps.
-Both datasets included TOF information provided by the Signa PET-MR which was used in the reconstruction process. 
+Both datasets included TOF information provided by the Signa PET-MR. % which was used in the reconstruction process. 
+\textcolor{blue}{The datasets were reconstructed with and without the use of TOF information in reconstruction.}
 An IDIF from the ascending aorta was measured on activity image data from 3D reconstruction and used for 4D reconstruction and post-reconstruction analysis. The two datasets were reconstructed using the same 3D and 4D dynamic reconstruction algorithms that were used in the simulation study using identical parameters. No respiratory motion correction or gating was applied on the data.
 Similar to the simulation study, post reconstruction Patlak analysis at the voxel level was performed with OLS to generate parametric images of $K_i$.
 VOIs were drawn over the tumour, the tumour's background (left lung) and the liver, as shown in figure~\ref{fig:2_5_VOIs}, to compare between reconstructions and against the findings of the simulation study. Using these the contrast to noise ratio (CNR) was estimated according to
@@ -253,9 +247,9 @@ Similarly, CNR was calculated in a single noise realisation of the simulation st
 
 
 % Results --------------------------------------------------------------------------------------------
-\section{Results}
+\section*{Results}
  
-\subsection{Comparison between SB and DWB protocol data}
+\subsection*{Comparison between SB and DWB protocol data}
 The VOI and voxel based metrics comparing 3D and 4D Patlak reconstructions for the SB and DWB-1 protocols are shown in figure~\ref{fig:3_1_Patlak}. For both metrics and VOIs the 3D reconstruction followed by post-reconstruction Patlak fitting using DWB data resulted in higher CoV values, compared to 3D reconstruction of SB data at matched bias. For the first few iterations the 3D reconstructions of both datasets resulted to similar bias values, while further iterations resulted to a wider range of bias values for the DWB data compared to SB data within 40 iterations.
 
 The use of 4D Patlak reconstruction on DWB data produced results with lower CoV on both evaluated metrics and VOIs, compared to the 3D reconstruction of the same data at matched bias, and a shorter range of bias values within 40 iterations.
@@ -274,7 +268,7 @@ VOI based metrics (top row) and voxel-based metrics (bottom row).
 \label{fig:3_1_Patlak}
 \end{figure} 
 
-\subsection{Comparison between 4D Dynamic Reconstructions on DWB protocol data}
+\subsection*{Comparison between 4D Dynamic Reconstructions on DWB protocol data}
 The VOI and voxel based metrics are shown in figure~\ref{fig:3_2_DynamicModels} for comparison of 4D Patlak and 4D Spectral reconstructions of DWB data.
 On both metrics and for both regions the use of Spectral reconstruction with 6 basis functions provided the lowest CoV values at matched bias compared to other 4D reconstructions of DWB data and 3D reconstruction of SB data. However 4D Spectral reconstruction with 6 basis also provided the highest bias values in the eroded thalamus. On the cortex the difference on bias metrics was relatively small between all 4D reconstructions.\\
 The 4D Spectral reconstruction with 9 and 17 basis functions resulted to similar bias and CoV values at both regions. Their use resulted in lower CoV compared to 4D Patlak reconstruction and 3D reconstruction of SB data, but higher compared to 4D Spectral using 6 basis. Nonetheless, at the eroded thalamus use of 9 and 17 basis provided improved bias values at matched CoV when compared to the use of 6 basis, closer to bias values from 4D Patlak reconstruction.\\
@@ -291,7 +285,7 @@ VOI based metrics (top row) and voxel-based metrics (bottom row).}
 \end{figure} 
 
 
-\subsection{Comparing between nested optimizations in 4D reconstruction}
+\subsection*{Comparing between nested optimizations in 4D reconstruction}
 Results of 4D Spectral and 4D Patlak reconstructions using MLEM and NNLS nested optimization are shown in figure~\ref{fig:3_3_DifferentNestedOptimization}. A clear difference in behaviour is seen going from MLEM to NNLS from early iterations, with 4D reconstructions using nested NNLS optimization resulting in higher CoV values at matched bias compared to the respective 4D reconstruction using nested MLEM (with 20 nested sub-iterations). At the same time, NNLS nested optimization often resulted to a slight reduction in bias at matched CoV values.
 No difference was seen in convergence properties such as convergence speed between the two nested optimization options. 
 Nevertheless the use of a single run of NNLS optimization in each nested loop, instead of 20 nested MLEM iterations, resulted in notable reduction of overall reconstruction times. The average reconstruction times using the two methods on a computer using a 16-core 2.20GHz processor and 96GB of RAM memory are shown in table~\ref{tab:ReconTimes}.
@@ -319,7 +313,7 @@ Nevertheless the use of a single run of NNLS optimization in each nested loop, i
 \end{tabular}
 \end{table}
 
-\subsection{Comparison between DWB protocols}
+\subsection*{Comparison between DWB protocols}
 Comparison of 4D Patlak and 4D Spectral reconstructions between the three simulated DWB protocols is made in figure~\ref{fig:3_4_ComparingDWBProtocols}. For both VOI regions and 4D reconstructions, data from all three DWB protocols resulted in close bias values at matched iteration number, with a slight deviation in RMS bias towards late iterations.
 Differences in CoV at matched bias values are more profound in VOI metrics of the cortex region, where data from protocol DWB-2 resulted in the lowest CoV values and DWB-1 and DWB-3 data resulted to closer CoV values. This level of reduction in CoV was not seen on the eroded thalamus, neither on VOI or voxel based metrics. In the eroded thalamus the differences of DWB protocols on CoV at matched  bias were smaller and their ordering was mixed between the two 4D reconstructions. 
 
@@ -331,7 +325,7 @@ Differences in CoV at matched bias values are more profound in VOI metrics of th
 \end{figure} 
 %Simulation: Eroded thalamus $K_i$ RMS Bias vs. RMS CoV for 4D Patlak and 4D Spectral reconstructions of the simulated DWB protocol data
 
-\subsection{Comparison with real data}
+\subsection*{Comparison with real data}
 The comparison of reconstructions using a real FDG dataset, reprocessed and reconstructed with the SB and DWB-1 protocol framings, is made in figure~\ref{fig:RealData_CNR_CoVBias}. %A similar comparison is made with simulated data in figure~\ref{fig:3_2_SingleReplicateMeanCov} for one randomly chosen noise replicate of DWB-1.
 Results on the real data showed similar evolution of CNR with increasing iterations for all 4D and 3D reconstructions. The 4D Spectral reconstruction using 6 basis functions provided the highest CNR values throughout all iterations, followed by the 4D Spectral reconstruction using 9 basis functions and 4D Patlak. Overall, CNR of all 4D reconstructions of DWB data was higher than that of 3D reconstruction of SB data and 3D reconstruction of DWB data.\\
 The tumour SD vs VOI average trade-off curves showed close behaviour between 4D reconstructions, resulting to SD values in the first 15 to 17 iterations of 4D reconstructions which were lower compared to 3D reconstruction of DWB data at matched tumour mean values. Compared to 3D reconstruction of SB data, all 4D reconstructions of DWB data resulted in higher SD values (for matched tumour mean values where comparison is possible).
@@ -339,15 +333,22 @@ Parametric $K_i$ images from 3D and 4D reconstructions at iterations with matche
 
 \begin{figure} [ht!]
 \centering
+\includegraphics[scale=0.45,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/RealData/3_5_tumour_Lung_NoTOF.pdf}
+\caption{Real Data: Contrast to Noise ratio (left) and liver SD vs. VOI mean of the tumour (right) for 3D and 4D reconstructions without TOF information.} 
+\label{fig:RealData_CNR_CoVBias_NoTOF}
+\end{figure} 
+
+\begin{figure} [ht!]
+\centering
 \includegraphics[scale=0.45,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/RealData/3_5_tumour_Lung.pdf}
-\caption{Real Data: Contrast to Noise ratio (left) and liver SD vs. VOI mean of the tumour (right) for 3D and 4D reconstructions.} 
+\caption{Real Data: Contrast to Noise ratio (left) and liver SD vs. VOI mean of the tumour (right) for 3D and 4D reconstructions using TOF information.} 
 \label{fig:RealData_CNR_CoVBias}
 \end{figure} 
 
 \begin{figure} [h!]
 \centering
 \includegraphics[scale=0.28,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/RealData/3_5_RealDataExample.png}
-\caption{Real Data: Parametric $K_i$ images (with 5mm Gaussian Filtering) from SB and DWB replay datasets from 3D and 4D reconstructions at matched SD values over the liver.} 
+\caption{Real Data: Parametric $K_i$ images (with 5mm Gaussian Filtering) from SB and DWB replay datasets from 3D and 4D reconstructions, using TOF information, at matched SD values over the liver.} 
 \label{fig:RealKiMontage}
 \end{figure} 
 
@@ -374,9 +375,35 @@ Parametric $K_i$ images of 3D and 4D reconstructions at matched RMS CoV values, 
 \label{fig:cuts_bias_matched_rms_CoV}
 \end{figure} 
 
-%\FloatBarrier
+\subsection*{Parametric \boldsymbol{$K_1$} imaging from 4D Spectral reconstruction}
+\textcolor{blue}{
+The VOI and voxel based metrics for parametric $K_1$ images from the SB, DWB-1 and DWB-4 protocols are shown in figure~\ref{fig:K1_WB1} and figure~\ref{fig:K1_SB_WB4}. In the results from DWB-1, the missing fast dynamic data in the early minutes of the acquisition results in erroneous bias and noise levels on both VOI and voxel based metrics. By contrast, the results from the DWB-4 protocol which makes use of the single bed dynamic acquisition along with the DWB acquisition resulted in VOI and RMS mean similar to that of the SB protocol. For both protocols results show overestimation of mean VOI measurements in the erroded thalamus VOI and underestimation in the cortex VOI. 
+Measurements of RMS CoV show that data from the DWB-4 protocol result in higher noise compared to SB protocol.
+Parametric $K_1$ images of the evaluated acquisition protocols at matched RMS CoV values, of approximately 40\% as measured at the eroded thalamus VOI, are shown in figure~\ref{fig:K1_cuts_bias_matched_rms_CoV} for a single noise replicate along with images of mean bias over noise replicates. The images from the single replicates of SB and DWB-4 protocol data show similar structures and contrast of these structures, in comparison to the contrast of the ground truth values. The DWB-1 data show the erroneous overestimation of the values and loss of contrast between structures. This is also seen in the bias images for the DWB-1 data, while the bias structures in DWB-4 and SB data are very similar and closer to zero bias. The images of bias demonstrate the effect of partial volume effects, similarly to the effects shown for $K_i$.}
 
-\section{Discussion}
+\begin{figure} [ht!]
+\centering
+\includegraphics[scale=0.45,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/VOI/K1_WB1.pdf}
+\caption{Simulation: Eroded thalamus (left) and Cortex (right) noise versus bias trade-off curves for $K_1$ parametric imaging from 4D spectral reconstructions of the simulated DWB-1 protocol data. VOI based metrics (top row) and voxel-based metrics (bottom row).} 
+\label{fig:K1_WB1}
+\end{figure} 
+
+\begin{figure} [ht!]
+\centering
+\includegraphics[scale=0.45,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/VOI/K1_WB4.pdf}
+\caption{Simulation: Eroded thalamus (left) and Cortex (right) noise versus bias trade-off curves for $K_1$ parametric imaging from 4D spectral reconstructions of the simulated SB and DWB-4 protocol data. VOI based metrics (top row) and voxel-based metrics (bottom row).} 
+\label{fig:K1_SB_WB4}
+\end{figure} 
+
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.47,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/BrainCuts/K1_BrainCuts.pdf}
+\caption{Single slice though parametric $K_1$ images of one noise replicate (with 3mm Gaussian Filtering) (top) and their corresponding Bias images (over noise replicates) (bottom) from SB and DWB data 3D and 4D reconstructions at matched RMS CoV in the eroded thalamus.}
+\label{fig:K1_cuts_bias_matched_rms_CoV}
+\end{figure} 
+
+
+\section*{Discussion}
 Our simulation study shows that the dynamic reconstruction of DWB FDG data resulted in substantial reduction of Patlak $K_i$ image noise and more favourable convergence behaviour, compared to 3D reconstruction based parametric imaging. These results, limited to a single level of noise, are in agreement with the findings of~\cite{Karakatsanis2016a}. 
 Moreover, we directly compared against a SB dynamic protocol, processed with 3D reconstruction, and showed that comparable values of parametric image noise and bias can be achieved with DWB protocols by the use of a dynamic reconstruction.
 % Choice of iteration 
@@ -430,96 +457,19 @@ We investigated further potential reductions in system delays by allowing for no
 In that case we did not see the same effects as in the transition from S\&S to CBM. % , which can potentially be attributed to the non-uniform sampling nature of bi-directional protocols.
 But our results on bi-directional CBM are limited to the specific framing of the evaluated protocol design which offered more total frames but resulted in less total counts compared to the other protocols. Additional tests are required on the exploitation of the flexibility offered by bi-directional CBM to assess other potential benefits against uni-directional CBM.
 
-\begin{comment}
-\section{Discussion}
-We have shown that dynamic reconstruction resulted in a substantial reduction of parametric image noise and favourable convergence behaviour, compared to 3D reconstruction based parametric imaging, as suggested and shown before for DWB FDG imaging~\cite{Karakatsanis2016a}. Moreover, we directly compared against an SB dynamic protocol, processed with 3D reconstruction, and showed that comparable values of parametric image noise and bias can be achieved with DWB protocols by use of dynamic reconstruction.
-% Choice of iteration 
-Convergence of mean VOI values was not seen in the range of evaluated iterations, with relatively small VOI mean changes occurring even after 40 OSEM iterations of the 4D reconstruction algorithms.
-The choice of iteration to terminate the 4D reconstruction algorithms was not evident in our results, with higher iterations providing more stable VOI mean values but at risk of resulting to higher parametric image noise than that of 3D reconstructions on the same DWB data. Furthermore, parametric image characteristics on each iteration will depend on the underlying data noise, the number of frames and other factors that will be application and potentially exam specific.
-Although in the simulation study results are limited to a single level of noise, results on the real data showed similar behaviour with mean VOI values continuing to slightly increase even after 40 OSEM iterations and with 4D reconstruction parametric image noise surpassing that of 3D reconstruction at late iterations.
-This example illustrates that the relative aspects of 4D to 3D comparisons for the tested DWB and SB protocols have the capacity to translate to studies with different levels of noise, potentially also with the use of TOF reconstruction which was the case in the real data example but not in our simulation study. 
-Nonetheless, the risks of excessive parametric image noise and more importantly bias differences with iteration number will be lesser for 4D reconstructions than 3D reconstruction based methods, which demonstrated considerably more instability with increasing iterations.
-Our nested optimization tests using NNLS instead of multiple MLEM sub-iterations did not provide any differences in acceleration of convergence and showed comparable behaviour to a previous study on the use of NNLS with the spectral model~\cite{Matthews2010}. NNLS did provide computing acceleration, but this was not a limitation in the use of nested MLEM. Equivalent or higher acceleration could be potentially achieved if the nested optimization was conducted in graphical processing units (GPU) instead of the CPUs.
+\textcolor{blue}{
+Finally an additional evaluation was made for parametric $K_1$ imaging, by use of the spectral model and the spectral coefficient images, to explore additional potential benefits from the use of 4D Spectral reconstruction in parametric imaging. The tests showed, as expected from previous single bed dynamic studies~\cite{Meikle1998}, that the first few minutes of the acquisition are crucial for the estimation of $K_1$, which cannot be adequately estimated from later dynamic data as seen with $K_1$ imaging from DWB-1 protocol data. The DWB-4 protocol that made use of the first 3 minute acquisition provided results that were very similar to those of the single bed protocol data with no gaps. These results are promising for the estimation of $K_1$ images from DWB protocols that include an initial single dynamic bed phase, which is off course limited to the areas covered by this initial acquisition.
+A considerable limitation in our tests for $K_1$ parametric imaging using 4D Spectral reconstructions is that quantification accuracy was compromised by not accounting for the blood volume fraction in $K_1$. This was done to avoid excessive parametric image noise by the division operation in equation~\ref{eqn:SpectralCPET_AllEquations}. 
+This is expected to contribute to a bias of  for the thalamus and cortex regions respectively. 
+Alternatively to neglecting the blood volume fraction correction, a constant value can be assumed for certain regions of the image or smoothing and other denoising operations could be performed on the 4D spectral reconstruction estimated blood fraction image $\phi_M$ before being applied to the $K_1$ image via division.}
 
-Our findings show that although 4D reconstruction can outperform 3D reconstruction in parametric image noise and provide more accurate VOI mean measurements, result images can still be under-converged when terminated early in order to favour acceptable parametric image noise.
-Image noise is an important quality factor for clinical images, but equal weight must be given to accurate quantification of parametric images for the capabilities of DWB imaging to be fully exploited. 
-A higher number of iterations is required to ensure convergence and quantification accuracy in all regions of the images, but as dynamic reconstructions enforcing temporal regularisation have shown to not adequately suppress the increase of parametric image noise with increasing iterations, further regularisation techniques are needed with methods such as 4D MAP reconstruction~\cite{Reader2014,Wang2008} or kernel 4D dynamic reconstruction~\cite{Novosad2016b,Gong2018}.\\
-
-% Use of the Spectral reconstruction - benefits 
-In this work %, along with the direct reconstruction of parametric $K_i$ images in 4D Patlak reconstruction,
-we evaluated the use of a proposed indirect method based on a generic 4D Spectral reconstruction algorithm and post-reconstruction Patlak model fitting. The genericity of the spectral model allows for flexibility in modeling dynamic processes that do not necessarily fall under the idealised behaviour of the kinetic model of interest.
-In the simulation study, 4D Spectral reconstruction making use of the full dynamic data outperformed the direct Patlak reconstruction in terms of parametric image noise, while maintaining similar bias behaviour. 
-In this simulation study we were limited to irreversible FDG kinetics that can be sufficiently described by the Patlak model. But in real FDG studies it can be desirable to account for reversibly FDG kinetics and reduce bias of the estimated macro-parameters arising from poorly modelled kinetics. The spectral model allows for complex compartmental modeling with no prior knowledge or enforcement of a specific model. As such it can account for complex kinetic behaviours, including reversibility of tracer, in the reconstruction process and allow for post-reconstruction exploratory modeling to identify the best model to describe and present the data. Moreover for DWB studies where not all body regions and organs will necessarily be adequately described by a single dynamic model of interest, the proposed indirect method can allow for the assignment of different kinetic models in different regions of the body to ensure appropriate representation of the dynamic tracer behaviour.
-Depending on the availability of early frame data, the fitted spectral model can be used to directly estimate $K_1$, while post-reconstruction micro-parameter estimation could be performed for potential uses in clinical applications~\cite{Meikle1998,Novosad2016b,Zaker2020} and indirectly take advantage of the 4D reconstruction temporal regularisation.
-
-Mismatches in dynamic modeling have the potential to be sources of spatial propagation of errors in other regions of the image in 4D dynamic reconstruction~\cite{Matthews2012,Kotasidis2014}. Although the spectral model doesn't offer the flexibility of adaptive modeling algorithms, which have been proposed to account for such errors, it allows for a level of flexibility that can assist towards reduction of risks of bias propagation in 4D dynamic reconstruction.
-
-An important parameter to configure for the spectral model is the number of basis function. Contrary to post-reconstruction spectral analysis where hundreds of basis functions are used to finely sample the space of kinetic exchange rates, a smaller number of basis is desirable in reconstruction to favour reduced image noise.
-In our findings the lowest number of basis functions used (6 basis) showed inadequate modelling of the underlying kinetics and resulted in more biased results, compared to reconstructions with more basis functions and to 4D Patlak reconstruction. However this was not the case when fewer frames were used in reconstructions using $t>t_{ss}$. These findings indicate that the selection of number of basis functions is important not only for controlling the produced image noise but also for controlling bias by adequately modeling the kinetics behaviour in reconstruction. 
-For the higher numbers of basis functions, with 9 and 17, almost identical behaviour was seen on the DWB-1 dataset (of 8 frames). 
-Overall on the choice of number of basis functions, results indicate greater risk in image bias when using a smaller number of basis functions than the number necessary to properly model the underlying kinetics, rather than use of more basis functions at a lesser risk of increased noise.
-In any case the number of basis needs to be tuned for every DWB protocol, depending on the number of frames within the dataset and the range of underlying kinetics as well as the level of noise in the PET data. \\
-
-% We have compared NNLS and MLEM sub-iterations for comparison of convergence properties and result parametric image quality. Before the use of linera models between the two optimization strategies was made using RMSE metrics [Matthews2010]. In our results we saw increase of parametric image noise by use of NNLS compared to MLEM and comparable bias characteristics. We did not investigate further into the initialisation of the NNLS algorithm, or combination of MLEM and NNLS optimisation (eg. use of MLEM in early iterations before use of NNLS). The reduction in half in some case, but we expect that to be lesser of a problem with increasing computing power potential implementation of the nested optimisation process in graphical processing units (GPUs) that can significantly accelerate run speeds. 
-
-In this study, the investigation between S\&S and CBM DWB protocols was limited to aspects of sampling frequency and uniformity within the total examination time. Efforts were made to eliminate dependence of the time sampling points in our bias results by use of protocol specific ground truth values. Our results showed small differences in parametric image bias but noticeable reduction in parametric image noise when utilising CBM acquisition with uniform sampling. Overall differences were inline with previous findings of comparison S\&S and CBM on a real study using different metrics~\cite{Karakatsanis2016b}. A limitation in our study is that we have considered a single axial location and hence we cannot generalise the results of the simulation study for the performance of the assumed DWB protocols over their effective FOV. \\
-Furthermore beyond the aspects of reduced acquisition delays and higher sampling frequency, CBM acquisition has other desirable properties for DWB acquisitions as outlined previously~\cite{Karakatsanis2016b}. The most important aspect is the result uniform axial sensitivity profile at any choice of acquisition speed. That can be of importance in DWB parametric imaging where multiple regions of interest are expected in the effective FOV.
-In our study we have not considered this aspect for the CBM protocols and we did not examine regions in the overlap range of the S\&S protocol. But the observed improvements related to reduced delays in acquisition coupled with uniformity of axial sensitivity favour the choice of CBM over S\&S protocols. 
-In our study we investigated further potential reductions in system delays by allowing for non-uniform axial sampling using bi-directional CBM. In that case we did not see the same effects as in the transition from S\&S to CBM, which can potentially be attributed to the non-uniform sampling nature of bi-directional protocols. %Again it has to be emphasised that our analysis was limited to a single axial location and cannot generalise to the whole FOV where the non-uniformities in sampling will vary with axial location. \\
-
-
-
-%A previous study on the application of 4D Patlak reconstruction on FDG DWB datasets~\cite{Karakatsanis2016a} had shown convergence within 160 to 200 MLEM iterations using 20 nested sub-iterations. Although not directly comparable to our OSEM implementation, we have showed results over a greater span of iterations with the effects of late iteration small VOI changes seen from OSEM iteration 12, that could be equivalent to at least 336 MLEM iterations (or more, when accounting for OSEM acceleration over MLEM). 
-% Regularisation and stable behaviour at higher iterations.
-
-\subsection{DWB and 4D reconstruction}
-In DWB imaging, which is achieved on current generation scanners with limited A-FOV using multiple bed positions or CBM sweeps and repeated whole-body passes, the acquisition process introduces large temporal gaps in the acquired datasets which reduce the temporal sampling frequency and acquisition sensitivity. As a result parametric imaging with such data are degraded by noise and are potentially biased. Use of dynamic (4D) reconstruction has been previously proposed for dynamic PET acquisitions and shown to reduce error and image noise for PET parametric imaging on multiple previous reviewed studies~\cite{Reader2014}. For this reason 4D reconstruction making use of the Patlak model has been previously proposed for [$^{18}$F]FDG DWB imaging and showed to significantly reduce parametric image noise and bias values when compared to 3D reconstruction of the DWB data and post-reconstruction Patlak model fitting~\cite{Karakatsanis2016a}.
-
-In our work we evaluated the use of 4D reconstruction using nested optimization on simulated DWB data and directly compared results against a simulated single bed dynamic acquisition which was reconstructed with 3D and 4D reconstruction algorithms. A comparison of 3D SB and 3D DWB results showed a substantial increase in image noise and bias after a certain number of iterations when switching to DWB data from SB. Use of 4D Patlak reconstruction on DWB data resulted in reduction of noise, approaching closely noise values achieved by 3D reconstruction of SB data, accompanied with lower bias values and more favourable evolution of bias with increasing iterations. By contrast we showed that 3D reconstruction and post-reconstruction Patlak model fitting did not result in stable bias values with increasing iterations. 
-\subsection{Dynamic models for 4D reconstruction}
-Beyond the use of the model of interest in the reconstruction process, we also used the spectral analysis model as a generic model to temporally regularise the reconstruction process of DWB data~\cite{Chalampalakis2019}. Its use enables standard post-reconstruction analysis methods to be used and indirectly take advantage of the 4D dynamic reconstruction benefits. Previously 4D spectral reconstructions have been used to derive kinetic macro-parameters~\cite{Meikle1998,Wang2009,Matthews2010} and micro-parameters~\cite{Reader2007,Novosad2016b}.In our application we used the spectral model with post-reconstruction Patlak model fitting. 
-A clear theoretical advantage of the spectral model is that it can be used with dynamic data of all time points and is not limited to data at steady state conditions, which is required for the Patlak model to be valid. Thus use of 4D Spectral reconstruction before Patlak model fitting can allow for the Patlak analysis to takes advantage of reduced noise properties of 4D reconstruction while making use of the complete dynamic dataset (when that is available for time points before steady state conditions). 
-Indeed our results showed that 4D Spectral reconstructions resulted in lower uncertainty of mean values and lower parametric image noise. An important parameter to consider for the spectral model is the number of basis functions. In our findings over one VOI region the lowest number of basis used (6 basis) showed behaviour which indicates that it did not properly model the underlying kinetics and resulted in more biased results, compared to reconstructions with more basis and to 4D Patlak reconstruction. However this was not the case when fewer frames were used (in $t>t_{ss}$ datasets), in which case the 4D Spectral reconstructions using 6 and 9 basis resulted in almost identical behaviour. This indicates that the selection of number of basis functions needs to be tuned for every dataset, depending on the number of frames within the dataset and potentially depending on the level of noise in the data.
-It is theoretically expected that a higher number of basis functions will result in higher noise as the number of parameters to estimate is increased. For the spectral model where the basis functions are strongly correlated to each other this might not be strictly the case. In our tests we saw that 4D Spectral reconstruction using 9 and 17 basis did not result in strong differences in bias or noise levels. Our findings in use of 4D Spectral reconstruction for post-reconstruction Patlak $K_i$ imaging showed that there is a greater risk in using a smaller number of basis functions than number necessary to properly model the underlying kinetics, rather than using more basis functions at a lesser risk of increased noise. Off course these indications in our study are limited to the single noise level that was studied and the range of numbers of basis functions tested. 
-
-Beyond the use of the Patlak model, 4D Spectral reconstructions allows for post-reconstruction fitting of other dynamic models. Depending on the availability of early frame data, the fitted spectral model can be used to directly estimate $K_1$ , while post-reconstruction micro-parameter estimation could  also benefit from use of temporal regularisation of the activity map estimates. Such use of 4D Spectral reconstruction could allow for further potential uses of DWB parametric imaging using micro-parameters for clinical applications~\cite{Zaker2020}.
-\subsection{MLEM vs NNLS nested optimization}
-The use of least squares nested optimization, by the formalism presented by Matthews \textit{et al.}~\cite{Matthews2010}, is key for incorporating non-linear models in PET reconstruction. But it also allows for fast least squares algorithms to be used with linear models, with the potential for accelerated convergence or better results when compared to the MLEM nested optimization. 
-
-In our test we compared 4D reconstructions using 20 MLEM nested optimization sub-iterations against NNLS nested optimization. Overall the use of NNLS resulted in small reduction in RMS bias and small increase of image noise. On the other hand it did not impact the mean VOI measurements, but increased their uncertainty as shown by the increased CoV of VOI mean values. These findings are inline with the findings by Matthews \textit{et al.}~\cite{Matthews2010} on a similar application. In our implementation and application, apart from the reduction in overall reconstruction times, the use of nested NNLS optimization against 20 MLEM iterations did not results in notable differences in Patlak $K_i$ parametric imaging or in convergence behaviour. 
-\subsection{DWB acquisition protocols}
-In our simulation study we considered different acquisition strategies that nowadays are available for static and dynamic WB acquisitions. By switching from S\&S to CBM acquisition additional acquisition time can be gained that can be used to include additional WB sweeps or increase frame acquisition times. Furthermore the use of bi-directional CBM acquisition can further reduce temporal gaps and increase the acquisition time, at the cost of uneven temporal sampling. In our study we explored the advantage of these properties by increasing the number of total WB sweeps from DWB-1 towards DWB-3. But of course the advantages from these acquisition strategies could be used differently depending on the imaging task and the acquisition desired statistics. Thus our study is limited by the assumed protocol designs based on these different acquisition modes.
-
-In our tests the increase in temporal sampling frequency offered by CBM acquisitions was taken in consideration in protocols DWB-2 and DWB-3. Our tests showed that in some cases the increase in number of frames and count statistics offered by DWB-2 resulted in lowering VOI mean uncertainty while further increase of statistics with DWB-3 did not provide the same benefits. By contrast DWB-3 with bi-directional motion and uneven sampling resulted in similar VOI mean uncertainty to the DWB-1 protocol that made use if lesser frames (but with even sampling frequency). 
-
-It is envisaged that more acquisition time will improve the data statistics and result in lower noise values and that uneven sampling could potentially compromise the accuracy of the parametric images. But the trade-off of these effects will depend on the application specific details, such as the underlying imaged kinetics, the parameters and model of interest, the acquisition statistic properties, etc. Furthermore the results will depend and expected to vary between different axial locations in the WB examination. A limitation in our study is that we have considered a single axial location, for an simulated examination of a single noise level for FDG kinetics. Hence we cannot generalise the results of the simulation study for the performance of the DWB acquisition overall. 
-
-An important benefit offered by CBM acquisition, that has not be considered in this study, is uniform axial sensitivity profile over the imaged range. This property can be of importance for DWB studies when requirements on image noise and bias are equal for all regions of the acquisition. In contrast S\&S acquisitions have to make compromises in axial sensitivity uniformity to use lesser bed positions per whole-body sweep and maintain large axial coverage. A limitation of this study is that we have not considered the overlapping regions of each beds FOV in the analysis, where the parametric image estimation is expected to be further compromised by low acquisition sensitivity and use of short overlap range. 
-
-\subsection{Application and behaviour with real data}
-The demonstration of the evaluated reconstruction algorithms on a real FDG NSCLC dataset showed that all evaluated 4D reconstructions provided higher CNR when compared to 3D reconstruction for DWB data, while the CNR behaviour was similar to that of 3D reconstruction for SB dynamic data. Similarly close behaviour between 4D reconstructions was seen in the tumour mean vs SD curve, with all 4D reconstructions providing similar $K_i$ tumour mean values.
-In comparison the simulation data had shown more difference between 4D reconstructions, with higher CNR for spectral reconstructions, but at the cost of higher mean bias values.  A limitation in the direct comparison between the real data and the simulation study is that the former makes use of TOF information in the reconstruction process which is not the case in the simulation study. 
-The VOI mean measurements on real data, similar to the simulation study results, indicate that parametric images at low iteration numbers provide measurements that have not converged to a certain value. 4D reconstructions on the DWB real dataset seem to provide stable mean VOI values in the range of 8-10 iterations, where they result in higher noise than that of 3D reconstruction from lower iterations. But contrary to 3D reconstruction which does not show indications of convergence towards a certain mean value, 4D reconstruction provides similar mean VOI values beyond these iterations.
-These findings show that although 4D reconstruction can outperform 3D reconstruction in the result parametric image noise on early iteration numbers that are commonly used in clinical applications, they are still under-converged and not accurate in terms of quantification. 
-Although image noise is an important quality factor for clinical images, equal weight must be given to accurate quantification of parametric images if DWB imaging is to be fully exploited towards precision medicine practices. 
-A higher number of iterations is required to ensure convergence in all regions and accuracy. But as dynamic models providing temporal regularisation are not enough to suppress the increase of parametric image noise with increasing iterations, further regularisation techniques are needed. For example the use of spatial regularisation in 4D reconstruction can be incorporated in the activity image and/or the parametric image estimation with MAP optimization methods~\cite{Reader2014,Wang2008}, or other methods such as the kernel method can be used to enforce prior information in the direct reconstruction process as shown in previous works~\cite{Novosad2016b,Gong2018}.
-\end{comment}
-
-\section{Conclusion}
+\section*{Conclusion}
 4D dynamic reconstruction is necessary in DWB parametric imaging to achieve accurate and stable quantification. For FDG Patlak $K_i$ parametric imaging we have shown results of direct Patlak dynamic reconstruction with noise and bias values that were comparable to 3D reconstruction based parametric imaging from single bed dynamic studies. 
 In this work we proposed the use of an indirect method for DWB parametric imaging, based on the spectral analysis model. This more flexible approach allows for complex kinetic modelling to be used during reconstruction for temporal regularisation, with minimal assumptions on the underlying kinetics. In Patlak $K_i$ parametric imaging this method outperformed the direct Patlak approach, by making use of all the acquired data for temporal regularisation from which post-reconstruction parametric imaging benefitted by further reduction of noise compared to the Patlak approach. Furthermore, the spectral model approach can be used for more complex post-reconstruction modelling, for example in parametric imaging of FDG micro-parameters.
+\textcolor{blue}{In our evaluation we showed that in addition to post-reconstruction fitting, dynamic reconstruction with the spectral model can be used for estimation of $K_1$ parametric images when early dynamic information are available.}
+
 Finally, we investigated the impact of various acquisition modes (for CBM and S\&S) resulting in different temporal sampling of the data. Benefits of reduced delays and increased acquisition statistics were partially seen in reduced parametric image noise for the CBM protocol with uni-directional axial sampling. By contrast CBM using bi-directional motion resulted to parametric image noise levels that were similar to the S\&S protocol. Further investigation is required to assess the potential benefits from bi-directional CBM against uni-directional CBM and effects of non-uniform sampling over the entire FOV of the DWB protocols.
 
 Overall, use of 4D dynamic reconstruction for DWB parametric imaging offers desirable properties that enables the transition from single bed dynamic studies and common 3D reconstruction parametric imaging practices without loss of image quality and with additional benefits for accuracy of parametric images. 
 Potential applications of DWB parametric imaging are expected to rely on quantification of images and so there should be no compromise between parametric image accuracy and image noise. Our results showed that 4D reconstruction need to be sufficiently iterated to ensure accurate quantification, with potential for improvement in maintaining low parametric image noise by use of additional regularisation methods.
-
-%
-\section{Acknowledgements}
-This project has received funding from the European Union's Horizon 2020 research and innovation programme under the Marie Sk\l{}odowska-Curie grant agreement No 764458. This work was performed on a platform of France Life Imaging network partly funded by the grant ANR-11-INBS-0006.
-The authors would like to thank Dr. Florent Besson for providing the FDG Dynamic dataset and the delienation of the tumour volume.
-
-%\section*{Ethical statement}
-% Ethical statement https://publishingsupport.iopscience.iop.org/questions/ethical-statements/
-%Approval for the retrospective use of the real patient data  was obtained for this study. The data had been collected with approval from an local ethics committee. \\
-%Comité de Protection des Personnes Est-III, Nancy, France. approval number/ID : 17.06.02
 
