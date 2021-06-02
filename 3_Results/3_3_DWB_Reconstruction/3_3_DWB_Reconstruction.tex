@@ -121,7 +121,7 @@ The two scans will be refereed to as \textit{CTRL} and \textit{RIF} scans, stand
 The planned bed positions are shown in figure~\ref{fig_3_3:IsotoPK_BedPositionsOnMR} for the DSB and DWB phase of the two scans. 
 
 The complete \textit{CTRL} and \textit{RIF} datasets, including the DSB and DWB data, were reconstructed within the developed direct multi-bed dynamic reconstruction platform, using an OSEM algorithm with 28 subsets, with the EM nested optimization technique and 20 sub-iterations. Both datasets made use of TOF information within the reconstruction. The dynamic reconstructions were performed for DWB data, with and without the use of the initial DSB data to test extrapolation of the spectral model on early (non-sampled) frames. 
-A total number of 17 spectral basis functions were used, with $\beta_1 ... \beta_{M-1}$ logarithmically spaced within the range of 3 to 0.001 $min^{-1}$, while including $b_M\xrightarrow{}\infty$ and $b_0\xrightarrow{}0$ to account for trapping and blood fraction in the data. Similarly to the simulation study, the assumption of $C_{B}$ being proportional to $C_{P}$ was used in the estimation of the basis functions.
+A total number of 17 spectral basis functions were used, with $\beta_1 ... \beta_{M-1}$ logarithmically spaced within the range of 3 to 0.001 $min^{-1}$, while including $\beta_0$ and $\beta_{M}$ to account for trapping and blood fraction in the data. Similarly to the simulation study, the assumption of $C_{B}$ being proportional to $C_{P}$ was used in the estimation of the basis functions.
 In addition to the dynamic reconstructions, individual 3D reconstructions were performed using the same framework and OSEM algorithm with 28 subsets. As the IsotoPK study is an exploratory pharmacokinetic study, dynamic reconstructions were performed with the spectral model for temporal regularisation of frame activity estimates as well as for exploring direct estimation of $K_1$ parametric images. 
 
 Manual arterial blood samples were taken during both scans, to derive the input function and for blood analysis (to measure the metabolites fraction and for plasma binding of the tracer). The measured input function was linearly interpolated and then used for estimation of the spectral basis functions used for reconstruction. 
@@ -163,8 +163,6 @@ Leg Muscle & DWB \\
 Similarly, \gls{mip} images of 4D spectral reconstruction of the \textit{CTRL} scan are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_4D} and figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D} for the same respective frames. 
 As the spectral model is applied on the image space of the entire effective FOV, the 4D reconstruction results in frame images that are estimated from the fitted model of the entire FOV. As such, for frames within the DWB scan that are not sampled during that frame, activity estimates are interpolated from the frames of the entire DWB scan. For the frames of the DSB scan, locations that are not sampled by the single bed acquisition have activity estimates that are extrapolated for early frames from the fitted spectral model of later frames.
 
-Plots of mean VOI activity estimates against iteration, for early and late frames, over the liver and the leg muscle VOI were used to 
-
 \begin{figure} [h!]
 \centering
 \includegraphics[scale=0.52,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DSB_3D.pdf}
@@ -193,13 +191,57 @@ Plots of mean VOI activity estimates against iteration, for early and late frame
 \label{fig_3_3:IsotoPK_CTRL_DWB_4D}
 \end{figure} 
 
+Plots of mean VOI activity against iteration, for early and late frames, over the liver and the leg muscle VOI were used to estimate the iterations at which mean values being to stabilise. These plots are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_4D_Convergence} and figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_3D_Convergence}. 
+The plots of 3D and 4D spectral reconstruction without use of the DSB data are not shown here but shown results of very similar behaviour. 
+Using these plots the 15th iteration was chosen for evaluation of the 4D spectral reconstruction, while for 3D reconstructions the 4th iteration was chosen. Although convergence of mean values towards some stable value was not seen in 3D reconstructions, with 4th iteration was chosen to avoid excessive noise in estimates from further iterations. 
+
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_3D_Convergence.pdf}
+\caption{Liver (top) and Muscle (bottom) VOI mean versus iteration curves for 3D reconstruction. Shown for early (left) and late (right) frames of the \textit{CTRL} DWB acquisition including the DSB phase.}
+\label{fig_3_3:IsotoPK_CTRL_DWB_4D_Convergence}
+\end{figure} 
+
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_4D_Convergence.pdf}
+\caption{Liver (top) and Muscle (bottom) VOI mean versus iteration curves for 4D spectral reconstruction. Shown for early (left) and late (right) frames of the \textit{CTRL} DWB acquisition including the DSB phase.}
+\label{fig_3_3:IsotoPK_CTRL_DSB_4D_Convergence}
+\end{figure} 
+
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_3D_vs_4D_central.pdf}
+\caption{VOI mean time activity curves for 3D and 4D spectral reconstruction. VOI regions shown which are included in both DSB and DWB acquisition.}
+\label{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central}
+\end{figure} 
+
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_3D_vs_4D_peripheral.pdf}
+\caption{VOI mean time activity curves for 3D and 4D spectral reconstruction. VOI regions shown which are covered only by the DWB acquisition, whose start time is designated with a vertical dotted line.}
+\label{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}
+\end{figure} 
 
 
 \subsection{Comparison of 4D Spectral reconstruction on DWB data, with and without the use of DSB data}
 
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_4D_vs_4D_central.pdf}
+\caption{VOI mean time activity curves for 4D spectral reconstructions, with and without the use of DSB data. VOI regions shown are included in both DSB and DWB acquisitions.}
+\label{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}
+\end{figure} 
+
 \subsection{Direct WB parametric image estimation from 4D Spectral reconstructions}
 
-\subsection{Motion}
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_K1_drop.pdf}
+\caption{$K_1$ values as estimated from the 4D spectral reconstruction for VOI regions included in both DSB and DWB acquisitions , shown for the \textit{CTRL} and \textit{RIF} scan}
+\label{fig_3_3:IsotoPK_K1_drop}
+\end{figure} 
+
 
 \subsection{Fit errors and residual modelling}
 
@@ -208,6 +250,7 @@ Plots of mean VOI activity estimates against iteration, for early and late frame
 \newpage
 \newpage
 \section{Discussion}
+
 We have presented a framework for direct multi-bed reconstruction of DWB datasets, for individual frame reconstruction as well as dynamic reconstructions. The flexibility offered by this framework and by the CASToR reconstruction platform allows for the use of the DSB data that are commonly acquired prior to DWB acquisition, in the same reconstruction loop. We have shown how the framework can be extended for use with nested optimization for dynamic reconstruction.
 
 We performed an inconclusive evaluation study with the NHP dataset by splitting the acquired data into 10 replicates, to evaluate differences between the post-reconstruction overlapping of parametric image and direct multi-bed DWB reconstruction of parametric images. But results were inconclusive and showed the need for a detailed simulation study to assess differences in terms of bias and noise properties of the overlapping regions. 
