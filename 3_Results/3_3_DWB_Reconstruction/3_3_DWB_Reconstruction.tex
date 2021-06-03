@@ -191,21 +191,9 @@ As the spectral model is applied on the image space of the entire effective FOV,
 \label{fig_3_3:IsotoPK_CTRL_DWB_4D}
 \end{figure} 
 
-Plots of mean VOI activity against iteration, for early and late frames, over the liver and the leg muscle VOI were used to evaluate at which iteration the mean values begin to stabilise. These plots are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_4D_Convergence} and figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_3D_Convergence}. For 4D spectral reconstruction the evaluated mean values provided relatively stable values from the 15th iteration onwards, which was chosen for subsequent comparisons of reconstructions. For 3D reconstruction mean values did not show stable behaviour in both regions within the first 8 iterations and the 4th iteration was chosen in subsequent comparisons as a comprise between reliability of mean values and image noise.  
+Plots of mean VOI activity against iteration, for early and late frames, over the liver and the leg muscle VOI were used to evaluate at which iteration the mean values begin to stabilise. These plots are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_Convergence} and figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_3D_Convergence}. For 4D spectral reconstruction the evaluated mean values provided relatively stable values from the 15th iteration onwards, which was chosen for subsequent comparisons of reconstructions. For 3D reconstruction mean values did not show stable behaviour in both regions within the first 8 iterations and the 4th iteration was chosen in subsequent comparisons as a comprise between reliability of mean values and image noise.  
 
-\begin{figure} [h!]
-\centering
-\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_3D_Convergence.pdf}
-\caption{Liver (top) and Muscle (bottom) VOI mean versus iteration curves for 3D reconstruction. Shown for early (left) and late (right) frames of the \textit{CTRL} DWB acquisition including the DSB phase.}
-\label{fig_3_3:IsotoPK_CTRL_DWB_4D_Convergence}
-\end{figure} 
 
-\begin{figure} [h!]
-\centering
-\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_4D_Convergence.pdf}
-\caption{Liver (top) and Muscle (bottom) VOI mean versus iteration curves for 4D spectral reconstruction. Shown for early (left) and late (right) frames of the \textit{CTRL} DWB acquisition including the DSB phase.}
-\label{fig_3_3:IsotoPK_CTRL_DSB_4D_Convergence}
-\end{figure} 
 
 TACs of the evaluated VOIs are plotted in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central} and~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} for VOIs sampled in both DSB and DWB acquisitions and for VOIs sampled only during the DWB acquisition respectively. In figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} the time point of the start of the DWB acquisition is indicated by the red dotted line.
 As already mentioned, the 4D spectral reconstruction results in an activity estimate of every location of the image for every frame of the study, while 3D reconstruction results in activity estimates for the sampled frames only at each location. This is why the TACs from the 4D reconstruction of the \textit{CTRL} data show a total of 88 frame points for all VOIs and a total of 32 frame points (18 from DSB plus 14 from DWB) for central regions and only 14 frames for regions seen soley by the DWB acquisition. 
