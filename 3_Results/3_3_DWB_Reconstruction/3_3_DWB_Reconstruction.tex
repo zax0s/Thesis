@@ -161,7 +161,7 @@ Leg Muscle & DWB \\
 \subsection{Comparison between 3D and 4D spectral reconstruction on DWB data}
 \Gls{mip} images of 3D reconstructions from the \textit{CTRL} scan are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_3D} and figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_3D}, for a late frame of the DSB acquisition and early frames of the DWB acquisition respectively. 
 Similarly, \gls{mip} images of 4D spectral reconstruction of the \textit{CTRL} scan are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_4D} and figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D} for the same respective frames. 
-As the spectral model is applied on the image space of the entire effective FOV, the 4D reconstruction results in frame images that are estimated from the fitted model of the entire FOV. As such, for frames within the DWB scan that are not sampled during that frame, activity estimates are interpolated from the frames of the entire DWB scan. For the frames of the DSB scan, locations that are not sampled by the single bed acquisition have activity estimates that are extrapolated for early frames from the fitted spectral model of later frames.
+As the spectral model is applied on the image space of the entire effective FOV, the 4D reconstruction results in frame images that are estimated from the fitted model of the entire FOV. As such, for frames within the DWB scan that are not sampled during that frame, activity estimates are interpolated from the frame data of the entire DWB scan. For the frames of the DSB scan, locations that are not sampled by the single bed acquisition have activity estimates that are extrapolated for early frames from the fitted spectral model of later frames.
 
 \begin{figure} [h!]
 \centering
@@ -191,9 +191,7 @@ As the spectral model is applied on the image space of the entire effective FOV,
 \label{fig_3_3:IsotoPK_CTRL_DWB_4D}
 \end{figure} 
 
-Plots of mean VOI activity against iteration, for early and late frames, over the liver and the leg muscle VOI were used to estimate the iterations at which mean values being to stabilise. These plots are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_4D_Convergence} and figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_3D_Convergence}. 
-The plots of 3D and 4D spectral reconstruction without use of the DSB data are not shown here but shown results of very similar behaviour. 
-Using these plots the 15th iteration was chosen for evaluation of the 4D spectral reconstruction, while for 3D reconstructions the 4th iteration was chosen. Although convergence of mean values towards some stable value was not seen in 3D reconstructions, with 4th iteration was chosen to avoid excessive noise in estimates from further iterations. 
+Plots of mean VOI activity against iteration, for early and late frames, over the liver and the leg muscle VOI were used to evaluate at which iteration the mean values begin to stabilise. These plots are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_4D_Convergence} and figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_3D_Convergence}. For 4D spectral reconstruction the evaluated mean values provided relatively stable values from the 15th iteration onwards, which was chosen for subsequent comparisons of reconstructions. For 3D reconstruction mean values did not show stable behaviour in both regions within the first 8 iterations and the 4th iteration was chosen in subsequent comparisons as a comprise between reliability of mean values and image noise.  
 
 \begin{figure} [h!]
 \centering
@@ -209,12 +207,19 @@ Using these plots the 15th iteration was chosen for evaluation of the 4D spectra
 \label{fig_3_3:IsotoPK_CTRL_DSB_4D_Convergence}
 \end{figure} 
 
+TACs of the evaluated VOIs are plotted in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central} and~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} for VOIs sampled in both DSB and DWB acquisitions and for VOIs sampled only during the DWB acquisition respectively. In figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} the time point of the start of the DWB acquisition is indicated by the red dotted line.
+As already mentioned, the 4D spectral reconstruction results in an activity estimate of every location of the image for every frame of the study, while 3D reconstruction results in activity estimates for the sampled frames only at each location. This is why the TACs from the 4D reconstruction of the \textit{CTRL} data show a total of 88 frame points for all VOIs and a total of 32 frame points (18 from DSB plus 14 from DWB) for central regions and only 14 frames for regions seen soley by the DWB acquisition. 
+
+For the VOIs seen by both DSB and DWB acquisitions the TACs between 3D and 4D spectral reconstruction are in good agreement for all evaluated VOIs, as seen in~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central}. For the brain and muscle VOIs seen by the DWB acquisition only, there is a relatively good agreement with slightly overestimation in early frames of the brain region and underestimation on later frames as seen in~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}. By contrast, at the bladder VOI there is a strong mismatch of the 3D and 4D spectral reconstruction, with the 3D reconstruction showing clearly the bladder filling process and the 4D spectral reconstruction showing an increasing behaviour produced by the exponential function. 
+
+A look into the VOI means of the spectral parametric images is given in the appendix material, where it is seen that the component of full trapping $\phi_0$ is strongly used in the bladder region, in an attempt to fit the underlying process. But any use of the input function and the decaying exponentials is not enough to fit this process. Further considerations to this issue are addressed in the the section~\ref{sub_section:residuals}. 
+
 \begin{figure} [h!]
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_3D_vs_4D_central.pdf}
 \caption{VOI mean time activity curves for 3D and 4D spectral reconstruction. VOI regions shown which are included in both DSB and DWB acquisition.}
 \label{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central}
-\end{figure} 
+\end{figure}
 
 \begin{figure} [h!]
 \centering
@@ -223,8 +228,10 @@ Using these plots the 15th iteration was chosen for evaluation of the 4D spectra
 \label{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}
 \end{figure} 
 
-
 \subsection{Comparison of 4D Spectral reconstruction on DWB data, with and without the use of DSB data}
+A comparison between 4D spectral reconstruction with and without the use of the initial DSB data is made in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} for VOIs covered by both acquisitions. These show a good agreement of the two spectral reconstruction, with a consistent error in the early frame estimations of the reconstruction without use of DSB data, that is relatively small compared to the mean activity of each VOI (maximum of 12.7\% error seen in Spleen VOI). A very good agreement is seen on the liver between the two reconstructions.
+
+The extrapolation of the fitted spectral model from DWB data alone can be made for the early frames. These show a sharp drop of the fitted TACs, indicating the inadequacy of the used data for extrapolation of the fast early frame behaviour. 
 
 \begin{figure} [h!]
 \centering
@@ -234,16 +241,35 @@ Using these plots the 15th iteration was chosen for evaluation of the 4D spectra
 \end{figure} 
 
 \subsection{Direct WB parametric image estimation from 4D Spectral reconstructions}
+Using the set of equations~\ref{eqn:AllSpectralEqns} and specifically the equation for the derivation of $K_1$, the parametric maps of $K_1^{*}$ were produced by summation of basis $(\phi_0-\phi_{M-1})$. Similar to the simulation study before, the blood fraction correction term $(1-\phi_M)$ was neglected in favour of avoiding voxel-to-voxel division and induction of excessive image noise. The result parametric maps for both \textit{CTRL} and \textit{RIF} scans are shown in figure~\ref{fig_3_3:IsotoPK_K1_MIP} and figure, as a \gls{mip} in the coronal plane and as a single coronal slice showing the the liver, kidneys and the spleen.
+Mean VOI $K_1^{*}$ values were calculated from the parametric images and corrected with the mean $\phi_M$ value to calculate the VOI $K_1$ values shown in figure~\ref{fig_3_3:IsotoPK_K1_drop}. 
 
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_K1_drop.pdf}
+\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_K1_MIPs.pdf}
+\caption{$K_1$ MIP images from the 4D spectral reconstruction using both DSB and DWB acquisitions, shown for the \textit{CTRL} and \textit{RIF} scan.}
+\label{fig_3_3:IsotoPK_K1_MIP}
+\end{figure} 
+
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_K1_SingleSlice.pdf}
+\caption{$K_1$ values as estimated from the 4D spectral reconstruction for VOI regions included in both DSB and DWB acquisitions , shown for the \textit{CTRL} and \textit{RIF} scan}
+\label{fig_3_3:IsotoPK_K1_SingleSlice}
+\end{figure} 
+
+\begin{figure} [h!]
+\centering
+\includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/K1_VB_drop.pdf}
 \caption{$K_1$ values as estimated from the 4D spectral reconstruction for VOI regions included in both DSB and DWB acquisitions , shown for the \textit{CTRL} and \textit{RIF} scan}
 \label{fig_3_3:IsotoPK_K1_drop}
 \end{figure} 
 
+\subsubsection{Liver dual-input blood toy simulation}
+The effectiveness of the spectral model in assessing relative differences of $K_1$ while not accounting for the explicit dual-input function of this particular organ was tested with a simulation. The aim was to get an understanding of the behaviour of the model, when fitted using only the arterial input function, and to assess if relative differences such as the ones showed above between the \textit{CTRL} and \textit{RIF} scans can translate to relative differences of true underlying $K_1$ changes. 
 
 \subsection{Fit errors and residual modelling}
+\label{sub_section:residuals}
 
 
 \newpage
