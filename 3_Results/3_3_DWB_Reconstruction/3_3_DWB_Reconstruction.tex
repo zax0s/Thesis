@@ -126,6 +126,8 @@ In addition to the dynamic reconstructions, individual 3D reconstructions were p
 
 Manual arterial blood samples were taken during both scans, to derive the input function and for blood analysis (to measure the metabolites fraction and for plasma binding of the tracer). The measured input function was linearly interpolated and then used for estimation of the spectral basis functions used for reconstruction. 
 
+[\textbf{!Show here the two input functions of the two studies!}]
+
 \begin{figure} [h!]
 \centering
 \includegraphics[scale=0.42,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_PositionsOnMR.pdf}
@@ -222,7 +224,7 @@ A look into the VOI means of the spectral parametric images is given in the appe
 \end{figure} 
 
 \subsection{Comparison of 4D Spectral reconstruction on DWB data, with and without the use of DSB data}
-A comparison between 4D spectral reconstruction with and without the use of the initial DSB data is made in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} for VOIs covered by both acquisitions. These show a good agreement of the two spectral reconstruction, with a consistent error in the early frame estimations of the reconstruction without use of DSB data, that is relatively small compared to the mean activity of each VOI (maximum of 12.7\% error seen in Spleen VOI). A very good agreement is seen on the liver between the two reconstructions.
+A comparison between 4D spectral reconstruction with and without the use of the initial DSB data is made in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_4D_Central} for VOIs covered by both acquisitions. These show a good agreement of the two spectral reconstruction, with a consistent error in the early frame estimations of the reconstruction without use of DSB data, that is relatively small compared to the mean activity of each VOI (maximum of 12.7\% error seen in Spleen VOI). A very good agreement is seen on the liver between the two reconstructions.
 
 The extrapolation of the fitted spectral model from DWB data alone can be made for the early frames. These show a sharp drop of the fitted TACs, indicating the inadequacy of the used data for extrapolation of the fast early frame behaviour. 
 
@@ -230,7 +232,7 @@ The extrapolation of the fitted spectral model from DWB data alone can be made f
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_4D_vs_4D_central.pdf}
 \caption{VOI mean time activity curves for 4D spectral reconstructions, with and without the use of DSB data. VOI regions shown are included in both DSB and DWB acquisitions.}
-\label{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}
+\label{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_4D_Central}
 \end{figure} 
 
 \subsection{Direct WB parametric image estimation from 4D Spectral reconstructions}
@@ -262,7 +264,7 @@ The results of the simulation study, given in the appendix, have shown that accu
 
 \subsection{Fit errors and residual modelling}
 \label{sub_section:residuals}
-As seen in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} the mismatch of the 3D and 4D spectral reconstruction at the bladder TAC is the strongest from all the VOIs evaluated. The source of this error is the inability of the spectral model in fitting the bladder filling process, using decaying exponentials and the arterial input function alone. This mishmash is of particular concern for dynamic reconstruction as it can be the source of errors that propagate spatially during the dynamic reconstruction process over the entire field of view. 
+As seen in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} the mismatch of the 3D and 4D spectral reconstruction at the bladder TAC is the strongest from all the evaluated VOIs. The source of this error is the inability of the spectral model to fit the bladder filling process, by any combination of the decaying exponentials convolved with the arterial input function alone. This mishmash is of particular concern for dynamic reconstruction as it can be the source of errors that propagate spatially during the dynamic reconstruction process over the entire field of view. 
 This issue has been addressed in the following work by making use of adaptive residual modeling within the dynamic reconstruction. It was presented during the IEEE/MIC-2020 conference and the following conference record has been submitted for publication. 
 
 \newpage
@@ -271,9 +273,33 @@ This issue has been addressed in the following work by making use of adaptive re
 \includepdf[pages=-,pagecommand={}]{3_Results/3_3_DWB_Reconstruction/MIC2020/Whole_Body_dynamic_PET_direct_4D_reconstruction_with_adaptive_modelling__Conference_Record_.pdf}
 
 \section{Discussion}
-We have presented a framework for direct multi-bed reconstruction of DWB datasets, for individual frame reconstruction as well as dynamic reconstructions. The flexibility offered by this framework and by the CASToR reconstruction platform allows for the use of the DSB data that are commonly acquired prior to DWB acquisition, in the same reconstruction loop. We have shown how the framework can be extended for use with nested optimization for dynamic reconstruction.
+
+We have developed and presented a framework for direct multi-bed reconstruction of DWB data, that allows for synchronous use of both DSB and DWB data which are typically acquired in DWB studies~\cite{Karakatsanis2013}. 
+This framework can be used for dynamic reconstruction by making use of the accurate positional and timing information of all the individual bed RAW PET data within a single iterative loop, performed either directly within a single system matrix or using the more practical nested optimization approach.
+In this study we have tested this framework with real DWB data, from a first in man pharmacokinetic study, where the spectral model was used within the reconstruction to avoid having to assume and enforce a specific compartmental model.
+The result (temporally regularised) activity images show estimates with smooth transition in the axial direction across the effective FOV, in terms of activity estimates and image noise. Although we hypothesised that use of the data within a single iterative loop results in improved estimates over the overlap region, compared to the state of the art methods that overlap parametric images post-reconstruction in image space~\cite{Karakatsanis2016a,Hu2020}, we do not directly compare with these methods. To address this comparison, we performed an inconclusive evaluation study with the NHP dataset of chapter~\ref{Chap3_1:AcquisitionOptimization} but results were inconclusive and showed the need for a detailed simulation study to assess differences in terms of bias and noise properties of the overlapping regions against ground truth simulated values. 
+
+The IsotoPK real DWB data used in this study included a 180 s DSB acquisition centred over the liver prior to the DWB acquisition. This has enabled the estimation of $K_1^{*}$ parametric images over the region covered by both DSB and DWB acquisitions. As shown before in chapter~\ref{Chap3_2:SimStudy}, that initial information is crucial for estimation of $K_1$. Thus, although use of the DSB initial phase allows for fast sampling of fast kinetics and estimation of fast kinetics sensitive parameters in DWB studies, it still limits the estimation for parametric images to an axial coverage of a single bed position. All other regions outside this bed coverage were sampled with an 180 s delay, which as shown in chapter~\ref{Chap3_2:SimStudy} produces erroneous estimates of $K_1^{*}$. 
+
+Further investigation is required to quantify the minimum amount of fast kinetics sampling frequency required for reliable deduction of parametric $K_1$ images, to adapt the acquisition for reliable estimation of this parameter over the whole effective FOV. 
+
+
+
+
+But there are many challenges and limitation in the application of a dynamic models over the entire image FOV, which are of particular concern for DWB where the model is applied in the effective FOV. 
+Firstly, a single input function has been used for the estimation of the basis functions of the spectral model. These measurements do not account for the sampling point's (in this case from a radial artery) distance from the heart, while they are assumed to equally apply at all regions in the FOV. Ideally the delay and dispersion properties of the input function need to be estimated for each region, before calculating a set of spatially variant spectral basis functions. 
+
+Furthermore, the sampled input function was derived from manual samples whose sampling frequency compromises the capture of the peak of the input function. This information over the peak is of significant importance for estimation of micro-parameters. 
+Methods for joint-estimation of an input function within the reconstruction process have been previously proposed~\cite{Wang2013,Reader2014}, but so far have only been applied in DSB studies~\cite{Reader2014} and studies using total-body data~\cite{Feng2019} where sensitivity and sampling-frequency are much higher compared to multi-bed DWB imaging.
+Many considerations are needed for the translation of these methods in multi-bed DWB, where difference regions of the body are sampled at different time points and less frequently, and where the poor data statistics might not allow for reliable estimation of all the involved parameters of these joint estimations. 
+Image derived input functions suffer from similar problems regarding sampling frequency over the input function peak, translating to errors in micro-parameter estimations.
+
+
+
+Finally, an important limitation in all dynamic studies is subject motion, whether volunteary of involuntary. 
+
 
 We performed an inconclusive evaluation study with the NHP dataset by splitting the acquired data into 10 replicates, to evaluate differences between the post-reconstruction overlapping of parametric image and direct multi-bed DWB reconstruction of parametric images. But results were inconclusive and showed the need for a detailed simulation study to assess differences in terms of bias and noise properties of the overlapping regions. 
 
-Talk about need of comparison on current state of the art practices for S\&S mutli-bed DWB, by overlapping parametric images, to the proposed method. Talk about how this was 
+Talk about need of comparison on current state of the art practices for S\&S mutli-bed DWB, by overlapping parametric images, to the proposed method.
 
