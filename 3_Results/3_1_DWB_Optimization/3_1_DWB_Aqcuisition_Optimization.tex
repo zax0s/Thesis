@@ -139,7 +139,7 @@ The complete study dataset was recorded in a single list-mode file, of which the
 \end{figure}
 %
 Using the timing information recorded by in the log file, the data were split into four individual bed position datasets and were processed with the GE-PET toolbox individually as single bed dynamic studies. The list-mode data along with the generated corrections were then exported into the CASToR data-file format for subsequent reconstruction tests. A \gls{mip} view of 3D reconstructions (averaged across all dynamic frames) is shown in figure~\ref{fig3_1:Macaque_PET}. \\
-An IDIF was estimated from the PET data, needed for subsequent kinetic analysis of the data. An right carotid VOI was used, which was visible on both phases of the acquisition, and a left ventricle VOI. Both VOIs provided similar blood activity values for the DWB phase and were averaged to produce the final IDIF, shown in figure~\ref{Macaque_PET_input_function}.
+An IDIF was estimated from the PET data, needed for subsequent kinetic analysis of the data. An right carotid VOI was used, which was visible on both phases of the acquisition, and a left ventricle VOI. Both VOIs provided similar blood activity values for the DWB phase and were averaged to produce the final IDIF, shown in figure~\ref{fig3_1:Macaque_PET_input_function}.
 %
 \begin{figure} [ht!]
 \centering
@@ -185,10 +185,10 @@ Another aspect where fast sampling can be beneficial is for the derivation of th
 In this evaluation a limitation that has not been considered is limits on table movement that are needed to avoid effects from electromagnetic induction on patients/volunteers by the fast movement of the bed within the MR field. For the tests conducted on the NHP, these limits have not been considered. These limits are expected to reduce the speed that would be permissive for human subjects, in compliance also with patient comfort requirements, and thus reduce the potential gains from use of the fully automated DWB protocol. 
 
 Finally in our tests we have considered only the use of S\&S acquisition in the implementation and optimisation of DWB protocols. 
-In a previous study on DWB protocols utilising CBM acquisition, advantages favouring the use CBM acquisition for DWB protocols were seen~\cite{Karakatsanis2016}. beyond the aspects of reduced acquisition delays, CBM offers other benefits such as uniform axial sensitivity of acquisition, flexibility in sampling frequency by adjustments in table speed within each WB sweep,improved patient comfort, etc. 
+In a previous study on DWB protocols utilising CBM acquisition, advantages favouring the use CBM acquisition for DWB protocols were seen~\cite{Karakatsanis2016a}. Beyond the aspects of reduced acquisition delays, CBM offers other benefits such as uniform axial sensitivity of acquisition, flexibility in sampling frequency by adjustments in table speed within each WB sweep,improved patient comfort, etc. 
 Overall use of CBM naturally overcomes many of the limitations posed by use of multi-bed DWB protocols with use of S\&S acquisition. 
 Finally, CBM protocols can also allow for bi-directional motion that eliminates delays between WB sweeps. 
-These acquisition modes, their effects on acquisition gaps and result parametric image quality were considered further in the simulation study presented in chapter XX.
+These acquisition modes, their effects on acquisition gaps and result parametric image quality were considered further in the simulation study presented in chapter~\ref{Chap3_2:SimStudy}.
 
 \section{Conclusion}
 A fully automated DWB protocol was developed. Data using this protocol were successfully acquired, processed and reconstructed in a test NHP study.
