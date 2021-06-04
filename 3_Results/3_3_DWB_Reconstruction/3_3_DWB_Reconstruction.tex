@@ -156,6 +156,11 @@ Leg Muscle & DWB \\
 \end{tabular}
 \end{table}
 
+\subsubsection{Liver dual-input blood toy simulation}
+For the liver which is one the main organs of interest in the IsotoPK study, as discussed in section~\ref{liver_PV_theory}, the dual input function model is necessary for accurate modeling of tracer behaviour. 
+When this is not accounted for, parametric estimates derived from single input function models are expected to be biased.  
+A toy simulation study was conducted to study how quantification of $K_1$ is affected by the use of the spectral model with a single input function and to study whether relative difference, such as those expected from the comparison of the \textit{CTRL} to the \textit{RIF} scan, can still be accurately deduced relating to relative differences of true underlying $K_1$.
+
 
 \section{Results}
 \subsection{Comparison between 3D and 4D spectral reconstruction on DWB data}
@@ -230,7 +235,9 @@ The extrapolation of the fitted spectral model from DWB data alone can be made f
 
 \subsection{Direct WB parametric image estimation from 4D Spectral reconstructions}
 Using the set of equations~\ref{eqn:AllSpectralEqns} and specifically the equation for the derivation of $K_1$, the parametric maps of $K_1^{*}$ were produced by summation of basis $(\phi_0-\phi_{M-1})$. Similar to the simulation study before, the blood fraction correction term $(1-\phi_M)$ was neglected in favour of avoiding voxel-to-voxel division and induction of excessive image noise. The result parametric maps for both \textit{CTRL} and \textit{RIF} scans are shown in figure~\ref{fig_3_3:IsotoPK_K1_MIP} and figure, as a \gls{mip} in the coronal plane and as a single coronal slice showing the the liver, kidneys and the spleen.
-Mean VOI $K_1^{*}$ values were calculated from the parametric images and corrected with the mean $\phi_M$ value to calculate the VOI $K_1$ values shown in figure~\ref{fig_3_3:IsotoPK_K1_drop}. 
+Mean VOI $K_1^{*}$ values were calculated from the parametric images and corrected with the mean $\phi_M$ value to estimate the VOI $K_1$ values shown in figure~\ref{fig_3_3:IsotoPK_K1_drop}. A considerable reduction, from the \textit{CTRL} to the \textit{RIF} scan, was seen in $K_1$ in by the administration of the inhibitor prior to the \textit{RIF} scan. 
+
+The results of the simulation study, given in the appendix, have shown that accurate quantification of $K_1$ in the liver using only the arterial input function as an input function is not possible. But it showed that a relative comparison the spectral model $K_1$ estimate reflects accurately and linearly the true underlying $K_1$ differences.
 
 \begin{figure} [h!]
 \centering
@@ -253,20 +260,20 @@ Mean VOI $K_1^{*}$ values were calculated from the parametric images and correct
 \label{fig_3_3:IsotoPK_K1_drop}
 \end{figure} 
 
-\subsubsection{Liver dual-input blood toy simulation}
-The effectiveness of the spectral model in assessing relative differences of $K_1$ while not accounting for the explicit dual-input function of this particular organ was tested with a simulation. The aim was to get an understanding of the behaviour of the model, when fitted using only the arterial input function, and to assess if relative differences such as the ones showed above between the \textit{CTRL} and \textit{RIF} scans can translate to relative differences of true underlying $K_1$ changes. 
-
 \subsection{Fit errors and residual modelling}
 \label{sub_section:residuals}
+As seen in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} the mismatch of the 3D and 4D spectral reconstruction at the bladder TAC is the strongest from all the VOIs evaluated. The source of this error is the inability of the spectral model in fitting the bladder filling process, using decaying exponentials and the arterial input function alone. This mishmash is of particular concern for dynamic reconstruction as it can be the source of errors that propagate spatially during the dynamic reconstruction process over the entire field of view. 
+This issue has been addressed in the following work by making use of adaptive residual modeling within the dynamic reconstruction. It was presented during the IEEE/MIC-2020 conference and the following conference record has been submitted for publication. 
 
+\newpage
 
-\newpage
-\newpage
-\newpage
+%\include{3_Results/3_3_DWB_Reconstruction/MIC2020/mic_summary_pe2i_2016_cc}
+\includepdf[pages=-,pagecommand={}]{3_Results/3_3_DWB_Reconstruction/MIC2020/Whole_Body_dynamic_PET_direct_4D_reconstruction_with_adaptive_modelling__Conference_Record_.pdf}
+
 \section{Discussion}
-
 We have presented a framework for direct multi-bed reconstruction of DWB datasets, for individual frame reconstruction as well as dynamic reconstructions. The flexibility offered by this framework and by the CASToR reconstruction platform allows for the use of the DSB data that are commonly acquired prior to DWB acquisition, in the same reconstruction loop. We have shown how the framework can be extended for use with nested optimization for dynamic reconstruction.
 
 We performed an inconclusive evaluation study with the NHP dataset by splitting the acquired data into 10 replicates, to evaluate differences between the post-reconstruction overlapping of parametric image and direct multi-bed DWB reconstruction of parametric images. But results were inconclusive and showed the need for a detailed simulation study to assess differences in terms of bias and noise properties of the overlapping regions. 
 
 Talk about need of comparison on current state of the art practices for S\&S mutli-bed DWB, by overlapping parametric images, to the proposed method. Talk about how this was 
+
