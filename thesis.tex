@@ -77,7 +77,7 @@ bottom=30mm
 
 \DeclareMathSizes{10}{10}{7}{8}   % For size 10 text
 
-
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 
 % acronyms 
 \usepackage[acronym, toc]{glossaries}
@@ -169,10 +169,10 @@ bottom=30mm
     \printglossary[type=\acronymtype,title=Acronyms,nonumberlist]
     
     
-    %\input{./1_Introduction/Introduction_main}
+    \input{./1_Introduction/Introduction_main}
     \mainmatter
     \part{Theory and Methods}
-    %\input{./2_Theory_Methods/Theory_Methods_main}
+    \input{./2_Theory_Methods/Theory_Methods_main}
     
     \part{Contributions}
     \input{./3_Results/Results}
@@ -180,11 +180,11 @@ bottom=30mm
     \input{./4_Discussion/Discussion}
 
     \appendix
-    %\input{appendices/1}
-    %\input{appendices/2}
+    \input{appendices/1}
+    \input{appendices/2}
     \input{appendices/3_3}
-    %\input{appendices/3}
-    %\include{SecondaryContributions/hybrid_projects}
+    \input{appendices/3}
+    \include{SecondaryContributions/hybrid_projects}
     
     \bibliography{bibliography.bib}
     \pagebreak
