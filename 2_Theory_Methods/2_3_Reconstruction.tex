@@ -261,7 +261,7 @@ The last part of the expression is equivalent to an EM update over all tomograph
 \frac{\sum_{i=1}^{n_i} \hat{x}_{tib} }
 {\sum_{i=1}^{n_i}  P_{ib}}  =
 \frac{f_{tj}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i}  P_{ib}}
-\sum_{i=1}^{n_i} 
+\sum_{i=1}^{n_i} P_{ib}
 \frac{y_{ti}}
 {\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + C_{ti}}\\.
 \end{equation}
@@ -269,7 +269,7 @@ This set of images can be referred to as the EM update image.
 \begin{equation}
 f_{tj}^{(\textrm{EM})}(\bm{\theta}^{(k)}) = 
 \frac{f_{tj}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i}  P_{ib}}
-\sum_{i=1}^{n_i} 
+\sum_{i=1}^{n_i} P_{ib}
 \frac{y_{ti}}
 {\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + C_{ti}}\\.
 \label{eqn:EM_Update_image}

@@ -1,5 +1,5 @@
 \section{Introduction}
-Acquisition of DWB datasets in S\%S mode with overlapping bed positions result in complex datasets of PET RAW data, in relation to timing and positional information. Moreover, the addition of an initial DSB acquisition, commonly conducted for IDIF derivation purposes and providing information that allow for more complex kinetic modeling of the sampled region~\cite{Zaker2020}, increase the complexity of the PET RAW dataset. 
+Acquisition of DWB datasets in S\&S mode with overlapping bed positions result in complex datasets of PET RAW data, in relation to timing and positional information. Moreover, the addition of an initial DSB acquisition, commonly conducted for IDIF derivation purposes and providing information that allow for more complex kinetic modeling of the sampled region~\cite{Zaker2020}, increase the complexity of the PET RAW dataset. 
 
 Suggested practices~\cite{Karakatsanis2013} and state of the art implementations~\cite{Hu2020} of DWB protocols regard the two datasets (DSB and DWB) as independent and suggest to perform independent reconstructions on each dataset. Post-reconstruction kinetic model fitting is then used to combine the TAC information over both datasets. 
 Furthermore, the DWB dataset contains locations at the overlapping bed regions which are sampled twice as much as central bed regions, as a result of the overlapping sampling necessary to increase sensitivity at the bed position edges. The overlap timing information combines the timing of the adjacent bed positions. In post-reconstruction kinetic modeling, which is applied independently on each voxel TAC, suggested practices make use of modified timing information (average of two bed position timings) for voxels that fall at overlapping regions~\cite{Karakatsanis2013} which result to a degree of degradation of the timing information. Another suggestion is to make use of independent dynamic reconstruction of each bed position from the DWB dataset and apply post-reconstruction overlapping of parametric images ~\cite{Karakatsanis2016a}.
@@ -11,7 +11,7 @@ Finally we discuss the complications arising from kinetic model fitting errors i
 
 \section{Methods}
 \subsection{Dynamic Whole Body Datasets}
-A diagram of axial position and time for an example three bed position DWB protocol is shown in figure~\ref{fig_3_3:OverlapFraming}, to demonstrate the differences in temporal sampling between central locations and locations at the bed overlapping regions. The bed locations in this example are identical to the setup used for the NHP acquisition on the Signa PET/MR described in chapter ~\ref{Chap3_1:AcquisitionOptimization}.
+A diagram of axial position and time for an example three bed position DWB protocol is shown in figure~\ref{fig_3_3:OverlapFraming}, to demonstrate the differences in temporal sampling between central locations and locations at the bed overlapping regions. The bed locations in this example are identical to the setup used for the NHP acquisition on the Signa PET/MR described in chapter~\ref{Chap3_1:AcquisitionOptimization}.
 As it can be seen at the left diagram of figure~\ref{fig_3_3:OverlapFraming} axial positions that fall outside of the overlap region result in framing that is equal to the framing of their respective bed positions. Positions over the overlap regions, seen at the right diagram of figure~\ref{fig_3_3:OverlapFraming}, result in framing equal to that of both adjacent bed positions, which gives twice the number of frames compared to locations outside the overlap. Locations at the overlap regions are not sampled continuously from both contributing bed positions due to the interruption by the movement of the bed and system delays.  
 Finally, complexity is increased when the DSB data are included, as shown in figure~\ref{fig_3_3:CompleteProtocolFraming}, with that information contributing to different locations of the DWB acquisition that might fall in overlap regions or not depending on the protocol setup. 
 
@@ -39,13 +39,13 @@ For linear dynamic models, dynamic reconstruction (without use of nested optimiz
 For DWB data, incorporation of the bed offset information in the projection operation can naturally lead to direct multi-bed dynamic reconstruction, where the selection of the sampled time points for the location of a voxel $j$ is conducted by the projection operation. In this case the projection operation and consequently the system matrix elements will depend on the frame $t$. 
 This can also be expressed as an extension of the direct multi-bed reconstruction, described by equation~\ref{eqn2_4:MLEM_multibed}, to dynamic reconstruction where the axial offset of each bed position is incorporated in the time dependent information of the system matrix.
 This provides
-
+%
 \begin{equation}
 \theta_{pj}^{(k+1)} = \frac{\theta_{pj}^{(k)}}
 {\sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{tij}} 
 \sum_{t=1}^{n_t} B_{tp}  \sum_{i=1}^{n_i} P_{tij} 
 \frac{y_{ti}}
-{\sum_{d=1}^{n_j} P_{tid} \sum_{p=1}^{n_p} B_{tp}\theta_{pj}^{(k)} + B_{ti} } \\, \\
+{\sum_{d=1}^{n_j} P_{tid} \sum_{p=1}^{n_p} B_{tp}\theta_{pj}^{(k)} + C_{ti} } \\, \\
 \label{eqn:4DMLEM_Multibed}
 \end{equation} 
 
@@ -90,14 +90,14 @@ Thus the two step process, for direct multi-bed dynamic reconstruction with nest
 \label{eq3_3:NestedMultibed}
 \text{}
 \begin{cases}  
-f_{tj}^{(EM)} = \frac{f_j(\bm\theta^{(k)})}{\sum_{i=1}^{n_i} P_{tij}} 
+f_{tj}^{(\textrm{EM})}(\bm\theta^{(k)}) = \frac{f_{tj}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i} P_{tij}} 
 \sum_{i=1}^{n_i} P_{tij} 
-\frac{y_{ti}}{\sum_{d=1}^{n_j} P_{tid} f_d(\bm\theta^{(k)}) + B_{ti} } \\ \\
+\frac{y_{ti}}{\sum_{d=1}^{n_j} P_{tid} f_{td}(\bm\theta^{(k)}) + C_{ti} } \\ \\
 \argmax{\bm{\theta}} 
 \sum_{t=1}^{n_t} \sum_{b=1}^{n_j} \left[ \sum_{i=1}^{n_i}  P_{tib} \right]
-\left[ -f_b(\bm\theta^{(k)}) + 
-ln( f_b(\bm\theta^{(k)})) 
-f_{tb}^{(EM)}(\bm{\theta}^{(k)})
+\left[ -f_{tb}(\bm\theta^{(k)}) + 
+ln( f_{tb}(\bm\theta^{(k)})) 
+f_{tb}^{(\mathrm{EM})}(\bm{\theta}^{(k)})
 \right] .\\
 \end{cases}
 \end{equation}
@@ -235,9 +235,9 @@ The extrapolation of the fitted spectral model from DWB data alone can be made f
 Using the set of equations~\ref{eqn:AllSpectralEqns} and specifically the equation for the derivation of $K_1$, the parametric maps of $K_1^{*}$ were produced by summation of basis $(\phi_0-\phi_{M-1})$. Similar to the simulation study before, the blood fraction correction was neglected in favour of avoiding voxel-to-voxel division and induction of excessive image noise. The result parametric maps for both \textit{CTRL} and \textit{RIF} scans are shown in figure~\ref{fig_3_3:IsotoPK_K1_MIP} and figure~\ref{fig_3_3:IsotoPK_K1_SingleSlice}, as a \gls{mip} in the coronal plane and as a single coronal slice showing the the liver, kidneys and the spleen.
 Mean VOI $K_1^{*}$ values,shown in figure~\ref{fig_3_3:IsotoPK_K1_drop}, show a considerable reduction from the \textit{CTRL} to the \textit{RIF} scan by the administration of the inhibitor prior to the \textit{RIF} scan. 
 
-The results of the dual input simulation study, given in the appendix, indicate that accurate quantification of $K_1$ ( or $K_1^{*}$) in the liver using only the arterial input function as an input is not achievable. 
-But by contrast it did show that the genericity of the spectral model allowed for accurate TAC fitting, similar to the result seen on the liver with the real data. 
-The simulation also showed that a relative comparison of spectral model $K_1^{*}$ estimates reflects accurately and linearly the true underlying $K_1$ differences, without explicit need for modeling the dual input function.
+The results of the dual input simulation study, given in appendix~\ref{chap:AppendixC}, indicate that accurate quantification of $K_1$ (or $K_1^{*}$) in the liver using only the arterial input function as an input is not achievable as expected. 
+%But by contrast it did show that the genericity of the spectral model allowed for accurate TAC fitting, similar to the result seen on the liver with the real data. 
+But the simulation showed that a relative comparison of spectral model $K_1^{*}$ estimates reflects accurately and linearly the differences differences of the true underlying $K_1$, without explicit need for modeling the dual input function.
 
 \begin{figure} [h!]
 \centering
@@ -279,9 +279,8 @@ The result (temporally regularised) activity images show estimates with smooth t
 
 The IsotoPK real DWB data used in this study included a 180 s DSB acquisition centred over the liver prior to the DWB acquisition. This has enabled the estimation of $K_1^{*}$ parametric images over the region covered by both DSB and DWB acquisitions. As shown before in chapter~\ref{Chap3_2:SimStudy}, that initial information is crucial for estimation of $K_1$. Thus, although use of the DSB initial phase allows for adequate sampling of fast kinetics and estimation of fast kinetics sensitive parameters in DWB studies, it still limits the estimation for parametric images to an axial coverage of a single bed position. All other regions outside this bed coverage were sampled with an 180 s delay, which as shown in chapter~\ref{Chap3_2:SimStudy} produces erroneous estimates of $K_1^{*}$. 
 In this study this relates to $K_1^{*}$ estimates in regions outside the coverage of the DSB acquisition in figure~\ref{fig_3_3:IsotoPK_K1_MIP} and figure~\ref{fig_3_3:IsotoPK_K1_SingleSlice}. 
-Further investigation in the setup of the acquisition protocol is required to quantify the minimum amount of fast kinetics sampling required for reliable deduction of parametric $K_1$ images or other parametric images sensitive to early fast kinetics, and if possible adapt the acquisition for reliable estimation of these parameters over the whole effective FOV. 
-
-Another disadvantage of the need for an DSB acquisition is the uneven sampling over different locations of the effective FOV that results to different noise properties across the axial direction. Equall sampling of all regions is proffered to provide comparable noise properties in the axial direction of the FOV.
+Further investigation in the setup of the acquisition protocol is required to quantify the minimum amount of fast kinetics sampling required for reliable deduction of parametric $K_1$ images and other parametric images sensitive to early fast kinetics. An analogous study conducted for the estimation of 2TC micro-parameters in FDG imaging resulted in evaluation of sensitivity of micro-parameters against sampling of specific time points~\cite{Zuo2019}. A similar study for the spectral model analysis method can evaluate the need of the DSB phase for estimation of $K_1$ and other parameters and if possible adapt the acquisition for reliable estimation of those parameters over the whole effective FOV. 
+Another disadvantage of the need for an DSB acquisition is the uneven sampling over different locations of the effective FOV that results to different noise properties across the axial direction. Equal sampling of all regions is proffered to provide comparable noise properties in the axial direction of the FOV.
 
 There are many challenges and limitations in dynamic reconstruction and parametric imaging, which are of particular concern for DWB imaging where the dynamic model is applied over the whole body~\cite{Gallezot2019}. 
 Firstly, a single input function has been used for the estimation of the basis functions of the spectral model which is then applied over the entire effective FOV. The use of a single input function does not account for dispersion and delay effects that are varying for different location in the body. As kinetic models and in particular the spectral model rely heavily on the input function, any errors or inaccuracies can lead to considerable estimation errors. Ideally the delay and dispersion properties of the input function need to be estimated for each region, which would then be used for calculating a set of spatially variant spectral basis functions.

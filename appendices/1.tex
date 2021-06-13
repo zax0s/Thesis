@@ -1,9 +1,11 @@
-\chapter{Acquisition optimization: Data exportation and processing}
+\chapter{Multi-bed Dynamic Whole Body PET: Data exportation and processing}
 \label{chap:AppendixA}
+
+\section{Dynamic Whole Body Protocol implementation for IsotoPK study}
+The implementation of the DWB protocol used for human subjects of the IsotoPK study on the Signa PET/MR was made using a series of multiple static WB sweeps from a typical WB static protocol. Details of the WB passes are given in table~\ref{tab:IsotPK_CE_details}.
 
 \begin{table}[]
 \centering
-\label{tab:IsotPK_CE_details}
 \caption{Details of Whole Body Sweeps of IsotoPK DWB protocol.}
 \begin{tabular}{|l|l|l|}
 \toprule
@@ -31,31 +33,31 @@ CE17                & 30                                             & From CE16
 CE18                & 40                                             & Yes  \\
 CE19                & 40                                             & Yes  \\
 \bottomrule
+\label{tab:IsotPK_CE_details}
 \end{tabular}
 \end{table}
 
-
 \section{Export and offline reconstruction of IsotoPK DWB data}
 Reconstruction of DWB on the Signa PET-MR console is made with certain limitations and does not allow for full and accurate use of the acquired data, with the correct timing information per bed acquisition which is especially important in estimation of parametric maps. \\
-To make better use of these datasets, an export and offline processing pipeline was developed as part of this PhD project. The pipeline is based on custom-made python scripts and matlab scripts, that integrate with the GE-PET toolbox. This is a toolbox provided by GE for certain offline reconstruction operations. In this pipeline the Toolbox is used for generation of image corrections. These include normalisation factors, attenuation factors from MRACs, random and scatter corrections as well as dead-time corrections. 
+To make better use of these datasets, an export and offline processing pipeline was developed as part of this PhD project. The pipeline is based on custom-made python scripts and matlab scripts, that integrate with the GE-PET toolbox. This is a toolbox provided by GE for certain offline reconstruction operations. In this pipeline the Toolbox is used for generation of image corrections. These include normalisation factors, attenuation factors from MRACs, random and scatter corrections as well as dead-time corrections. \\
 
 \subsection{Export from Console}
-DWB studies are exported from the PET-MR console using a custom export tool provided by GE, that provides the whole study in the following directory structure.  \\
-\dirtree{%
-.1 {20200110\_e02066\_02-DF-10\ (Date “YYYY-MM-DD”,  StudyID)}.
-.2 LST.
-.3 LST\_30501\_PET\_CE\_00\_a\_blanc.
-.3 LST\_30502\_PET\_Liver.
-.3 LST\_30503\_PET\_CE\_01.
-.3 LST\_30504\_PET\_CE\_02.
-.3 LST\_30505\_PET\_CE\_03.
-.3 $\dots$.
-.2 MRAC.
-.3 WATER\_1\_PET\_CE\_00\_a\_blanc.
-.3 WATER\_1\_PET\_Liver.
-.3 WATER\_1\_PET\_PET\_CE\_03.
-.3 $\dots$.
-}
+DWB studies are exported from the PET-MR console using a custom export tool provided by GE.%, that provides the whole study in the following directory structure.
+%\dirtree{%
+%.1 {20200110\_e02066\_02-DF-10\ (Date “YYYY-MM-DD”,  StudyID)}.
+%.2 LST.
+%.3 LST\_30501\_PET\_CE\_00\_a\_blanc.
+%.3 LST\_30502\_PET\_Liver.
+%.3 LST\_30503\_PET\_CE\_01.
+%.3 LST\_30504\_PET\_CE\_02.
+%.3 LST\_30505\_PET\_CE\_03.
+%.3 $\dots$.
+%.2 MRAC.
+%.3 WATER\_1\_PET\_CE\_00\_a\_blanc.
+%.3 WATER\_1\_PET\_Liver.
+%.3 WATER\_1\_PET\_PET\_CE\_03.
+%.3 $\dots$.
+%}
 
 Those are then processed using the custom-made pipeline as follows:
 \begin{itemize}
@@ -72,25 +74,40 @@ Those are then processed using the custom-made pipeline as follows:
     The time-tags of each list-mode file are modified accordingly, to the injection time point reference, using the database information build earlier. 
 \end{itemize}
 
-\begin{table}[]
-\begin{tabular}{lrlrrrrrlr}
-\toprule
-{Index} &  Bed Instance &  List\ Frame\ Time &  Frame\ Duration & MRAC Number &  MRAC\_AC &  FrameStartTime \\
-\midrule
-5  &         1 &  152358.301552 &            270 &           18 &          True &         -93.200 \\
-6  &         1 &  152854.357026 &             20 &           12 &          False &         202.855 \\
-7  &         2 &  152919.427076 &             20 &           13 &          False &         227.925 \\
-8  &         3 &  152944.578076 &             20 &           14 &          False &         253.076 \\
-9  &         4 &  153009.716076 &             20 &           15 &          False &         278.214 \\
-10 &         5 &  153034.852076 &             20 &           16 &          False &         303.350 \\
-11 &         1 &  153121.372932 &             20 &           12 &          False &         349.871 \\
-12 &         2 &  153146.440050 &             20 &           13 &          False &         374.938 \\
-13 &         3 &  153211.581050 &             20 &           14 &          False &         400.079 \\
-14 &         4 &  153236.720050 &             20 &           15 &          False &         425.218 \\
-\bottomrule
-\end{tabular}
-\end{table}
+%
+%\begin{table}[]
+%\begin{tabular}{lrlrrrrrlr}
+%\toprule
+%{Index} &  Bed Instance &  List\ Frame\ Time &  Frame\ Duration & MRAC Number &  MRAC\_AC &  FrameStartTime \\
+%\midrule
+%5  &         1 &  152358.301552 &            270 &           18 &          True &         -93.200 \\
+%6  &         1 &  152854.357026 &             20 &           12 &          False &         202.855 \\
+%  &         2 &  152919.427076 &             20 &           13 &          False &         227.925 \\
+%8  &         3 &  152944.578076 &             20 &           14 &          False &         253.076 \\
+%9  &         4 &  153009.716076 &             20 &           15 &          False &         278.214 \\
+%10 &         5 &  153034.852076 &             20 &           16 &          False &         303.350 \\
+%11 &         1 &  153121.372932 &             20 &           12 &          False &         349.871 \\
+%12 &         2 &  153146.440050 &             20 &           13 &          False &         374.938 \\
+%13 &         3 &  153211.581050 &             20 &           14 &          False &         400.079 \\
+%14 &         4 &  153236.720050 &             20 &           15 &          False &         425.218 \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
 
+\section{Standard Operating Procedure: fully automated DWB protocol}
+A short \gls{sop} for the developed fully automated DWB protocol, that was tested on the \gls{nhp} study, is given in the following steps:
+
+\begin{enumerate}
+    \item Load "IsotoPK\_Commander" python class and create new object on a terminal in the PET-MR console. 
+    \item Perform scout of subject, plan the desired bed positions for PET acquisition and perform MRAC acquisition. 
+    \item Capture the position of the planned PET bed positions.
+    \item Load the "Timing Table" with the frame duration per bed positions and sweep number.
+    \item If a dynamic phase is required, plan the acquisition and acquire an MRAC for this position. 
+    \item Enable table emulation. 
+    \item Initiate a one hour long PET acquisition and once acquisition is ongoing perform injection of the subject. 
+    \item After adequate time has passed for the single-bed dynamic phase start the automated DWB procedure. 
+    \item Once the acquisition has been completed, disable table emulation. 
+\end{enumerate}
 
 \begin{table}[ht!]
 \centering
@@ -122,17 +139,5 @@ Those are then processed using the custom-made pipeline as follows:
 \end{table}
 
 
-A short \gls{sop} for the use of the protocol is given in the following steps:
 
-\begin{enumerate}
-    \item Load "IsotoPK\_Commander" python class and create new object on a terminal in the PET-MR console. 
-    \item Perform scout of subject, plan the desired bed positions for PET acquisition and perform MRAC acquisition. 
-    \item Capture the position of the planned PET bed positions.
-    \item Load the "Timing Table" with the frame duration per bed positions and sweep number.
-    \item If a dynamic phase is required, plan the acquisition and acquire an MRAC for this position. 
-    \item Enable table emulation. 
-    \item Initiate a one hour long PET acquisition and once acquisition is ongoing perform injection of the subject. 
-    \item After adequate time has passed for the single-bed dynamic phase start the automated DWB procedure. 
-    \item Once the acquisition has been completed, disable table emulation. 
-\end{enumerate}
 

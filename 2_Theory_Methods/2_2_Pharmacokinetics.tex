@@ -184,14 +184,14 @@ If we account for the parameter $(1-V_{B})$ into the weights $\phi_b$, the equat
 \end{equation}
 
 for which $\beta_b \xrightarrow[]{}\inf$ and $\phi_M = r V_{B}$. 
-When fitted on measured ${C_{PET}}(t)$ data , the spectral model in equation~\ref{eqn:SpectralCPET_short} can be used to deduce $K_1$ and either $V_D$ or $K_i$ using
+When fitted on measured ${C_{PET}}(t)$ data , the spectral model in equation~\ref{eqn:SpectralCPET_short} can be used to deduce $K_1$, and either $V_D$ or $K_i$ depending respectively on reversibility or non-reversibility tracer behaviour, using
 
 \begin{subequations}
 \label{eqn:AllSpectralEqns}
 \begin{align}
-K_1 = \frac{\sum_{b=0}^{M-1} {\phi_b}}{1-{\phi_M}}   \\  
-V_D = \sum_{b=0}^{M-1} \frac {\phi_b}{\beta_b (1-\phi_M)} \\
-K_i = \frac{\phi_0}{1-\phi_M} . 
+K_1 = \frac{\sum_{b=0}^{M-1} {\phi_b}}{1-{V_{B}}}   \\  
+V_D = \sum_{b=0}^{M-1} \frac {\phi_b}{\beta_b (1-V_{B})} \\
+K_i = \frac{\phi_0}{1-V_{B}} .
 \end{align}
 \label{eqn:SpectralCPET_AllEquations}
 \end{subequations}
@@ -245,7 +245,7 @@ An example demonstration of the two components of ${C_{H}}(t)$ is shown in figur
 \label{fig_2_2:LiverDualInputFunction}
 \end{figure} 
 
-Use of imaging information for non-invasive estimation of the portal vein input function and their effects in pharmacokinetic model estimates over the liver are an active area of research~\cite{Wang2018,HernandezLozano2019} with no standardised and widely accepted practices.
+Use of imaging information for non-invasive estimation of the portal vein input function and their effects in pharmacokinetic model estimates over the liver are an active area of research~\cite{Wang2018,HernandezLozano2019,Wang2021} with no standardised and widely accepted practices.
 
 %\subsection{Tracer redistribution}
 %Another aspect 

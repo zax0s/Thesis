@@ -1,7 +1,8 @@
-\Gls{castor} is an open source fully quantitative reconstruction platform that has been developed within a collaboration platform, financed by France Life Imaging (FLI). This PhD project relied heavily on the use of \gls{castor} for developing and performing reconstructions, on both simulated and real patient data. The work conducted in this project resulted in the development and evaluation of new functionalities, which are now part of the released public version. These are described in detail in chapter~\ref{Chap3_2:SimStudy}. 
+\Gls{castor} stands for Customizable and Advanced Software for Tomographic Reconstruction and is an open source fully quantitative reconstruction platform that has been developed within a collaboration platform, financed by France Life Imaging (FLI). It is available on the website of the collaboration project {(\url{https://castor-project.org/})}.
+This PhD project relied heavily on the use of \gls{castor} for developing and performing reconstructions, on both simulated and real patient data. The work conducted in this project resulted in the development and evaluation of new functionalities, which are now part of the released public version. These are described in detail in chapter~\ref{Chap3_2:SimStudy}. 
 
 In this chapter we provide a short introduction into the functionalities and innovative reconstruction methods provided in \gls{castor} that play an important role for the work performed in this PhD project. 
-The platform supports \gls{pet}, \gls{spect} and \gls{ct} imaging. 
+The platform is developed using the C and C++ programming languages and supports \gls{pet}, \gls{spect} and \gls{ct} imaging. 
 In this short description the focus is on PET reconstruction for static and dynamic imaging. A more detailed description of all the functionalities of \gls{castor} can be found on the official website and the official publication by Merlin~\textit{et al.}\cite{Merlin2018}. 
 
 The main philosophy behind the design of the platform is genericity and abstraction. The code architecture is divided into main components which manage global tasks. These are named as "managers" and handle tasks such as reading datafiles, handling reconstruction dynamic aspects, managing the scanner geometry, computing a projection, etc. 
@@ -90,43 +91,35 @@ Unfortunately, with the current version of \gls{castor} the available implemente
 Although this deformation can be adequate for brain imaging, it is not suitable for modeling elastic motion that is commonly found in whole body studies. Owing to this limitation at this time, no motion correction was considered in the reconstructions and evaluations performed in this project.
 
 \subsection{Dynamic reconstruction}
-Multi-frame reconstruction of individual frames can be performed within \gls{castor} with a single execution. The framing is provided in the reconstruction input. For each event a dynamic switch function is used to identify to which frame the data belongs to. Image update is performed accordingly to each respective frame image.
+Multi-frame reconstruction of individual frames can be performed within \gls{castor} with a single execution. The framing details can be provided in the reconstruction input. For each event a dynamic switch function is used to identify to which frame the data belongs to. Image update is performed accordingly to each respective frame image.
 
-The dynamic series of images is stored in \gls{castor} using a set of basis functions and images of basis coefficients, as described before in equation~\ref{eqn:2_3_LinearBasis}. 
-In the case of individual frame reconstructions, the set of basis is a identity matrix and the coefficient images are the frame images. 
-
+The dynamic series of images is stored in \gls{castor} using a set of temporal basis functions and images of basis coefficients, similar to the description in equation~\ref{eqn:2_3_LinearBasis}. 
+In the case of individual frame reconstructions, the set of basis is an identity matrix and the coefficient images are the frame images. 
 For dynamic reconstructions using a dynamic model, the model derived basis functions can be used directly in \gls{castor}, in which case the image update terms directly update the parametric images.
-As discussed previously in~\autoref{section:Fully_4D_reconstruction}, dynamic reconstruction can be performed efficiently when using optimisation transfer principles and nested optimisation for the dynamic model fitting. 
-To perform this in \gls{castor} a new component was created (named \textit{oDynamicModelManager}) to handle preparation and fitting of dynamic models. The component and its accompanying abstract and specific classes were developed and tested as part of this project, in collaboration and with guidance by this project participants and Dr Thibaut Merlin.
-The developments are described in detail in the !Results! 
-\todo[inline,size=\Large, color=red!40]{Add reference details here after written results!}
+But as discussed previously in~\autoref{section:Fully_4D_reconstruction}, dynamic reconstruction can be performed more efficiently when using optimisation transfer principles and nested optimisation for the dynamic model fitting. This functionality was developed in CASToR during this project and details of the implementation are provided in chapter~\ref{Chap3_2:SimStudy}.
+%To perform this in \gls{castor} a new component was created (named \textit{oDynamicModelManager}) to handle preparation and fitting of dynamic models. The component and its accompanying abstract and specific classes were developed and tested as part of this project, in collaboration and with guidance by this project participants and Dr Thibaut Merlin.
 
-\subsection{Multi-bed reconstruction}
+\section{Multi-bed reconstruction}
 \label{chap2_4:MultiBedRecon}
 With the generic description of the geometry implemented in CASToR, system matrix elements related to each detection event are computed on-the-fly, by projecting a ray though image space, or they are read from a pre-computed system matrix. 
 The on-the-fly computation allow for additional flexibility, which has been used to enable direct multi-bed reconstruction. 
-As described in section~\ref{WB_Static_SS}, multi-bed Step and Shoot (SS) acquisitions make use of overlapping beds to increase the sensitivity at the edges of each bed's FOV. This the raw PET data for a static WB acquisition comprise of a number of acquisition datasets, one for each bed position. We can define the WB raw PET dataset as the collection
-
+As described in section~\ref{WB_Static_SS}, multi-bed Step and Shoot (SS) acquisitions make use of overlapping beds to increase the sensitivity at the edges of each bed's FOV. The raw PET data for a static WB acquisition comprise of a total number of $n_s$ datasets, one for each bed position $s$. We can represent each bed's raw PET dataset as
+%
 \begin{equation}
-   \bm{y} = \Big\{ {\bm{y}_s,s=1,...,n_s} \Big\} \\ , \\
+   \bm{y_s} = \Big\{ {y_{si},i=1,...,n_i} \Big\} \\ . \\
 \end{equation}
-where
-\begin{equation}
-   \bm{y_s} = \Big\{ {y_{si},i=1,...,n_i} \Big\} \\ , \\
-\end{equation}
-
-with $s$ being the index of the $n_s$ number of axial bed positions.
-
-By incorporating the offset of each bed position in the projection operation, equation~\ref{eqn2_4:MLEM_multibed} can be re-written for direct reconstruction of the whole acquisition effective \gls{fov}, using all acquired raw data, as
+%
+%
+By incorporating the offset of each bed position in the projection operation, equation~\ref{eqn2_4:MLEM} can be re-written for direct reconstruction of the whole acquisition effective \gls{fov}, using all acquired raw data, as
 \begin{equation}
 \lambda_j^{(k+1)} = \frac{\lambda_j^{(k)}}{\sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij}} 
 \sum_{s=1}^{n_s} \sum_{i=1}^{n_i} P_{sij} 
-\frac{y_{si}}{\sum_{d=1}^{n_j} P_{sid}\lambda_d^{(k)} + B_{si} } \\ , \\
+\frac{y_{si}}{\sum_{d=1}^{n_j} P_{sid}\lambda_d^{(k)} + C_{si} } \\ , \\
 \label{eqn2_4:MLEM_multibed}
 \end{equation} 
 
-where now the image estimate $\lambda_j^{(k)}$ has the dimensions of the whole effective \gls{fov}, and the additive correction terms $B_{si}$ is provided for each respective bed position $s$. 
+where now the image $\bm{\lambda}$ has the dimensions of the whole effective \gls{fov}, and the additive correction terms $C_{si}$ is provided for each respective bed position $s$. 
 
 Direct reconstruction of multi-bed data, which combines data from overlapping acquisitions within the iterative reconstruction loop, improves the statistics of the overlapping region that are available for each iteration. It has been shown that this technique can result in improved contrast to noise ratios at the overlapping regions, for specific levels of acquisition statistics~\cite{Ross2004}. 
 
-This method has been implemented in CASToR by making use of an additional loop over bed positions and an "Apply bed offset" function, as seen in the CASToR iterative algorithm~\ref{algo:CASToR_Core}, which applies the bed offset to the projector for each bed~\cite{Stute2014}. 
+This method has been implemented in CASToR by making use of an additional loop over bed positions and an \textit{Apply bed offset} function, as seen in the CASToR iterative algorithm~\ref{algo:CASToR_Core}, which applies the bed offset to the projector for the events of each bed~\cite{Stute2014}.
