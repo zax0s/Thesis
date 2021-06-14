@@ -2,9 +2,9 @@
 This section covers aspects of the main principles of \gls{pet} and serves as a brief introduction into the notions that are necessary for the description of the work carried out in this thesis. It is not an exhaustive review of the processes involved in \gls{pet} imaging. Readers can find more basics principles explained in detail in the textbooks which are frequently referenced in this chapter.
 
 \section{Historical Perspective}
-The main principles of a \Gls{pet} imaging system were developed and demonstrated with a working scanner prototype in late 1970s by Ter-Pogossian et al.~\cite{Ter-Pogossian1975} and Phelps et al.~\cite{Phelps1975}. The main concept of their prototype, which forms the basis of \gls{pet} devices, was the placement of detectors in a circular formation around the imaged object and the detection of annihilation photon pairs which serves as "Electronic" collimation. The combination of these principles makes \gls{pet} imaging superior to single photon based imaging devices still until today. 
-Early systems were limited due to cost and engineering limitations to an axial coverage of a few axial planes, and were mostly used in brain imaging. Development of scanner models with higher axial \gls{fov} enabled use for imaging of other organs than the brain, where in combination with the FDG tracer (a glucose analogue tracer) quickly showed potential in detection of extra-cranial tumours~\cite{Nutt2002}.
-The expanded \gls{fov} along with the capability of achieving whole-body coverage by use of shifted axial acquisitions~\cite{Dahlbom1992} (multiple axial bed positions to achieve whole-body coverage) have secured the use of \gls{pet} in oncology~\cite{Bomanji2001} and driven many more technological developments towards higher sensitivity for  improved small lesion detectability and reduction of scan time~\cite{Jones2017}.
+The main principles of a \Gls{pet} imaging system were developed and demonstrated with a working scanner prototype in late 1970s by Ter-Pogossian et al.~\cite{Ter-Pogossian1975} and Phelps et al.~\cite{Phelps1975}. The main concept of their prototype, which forms the basis of \gls{pet} devices, was the placement of detectors in a circular formation around the imaged object and the detection of annihilation photon pairs which serves as "Electronic" collimation. The combination of these principles makes \gls{pet} imaging superior to single photon based imaging devices still until today as it does not require a physical collimator which considerable reduces the sensitivity of SPECT imaging systems.
+Early systems were limited due to cost and engineering limitations to an axial coverage of a few axial planes, and were mostly used in brain imaging. Development of scanner models with larger diameter and larger axial \gls{fov} enabled use for imaging of other organs than the brain~\cite{Nutt2002}.% where in combination with the FDG tracer (a glucose analogue tracer) quickly showed potential imaging outside of the brain~\cite{Nutt2002}.
+The expanded \gls{fov} along with the capability of achieving whole-body coverage by use of shifted axial acquisitions~\cite{Dahlbom1992} (multiple axial bed positions to achieve whole-body coverage) have established the use of \gls{pet} in oncology~\cite{Bomanji2001} and driven many more technological developments towards higher sensitivity for improved small lesion detectability and reduction of scan time~\cite{Jones2017}.
 
 
 \section{Fundamental physics of PET}
@@ -21,16 +21,16 @@ where $A_0$ is the activity at reference time $t_0=0$ and $\lambda$ is the decay
 \lambda = \frac{ln(2)}{T_{1/2}} \ .
 \end{equation}
 %
-Proton-rich radioisotopes decay via emission of a positron (β$^{+}$) particle and a neutrino (ν). The positron is given part of the excess radioisotope energy in the form of kinetic energy, which when emitted within a material is gradually lost from continuous interactions with other atoms of the material until the positron approaches close to a rest. During this period the positron follows a tortuous random path. The positron range can be defined for a sufficient large number of emissions as either the FWHM or mean of the distances between the emission and annihilation position. The positron range value will depend on the positrons energy spectrum and the interacting material properties. After most of its energy has been expended, the positron rapidly interacts with an electron and annihilates. This interaction results in the conversion of the two particles into two photons of 511 \si{k\electronvolt} which are emitted in almost opposite directions ($\sim$180\degree). Due to the non-zero kinetic energy during the annihilation, the excess energy sometimes results to a small acollinearity of the photon pair.
+The β$^{+}$ decay process results to the emission of a positron (e$^{+}$) particle and a neutrino (ν). The positron is given part of the excess radioisotope energy in the form of kinetic energy, which when emitted within a material is gradually lost from continuous interactions with other atoms of the material until the positron approaches close to a rest. During this period the positron follows a tortuous random path. The positron range can be defined for a sufficient large number of emissions as either the FWHM or the mean of the distribution of distances between the emission and annihilation positions. The positron range value will depend on the positrons energy spectrum and the interacting material properties. After most of its kinetic energy has been expended, the positron rapidly interacts with an electron and annihilates. This interaction results in the conversion of the two particles into two photons of 511 \si{k\electronvolt} which are emitted in almost opposite directions ($\sim$180$^{\circ}$). Due to the non-zero kinetic energy during the annihilation, the excess energy results to a small acollinearity of the photon pair. For \textit{in vivo} [$^{18}$F]-\gls{fdg} imaging, a common radiolabeled tracer used in PET oncology applications, it has been shown that the FWHM acollinearity is approximately 0.54$^{\circ}$~\cite{Shibuya2007}.
 %
-A list of commonly used positron emitting radioisotopes used for \gls{pet} imaging is given in table~\ref{tab:radioisotopes} along with relevant characteristics for PET imaging \cite{Conti2016}.
+A list of positron emitting radionuclides which are commonly used in \gls{pet} imaging is given in table~\ref{tab:radioisotopes} along with relevant characteristics for PET imaging \cite{Conti2016}.
 
 \begin{table}[htbp]
   \caption{Commonly used radioisotopes and their relevant characteristics for PET imaging.}
 \makebox[\textwidth][c]{
     \begin{tabular}{cccc}
 \toprule
-  Radioisotope & Half-life & \multicolumn{1}{c}{ β$^{+}$ maximum energy (\si{M\electronvolt})} & \multicolumn{1}{c}{Mean range in water (mm)} \\
+  Radionuclide & Half-life & \multicolumn{1}{c}{ e$^{+}$ maximum energy (\si{M\electronvolt})} & \multicolumn{1}{c}{Mean range in water (mm)} \\
 \midrule
 \ce{^15O} & 2 min & 1.732 &  3.0    \\
 \ce{^13N} & 10.0 min & 1.199  & 1.8  \\
@@ -46,58 +46,57 @@ A list of commonly used positron emitting radioisotopes used for \gls{pet} imagi
 \end{table}%
 
 \subsection{Interactions with matter}
-The range of positrons within tissue is relatively short, with the majority of positrons being annihilated within the body.
+The mean range of positrons from commonly used PET radionuclides is in the order of a few millimetres within tissue and almost all positrons are annihilated within the body.
 On the other hand the 511 \si{k\electronvolt} photons have less chances of interacting within the body and a large fraction of them will exit the imaged object without interacting. 
 
-The two most probable interactions for high energy photons of 511 \si{k\electronvolt} are photoelectric absorption and Compton scattering. In photoelectric absorption the photon is completely absorbed while interacting with an atomic electron, to which it provides all of its energy. In Compton scattering the photon interacts with an atomic electron, to which it passes part of its energy. This process results in a change of direction and reduction of the energy of the original photon. Between the two processes, the Compton effect is the dominant interaction for 511 \si{k\electronvolt} photons in tissue. 
+The two most probable interactions for photons of 511 \si{k\electronvolt} in tissue are photoelectric absorption and Compton scattering. In photoelectric absorption the photon is completely absorbed while interacting with an atomic electron of the inner shell, to which it provides all of its energy. In Compton scattering the photon interacts with an atomic electron of an outer shell, to which it passes part of its energy. This process results in a change of direction and reduction of the energy of the original photon, while the loosely bound electron is ejected from the atom. Between the two processes, the Compton effect is the dominant interaction for 511 \si{k\electronvolt} photons in tissue. Elastic scattering (Rayleigh scattering) is another interacting process in which no loss of energy occurs and the direction of the incident photon is changed by a relatively small angle. This interaction is more dominant in lower energies than 511 \si{k\electronvolt} photons.
 %
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/Bailey_gamma_interactions.png}
-\caption{The two main interactions of 511 \si{k\electronvolt} photons in matter, the photoelectric absorption (left) and Compton scattering effect (right)~\cite{Bailey2005}.} 
+\includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/Interactions.pdf}
+\caption{Illustration of the described interactions. (A) No interaction resulting in transmission of photon. (B) Photoelectric absorption from inner shell electron, resulting in its ejection and followed by an inner electron transition and characteristic X-Ray emission. (C) Elastic (Rayleigh) scattering conserving the energy of the photons but resulting in small angle change in direction. (D) Compton scattering with outer shell electron resulting to change of energy and direction of incident photon. Adapted from \textit{Seibert et al.}~\cite{Seibert2005}.} 
 \label{fig_2:511_interactions}
 \end{figure} 
 %
 \subsection{Attenuation}
-Knowledge of the probabilities for interaction of the 511 \si{k\electronvolt} photons in a material can be used to calculate a precise attenuation factor that can be applied at the macroscopic level. Given a well collimated photon beam of intensity $I_0$, the intensity $I_x$ at depth $x$ within the material (along the direction of the beam) will be reduced due to interactions with the material acording to
+Knowledge of the probabilities for interaction of the 511 \si{k\electronvolt} photons in a material can be used to calculate a precise attenuation factor that can be applied at the macroscopic level. Given a well collimated photon beam of intensity $I_0$, the intensity $I_x$ at depth $x$ within the material (along the direction of the beam) will be reduced due to interactions with the material according to Beer-Lambert's law
 \begin{equation} \label{Attenuation}
 I_x = I_0 e^{-\mu x} \ ,
 \end{equation}
-where $\mu$ is the linear attenuation coefficient ( in $cm^{-1}$). This factor accounts for all possible interactions, whether absorption or scattering, and its value depends on the material properties and the energy of the photons.
+where $\mu$ is the linear attenuation coefficient (in cm$^{-1}$). This factor accounts for all possible interactions, whether absorption or scattering, and its value depends on the material properties and the energy of the photons.
 %
-Specifically for \gls{pet} where we are interested in the detection of both anihilation photons, the attenuation in the direction of the photon pair can be summed up, resulting in a factor that is independent of the depth of the annihilation and is only depended of the attenuation coefficient of the tissues or materials crossed by the line connecting the two photon detections and the total length of the line within the body, as shown in figure~\ref{fig_2:511_attenuation}~\cite{Phelps1975}. 
-
-\begin{figure} [h!]
-\centering
-\includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/Phelps_LOR_attenuation_correction.png}
-\caption{Attenuation of LORs TODO:  to include in text ! } 
-\label{fig_2:511_attenuation}
-\end{figure} 
-
+%Specifically for \gls{pet} where we are interested in the detection of both annihilation photons, the attenuation in the direction of the photon pair can be summed up, resulting in a factor that is independent of the depth of the annihilation and is only depended of the attenuation coefficient of the tissues or materials crossed by the line connecting the two photon detections and the total length of the line within the body, as shown in figure~\ref{fig_2:511_attenuation}~\cite{Phelps1975}. 
+%
+%\begin{figure} [h!]
+%\centering
+%\includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/Phelps_LOR_attenuation_correction.png}
+%\caption{Attenuation of LORs TODO:  to include in text ! } 
+%\label{fig_2:511_attenuation}
+%\end{figure} 
+%
 \section{PET Systems}
 
 \subsection{PET Detectors}
 The goal of a PET imaging system is to stop and detect the annihilation photon pairs and record information that can be used to estimate the annihilation event's position.
 The basic component for the detection of annihilation gammas is the scintillation crystal. These are inorganic crystals that emit light (lower energy photons) upon interaction with the gammas. The amount of produced light is proportional to the energy deposited by the gamma interactions and can be used to deduce energy information of the interaction. Photosensitive detectors are coupled with the crystals to capture the produced light and output an electronic signal that can be digitally registered. Traditionally \glspl{pmt} are used in most PET systems, while some more recent systems make use of \glspl{sipm}. Depending on their mode of operation \glspl{sipm} can allow for better efficiency and response speed and can be used in conditions where \glspl{pmt} could not, such as within the MR field of PET-MR hybrid systems.
 %
-\footnotetext{https://www.radiologycafe.com/radiology-trainees/frcr-physics-notes/pet-imaging}
+%\footnotetext{https://www.radiologycafe.com/radiology-trainees/frcr-physics-notes/pet-imaging}
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.25,angle=0]{2_Theory_Methods/figures/block_detector.png}
-\caption{Example PMT based block detector diagram and their placement within the PET ring (source: www.radiologycafe.com) } 
+\includegraphics[scale=0.28,angle=0]{2_Theory_Methods/figures/block_detector.png}
+\caption{Example illustration of PMT based block detector diagram and their placement within a PET ring (Adapted from www.radiologycafe.com) } 
 \label{fig_2:BlockDetectorAndRing}
 \end{figure} 
-\begin{figure} [h!]
-\centering
-\includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/SignaPETMR_Integrated_System.png}
-\caption{Schematic of an hybrid PET-MR system with, comprising of detector module units (bottom) in a ring formation within the MR RF body coil (top)~\cite{Levin2016}.} 
-\label{fig_2:SignaPETMR_Integrated_System}
-\end{figure} 
+%\begin{figure} [h!]
+%\centering
+%\includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/SignaPETMR_Integrated_System.png}
+%\caption{Schematic of an hybrid PET-MR system with, comprising of detector module units (bottom) in a ring formation within the MR RF body coil (top)~\cite{Levin2016}.} 
+%\label{fig_2:SignaPETMR_Integrated_System}
+%\end{figure} 
+%%
 %
-%
-%
-The most common configuration of the PET detectors is within a block or module configuration, where a smaller number of photosensitive detectors to number of crystals is used. Examples are shown in figure~\ref{fig_2:BlockDetectorAndRing} for PMT based scanners and figure~\ref{fig_2:SignaPETMR_Integrated_System} for SiPMs within a hybrid PET-MR system. 
-The blocks or modules are placed in ring configurations that provide full 360degrees of coverage in the transaxial direction. Multiple rings are often placed adjacent to each together to increase axial coverage and solid angle coverage that effectively increases the detection sensitivity. 
+The most common configuration of the PET detectors is within a block or module configuration, where a smaller number of photosensitive detectors to number of crystals is used. Examples are shown in figure~\ref{fig_2:BlockDetectorAndRing} for PMT based scanners.% and figure~\ref{fig_2:SignaPETMR_Integrated_System} for SiPMs within a hybrid PET-MR system. 
+The blocks or modules are placed in ring configurations that provide full 360$^{\circ}$ of coverage in the transaxial direction. Multiple rings are often placed adjacent to each together to increase axial coverage and solid angle coverage that effectively increases the detection sensitivity. 
 
 \subsection{PET Data coincidence sorting}
 Individual events recorded by the detectors are called "single" events. In \gls{pet} detection of annihilation events requires the detection of both annihilation generated photons. To identify these photons the detection system makes use of "coincidence detection", which sorts pairs of single events detected within a predefined timing window as photons originating from an annihilation, or else true coincidence events. 
@@ -134,13 +133,13 @@ Multiple events (more than two) can be are recorded within the coincidence timin
 \centering
 \includegraphics[scale=0.22,angle=0]{2_Theory_Methods/figures/Bailey_Scatter_Random_events.png}
 \caption{Representation of different types of detected coincidence events~\cite{Bailey2005}. } 
-\label{fig_2:BlockDetectorAndRing}
+\label{fig_2:EventsIlustration}
 \end{figure} 
 %
 %
 \subsection{PET acquisition}
 As described the ring formation of PET detectors is the dominant geometry used in PET systems. Using multiple rings resuts in increase of axial \gls{fov}, solid angle coverage and possible combinations of detectors meaning higher number of ~\glspl{lor}. But early multi ring systems were making use of 2D acquisition, where only direct and cross-plane ring coincidences were allowed. 
-This was enforced using tungsten septa between rings, as seen in figure~\ref{fig_2:2D3D}.The use of cross-planes allowed for the increase in axial resolution and the septa result in an uniform axial sensitivity profile as seen in figure~\ref{}. 
+This was enforced using tungsten septa between rings, as seen in figure~\ref{fig_2:2D3D}.The use of cross-planes allowed for the increase in axial resolution and the septa result in an uniform axial sensitivity profile as seen in figure~\ref{fig_2:2D3DSensitivityProfiles}. 
 
 With evolving detector and electronics technology, 3D acquisition became possible and is now the standard acquisition mode. 3D acquisition offers the same data as 2D acquisition but also includes all the oblique \glspl{lor} data resulting in an increase of sensitivity (4 to 6 times)~\cite{Fahey2002}. The use of oblique views leads to non-uniform sensitivity profiles in the axial direction due to the higher number of \glspl{lor} closer to the center of the A-FOV, with the maximum sensitivity at the centre and a minimum at the edges of the axial \gls{fov}. A comparison between the 2D and 3D sensitivity on the same 45 direct planes is shown as an example in figure~\ref{fig_2:2D3DSensitivityProfiles}.
 In addition to more coincidence events, the higher sensitivity and acceptance of events results to an increase of randoms scatter events, which now as well may be originating from activity outside the A-FOV of the system. 
@@ -279,13 +278,13 @@ Many clinical WB protocols actually require imaging of approximately half the le
 \subsection{Continuous Bed Motion}
 Continuous Bed Motion was proposed as an extension of step and shoot acquisition performed with small steps, to provide uniform axial sensitivity profiles without the need of overlaps~\cite{Dahlbom2001,Brasse2002}. In clinical CBM acquisition protocols prompt data as well as bed positions information are stored in list-mode during the examination, with the data being sorted after or during the examination in sinograms (refereed as "chuncks") before reconstruction. The velocity of the bed movement can be adjusted depending on the amount of desired collected statistics, similar to the acquisition time per bed in step and shoot acquisitions. With recent systems the bed velocity can also be varied within an examination according to the needs and distribution of the imaged activity~\cite{Panin2014}. Beyond the potential technical gains, CBM protocols have also been shown to aid in patient comfort during examination~\cite{Schatka2016}. 
 
-In particular for dynamic whole-body imaging many aspects of CBM acquisition can be beneficial over SS imaging~\cite{Karakatsanis2016}.  
+In particular for dynamic whole-body imaging many aspects of CBM acquisition can be beneficial over SS imaging~\cite{Karakatsanis2016a}.  
 
 \section{Dynamic WB PET}
 As outlined in the Introduction and Methods section, clinical and research applications can benefit from dynamic whole-body (DWB) PET information. In clinical applications DWB data can be used to construct fully quantitative parametric images for diagnosis and response monitoring of disease and pathology over the whole body. In research DWB information can enable studying of the whole body organism and interactions between different tissues, organs or compartments. 
 
 Although recent advancements in PET have led to development of PET/CT systems with increased A-FOV, with approximately half~\cite{Karp2020,Siegel2020} or even total-body axial coverage~\cite{Cherry2018}, the majority of PET systems in use are limited in the range from 15 to 26 cm~\cite{Vandenberghe2020}. 
-Based on the same principles and methods used in static WB PET imaging, DWB protocols have been developed with use of repeating whole-body passes (often refereed as "sweeps"). These can be implemented as SS protocols, as proposed in the original work on multi-bed DWB protocols by Karakatsanis ~\textit{et al.}~\cite{Karakatsanis2011,Karakatsanis2013}, or as later proposed using CBM~\cite{Karakatsanis2016,Hu2020}. Such protocols are nowadays implemented in commercial PET/CT systems~\cite{Hu2020} and it has been shown that their use in clinical practice is feasible~\cite{Fahrni2019,Dias2020}.  Their usefulness in clinical imaging over static imaging practices is an ongoing active area of research and yet to be proven. 
+Based on the same principles and methods used in static WB PET imaging, DWB protocols have been developed with use of repeating whole-body passes (often refereed as "sweeps"). These can be implemented as SS protocols, as proposed in the original work on multi-bed DWB protocols by Karakatsanis ~\textit{et al.}~\cite{Karakatsanis2011,Karakatsanis2013}, or as later proposed using CBM~\cite{Karakatsanis2016a,Hu2020}. Such protocols are nowadays implemented in commercial PET/CT systems~\cite{Hu2020} and it has been shown that their use in clinical practice is feasible~\cite{Fahrni2019,Dias2020}.  Their usefulness in clinical imaging over static imaging practices is an ongoing active area of research and yet to be proven. 
 
 \subsection{Challenges in multi-bed DWB protocols}
 DWB studies, similarly to single-bed single-organ dynamic studies, are limited to a total duration of one hour, for practical and patient comfort reasons. 
