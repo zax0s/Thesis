@@ -78,7 +78,7 @@ where $\mu$ is the linear attenuation coefficient (in cm$^{-1}$). This factor ac
 
 \subsection{PET Detectors}
 The goal of a PET imaging system is to stop and detect the annihilation photon pairs and record information that can be used to estimate the annihilation event's position.
-The basic component for the detection of annihilation gammas is the scintillation crystal. These are inorganic crystals that emit light (lower energy photons) upon interaction with the gammas. The amount of produced light is proportional to the energy deposited by the gamma interactions and can be used to deduce energy information of the interaction. Photosensitive detectors are coupled with the crystals to capture the produced light and output an electronic signal that can be digitally registered. Traditionally \glspl{pmt} are used in most PET systems, while some more recent systems make use of \glspl{sipm}. Depending on their mode of operation \glspl{sipm} can allow for better efficiency and response speed and can be used in conditions where \glspl{pmt} could not, such as within the MR field of PET-MR hybrid systems.
+The basic component for the detection of annihilation gammas is the scintillation crystal. These are inorganic crystals that emit light (lower energy photons) upon interaction with the gammas. The amount of produced light is proportional to the energy deposited by the gamma interactions and can be used to deduce energy information of the interaction. Photosensitive detectors are coupled with the crystals to capture the produced light and output an electronic signal that can be digitally registered. Traditionally \glspl{pmt} are used in most PET systems, while some more recent systems make use of \glspl{sipm}. Depending on their mode of operation \glspl{sipm} can allow for better efficiency and response speed and can be used in conditions where \glspl{pmt} could not, such as within the MR field of PET-MR hybrid systems. More details on \gls{sipm} integration in PET/MR are given in section~\ref{}.
 %
 %\footnotetext{https://www.radiologycafe.com/radiology-trainees/frcr-physics-notes/pet-imaging}
 \begin{figure} [h!]
@@ -95,13 +95,20 @@ The basic component for the detection of annihilation gammas is the scintillatio
 %\end{figure} 
 %%
 %
-The most common configuration of the PET detectors is within a block or module configuration, where a smaller number of photosensitive detectors to number of crystals is used. Examples are shown in figure~\ref{fig_2:BlockDetectorAndRing} for PMT based scanners.% and figure~\ref{fig_2:SignaPETMR_Integrated_System} for SiPMs within a hybrid PET-MR system. 
-The blocks or modules are placed in ring configurations that provide full 360$^{\circ}$ of coverage in the transaxial direction. Multiple rings are often placed adjacent to each together to increase axial coverage and solid angle coverage that effectively increases the detection sensitivity. 
+The most common configuration of the PET detectors is within a block or module configuration, where a smaller number of photosensitive detectors to number of crystals is used. An example of a single crystal block to 4 \glspl{pmt} is shown in figure~\ref{fig_2:BlockDetectorAndRing} for PMT based scanners. The crystals are partially cut into segments to reduce lateral dispersion of light and improve localisation of detection by the \glspl{pmt}. In the example of figure~\ref{fig_2:BlockDetectorAndRing} the crystal is cut in a 6$\times$6 configuration.
+
+The blocks or modules are placed in ring configurations that provide full 360$^{\circ}$ of coverage in the transaxial direction. Multiple rings are often placed adjacent to each together to increase axial coverage and solid angle coverage which provides increased detection sensitivity. 
 
 \subsection{PET Data coincidence sorting}
-Individual events recorded by the detectors are called "single" events. In \gls{pet} detection of annihilation events requires the detection of both annihilation generated photons. To identify these photons the detection system makes use of "coincidence detection", which sorts pairs of single events detected within a predefined timing window as photons originating from an annihilation, or else true coincidence events. 
-Due to uncertainties in the photosensitive detectors which result in timing uncertainly, a timing resolution τ is defined for the system.The coincidence timing window is then set at 2τ to sort pairs of events as coincidences.
-As detectors and systems improve on timing resolution it now also possible to record the difference in arrival time between two coincidence photons, owing to the difference in distance travelled from annihilation to detection and the finite speed of light. That difference provides additional information for each detection, refereed to as \textit{time-of-flight} (TOF). This additional information can be used for better positional estimation of annihilation events across the \gls{lor}, as shown in figure~\ref{fig_2:TOF_bin}, resulting in improved reconstructed image quality and sensitivity.
+Individual events recorded by the detectors are called \textit{single} events. In \gls{pet} detection of annihilation events requires the detection of both annihilation generated photons. To identify these photons the detection system makes use of "coincidence detection". Pairs of single events detected within a predefined timing window are assumed to be photons originating from an single annihilation, these are defined as \textit{true coincidence events}.
+The line connecting the two detectors that record the coincident event is defined as the \gls{lor}. 
+%In reality this is a volume of response, that accounts for the volume intersected by the face of the two involved detector elements. But the term~\gls{lor} is used to describe a detection event in PET.
+
+Improved timing resolution of detector systems has allowed for further information of the annihilation point to be made by capturing the arrival difference of the two photons. This difference can help localise the point on the \gls{lor} where the annihilation took place, within some range of uncertainty defined by the detector timing resolution. This capability of PET is refereed to as \textit{time-of-flight} (TOF).
+This information, collected for each coincidence event, can then be used within the image reconstruction for imporved results as it will be explained in chapter~\ref{Chap2_3:Reconstruction}.
+%Due to uncertainties in the photosensitive detectors which result in timing uncertainly, a timing resolution τ is defined for the system.
+%The coincidence timing window is then set at 2τ to sort pairs of events as coincidences.
+%As detectors and systems improve on timing resolution it now also possible to record the difference in arrival time between two coincidence photons, owing to the difference in distance travelled from annihilation to detection and the finite speed of light. That difference provides additional information for each detection, refereed to as \textit{time-of-flight} (TOF). This additional information can be used for better positional estimation of annihilation events across the \gls{lor}, as shown in figure~\ref{fig_2:TOF_bin}, resulting in improved reconstructed image quality and sensitivity.
 %
 %
 \begin{figure} [h!]
@@ -111,22 +118,31 @@ As detectors and systems improve on timing resolution it now also possible to re
 \label{fig_2:TOF_bin}
 \end{figure} 
 %
-But not all events recorded within the coincidence window will always be originating from an annihilation event, they could also be one of the following. 
+Unfortunately not all events recorded within the coincidence window will always be originating from the same annihilation event, they could also be one of the following type of events. 
 %
 \begin{itemize}
-
 \item\textbf{Random event}\\
-As the rate of single events increases the chances of unrelated events being detected within the coincidence timing window are also increasing. In this case the system will record false coincidence events that are refereed as random events. 
+As the rate of single events increases the chances of photons originating from different annihilation events being detected within the coincidence timing window are also increasing. These photons will not have interacted with the body before being detected.
+In this case the system will record coincidence events that are not correlated. These events are refereed as random events. 
 The rate of random events is directly proportional to the size of the timing window and to the square of the activity in the scanner. These events are uncorrelated to the imaged object and hence degrade the acquired data and subsequently image quality and quantification.  
+The expected rate of random coincidences can be estimated using the rates of single events or using delayed coincidence windows. These estimations are then pre-processed and subsequently applied as corrections in the image reconstruction process. 
 Randoms estimations can be made using the rates of single events or using delayed coincidence windows, which can then be applied as corrections during the image reconstruction process. 
-
+%
+%Photons travelling in straight line (no interaction with the body)
+%
 \item\textbf{Scatter events}\\
-As described scattering of the annihilation gammas results in a change of energy and direction. Subsequent detection of scattered gammas results in mis-positioned \glspl{lor} that also degrade the data, image quality and quantification. 
-Because scattered gammas have lower energy than 511 \si{k\electronvolt}, they can be rejected by applying a lower energy threshold in the detectors. Due to energy resolution limitations this threshold is set to a low value that will result in some scatter events to be still recorded as coincidences. 
-To correct for these events, special scatter simulation algorithms are employed to estimate the amount of scatter in the data and account for it during the image reconstruction process~\cite{Polycarpou2011}. 
+As described scattering of the annihilation gammas results in changes to its energy and direction of travel. Subsequent detection of scattered gammas results in mis-positioned \glspl{lor} that also degrade the data, image quality and quantification. 
+Because scattered gammas have lower energy than 511 \si{k\electronvolt}, they can be rejected by applying a low energy threshold in the detectors. But due to energy resolution limitations this threshold is set low enough to best avoid rejection of true coincidence events while still filtering a reasonable amount of scattered events.
+To correct for the remaining events that are being recorded as true coincidences, special scatter simulation algorithms are employed to estimate the amount of scatter coincidences in the data and account for it during the image reconstruction process~\cite{Watson1996,Polycarpou2011}.
 
 \item\textbf{Multiple events}\\
-Multiple events (more than two) can be are recorded within the coincidence timing window with no information on which of the events (if any) correspond to a true coincidence. As these cannot be used to resolve \glspl{lor}, they are commonly rejected completely or in some cases further processed to deduce which events are related to true coincidences using techniques that vary between scanner models and manufacturers. 
+Multiple single events (more than two) can be are recorded within the coincidence timing window in which case they are reffered to as a multiple event. As these cannot be used to resolve \glspl{lor}, they are either rejected completely or in some cases further processed to deduce which pair of single events are more likely to  be true coincidences using techniques that vary between scanner models and manufacturers. 
+
+\item\textbf{Delayed event}\\
+
+\item\textbf{Moment event ?}\\
+
+
 \end{itemize}
 %
 \begin{figure} [h!]
