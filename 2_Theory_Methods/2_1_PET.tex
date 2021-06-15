@@ -136,13 +136,14 @@ Because scattered gammas have lower energy than 511 \si{k\electronvolt}, they ca
 To correct for the remaining events that are being recorded as true coincidences, special scatter simulation algorithms are employed to estimate the amount of scatter coincidences in the data and account for it during the image reconstruction process~\cite{Watson1996,Polycarpou2011}.
 
 \item\textbf{Multiple events}\\
-Multiple single events (more than two) can be are recorded within the coincidence timing window in which case they are reffered to as a multiple event. As these cannot be used to resolve \glspl{lor}, they are either rejected completely or in some cases further processed to deduce which pair of single events are more likely to  be true coincidences using techniques that vary between scanner models and manufacturers. 
+Multiple single events (more than two) can be are recorded within the coincidence timing window in which case they are refereed to as a multiple event. As these cannot be used to resolve \glspl{lor}, they are either rejected completely or in some cases further processed to deduce which pair of single events are more likely to  be true coincidences using techniques that vary between scanner models and manufacturers. 
 
 \item\textbf{Delayed event}\\
+As described above, an estimation of randoms can be made using an additional detection channel to capture coincidences with a delay of several times the duration of the coincidence window. These events are considered uncorrelated and serve as an direct measurement of randoms. Specific variance reduction techniques are then applied on these randoms estimations before being used as corrections in reconstruction, to avoid inducing additional noise in the data~\cite{Bailey2005}.
 
-\item\textbf{Moment event ?}\\
-
-
+\item\textbf{Prompt event}\\
+True, random and scatter events that meet the acceptance criteria for detection are indistinguishable at the time of detection and recorded as valid coincidence events. They are refereed to as prompt events.
+These are pre-corrected or used directly in the reconstruction process along with the corrections, depending on the use of either analytical or statistical reconstruction methods respectively.
 \end{itemize}
 %
 \begin{figure} [h!]
@@ -154,29 +155,30 @@ Multiple single events (more than two) can be are recorded within the coincidenc
 %
 %
 \subsection{PET acquisition}
-As described the ring formation of PET detectors is the dominant geometry used in PET systems. Using multiple rings resuts in increase of axial \gls{fov}, solid angle coverage and possible combinations of detectors meaning higher number of ~\glspl{lor}. But early multi ring systems were making use of 2D acquisition, where only direct and cross-plane ring coincidences were allowed. 
-This was enforced using tungsten septa between rings, as seen in figure~\ref{fig_2:2D3D}.The use of cross-planes allowed for the increase in axial resolution and the septa result in an uniform axial sensitivity profile as seen in figure~\ref{fig_2:2D3DSensitivityProfiles}. 
+As described the ring formation of PET detectors is the dominant geometry used in PET systems. Using multiple rings results in increase of \gls{afov}, solid angle coverage and possible combinations of detectors meaning higher number of ~\glspl{lor}. But early multi ring systems were making use of 2D acquisition, where only direct and cross-plane ring coincidences were allowed. 
+This was enforced using tungsten septa between rings, as seen in figure~\ref{fig_2:2D3D}. The use of cross-planes allowed for the increase in axial resolution and the septa result in an uniform axial sensitivity profile as seen in figure~\ref{fig_2:2D3DSensitivityProfiles}.
 
-With evolving detector and electronics technology, 3D acquisition became possible and is now the standard acquisition mode. 3D acquisition offers the same data as 2D acquisition but also includes all the oblique \glspl{lor} data resulting in an increase of sensitivity (4 to 6 times)~\cite{Fahey2002}. The use of oblique views leads to non-uniform sensitivity profiles in the axial direction due to the higher number of \glspl{lor} closer to the center of the A-FOV, with the maximum sensitivity at the centre and a minimum at the edges of the axial \gls{fov}. A comparison between the 2D and 3D sensitivity on the same 45 direct planes is shown as an example in figure~\ref{fig_2:2D3DSensitivityProfiles}.
-In addition to more coincidence events, the higher sensitivity and acceptance of events results to an increase of randoms scatter events, which now as well may be originating from activity outside the A-FOV of the system. 
+With evolving detector and electronics technology, 3D acquisition became possible and is now the standard acquisition mode. 3D acquisition offers the same data as 2D acquisition but also includes all the oblique \glspl{lor} data resulting in an increase of sensitivity (4 to 6 times)~\cite{Fahey2002}. The use of oblique views leads to non-uniform sensitivity profiles in the axial direction due to the higher number of \glspl{lor} closer to the center of the \gls{afov}, with the maximum sensitivity at the centre and a minimum at the edges of the \gls{afov}. A comparison between the 2D and 3D sensitivity on the same 45 direct planes is shown as an example in figure~\ref{fig_2:2D3DSensitivityProfiles}.
+In addition to more coincidence events, the higher sensitivity and acceptance of single events results to an increase of randoms and scatter events, which in addition may now be originating from activity outside the \gls{afov} of the system. 
 %
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.40,angle=0]{2_Theory_Methods/figures/Phelps_2D_3D_Acquisition.png}
-\caption{Example of 2D (left) and 3D (right) acquisition mode LORs for an 8 ring scanner.} 
+\includegraphics[scale=0.40,angle=0]{2_Theory_Methods/figures/Phelps_2D_3D_Acquisition.pdf}
+\caption{Example illustration of LORs for 2D acquisition mode using direct and cross planes (left) and 3D  acquisition mode (right) for an 8 ring scanner with 15 axial slices. Adapted from~\textit{Cherry S. and Magnus D.}~\cite{cherry2004pet}} 
 \label{fig_2:2D3D}
 \end{figure} 
+
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.50,angle=0]{2_Theory_Methods/figures/2_2_2D3DSensitivityProfiles.png}
-\caption{Example of 2D and 3D axial sensitivity profiles for a scanner with 45 direct planes.} 
+\includegraphics[scale=0.50,angle=0]{2_Theory_Methods/figures/2_2_2D3DSensitivityProfiles.pdf}
+\caption{Example of 2D and 3D axial sensitivity profiles, with and without maximum ring difference limits, for a scanner with 45 direct planes which provides 45 direct and 44 cross-plane.} 
 \label{fig_2:2D3DSensitivityProfiles}
 \end{figure} 
 %
 %
-In 3D mode the maximum angle of events accepted in the axial direction can be sometimes limited by enforcing a maximum ring difference permitted \glspl{lor}. This results in a uniform axial sensitivity profile at a central region of the axial \gls{fov}.
+In 3D mode the maximum angle of events accepted in the axial direction can be sometimes limited by enforcing a maximum ring difference permitted \glspl{lor}. This results in a uniform axial sensitivity profile at a central region of the \gls{afov}.
 %
-In multiple beds acquisition, used to image objects with a length larger than the scanner A-\gls{fov}, in order to maintain an uniform axial sensitivity a degree of overlapping is used. This allows for the regions at the edges of the bed positions to be sampled in two bed acquisitions and even out the sensitivity of the combined acquisition. The degree of overlapping can vary, depending on requirements of sensitivity uniforming and speed of acquisition.
+%In multiple beds acquisition, used to image objects with a length larger than the scanner \gls{afov}, in order to maintain an uniform axial sensitivity a degree of overlapping is used. This allows for the regions at the edges of the bed positions to be sampled in two bed acquisitions and even out the sensitivity of the combined acquisition. The degree of overlapping can vary, depending on requirements of sensitivity uniforming and speed of acquisition.
 %
 \subsection{Storage of PET coincidence events}
 The recorded coincidence data are stored digitally to allow post processing and reconstruction of image data.
@@ -185,57 +187,66 @@ The different methods for storing the data can result to different storage requi
 \begin{itemize}
 
 \item\textbf{List Mode}\\
-In the simplest form coincidence events can be stored in a binary file as a stream of events by the order of their detection. This format follows naturally the detection process and allows for multiple detector information to be included in each event. A time tag is normally included in the data stream every millisecond. The minimum information recorded per event is the detector pair IDs. Any additional information such as time-of-flight, detection energy etc. can also be included with each event.
+In the simplest form coincidence events can be stored in a binary file as a stream of events by the order of their detection. This format follows naturally the detection process and allows for multiple detector information to be included in each event. A time tag is normally included in the data stream every millisecond. The minimum information recorded per event is the detector pair IDs. Any additional information such as time-of-flight, detection energy, etc. can also be included with each event. Additionally for time-of-flight the data can include exact arrival time differences, to make best use of the information instead of binning the ToF as done in the histograms described bellow.
 The use of list-mode files is practical for dynamic studies as they takes less storage space than the other alternative formats described bellow, and furthermore they allows for subsequent re-binning into any required temporal framing. Reconstruction algorithms can be derived to reconstruct data directly using the list-mode stream.
 
 \item\textbf{Histogram}\\
 Coincidence events per detector pair (\gls{lor}) can be summed together and stored into a single entry. The total number of entries will be equal to the total number of detector pairs. These entries make up a histogram, where effectively all the events have been histogrammed into the detector pairs. No timing information is preserved and hence multiple histograms are required if data are recorded dynamically, in a predefined temporal binning. 
 This format can result in smaller files for static imaging compared to list-mode, but in the case of dynamic imaging it frequently results in much larger total size of files as multiple detector pair entries are empty (zero) for some time frames. Furthermore if time-of-flight information is also available, separate histograms need to be created for each time-of-flight bin (discretization of the TOF resolution), which further increases the zero entries and storage requirements. 
+Compression is possible in both axial and transaxial direction of the data, refereed to as axial compression (or span) and angular compression (or mashing) respectively~\cite{Fahey2002}. These are employed by some scanner manufacturers to counteract the increasing size of histograms from increasing scanner resolution and better TOF resolution. The compression strength is chosen as a trade-off of file size and degrading image quality properties~\cite{Belzunce2017}. 
 
 \item\textbf{Sinogram}\\
-Sinograms are representations of the data in projections though the process of a Radon transform~\cite{radon1917}. Each pixel of the sinogram represents the integral of events over a specific line though the image space. The name "sinogram" comes from the fact that a point source (off-centred) is represented as a sine wave in the sinogram, as seen in figure~\ref{fig_2:Sinogram}.
+Sinograms are representations of the data in projections though the process of projection using a transformation such as the radon or X-Ray transform~\cite{Natterer1986}. Each pixel of the sinogram represents the integral of events over a specific line though the image space. The name "sinogram" comes from the fact that a point source (off-centred) is represented as a sine wave in the sinogram.
+Use of sinograms is inherited from other tomographic imaging methods where data are acquired as projections. Sinograms are used with analytical reconstruction methods, shortly described in chapter~\ref{Chap2_3:Reconstruction}, which require the projection space to be fully and uniformly sampled.
+%In \gls{pet}, contrary to list-mode and histograms where the data are directly related to detector elements, conversion of data to sinograms requires certain processing steps to ensure 
+%As seen in figure~\ref{fig_2:Sinogram_detector_to_Sino}, parallel \glspl{lor} at a specific direction are used to form the sinogram along a particular row. The sampling of the sinogram space will depend on the size of the sinograms required, and data conversions will be required  to match the required sinogram sampling \cite{Fahey2002}. 
 %
-\begin{figure} [h!]
-\centering
-\includegraphics[scale=0.24,angle=0]{2_Theory_Methods/figures/Sinogram_Alessio.png}
-\caption{Sinogram data representation though the process of integration across \glspl{lor} at an angle and example of point source representation~\cite{Tong2010}.} 
-\label{fig_2:Sinogram}
-\end{figure} 
+%\begin{figure} [h!]
+%\centering
+%\includegraphics[scale=0.15,angle=0]{2_Theory_Methods/figures/Sinogram_detector_to_Sino.png}
+%\caption{Example projection though the PET field of view for a specific direction~\cite{Fahey2002}.} 
+%\label{fig_2:Sinogram_detector_to_Sino}
+%\end{figure} 
 %
-Use of sinograms is inherited from other tomographic imaging methods where data are acquired as projections. In \gls{pet}, contrary to list-mode and histograms where the data are directly related to detector elements, conversion of data to sinograms requires certain processing steps. As seen in figure~\ref{fig_2:Sinogram_detector_to_Sino}, parallel \glspl{lor} at a specific direction are used to form the sinogram along a particular row. The sampling of the sinogram space will depend on the size of the sinograms required, and data conversions will be required  to match the required sinogram sampling \cite{Fahey2002}. 
-%
-\begin{figure} [h!]
-\centering
-\includegraphics[scale=0.15,angle=0]{2_Theory_Methods/figures/Sinogram_detector_to_Sino.png}
-\caption{Example projection though the PET field of view for a specific direction~\cite{Fahey2002}.} 
-\label{fig_2:Sinogram_detector_to_Sino}
-\end{figure} 
-%
-In practice events can be detected in any angle within the transaxial plane as well as the axial planes that are defined by the multiple detector rings that form the \gls{pet} system. In 3D acquisition, crystals from all rings (or under certain maximum ring difference limitations) are allowed to record coincidences. In this case the number of sinograms increases to allow all the possible co-planar angle combinations, and the radon transform is extended in 3D. With the introduction of time-of-flight information, a separate set of sinograms is required for each TOF bin and when dynamic data are captured a separate set per temporal bin. In practice different types of compression have been used to reduce the total size of sinogram raw data.
-
+%In practice events can be detected in any angle within the transaxial plane as well as the axial planes that are defined by the multiple detector rings that form the \gls{pet} system. In 3D acquisition, crystals from all rings (or under certain maximum ring difference limitations) are allowed to record coincidences. In this case the number of sinograms increases to allow all the possible co-planar angle combinations, and the radon transform is extended in 3D. With the introduction of time-of-flight information, a separate set of sinograms is required for each TOF bin and when dynamic data are captured a separate set per temporal bin. In practice different types of compression have been used to reduce the total size of sinogram raw data.
 \end{itemize}
 
+As in this project we did not make use of analytical reconstruction algorithms, we have not described the formation and use of sinograms in detail. 
+In the project we made use of both real data from clinical PET scanners and simulated data from analytical simulations. For real data we made use of the list-mode data format, to reduce file size and allow for flexibility in treatment of the data, while for simulations we used the histogram data format as we were limited to that by the nature of analytical simulations.
+It is important to note that clinical PET systems are performing reconstructions using histograms or sinograms and although they can record data in list-mode format, they always re-bin the data to histograms or sinograms before performing a reconstruction. 
+By contrast in this project we made us of list-mode reconstruction algorithms when using list-mode datasets.
+
 \subsection{PET Corrections and Quantification}
+PET has always been used as a quantitative imaging method, providing image values that relate to radioactivity concentration. This is important for semi-quantitative and quantitative interpretations of the imaged data, with quantitative measures being at the foreground on this thesis project.
+But accurate quantification of images requires corrections that need to be considered before and during the reconstruction process. The main corrections needed for quantifiable PET our outlined here.
 
 \begin{itemize}
 \item\textbf{Randoms correction}\\
-As discussed previously, an estimate of random events can be made using a sufficiently delayed coincidence window or by measurements of single event rates between all \glspl{lor}. The random rates are provided as a separate stream of events in list mode or in sinogram/histogram datasets and are used as additive corrections within statistical reconstruction methods. 
-\item\textbf{Normalisation}\\ 
-\Glspl{lor} will have slightly different sensitivity from others, due to detector and geometric efficiencies effects. Normalisation coefficients for each \gls{lor} are estimated using measurements and modelling of the normalisation components that form the normalisation coefficient, and are subsequently used in reconstruction to correct for these efficiencies.
-\item\textbf{Dead-time correction}\\
-After every detection event a certain amount of time is required for sub-systems involved in the detection to become ready for detection again and so interaction events occurring during that recovery time will not be registered. As the number of interactions increases at higher imaged activities, the proportion of events not registered is also increasing. This results is a non-linear system response for different levels of imaged activities. Dead-time correction is applied by the use of lookup tables and live dead-time monitoring measurements during acquisition.
+As discussed previously, random events in the data are estimated using delayed coincidence detection or by measurements of single event rates between detectors. For most clinical scanner manufacturers and for list-mode data these are normally provided in the same stream of data, with delay events recorded similarly to prompts and with single events recorded for every pre-defined time interval (for example every second) for each detector or detector block. Similarly, for histogram data a separate histogram of random events is provided. A histogram per frame (time bin) is required for multiple frame datasets, for randoms as well as for prompt events. 
+In the reconstruction software used in this projects, \gls{castor}~\cite{Merlin2018}, the corrections are provided for each event \gls{lor} or histogram within the raw dataset file. Furthermore, randoms corrections in \gls{castor} are provided in rates (s$^{-1}$) which is a more natural format to use with list-mode data reconstruction and dynamic datasets.
 \item\textbf{Scatter correction}\\
-As described previously, a certain amount of the annihilation gammas will scatter with the atoms of the travelling medium via Compton scattering, which results in changes of energy and direction of the gamma. Even after energy filtering, an amount of those scattered gammas will be detected and recorded as coincidence events and degrade the PET data and affect image quality and quantification. The most commonly used approach to account for scatter in clinical scanners is the use of analytical simulation based scatter estimates. These simulations are based on an initial activity distribution estimate from the uncorrected PET data and knowledge of the probability of scattering. Scatter estimates, similar to random estimates, are used as additive corrections within statistical reconstruction methods.
+As described previously, a certain amount of the annihilation gammas will scatter with the atoms of the travelling medium via Compton scattering, which results in changes of energy and direction of the gammas. Even after energy filtering applied on the detectors, an amount of those scattered gammas will be detected and recorded as coincidence events and degrade the PET data and affect image quality and quantification. The most commonly used approach to account for scatter in clinical scanners is the use of the Single Scatter Simulation algorithm~\cite{Watson1996} to estimate scatter. These simulations are based on an initial activity distribution estimate from the uncorrected PET data and knowledge of the probability of scattering. 
+Scatter estimates, similar to random estimates, are used as additive corrections within statistical reconstruction methods. Again, in ~\gls{castor} these are provided as rates (s$^{-1}$). 
+\item\textbf{Normalisation}\\ 
+Sensitivity between \glspl{lor} will be different due to detector and geometric efficiencies effects. Normalisation coefficients for each \gls{lor} are estimated using measurements and modelling of the normalisation components and are subsequently used in reconstruction to correct for these efficiencies.
+\item\textbf{Dead-time correction}\\
+After every detection event a certain amount of time is required for sub-systems involved in the detection to become ready for detection again and so interaction events occurring during that recovery time will not be registered. As the number of interactions increases at higher imaged activities, the proportion of events not registered is also increasing. This results is a non-linear system response for different levels of imaged activities. This effect is corrected using dead-time correction which is applied by the of lookup tables that relate single rates to dead-time factors and real-time singles monitoring measurements.
 \item\textbf{Attenuation correction}\\
-Absorption or scatter interactions within the body result in loss of gammas detection. Even if one of the two annihilation gammas is lost the result is a non registered event and so the probability of attenuation depends on the total probability of interaction within a \gls{lor} and is independent of the annihilation position within that line. The attenuation factors within the body can be estimated using transmission measurements, either with radioactive sources or X-rays. For these measurements earlier scanners made use of positron or single gamma sources to estimate attenuation while most modern clinical systems make use of \gls{ct} or \gls{mr} scans. 
+Absorption or scatter interactions within the body result in loss of gammas detection. Even if one of the two annihilation gammas is lost the result is a non registered event and so the probability of attenuation depends on the total probability of interaction within a \gls{lor} and is independent of the annihilation position within that line. This enables the estimation of attenuation factors for each \gls{lor} within the body by use of transmission measurements, either with radioactive sources or X-rays sources. For these measurements earlier scanners made use of positron or single gamma sources to estimate attenuation while most modern clinical systems make use of \gls{ct} or \gls{mr} scans to estimate attenuation factors. 
 \item\textbf{Calibration Factor}\\
-Contrary to other nuclear medicine techniques, \gls{pet} is fully quantitative and can be used to deduce absolute activity measurements from the reconstructed image data. For those measurements to be accurate a calibration factor needs to be set by cross-calibration measurements against a reference instrument. For dynamic studies where blood sampling is involved, it is also important to calibrate the scanner against the well-counter used for blood sample counting. The result of these measurement is a global calibration factor that converts detected counts to activity concentration. 
+%Contrary to other nuclear medicine techniques, \gls{pet} is fully quantitative and can be used to deduce absolute activity measurements from the reconstructed image data. 
+Finally, after all other corrections have been applied there is a need for a global calibration factor to relate the estimated number of true events to activity concentration. 
+PET systems are calibrated against a reference source to obtain such factors. 
+\item\textbf{Decay correction}\\
+Finally, measurements need to be corrected for decay of the imaged radionuclide for the duration of the acquisition and for decay-correction to a reference time. 
+For static imaging the reference time is chosen to be the imaging start time, while for dynamic acquisitions the reference time is commonly chosen to be the time or tracer injection. 
 \end{itemize}
 
 
 \section{Hybrid PET Systems}
-As described above attenuation correction is essential for quantitative \gls{pet} imaging. Early \gls{pet} systems made use of external sources to acquire a transmission scan. Those would be either positron sources or single photon sources. Some of the drawbacks of these methods were that transmission scans would contribute to an increase of image noise on PET images and that transmission scan acquisition was increasing the total duration of the examination. 
-Apart from attenuation correction the transmission scan was also used to find anatomical landmarks for correlation with findings in the PET scans. In clinical practice image fusion is preferred when possible, to combine information from CT and MRI scans with PET when those are available. 
+As described above attenuation correction is essential for quantitative \gls{pet} imaging. Early \gls{pet} systems made use of external radioactive sources to acquire a transmission scan. Those would be either positron sources or single photon sources. Some of the drawbacks of these methods were that transmission scans would contribute to an increase of image noise on PET images and that transmission scan acquisition was increasing the total duration of the examination. 
+%Apart from attenuation correction the transmission scan was also used to find anatomical landmarks for correlation with findings in the PET scans.
+In clinical practice image fusion is preferred when possible, to combine information from CT and MRI scans with PET when those are available. 
 These needs led to the development of hybrid PET systems, with the first PET/CT system being introduced in late 1990s and the first simultaneous PET/MR system in 2010~\cite{Townsend2008}. [Find PET/MR Reference]
 
 \subsection{PET-CT}
