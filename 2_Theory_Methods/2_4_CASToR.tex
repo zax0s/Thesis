@@ -7,7 +7,7 @@ In this short description the focus is on PET reconstruction for static and dyna
 
 The main philosophy behind the design of the platform is genericity and abstraction. The code architecture is divided into main components which manage global tasks. These are named as "managers" and handle tasks such as reading datafiles, handling reconstruction dynamic aspects, managing the scanner geometry, computing a projection, etc. 
 Each "manager" component is utilising abstract classes which include a representation of all the desired functionalities, required by the component, as virtual functions. The final step is to implement these virtual functions using a specific implementation as a specific class. 
-Using this strategy generic code of basic functionalities is implemented only once, while specific classes require coding of only the basic functionalities that are specific to the implementation. This allows for development of specific classes with minimal amount of coding, that can be used as plug-ins to the existing generic architecture. 
+Using this strategy, generic code of basic functionalities is implemented only once while specific classes require coding of only the basic functionalities that are specific to the implementation. This allows for development of specific classes with minimal amount of coding, that can be used as plug-ins to the existing generic architecture. 
 An example of this design is shown in figure~\ref{fig_2_4:oProjectorManager}, with the \textit{oProjectorManager} as the main component, the \textit{vProjector} as the virtual class which includes all the generic functionalities of a projector, and finally the projector implementations which include code that calculates a projection using a specific implementation. Template classes are also provided for instructing how new implementations, of projectors in this example, can be made. 
 
 \begin{figure} [h!]
@@ -18,14 +18,14 @@ An example of this design is shown in figure~\ref{fig_2_4:oProjectorManager}, wi
 \end{figure}
 
 
-\section{Data}
+\section{Datafile}
 Data are provided in \gls{castor} in the form of a \gls{castor} datafile, which is based on a generic data description that is similar for both list-mode and histogram data. 
-The minimum information required for each event of the datafile are a time-stamp, pair of detector IDs and number of events(for histograms). Additional information can also be provided per event such as scatter and random corrections, normalisation factors, \gls{tof}, gating information, etc. 
+The minimum information required for each event of the datafile are a time-stamp, pair of detector IDs and number of events. Additional information can also be provided per event such as scatter and random corrections, normalisation factors, \gls{tof}, gating information, etc. 
 
 List-mode data maintain the exact timing information of each event. This is advantageous in reconstruction of dynamic datasets, as the separation of the list-mode data the desired frames for reconstruction is made within \gls{castor}, during reconstruction and using the framing selected by input of reconstruction parameters. As such, list-mode datafiles allow for re-use of the data with multiple framing definitions without need of pre-process the data. 
 
 Histograms are by definition events that have been histogrammed for a specific time range. All events of a \gls{castor} histogram datafile have the same timestamp which is the timestamp of the first time point of the histogrammed data. Thus dynamic data need to be pre-processed into individual histograms, one histogram per dynamic frame, using a predefined framing definition.
-Multiple histograms from a dynamic dataset can be concatenated together into a single file, before used in \gls{castor} for reconstruction. In this case reconstructions can be performed using the concatenated file and solely with the framing definition used to created the histograms. 
+Multiple histograms from a dynamic dataset can be concatenated together into a single file, before used in \gls{castor} for dynamic reconstruction. In this case reconstructions can be performed using the concatenated file and solely with the framing definition used to created the histograms. 
 Use of other framing definitions would require re-processing of the data before providing them into \gls{castor} for reconstruction.
 
 In this project, when possible, use of list-mode datafiles was preferred due to the offered flexibility. 
@@ -40,7 +40,7 @@ In this project the geometries of the Signa PET/MR and Siemens mMR PET/MR scanne
 
 The use of generic functions and generic datafile definition allows for the reconstruction to be performed by a single implementation of an iterative algorithm. The main steps performed within this iterative algorithm are shown in algorithm~\ref{algo:CASToR_Core}. 
 
-The platform is designed to handle three temporal levels of binning. It makes temporal binning for dynamic frames and binning in two levels of gating (for cardiac and respiratory motions). Alternatively, one of the two levels of gating can be used for splitting the data for involuntary motion corrections. 
+The platform is designed to handle three temporal levels of binning. It makes temporal binning for dynamic frames and binning in two levels of gating (for example cardiac and respiratory motions). Alternatively, one of the two levels of gating can be used for splitting dynamic data for involuntary motion corrections.
 
 \begin{algorithm} [h!]
   \For{$i\leftarrow 1$ \KwTo nb of iterations}
@@ -102,7 +102,7 @@ But as discussed previously in~\autoref{section:Fully_4D_reconstruction}, dynami
 \section{Multi-bed reconstruction}
 \label{chap2_4:MultiBedRecon}
 With the generic description of the geometry implemented in CASToR, system matrix elements related to each detection event are computed on-the-fly, by projecting a ray though image space, or they are read from a pre-computed system matrix. 
-The on-the-fly computation allow for additional flexibility, which has been used to enable direct multi-bed reconstruction. 
+The on-the-fly computation allows for additional flexibility, which has been used to enable direct multi-bed reconstruction. 
 As described in section~\ref{WB_Static_SS}, multi-bed Step and Shoot (SS) acquisitions make use of overlapping beds to increase the sensitivity at the edges of each bed's FOV. The raw PET data for a static WB acquisition comprise of a total number of $n_s$ datasets, one for each bed position $s$. We can represent each bed's raw PET dataset as
 %
 \begin{equation}
@@ -122,4 +122,4 @@ where now the image $\bm{\lambda}$ has the dimensions of the whole effective \gl
 
 Direct reconstruction of multi-bed data, which combines data from overlapping acquisitions within the iterative reconstruction loop, improves the statistics of the overlapping region that are available for each iteration. It has been shown that this technique can result in improved contrast to noise ratios at the overlapping regions, for specific levels of acquisition statistics~\cite{Ross2004}. 
 
-This method has been implemented in CASToR by making use of an additional loop over bed positions and an \textit{Apply bed offset} function, as seen in the CASToR iterative algorithm~\ref{algo:CASToR_Core}, which applies the bed offset to the projector for the events of each bed~\cite{Stute2014}.
+This method has been implemented in CASToR by making use of an additional loop over bed positions and an "Apply bed offset" function, as seen in the CASToR iterative algorithm~\ref{algo:CASToR_Core}, which applies the bed offset to the projector for the events of each bed~\cite{Stute2014}.
