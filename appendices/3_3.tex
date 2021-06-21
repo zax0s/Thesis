@@ -3,7 +3,7 @@
 
 Supplementary graphs, used in the analysis of the evaluated IsotoPK studies of chapter~\ref{Chap3_3:IsotoPK}, are provided here. Additionally, an brief simulation study for the behaviour of the spectral analysis model in the liver and the effects from the dual-input function is included.s
 
-\section{Supplementary graphs}
+\section*{Supplementary graphs}
 
 \begin{figure} [h!]
 \centering
@@ -23,19 +23,19 @@ Supplementary graphs, used in the analysis of the evaluated IsotoPK studies of c
 \begin{figure} [h!]
 \centering
 \includegraphics[scale=0.48,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_SpectralParams_central_.pdf}
-\caption{Spectral model coefficients average in VOIs.}
+\caption{Spectral model coefficients average in VOIs. VOI regions shown which are included in both DSB and DWB acquisition.}
 \label{fig_3_3:IsotoPK_CTRL_DWB_Spectrals}
 \end{figure} 
 
 \begin{figure} [h!]
 \centering
 \includegraphics[scale=0.48,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_SpectralParams_peripheral_.pdf}
-\caption{Spectral model coefficients average in VOIs.}
+\caption{Spectral model coefficients average in VOIs. VOI regions shown which are covered only by the DWB acquisition.}
 \label{fig_3_3:IsotoPK_CTRL_DSB_Spectrals}
 \end{figure} 
 
 \clearpage
-\section{Liver dual-input sim study}
+\section*{Liver dual-input sim study}
 This short simulation was conducted using noiseless TACs to test the effects of the use of a dual input function model against spectral analysis that only accounts for one single input function.  
 The following equations were used for the simulation. The portal vein input function was simulated using equation~\ref{eqn:Appendix_PortalVein} and a dispersion value $k_g=0.5 \mathrm{min}^{-1}$ from the literature~\cite{Kudomi2008}.
 The dual input function was then simulated with a 25/75 ratio using equation~\ref{eqn:Appendix_HepaticInput} and provided to the equation~\ref{eqn:Appendix_2TCM} of the 2TC model for simulating liver TACs. Finally the blood fraction was included using equation~\ref{eqn:Appendix_CPET}. The simulated $K_1$ values varied between 0.3 and 2.4 min$^{-1}$. The simulated $k_2$, $k_3$ and $V_B$ values were 0.15 min$^{-1}$, 0.05 min$^{-1}$ and 0.03 respectively. These values, using a $K_1$= 0.7 min$^{-1}$, approach the TAC of the IsotoPK CTRL scan from chapter~\ref{Chap3_3:IsotoPK}. 

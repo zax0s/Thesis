@@ -38,6 +38,7 @@ bottom=30mm
 
 \usepackage{pdfpages}
 
+\usepackage[toc,page,header]{appendix}
 
 % For CASToR algorithms -----------------------------------------------||
 \usepackage[skins]{tcolorbox}
@@ -178,11 +179,17 @@ bottom=30mm
     
     \input{./4_Discussion/Discussion}
 
-    \appendix
+   
+    \begin{appendices}
     \input{appendices/1}
     \input{appendices/2}
     \input{appendices/3_3}
-
+    \end{appendices}
+    
+    \cleardoublepage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{Bibliography}
+    
     \bibliography{bibliography.bib}
     \pagebreak
     \include{SecondaryContributions/hybrid_projects}

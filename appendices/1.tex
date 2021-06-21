@@ -1,7 +1,7 @@
 \chapter{Multi-bed Dynamic Whole Body PET: Data exportation and processing}
 \label{chap:AppendixA}
 
-\section{Dynamic Whole Body Protocol implementation for IsotoPK study}
+\section*{Dynamic Whole Body Protocol implementation for IsotoPK study}
 The implementation of the DWB protocol used for human subjects of the IsotoPK study on the Signa PET/MR was made using a series of multiple static WB sweeps from a typical WB static protocol. Details of the WB passes are given in table~\ref{tab:IsotPK_CE_details}.
 
 \begin{table}[h!]
@@ -37,7 +37,7 @@ CE19                & 40                                             & Yes  \\
 \end{tabular}
 \end{table}
 
-\section{Export and offline reconstruction of IsotoPK DWB data}
+\section*{Export and offline reconstruction of IsotoPK DWB data}
 Reconstruction of DWB on the Signa PET-MR console is made with certain limitations and does not allow for full and accurate use of the acquired data, with the correct timing information per bed acquisition which is especially important in estimation of parametric maps. \\
 To make better use of these datasets, an export and offline processing pipeline was developed as part of this PhD project. The pipeline is based on custom-made python scripts and matlab scripts, that integrate with the GE-PET toolbox. This is a toolbox provided by GE for certain offline reconstruction operations. In this pipeline the Toolbox is used for generation of image corrections. These include normalisation factors, attenuation factors from MRACs, random and scatter corrections as well as dead-time corrections. \\
 
@@ -94,7 +94,7 @@ Those are then processed using the custom-made pipeline as follows:
 %\end{tabular}
 %\end{table}
 
-\section{Standard Operating Procedure: fully automated DWB protocol}
+\section*{Standard Operating Procedure: fully automated DWB protocol}
 A short \gls{sop} for the developed fully automated DWB protocol, that was tested on the \gls{nhp} study, is given in the following steps:
 
 \begin{enumerate}
