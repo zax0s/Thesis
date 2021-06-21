@@ -75,7 +75,7 @@ bottom=30mm
 \newcommand{\br}{\ms\bhline\ms}
 \newcommand{\mr}{\ms\hline\ms}
 
-\DeclareMathSizes{10}{10}{7}{8}   % For size 10 text
+\DeclareMathSizes{10}{10}{7}{5}   % For size 10 text
 
 \newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 
@@ -135,9 +135,9 @@ bottom=30mm
 % Place title on top of each page and page numbers
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[EL]{\nouppercase\leftmark}
-\fancyhead[OR]{\nouppercase\rightmark}
-\fancyhead[ER,OL]{\thepage}
+\fancyhead[ER]{\nouppercase\leftmark}
+\fancyhead[OL]{\nouppercase\rightmark}
+\fancyhead[EL,OR]{\thepage}
 
 %------------------------------------------------------------------------------
     \makeglossaries
