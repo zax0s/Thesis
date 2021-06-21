@@ -1,10 +1,10 @@
 Image reconstruction is necessary to produce images of activity distribution from the acquired tomographic measurements. Reconstruction algorithms used for this process can be categorised as either analytical or statistical reconstruction methods.  
 Analytical reconstruction methods seek to invert the transformation that links the image to data domain, using linear analytic approaches. These methods treat the measured LOR data as line integrals over image space and necessitate corrections to be applied on projection data prior to reconstruction, in order to result to valid and quantitatively accurate images. Traditionally the most commonly used analytical reconstruction method is \textit{Filtered Back Projection} which is described very briefly in this chapter. 
 Statistical reconstruction methods are derived from statistical formulations of the detection process and allow for the use of complex system models that include various effects of the acquisition process. These methods result in non-linear formulations of the reconstruction problem which require iterative optimisation methods to reach a solution. The solution sought is a set of image parameters (that describe the activity distribution) which best describes the acquired tomographic data. 
-In this thesis project we made exclusive use of statistical reconstruction methods due to their ability to incorporate complex system models, including dynamic models which were crucial for the aims of this thesis.
+In this thesis project we made exclusive use of statistical reconstruction methods due to their ability to incorporate complex system models, including dynamic models which was crucial for the aims of this thesis.
 
 \section{Projection and back-projection process}
-Coincidence detection of annihilation photons in PET leads naturally to a line-integral model where the number of coincidence events is an \gls{lor} is approximately linearly proportional to the integral of tracer density along the volume joining the two detectors. 
+Coincidence detection of annihilation photons in PET leads naturally to a line-integral model where the number of coincidence events of an \gls{lor} is approximately linearly proportional to the integral of tracer density along the volume joining the two detectors. 
 The projection process can be written as
 \begin{equation}
    \bm y = proj\{\bm{\lambda}\}  \\, 
@@ -64,11 +64,11 @@ Some of these methods, which are also implemented in the CASToR reconstruction s
 %\label{fig_3:back_projection.}
 %\end{figure} 
 Similarly, the back-projection operation assigns to voxels in the \gls{fov} the contribution from each \gls{lor} bin, using the same methods.
-Analytical reconstruction methods seek to estimate by inversion of the forward-projection process all the data in image space where the contributions from all \glspl{lor} are superimposed. 
+Analytical reconstruction methods seek to estimate an image by inversion of the forward-projection process, by superimposing contributions from all \glspl{lor} in image space. 
 This results to analytical algorithms, including the most widely used algorithm of \textit{Filtered Back Projection} (FBP).
 %In practice a filtered version of the projections is back-projected to account for the non-uniform number of contributions from LORs in different regions of the image space, which gives the processes the name of filtered back projection. The method can be extended to 3D via use of the 3D X-ray transform and approximations of missing data projections~\cite{Kinahan1989}. 
-But while analytical reconstructions are linear processes and computationally fast, accuracy is limited by the simple assumptions of the line integral model, ignoring positron range effects, variations in response across \glspl{lor} etc. In addition these methods do not account for the statistical properties of the detection process in the data.
-Finally, the FBP algorithm results to an ill-posed problem meaning that small changes in the data can result to largely disproportional effects on the reconstructed image. As the projection data include stochastic noise from the detection process, the reconstruction results to artefacts. In practice smooth low pass filters, like the Hann apodization filter, are applied in the reconstruction process to reduce the strength of these artefacts at the cost of degraded spatial resolution. The sub-optimal trade-off between strength of artefacts and spatial resolution can be adjusted by changing the filter's cut-off frequency.
+But while analytical reconstructions are linear processes and computationally fast, accuracy is limited by the simplistic assumptions of the line integral model, ignoring many degrading effects such as positron range, variations in response across \glspl{lor} etc. In addition these methods do not account for the statistical properties of the detection process in the data.
+Finally, the FBP algorithm seeks to solve an ill-posed problem meaning that small changes in the data can result to largely disproportional effects on the reconstructed image. As the projection data include stochastic noise from the detection process, the reconstruction results to artefacts. In practice smooth low pass filters, like the Hann apodization filter, are applied in the reconstruction process to reduce the strength of these artefacts at the cost of degraded spatial resolution. The sub-optimal trade-off between strength of artefacts and spatial resolution can be adjusted by changing the filter's cut-off frequency.
 
 \section{Formulation of the system model}
 The analytical reconstruction methods are based on the idealised description of the scanning process using the line integral model. But in reality there are many effects that should ideally be considered in the scanning system model. For example the statistical nature of the detection process, positron range and detection resolution effects, the detection of scattered and random events as well as the discrete nature of the detection and scanner geometries that do not result to complete sampling.
@@ -286,7 +286,7 @@ f_{tb}^{(EM)}(\bm{\theta}^{(k)})
 \label{eqn:NestedOptimization}
 \end{equation}
 Equations~\ref{eqn:EM_Update_image} and~\ref{eqn:NestedOptimization} form the two step process of nested optimisation. An update over PET raw data for each voxel and each time frame is performed using~\ref{eqn:EM_Update_image}, followed by an image based optimisation of the dynamic model parameters using equation~\ref{eqn:NestedOptimization}. 
-
+%
 \subsection{Linear dynamic models - direct 4D reconstruction}
 As described in chapter~\ref{Chap2_2:Pharmacokinetics}, many dynamic models utilised in practice for parametric imaging are linear models. These can be expressed in the form of matrices, which effectively are a set of temporal basis functions of the dynamic model.
 The modeled activity using a linear model of $n_b$ number of parameters is
@@ -339,4 +339,4 @@ The right parenthesis of this expression is similar to the log-likelihood from t
 \end{equation}
 
 This results in an nested optimisation framework for linear models using equation~\ref{eqn:EM_Update_image} for updating over tomographic data and equation~\ref{eqn:NestedEM} for the dynamic model update resulting in updated parametric images. 
-In this project, in all applications of dynamic reconstruction, we made use of linear models and nested optimisation.
+In this project, in all applications of dynamic reconstruction, we made use of linear models within the nested optimisation framework.

@@ -3,7 +3,7 @@
 positron-emitting radionuclides for the study of biochemical and physiological processes \textit{in vivo}. The molecules of interest for the processes under study are labelled with a radionuclide and then introduced in the body. The PET imaging system provides information about the distribution of the labelled molecules \textit{in vivo} over time and can be used to deduce information about the underlying process kinetics. 
 
 \section{Principles of pharmacokinetic modelling}
-Pharmacokinetics refers to the study of absorption, distribution, metabolism and excretion of drugs in living systems. The study of pharmacokinetics is based on measurements of concentration of drugs and their metabolites in tissues over time. Pharmacokinetic models are mathematical relationships, derived from prior knowledge or previous observations, which can be tested against the measurements in order to describe the underlying behaviour. These models describe the transport and binding rates of tracer from local concentration differences across boundaries, that can be either physical (such as a membrane or an organ outline) or conceptual boundaries as for example for example between bound and unbound tracer. These boundaries define separate compartments with distinct activity concentration which form the basis of pharmacokinetic models, also referred to as compartmental models.
+Pharmacokinetics refers to the study of absorption, distribution, metabolism and excretion of drugs in living systems. The study of pharmacokinetics is based on measurements of concentration of drugs and their metabolites in tissues over time. Pharmacokinetic models are mathematical relationships, derived from prior knowledge or previous observations, which can be tested against the measurements in order to describe the underlying behaviour. These models describe the transport and binding rates of tracer from local concentration differences across boundaries, that can be either physical (such as a membrane or an organ outline) or conceptual boundaries as for example between bound and unbound tracer. These boundaries define separate compartments with distinct activity concentration which form the basis of pharmacokinetic models, also referred to as compartmental models.
 %There are three assumptions are made for compartmental modelling to be valid:
 %The first is the tracer assumption which requires that the presence of the tracer in PET studies is not influencing the physiological processes and molecular interactions. This is the case in most PET studies as the specific activity of the tracer (Activity/tracer concentration) is kept low. The second assumption is that the physiological processes and molecular interactions are in constant state during the duration of the PET study. The third and final assumption is that tracer is homogeneously distributed within each compartment. 
 
@@ -24,18 +24,18 @@ As such the tissue activity concentration $C_T(t)$ can be modelled as
 \end{equation}
 where $\ast$ is the convolution operator. 
 
-When a measurement of activity concentration is made with \gls{pet}, the measurement will include the underlying tissue activity and activity from the intravascular blood in this tissue. The proportion of tissue volume occupied by intravascular blood is $V_B$ is commonly referred to as blood fraction.The measured activity concentration $C_{PET}$ can be expressed as
+When a measurement of activity concentration is made with \gls{pet}, the measurement will include the underlying tissue activity and activity from the intravascular blood in this tissue. The proportion of tissue volume occupied by intravascular blood $V_B$ is commonly referred to as blood fraction.The measured activity concentration $C_{PET}$ can be expressed as
 \begin{equation}
 {C_{PET}}(t)  = (1-V_{B}){C_{T}}(t) + V_{B}C_{B}(t) \\ , \\
 \label{eqn:CPET}
 \end{equation}
 where $C_{B}$ is the total blood activity concentration.
 Measurements of the %metabolite corrected
-arterial plasma to total blood ratio can be made to relate between $C_{B}$ and $C_P(t)$. 
-For the tracers of interest in this PhD project, the ratio of the two concentrations is stable and the relationship between the two concentrations is assumed to be $C_{B}(t) = r C_{P}(t)$. 
+arterial plasma to total blood ratio can be made to relate between $C_{B}(t)$ and $C_P(t)$. 
+For the tracers of interest in this PhD project, the ratio of the two concentrations is assumed to be constant with time and to be $C_{B}(t) = r C_{P}(t)$. 
 
 \section{One-tissue compartment model}
-As the simplest model, the one-tissue compartment model (1TCM) can be described using two constant rates for the input and output of tracer from the tissue, $K_1$ and $k_2$ respectively. A representation can bee seen in figure~\ref{fig:1_2TCM}.
+As the simplest model, the one-tissue compartment model (1TCM) can be described using two constant rates for the input and output of tracer from the tissue, $K_1$ and $k_2$ respectively. A representation can be seen in figure~\ref{fig:1_2TCM}.
 
 \begin{figure}[ht]
 	\includegraphics[width=0.8\textwidth]{2_Theory_Methods/figures/TissueCompartmentModels.pdf}
@@ -52,15 +52,15 @@ The rate of change of the activity concentration in tissue $C_T$ will depend on 
   \label{eqn:1TCM_Diff}
 \end{equation}
 \begin{equation}
-   C_T = K_1 e^{-k_2 t} \ast C_P(t) 
+   C_T(t) = K_1 e^{-k_2 t} \ast C_P(t) 
   \label{eqn:1TCM}
 \end{equation}
 \begin{equation}
-   C_{PET} =   K_1 e^{-k_2 t} \ast C_P(t) (1-V_B) + C_B(t) V_B
+   C_{PET}(t) =   K_1 e^{-k_2 t} \ast C_P(t) (1-V_B) + C_B(t) V_B
   \label{eqn:1TCM_CPET}
 \end{equation}
 
-Equation \ref{eqn:1TCM} is the solution of the differential equation \ref{eqn:1TCM_Diff}, which becomes \ref{eqn:1TCM_CPET} for the PET measurement which includes the fractional blood volume. %In equation \ref{eqn:1TCM_CPET} it is important to note that the blood fraction is related to the whole blood activity concentration $C_B$ , rather than the metabolite corrected activity concentration $C_A$. When the tracer metabolic activity is negligible and under the assumption of negligible tracer delay and diffusion from arterial to venous blood TACs, the two concentrations ($C_A = C_B$) can be set equal in favour if simplified models and estimations. 
+Equation \ref{eqn:1TCM} is the solution of the differential equation \ref{eqn:1TCM_Diff}, which becomes \ref{eqn:1TCM_CPET} for the PET measurement that includes the fractional blood volume. %In equation \ref{eqn:1TCM_CPET} it is important to note that the blood fraction is related to the whole blood activity concentration $C_B$ , rather than the metabolite corrected activity concentration $C_A$. When the tracer metabolic activity is negligible and under the assumption of negligible tracer delay and diffusion from arterial to venous blood TACs, the two concentrations ($C_A = C_B$) can be set equal in favour if simplified models and estimations. 
 
 \section{Two-tissue compartment model}
 The two-tissue compartment model (2TCM) is a commonly used model as it describes the behaviour of ${}^{18}F$-Fluorodeoxyglucose (${}^{18}\mathrm{F}$-FDG), which is commonly used tracer in clinical and research PET protocols. The separation into two tissue compartments is made to distinguish between free and trapped (bound) tracer, represented as $C_F(t)$ and $C_B(t)$ respectively, with the trapping caused by the tracer being metabolised in the cells by mitochondria. The set of differential equations describing the 2TCM is shown in equations~\ref{eqn:2TCM_Diff}.
@@ -100,10 +100,9 @@ K_i = \frac{K_1 k_3}{k_2+k_3}
 
 
 \section{Gjedde-Patlak linearisation method}
-
-Direction estimation of model micro-parameters, such as those of~\ref{eqn:2TCM}, requires non-linear fitting optimization procedures. These are commonly time consuming and their estimations are susceptible to noise.
+Direction estimation of model micro-parameters, such as those of equation~\ref{eqn:2TCM}, requires non-linear fitting optimization procedures. These are commonly time consuming and their estimations are heavily susceptible to noise.
 For parametric imaging, where the model estimation has to be performed for every voxel of the image, estimation of micro-parameters is commonly avoided due to the poor statistics and high noise associated with \gls{tac} measurements at the voxel level. 
-Linearisation methods allow for transformation of the measured data, to enable use of linear least-square fitting procedures for estimation of model macro-parameters, under certain assumptions. Furthermore these methods reduce the number of parameters to be estimated, thus reducing the variability of estimates and sensitivity to noise. 
+Linearisation methods allow for transformation of the measured data, to enable use of linear least-square fitting procedures for estimation of model macro-parameters, under certain assumptions. Furthermore, these methods reduce the number of parameters to be estimated, thus reducing the variability of estimates and sensitivity to noise. 
 
 With the assumption of irreversible tracer behaviour the Gjedde-Patlak method has been developed, described by Gjedde~\cite{Gjedde1982} and Patlak \textit{et al.}~\cite{Patlak1985}. The proposed transformation is
 
@@ -124,7 +123,7 @@ V_a  = \frac{K_1 k_2}{(k_2+k_3)^2} \\ . \\
 With the assumption of $C_{B}(t) = r C_{P}(t)$, we can substitute equation~\ref{eqn:PatlakModel} into equation~\ref{eqn:CPET} and describe the observed activity $C_{PET}(t)$ using the Patlak model as
 
 \begin{equation} 
-{C_{PET}}(t)  = \underbrace{(1-V_{B})K_i}_{\theta_1} \int_{0}^{t} C_{P}(\tau) d\tau +  \underbrace{V_{\alpha}+r V_{B}}_{\theta_2} C_{P}(t) \\ , \\
+{C_{PET}}(t)  = \underbrace{(1-V_{B})K_i}_{\theta_1} \int_{0}^{t} C_{P}(\tau) d\tau +  (\underbrace{V_{\alpha}(1-V_{B})+r V_{B}}_{\theta_2}) C_{P}(t) \\ , \\
 \label{eqn:PatlakCPET}
 \end{equation}
 
@@ -136,7 +135,7 @@ In the applications of the Patlak model in this project, we will refer to the sl
 
 
 \section{Spectral analysis method}
-The Spectral analysis method was originally introduced by Cunningham et al. \cite{Cunningham1993}. The method is based on the general form of the solutions of compartmental models and describe the generic behaviour of any compartmental system as a weighted positive sum of decaying exponential functions with decay rates $\beta$ which describe the exchange between compartments, convolved with an input function. 
+The Spectral analysis method was originally introduced by Cunningham et al. \cite{Cunningham1993}. The method is based on the general form of the solutions of compartmental models and describes the generic behaviour of any compartmental system as a positively weighted sum of decaying exponential functions with decay rates $\beta$ which describe the exchange between compartments, convolved with an input function. 
 
 The spectral analysis model for $C_T(t)$ can be expressed using M functions as
 
@@ -160,7 +159,7 @@ For reversible kinetics, the parameters can be used to deduce the volume of dist
 V_D  =  \sum_{b=0}^{M-1} \frac{\phi_b}{\beta_b}   \\ . \\
 \end{equation}
 
-For irreversible kinetics, an parameter is used in the model to account for the trapping rate $K_i$. In this work we use parameter ${\phi_0}$ to describe irreversible trapping, with its respective exponential decay rate set to zero ${\beta_0} = 0 $. With this assumption the model becomes
+For irreversible kinetics, an parameter of the model is used to account for the trapping rate $K_i$. In this work we use parameter ${\phi_0}$ to describe irreversible trapping, with its respective exponential decay rate set to zero ${\beta_0} = 0 $. With this assumption the model becomes
 
 \begin{equation} 
 \label{eqn:SpectralModel_Complete}
@@ -172,7 +171,7 @@ for which $K_i = {\phi_0}$.
 Finally, to model the observed activity $C_{PET}(t)$ using the spectral analysis model, we can substitute equation~\ref{eqn:SpectralModel} into equation~\ref{eqn:CPET} and assume again that $C_{B}(t) = r C_{P}(t)$ to get
 
 \begin{equation} 
-{C_{PET}}(t)  = (1-V_{B}) \sum_{b=0}^{M-1} {\phi_b}  e^{-\beta_b t} \ast C_P(t) + V_{B} r C_P(t)   \\ . \\
+{C_{PET}}(t)  = (1-V_{B}) \sum_{b=0}^{M-1} {\phi_b}  e^{-\beta_b t} \ast C_P(t) + r V_{B}  C_P(t)   \\ . \\
 \label{eqn:SpectralCPET}
 \end{equation}
 
@@ -183,8 +182,8 @@ If we account for the parameter $(1-V_{B})$ into the weights $\phi_b$, the equat
 \label{eqn:SpectralCPET_short}
 \end{equation}
 
-for which $\beta_b \xrightarrow[]{}\inf$ and $\phi_M = r V_{B}$. 
-When fitted on measured ${C_{PET}}(t)$ data , the spectral model in equation~\ref{eqn:SpectralCPET_short} can be used to deduce $K_1$, and either $V_D$ or $K_i$ depending respectively on reversibility or non-reversibility tracer behaviour, using
+for which $\beta_M \xrightarrow[]{}\inf$ and $\phi_M = r V_{B}$. 
+When fitted on measured ${C_{PET}}(t)$ data, the spectral model in equation~\ref{eqn:SpectralCPET_short} can be used to deduce $K_1$, and either $V_D$ or $K_i$ depending respectively on reversibility or non-reversibility tracer behaviour, using
 
 \begin{subequations}
 \label{eqn:AllSpectralEqns}
@@ -195,33 +194,31 @@ K_i = \frac{\phi_0}{1-V_{B}} .
 \end{align}
 \label{eqn:SpectralCPET_AllEquations}
 \end{subequations}
-
+%
 \subsection{Choice of spectral rates}
-
+%
 On equation~\ref{eqn:SpectralCPET_short} the spectral rates $\beta_1 ... \beta_{M-1}$ are used to describe the exchange between compartments. These are set to cover the range of expected underlying kinetics and are commonly logarithmically spaced within that range~\cite{Gunn2002}.
 As a rule of thumb, the lower limit of the range can be set to $\beta_1 = 1/(3 T_{end})$ where $T_{end}$ is the total time of the PET study, and the upper limit of the range can be set to $\beta_{M-1} = 3/T_{in}$ where $T_{in}$ is the duration of the first frame of the study~\cite{Veronese2016}.
 
-In spectral analysis the size of the spectral parameters used is empirically set in the 10$^2$ order of magnitude. This relatively large number allows for clear separation of the underlying exchange rates, for deduction of models of the underling behaviour. 
-For use with dynamic reconstruction, as described in the following chapter, a smaller number of parameters is used that is adequate to model the PET measurements and reduce the numbers of parameters to estimate and the noise on result parameter estimates. 
+In spectral analysis the number of the spectral parameters used is empirically set in the 10$^2$ order of magnitude. This relatively large number allows for clear separation of the underlying exchange rates, for deduction of models of the underling behaviour. 
+For use with dynamic reconstruction a smaller number of parameters is used, ideally less than the number of time bins (frames) of the data, which is still adequate to model the PET measurements while maintaining low image noise.
 
 \section{IsotoPK pharmacokinetic study}
-
-Traditionally it has been assumed that passive diffusion is the main mechanism that controls drug delivery to tissues. 
-But more recently, it is recognised that the presence of membrane transporters at blood-tissue interfaces suggests that transporters play an important role in drug pharmacokinetics. Imaging studies can play an important role in the study of their distribution and function in regards to drug delivery to tissues over the body~\cite{Marie2017}. \\
-
+Traditionally it has been assumed that passive diffusion is the main mechanism controlling drug delivery to tissues. 
+But more recently, it is recognised that the presence of membrane transporters at blood-tissue interfaces suggests that transporters play an important role in drug pharmacokinetics. DWB imaging studies can play an important role in the study of transporter distribution and function in regards to drug delivery to tissues over the body~\cite{Marie2017}. 
 To this purpose, a novel PET tracer has been developed using Glyburide (glibenclamide, GLB) and $^{11}$C, targeting many transporters of the Solute Carrier O (SLCO) family~\cite{Tournier2013,Caille2020}. Preliminary studies have indicated that these transporters are expressed mainly in the liver and the kidneys~\cite{Tournier2013}.
 
-A first in man study, named \textit{IsotoPK}, was designed and conducted for the study of the distribution of these transporters in healthy volunteers~\cite{Marie2019}.
-The study was conducted on the Signa PET/MR, using a Dynamic Whole Body (DWB) acquisition protocol, with two acquisitions per volunteer to study the distribution without and with the administration of an inhibitor substance prior to PET imaging.
-Arterial blood samples for deduction of an input function and metabolite analysis we collected manually during the duration of each scan. 
+A first in man study, named \textit{IsotoPK}, was designed and is being conducted in our centre for the study of the distribution of these transporters in healthy volunteers~\cite{Marie2019}.
+The study is conducted on the Signa PET/MR, using a Dynamic Whole Body (DWB) acquisition protocol, with two acquisitions per volunteer to study the distribution without and with the administration of an inhibitor substance prior to PET imaging.
+Arterial blood samples for deduction of an input function and metabolite analysis are collected manually during the duration of each scan. 
 
-Initial results on three volunteers have shown that Glyburide is very slowly metabolised and did not require to be accounted for in PET analysis, as their impact on PET quantification would me minimal. They also showed strong binding with plasma ($\geq$ 90\%).
-Predominant uptake of the tracer was seen in the liver and also the kidneys. Lower uptake was observed in the spleen, the aorta wall and the pancreas. At all other tissues no strong signal was seen.  
+Data from this study are presented in chapter~\ref{Chap3_3:IsotoPK}, showing examples of distribution of the tracer on an example volunteer. The use of the data in this project was made with focus on methodological aspects for whole-body parametric imaging, but the developed methodology will be used in the future after all volunteer data have been collected to evaluate its findings.
+Initial results on three volunteers have shown that Glyburide is very slowly metabolised and this process did not require to be accounted for in PET analysis, as their impact on PET quantification would me minimal. Findings also showed strong binding of tracer with plasma ($\geq$ 90\%).
+Predominant uptake of the tracer was seen in the liver and also the kidneys. Lower uptake was observed in the spleen, the aorta wall and the pancreas. At all other tissues no strong tracer uptake was seen.
 
-\section{PET analysis in the liver}
+\subsection{PET analysis in the liver}
 \label{liver_PV_theory}
 One of the unique characteristics of the liver, in regards to pharmacokinetic modeling, is that it is supplied with blood via two routes. The hepatic artery (HA) accounts for approximately 25\% of the blood supply in the liver, while the portal vein (PV) accounts for the rest 75\%. The portal vein delivers blood that has been filtered mainly by the gastrointestinal tract, a process which alters the characteristics of the input function associated with portal vein in relation to the arterial input function. 
-
 Studies on pigs and non-invasive studies on humans have produced methods to model the PV input function as a dispersion of the arterial input function~\cite{Kudomi2008,Winterdahl2011}, which can be modelled using 
 
 \begin{equation} 
@@ -245,7 +242,7 @@ An example demonstration of the two components of ${C_{H}}(t)$ is shown in figur
 \label{fig_2_2:LiverDualInputFunction}
 \end{figure} 
 
-Use of imaging information for non-invasive estimation of the portal vein input function and their effects in pharmacokinetic model estimates over the liver are an active area of research~\cite{Wang2018,HernandezLozano2019,Wang2021} with no standardised and widely accepted practices.
+Use of imaging information for non-invasive estimation of the portal vein input function and their effects in pharmacokinetic model estimates over the liver are an active area of research~\cite{Wang2018,HernandezLozano2019,Wang2021} with no standardised and widely accepted practices established yet. Further interest and research into DWB imaging is expected to address these issues for accurate WB parametric imaging that accurately accounts for the liner dual input model.  
 
 %\subsection{Tracer redistribution}
 %Another aspect 
