@@ -74,7 +74,7 @@ The two-tissue compartment model (2TCM) is a commonly used model as it describes
 \label{eqn:2TCM_Diff}
 \end{subequations}
 
-The pathway of tracer from the trapped to the free state, via the process of dephosphorylation, is commonly considered negligible for the duration of common PET studies. With the assumption of $k_4=0$ the two differential equations in \ref{eqn:2TCM_Diff} simplify to the system \ref{eqn:2TCM_Diff_k4=0} which when solved results to equation \ref{eqn:2TCM}. 
+The pathway of tracer from the trapped to the free state, via the process of dephosphorylation, is commonly considered negligible for the duration of common PET studies. With the assumption of $k_4=0$ the two differential equations in \ref{eqn:2TCM_Diff} simplify to the system \ref{eqn:2TCM_Diff_k4=0} which when solved results in equation \ref{eqn:2TCM}. 
 
 \begin{subequations}
 \begin{align}
@@ -91,7 +91,7 @@ C_T(t) =  C_F(t) + C_B(t) = K_1 ( e^{-(k_2+k_3)t} + \frac{k_3}{k_2+k_3}(1-e^{-(k
 
 The parameters $K_1$, $k_2$ and $k_3$, which are refereed to as micro-parameters, can be estimated by fitting equation~\ref{eqn:2TCM} on measured \gls{tac} data. 
 
-A parameter of interest for clinical studies, is the influx rate constant $K_i$, given by equation~\ref{eqn:FDG_Ki}. This is considered as a macro-parameter of the system and can be understood as the the proportion of flux $K_1$ that results to trapped tracer. 
+A parameter of interest for clinical studies, is the influx rate constant $K_i$, given by equation~\ref{eqn:FDG_Ki}. This is considered as a macro-parameter of the system and can be understood as the the proportion of flux $K_1$ that results in trapped tracer. 
 
 \begin{equation}
 K_i = \frac{K_1 k_3}{k_2+k_3}
