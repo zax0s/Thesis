@@ -3,7 +3,7 @@
 positron-emitting radionuclides for the study of biochemical and physiological processes \textit{in vivo}. The molecules of interest for the processes under study are labelled with a radionuclide and then introduced in the body. The PET imaging system provides information about the distribution of the labelled molecules \textit{in vivo} over time and can be used to deduce information about the underlying process kinetics. 
 
 \section{Principles of pharmacokinetic modelling}
-Pharmacokinetics refers to the study of absorption, distribution, metabolism and excretion of drugs in living systems. The study of pharmacokinetics is based on measurements of concentration of drugs and their metabolites in tissues over time. Pharmacokinetic models are mathematical relationships, derived from prior knowledge or previous observations, which can be tested against the measurements in order to describe the underlying behaviour. These models describe the transport and binding rates of tracer from local concentration differences across boundaries, that can be either physical (such as a membrane or an organ outline) or conceptual boundaries as for example between bound and unbound tracer. These boundaries define separate compartments with distinct activity concentration which form the basis of pharmacokinetic models, also referred to as compartmental models.
+Pharmacokinetics refers to the study of absorption, distribution, metabolism and excretion of drugs in living systems. The study of pharmacokinetics is based on measurements of the concentration of drugs and their metabolites in tissues over time. Pharmacokinetic models are mathematical relationships, derived from prior knowledge or previous observations, which can be tested against the measurements in order to describe the underlying behaviour. These models describe the transport and binding rates of tracer from local concentration differences across boundaries, that can be either physical (such as a membrane or an organ outline) or conceptual boundaries as for example between bound and unbound tracer. These boundaries define separate compartments with distinct activity concentration which form the basis of pharmacokinetic models, also referred to as compartmental models.
 %There are three assumptions are made for compartmental modelling to be valid:
 %The first is the tracer assumption which requires that the presence of the tracer in PET studies is not influencing the physiological processes and molecular interactions. This is the case in most PET studies as the specific activity of the tracer (Activity/tracer concentration) is kept low. The second assumption is that the physiological processes and molecular interactions are in constant state during the duration of the PET study. The third and final assumption is that tracer is homogeneously distributed within each compartment. 
 
@@ -17,7 +17,7 @@ The three key assumptions underlying compartmental modelling are:
 By common convention in pharmacokinetic modelling, the first compartment is the arterial plasma pool from where the tracer distributes to tissues. The concentration of tracer in the arterial plasma $C_P(t)$ over time $t$ is measured or deduced from population studies and applied to the model, as an input function that powers the system.
 If the tracer is metabolised during the study, this process needs to be modelled using metabolite measurements. Only the concentration of parent tracer can be used as input function in quantitative analysis of the tracer kinetics.
 By convention in dynamic PET studies conducted under a single session, the time point $t_0=0$ is set to be the tracer injection time. \\
-Compartmental models behave according to a set of first-order ordinary differential equations, which means that change of concentration in one compartment is a linear function of the concentrations of all compartments. This linearity establishes that the measured tissue activity concentration will be the convolution of the input function with the impulse response function (IRF) of the system, which is described by the compartmental model and its parameters.
+Compartmental models behave according to a set of first-order ordinary differential equations, which means that the change of concentration in one compartment is a linear function of the concentrations of all compartments. This linearity establishes that the measured tissue activity concentration will be the convolution of the input function with the impulse response function (IRF) of the system, which is described by the compartmental model and its parameters.
 As such the tissue activity concentration $C_T(t)$ can be modelled as
 \begin{equation}
  C_T(t) = C_P(t) \ast \textrm{IRF}(t)  \\ , \\ 
@@ -91,7 +91,7 @@ C_T(t) =  C_F(t) + C_B(t) = K_1 ( e^{-(k_2+k_3)t} + \frac{k_3}{k_2+k_3}(1-e^{-(k
 
 The parameters $K_1$, $k_2$ and $k_3$, which are referred to as micro-parameters, can be estimated by fitting equation~\ref{eqn:2TCM} on measured \gls{tac} data. 
 
-A parameter of interest for clinical studies, is the influx rate constant $K_i$, given by equation~\ref{eqn:FDG_Ki}. This is considered as a macro-parameter of the system and can be understood as the the proportion of flux $K_1$ that results in trapped tracer. 
+A parameter of interest for clinical studies is the influx rate constant $K_i$, given by equation~\ref{eqn:FDG_Ki}. This is considered as a macro-parameter of the system and can be understood as the proportion of flux $K_1$ that results in trapped tracer. 
 
 \begin{equation}
 K_i = \frac{K_1 k_3}{k_2+k_3}
@@ -113,7 +113,7 @@ With the assumption of irreversible tracer behaviour the Gjedde-Patlak method ha
 
 where $K_i$ is the steady state trapping rate and $V_{\alpha}$ the apparent volume of distribution. The transformation is valid for time points $t$ after steady state conditions are achieved at time $t_{ss}$. Steady state conditions are achieved when the reversible compartments are in steady-state equilibrium with the plasma blood compartment. 
 
-The Gjedde-Patlak linearisation method, referred simpler as \textit{Patlak model}, is commonly used with the 2TCM model for FDG, under the assumption of $k_4=0$. In this case the Patlak model parameters can be related to micro-parameters using equation~\ref{eqn:FDG_Ki} and 
+The Gjedde-Patlak linearisation method referred to simpler as \textit{Patlak model}, is commonly used with the 2TCM model for FDG, under the assumption of $k_4=0$. In this case, the Patlak model parameters can be related to micro-parameters using equation~\ref{eqn:FDG_Ki} and 
 
 \begin{equation} 
 V_a  = \frac{K_1 k_2}{(k_2+k_3)^2} \\ . \\ 
@@ -130,7 +130,7 @@ With the assumption of $C_{B}(t) = r C_{P}(t)$, we can substitute equation~\ref{
 where the Patlak slope $\theta_1$ and the Patlak intercept $\theta_2$ are the model parameters that can be estimated from TAC measurements of ${C_{PET}}(t)$. 
 
 %It is important to note a limitation of the Patlak model, which  that the estimated $K_i$ from the Patlak slope $\theta_1$ is susceptible to systematic errors in its estimation and can deviate from the true underlying $K_i (= \frac{K_1 k_3}{k_2+k_3})$.
-A limitation in the use of the Patlak model using equation~\ref{eqn:PatlakCPET} is that $V_B$ is not necessarily known a priori and Patlak analysis can not distinguish between $K_i$ and $(1-V_B)$. In many applications $V_B$ is assumed to be small ($\leq$0.05) and neglected, but it can be a cause for systematic errors. 
+A limitation in the use of the Patlak model using equation~\ref{eqn:PatlakCPET} is that $V_B$ is not necessarily known a priori and Patlak analysis can not distinguish between $K_i$ and $(1-V_B)$. In many applications, $V_B$ is assumed to be small ($\leq$0.05) and neglected, but it can be a cause for systematic errors. 
 In the applications of the Patlak model in this project, we will refer to the slope $\theta_1$ as the Patlak $K_i$ value, which is the value of interest that is commonly used in practice with Patlak analysis.
 
 
@@ -159,7 +159,7 @@ For reversible kinetics, the parameters can be used to deduce the volume of dist
 V_D  =  \sum_{b=0}^{M-1} \frac{\phi_b}{\beta_b}   \\ . \\
 \end{equation}
 
-For irreversible kinetics, an parameter of the model is used to account for the trapping rate $K_i$. In this work we use parameter ${\phi_0}$ to describe irreversible trapping, with its respective exponential decay rate set to zero ${\beta_0} = 0 $. With this assumption the model becomes
+For irreversible kinetics, a parameter of the model is used to account for the trapping rate $K_i$. In this work we use parameter ${\phi_0}$ to describe irreversible trapping, with its respective exponential decay rate set to zero ${\beta_0} = 0 $. With this assumption the model becomes
 
 \begin{equation} 
 \label{eqn:SpectralModel_Complete}
@@ -200,7 +200,7 @@ K_i = \frac{\phi_0}{1-V_{B}} .
 On equation~\ref{eqn:SpectralCPET_short} the spectral rates $\beta_1 ... \beta_{M-1}$ are used to describe the exchange between compartments. These are set to cover the range of expected underlying kinetics and are commonly logarithmically spaced within that range~\cite{Gunn2002}.
 As a rule of thumb, the lower limit of the range can be set to $\beta_1 = 1/(3 T_{end})$ where $T_{end}$ is the total time of the PET study, and the upper limit of the range can be set to $\beta_{M-1} = 3/T_{in}$ where $T_{in}$ is the duration of the first frame of the study~\cite{Veronese2016}.
 
-In spectral analysis the number of the spectral parameters used is empirically set in the 10$^2$ order of magnitude. This relatively large number allows for clear separation of the underlying exchange rates, for deduction of models of the underling behaviour. 
+In spectral analysis, the number of the spectral parameters used is empirically set in the 10$^2$ order of magnitude. This relatively large number allows for clear separation of the underlying exchange rates, for deduction of models of the underlying behaviour. 
 For use with dynamic reconstruction a smaller number of parameters is used, ideally less than the number of time bins (frames) of the data, which is still adequate to model the PET measurements while maintaining low image noise.
 
 \section{IsotoPK pharmacokinetic study}
@@ -212,13 +212,13 @@ A first in man study, named \textit{IsotoPK}, was designed and is being conducte
 The study is conducted on the Signa PET/MR, using a Dynamic Whole Body (DWB) acquisition protocol, with two acquisitions per volunteer to study the distribution without and with the administration of an inhibitor substance prior to PET imaging.
 Arterial blood samples for deduction of an input function and metabolite analysis are collected manually during the duration of each scan. 
 
-Data from this study are presented in chapter~\ref{Chap3_3:IsotoPK}, showing examples of distribution of the tracer on an example volunteer. The use of the data in this project was made with focus on methodological aspects for whole-body parametric imaging, but the developed methodology will be used in the future after all volunteer data have been collected to evaluate its findings.
-Initial results on three volunteers have shown that Glyburide is very slowly metabolised and this process did not require to be accounted for in PET analysis, as their impact on PET quantification would me minimal. Findings also showed strong binding of tracer with plasma ($\geq$ 90\%).
-Predominant uptake of the tracer was seen in the liver and also the kidneys. Lower uptake was observed in the spleen, the aorta wall and the pancreas. At all other tissues no strong tracer uptake was seen.
+Data from this study are presented in chapter~\ref{Chap3_3:IsotoPK}, showing examples of distribution of the tracer on an example volunteer. The use of the data in this project was made with a focus on methodological aspects for whole-body parametric imaging, but the developed methodology will be used in the future after all volunteer data have been collected to evaluate its findings.
+Initial results on three volunteers have shown that Glyburide is very slowly metabolised and this process did not require to be accounted for in PET analysis, as their impact on PET quantification would be minimal. Findings also showed strong binding of tracer with plasma ($\geq$ 90\%).
+Predominant uptake of the tracer was seen in the liver and also the kidneys. Lower uptake was observed in the spleen, the aorta wall and the pancreas. At all other tissues, no strong tracer uptake was seen.
 
 \subsection{PET analysis in the liver}
 \label{liver_PV_theory}
-One of the unique characteristics of the liver, in regards to pharmacokinetic modeling, is that it is supplied with blood via two routes. The hepatic artery (HA) accounts for approximately 25\% of the blood supply in the liver, while the portal vein (PV) accounts for the rest 75\%. The portal vein delivers blood that has been filtered mainly by the gastrointestinal tract, a process which alters the characteristics of the input function associated with portal vein in relation to the arterial input function. 
+One of the unique characteristics of the liver, in regards to pharmacokinetic modelling, is that it is supplied with blood via two routes. The hepatic artery (HA) accounts for approximately 25\% of the blood supply in the liver, while the portal vein (PV) accounts for the rest 75\%. The portal vein delivers blood that has been filtered mainly by the gastrointestinal tract, a process that alters the characteristics of the input function associated with the portal vein in relation to the arterial input function. 
 Studies on pigs and non-invasive studies on humans have produced methods to model the PV input function as a dispersion of the arterial input function~\cite{Kudomi2008,Winterdahl2011}, which can be modelled using 
 
 \begin{equation} 
@@ -242,7 +242,7 @@ An example demonstration of the two components of ${C_{H}}(t)$ is shown in figur
 \label{fig_2_2:LiverDualInputFunction}
 \end{figure} 
 
-Use of imaging information for non-invasive estimation of the portal vein input function and their effects in pharmacokinetic model estimates over the liver are an active area of research~\cite{Wang2018,HernandezLozano2019,Wang2021} with no standardised and widely accepted practices established yet. Further interest and research into DWB imaging is expected to address these issues for accurate WB parametric imaging that accurately accounts for the liner dual input model.  
+The use of imaging information for non-invasive estimation of the portal vein input function and their effects in pharmacokinetic model estimates over the liver is an active area of research~\cite{Wang2018,HernandezLozano2019,Wang2021} with no standardised and widely accepted practices established yet. Further interest and research into DWB imaging is expected to address these issues for accurate WB parametric imaging that accurately accounts for the liner dual input model.  
 
 %\subsection{Tracer redistribution}
 %Another aspect 
