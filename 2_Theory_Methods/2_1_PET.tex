@@ -11,7 +11,7 @@ The expanded \gls{fov} along with the capability of achieving whole-body coverag
 
 \subsection{Positron emission}
 As its name suggests, \gls{pet} is an imaging method based in positron emission. Positron emission is a spontaneous process that happens as part of the β$^{+}$ decay process of radionuclides. 
-Radionuclides are comprised of atoms with excess energy that decay to stable forms via routes that result to emission of radiation.
+Radionuclides are comprised of atoms with excess energy that decay to stable forms via routes that result in emission of radiation.
 The rate at which a radionuclide undergoes decay depends on its characteristic half-life $T_{1/2}$. This is defined as the time taken for half of the nuclei of a specific radionuclide to decay. The rate of decay at any time $t$ is defined as the activity $A(t)$,measured in Becquerels (Bq), which changes over time according to
 \begin{equation} \label{Decay}
 A(t) = A_0 e^{-\lambda t} \ ,
@@ -176,7 +176,7 @@ In 3D mode the maximum angle of events accepted in the axial direction can somet
 %
 \subsection{Storage of PET coincidence events}
 The recorded coincidence data are stored digitally to allow post processing and reconstruction of image data.
-The different methods for storing the data can result to different storage requirements, allow or not allow for specific event information to be stored and even necessitate different reconstruction techniques. 
+The different methods for storing the data can result in different storage requirements, allow or not allow for specific event information to be stored and even necessitate different reconstruction techniques. 
 
 \begin{itemize}
 
@@ -267,7 +267,7 @@ In practice for static imaging whole-body coverage is achieved using multiple be
 \subsection{Step and Shoot}
 \label{WB_Static_SS}
 The SS method makes use of multiple bed positions that are partially overlapped in the axial direction to increase the sensitivity of the acquisition at the edges of adjacent beds, by combining data of adjacent beds over the overlapping region as shown in figure~\ref{fig3_1:fullOverlap}. 
-One way of combining the multi-bed datasets is to reconstruct each bed individually, displace the reconstructed images according to their axial location and combine them using weighted averaging~\cite{Schubert1996}. This method has prevailed in clinical PET systems that use the SS acquisition method, as it does not require addition considerations in the reconstruction process of each bed and the combination of bed images can be performed post-reconstruction. Alternatively the axial displacement of each bed raw dataset can be performed during the projection and back-projection process in iterative reconstruction, which then directly results in the reconstruction of the whole-body image~\cite{Ross2004}. Use of the overlap data in iterative reconstruction can potentially result to improved noise characteristics at the overlapping regions, as the full sampled statistics over these regions are combined prior to each image update~\cite{Ross2004,Stute2014}. 
+One way of combining the multi-bed datasets is to reconstruct each bed individually, displace the reconstructed images according to their axial location and combine them using weighted averaging~\cite{Schubert1996}. This method has prevailed in clinical PET systems that use the SS acquisition method, as it does not require addition considerations in the reconstruction process of each bed and the combination of bed images can be performed post-reconstruction. Alternatively the axial displacement of each bed raw dataset can be performed during the projection and back-projection process in iterative reconstruction, which then directly results in the reconstruction of the whole-body image~\cite{Ross2004}. Use of the overlap data in iterative reconstruction can potentially result in improved noise characteristics at the overlapping regions, as the full sampled statistics over these regions are combined prior to each image update~\cite{Ross2004,Stute2014}. 
 %
 \begin{figure} [ht!]
 \centering
@@ -277,7 +277,7 @@ One way of combining the multi-bed datasets is to reconstruct each bed individua
 \end{figure}
 %
 %The amount of overlap is a parameter to select according to the needs of the axial sensitivity profile.
-The axial sensitivity profile for the Signa PET-MR system is shown in figure~\ref{fig3_1:fullOverlap}, where to result to a completely uniform axial sensitivity profile an overlap of 44 slices ($\sim$50\% of \gls{afov}) is required.
+The axial sensitivity profile for the Signa PET-MR system is shown in figure~\ref{fig3_1:fullOverlap}, where to result in a completely uniform axial sensitivity profile an overlap of 44 slices ($\sim$50\% of \gls{afov}) is required.
 The amount of overlap used depends on the needs for uniformity in axial sensitivity and reconstructed image noise. This in term will also depend on the used reconstruction type and the activity distribution of the imaged subject~\cite{Schubert1996}. 
 For standard clinical scanning at the Signa PET-MR an overlap of $\sim$27\% is used by default, to balance between sensitivity uniformity and examination time for standard WB examinations. The trade-off is made between the effective A-FOV and the total acquisition time, with the latest being of practical importance for patient comfort and high throughput. In addition the acquisition time per bed is also an important parameter that affects this trade-off. For example newer and higher sensitivity scanners can enable shorter scanning per bed for the same image quality, which allows for increased overlapping and improved axial sensitivity uniformity at the same total scan time.
 Examples of three overlapping options and the provided coverage for the Signa PET/MR are shown in figure~\ref{fig3_1:decreasingOverlap} and~\ref{fig3_1:BodyCoverage} figure respectively.
