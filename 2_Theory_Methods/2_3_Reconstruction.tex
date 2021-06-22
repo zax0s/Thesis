@@ -48,7 +48,7 @@ The data of each frame can then be written as
 \subsection{Projection \& Analytical reconstruction}
 Forward projection of image to data space can be treated by summing contributions of voxels across each~\gls{lor}. %Different projection strategies exist that model the contribution of voxels differently depending on their placement in the \gls{lor}. 
 As this is a computationally heavy process in practice, different methods have been proposed that balance between accuracy and consistency and computing requirements. %A short follows list with basic description of the methods that are implemented in CASToR.
-Some of these methods, which are also implemented in the CASToR reconstruction software, are listed bellow with a short description.
+Some of these methods, which are also implemented in the CASToR reconstruction software, are listed below with a short description.
 \begin{itemize}
 \item  \textbf{Siddon projector}~\cite{Siddon1985}: Weights the contribution of an LOR to each by the length of the line that intersects the voxel.
 \item  \textbf{Distance driven}~\cite{DeMan2004}: An optimised method for calculating weights by mapping pixel boundaries and detector boundaries for each projection to a common axis .
@@ -76,7 +76,7 @@ But as the scanning model complexity is increased, analytic expressions that see
 For this reason iterative algorithms are employed, which seek a solution by optimising an objective function that expresses some difference measure between the measured data and the modelled data from an image estimate.
 
 We can define the system model using an $n_i \times n_j$ system matrix $\bm{P}$. Each element $P_{ij}$ of the matrix is the probability of detection by voxel $j$ to data bin $i$. 
-As discussed, many effects can be included in this matrix elements which will be outlined bellow. By contrast scatter effects can be hard to implement in the system matrix and random effects are non-linear effects that cannot be modelled linearly. As such the scatter and random events are considered to be known for each detector bin and included as an additive background $b_i$ for each data bin $i$ in the system model.
+As discussed, many effects can be included in this matrix elements which will be outlined below. By contrast scatter effects can be hard to implement in the system matrix and random effects are non-linear effects that cannot be modelled linearly. As such the scatter and random events are considered to be known for each detector bin and included as an additive background $b_i$ for each data bin $i$ in the system model.
 
 The model of the data at bin $i$ from an image $\bm{\lambda}$ can be written as a sum over voxels of the probability of detection in this bin 
 \begin{equation}
