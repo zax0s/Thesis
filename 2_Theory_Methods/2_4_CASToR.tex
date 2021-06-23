@@ -1,4 +1,4 @@
-\Gls{castor} stands for Customizable and Advanced Software for Tomographic Reconstruction and is an open source fully quantitative reconstruction platform that has been developed within a collaboration platform, financed by France Life Imaging (FLI). It is available on the website of the collaboration project {(\url{https://castor-project.org/})}.
+\Gls{castor} stands for Customizable and Advanced Software for Tomographic Reconstruction and is an open source fully quantitative reconstruction platform that has been developed within a collaboration project, financed by France Life Imaging (FLI). It is available on the website of the collaboration project {(\url{https://castor-project.org/})}.
 This PhD project relied heavily on the use of \gls{castor} for developing and performing reconstructions, on both simulated and real patient data. The work conducted in this project resulted in the development and evaluation of new functionalities, which are now part of the released public version. These are described in detail in chapter~\ref{Chap3_2:SimStudy}. 
 
 In this chapter, we provide a short introduction to the functionalities and innovative reconstruction methods provided in \gls{castor} that play an important role in the work performed in this PhD project. 
@@ -22,7 +22,7 @@ An example of this design is shown in figure~\ref{fig_2_4:oProjectorManager}, wi
 Data are provided in \gls{castor} in the form of a \gls{castor} datafile, which is based on a generic data description that is similar for both list-mode and histogram data. 
 The minimum information required for each event of the datafile are a time-stamp, pair of detector IDs and number of events. Additional information can also be provided per event such as scatter and random corrections, normalisation factors, \gls{tof}, gating information, etc. 
 
-List-mode data maintain the exact timing information of each event. This is advantageous in the reconstruction of dynamic datasets, as the separation of the list-mode data the desired frames for reconstruction is made within \gls{castor}, during reconstruction and using the framing selected by the input of reconstruction parameters. As such, list-mode datafiles allow for re-use of the data with multiple framing definitions without the need of pre-process the data. 
+List-mode data maintain the exact timing information of each event. This is advantageous in the reconstruction of dynamic datasets, as the choice of the desired frames for reconstruction is made within \gls{castor}, during reconstruction and using the framing selected by the input of reconstruction parameters. This of course is limited in the case of real data by the corrections used in the reconstruction, which are precomputed using a specific framing definition prior to construction of the CASToR datafile.
 
 Histograms are by definition events that have been histogrammed for a specific time range. All events of a \gls{castor} histogram datafile have the same timestamp which is the timestamp of the first time point of the histogrammed data. Thus dynamic data need to be pre-processed into individual histograms, one histogram per dynamic frame, using a predefined framing definition.
 Multiple histograms from a dynamic dataset can be concatenated together into a single file before used in \gls{castor} for dynamic reconstruction. In this case, reconstructions can be performed using the concatenated file and solely with the framing definition used to create the histograms. 
@@ -40,7 +40,7 @@ In this project the geometries of the Signa PET/MR and Siemens mMR PET/MR scanne
 
 The use of generic functions and generic datafile definition allows for the reconstruction to be performed by a single implementation of an iterative algorithm. The main steps performed within this iterative algorithm are shown in algorithm~\ref{algo:CASToR_Core}. 
 
-The platform is designed to handle three temporal levels of binning. It makes temporal binning for dynamic frames and binning in two levels of gating (for example cardiac and respiratory motions). Alternatively, one of the two levels of gating can be used for splitting dynamic data for involuntary motion corrections.
+The platform is designed to handle three temporal levels of binning. It makes temporal binning for dynamic frames and binning in two levels of gating (for example cardiac and respiratory motions). %Alternatively, one of the two levels of gating can be used for splitting dynamic data for involuntary motion corrections.
 
 \begin{algorithm} [h!]
   \For{$i\leftarrow 1$ \KwTo nb of iterations}
@@ -86,7 +86,7 @@ The platform is designed to handle three temporal levels of binning. It makes te
 \end{algorithm}
 
 \subsection{Motion correction and image deformation}
-Image based deformations can be performed within the iterative loop, over gate bins or bins defined by involuntary motion, that can counteract effects of motion in the data and result in motion free reconstruction using all data (without need of rejection or individual reconstructions per gate).
+Image based deformations can be performed within the iterative loop, over gate bins or sub-frames defined by involuntary motion, that can counteract effects of motion in the data while still using all data (without the need of rejection or individual reconstructions per gate).
 Unfortunately, with the current version of \gls{castor} the available implemented deformations are limited to rigid deformation.
 Although this deformation can be adequate for brain imaging, it is not suitable for modelling elastic motion that is commonly found in whole body studies. Owing to this limitation at this time, no motion correction was considered in the reconstructions and evaluations performed in this project.
 
