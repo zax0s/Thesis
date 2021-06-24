@@ -2271,3 +2271,87 @@ title = {{Long axial field of view PET scanners: a road map to implementation an
 url = {https://doi.org/10.1007/s00259-021-05461-6},
 year = {2021}
 }
+
+@article{Leahy2018,
+author = {Leahy, Richard and Boellaard, Ronald and Zaidi, Habib},
+doi = {10.1002/mp.13266},
+file = {:C$\backslash$:/Users/zc256224/Downloads/MIC/mp.13266.pdf:pdf},
+isbn = {3120444421},
+issn = {00942405},
+journal = {Medical Physics},
+mendeley-groups = {PhD/MIC2020},
+number = {12},
+pages = {5355--5358},
+pmid = {30374995},
+title = {{Whole-body parametric PET imaging will replace conventional image-derived PET metrics in clinical oncology}},
+volume = {45},
+year = {2018}
+}
+
+ @MISC{eigenweb,
+  author = {Ga\"{e}l Guennebaud and Beno\^{i}t Jacob and others},
+  title = {Eigen v3},
+  howpublished = {http://eigen.tuxfamily.org},
+  year = {2010}
+ }
+ 
+ @article{Kotasidis2016a,
+abstract = {Kinetic parameter estimation in dynamic PET suffers from reduced accuracy and precision when parametric maps are estimated using kinetic modelling following image reconstruction of the dynamic data. Direct approaches to parameter estimation attempt to directly estimate the kinetic parameters from the measured dynamic data within a unified framework. Such image reconstruction methods have been shown to generate parametric maps of improved precision and accuracy in dynamic PET. However, due to the interleaving between the tomographic and kinetic modelling steps, any tomographic or kinetic modelling errors in certain regions or frames, tend to spatially or temporally propagate. This results in biased kinetic parameters and thus limits the benefits of such direct methods. Kinetic modelling errors originate from the inability to construct a common single kinetic model for the entire field-of-view, and such errors in erroneously modelled regions could spatially propagate. Adaptive models have been used within 4D image reconstruction to mitigate the problem, though they are complex and difficult to optimize. Tomographic errors in dynamic imaging on the other hand, can originate from involuntary patient motion between dynamic frames, as well as from emission/transmission mismatch. Motion correction schemes can be used, however, if residual errors exist or motion correction is not included in the study protocol, errors in the affected dynamic frames could potentially propagate either temporally, to other frames during the kinetic modelling step or spatially, during the tomographic step. In this work, we demonstrate a new strategy to minimize such error propagation in direct 4D image reconstruction, focusing on the tomographic step rather than the kinetic modelling step, by incorporating time-of-flight (TOF) within a direct 4D reconstruction framework. Using ever improving TOF resolutions (580 ps, 440 ps, 300 ps and 160 ps), we demonstrate that direct 4D TOF image reconstruction can substantially prevent kinetic parameter error propagation either from erroneous kinetic modelling, inter-frame motion or emission/transmission mismatch. Furthermore, we demonstrate the benefits of TOF in parameter estimation when conventional post-reconstruction (3D) methods are used and compare the potential improvements to direct 4D methods. Further improvements could possibly be achieved in the future by combining TOF direct 4D image reconstruction with adaptive kinetic models and inter-frame motion correction schemes.},
+author = {Kotasidis, F. A. and Mehranian, A. and Zaidi, H.},
+doi = {10.1088/0031-9155/61/9/3443},
+file = {:C$\backslash$:/Users/zc256224/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Kotasidis, Mehranian, Zaidi - 2016 - Impact of time-of-flight on indirect 3D and direct 4D parametric image reconstruction in the presen.pdf:pdf},
+isbn = {0031-9155},
+issn = {13616560},
+journal = {Physics in Medicine and Biology},
+keywords = {PET,direct 4D reconstruction,parametric imaging,time-of-flight},
+mendeley-groups = {PhD},
+number = {9},
+pages = {3443--3471},
+pmid = {27049697},
+title = {{Impact of time-of-flight on indirect 3D and direct 4D parametric image reconstruction in the presence of inconsistent dynamic PET data}},
+volume = {61},
+year = {2016}
+}
+
+@article{Chalampalakis2019,
+author = {Chalampalakis, Zacharias and Stute, Simon and Filipovi, Marina and Merlin, Thibaut and Comtat, Claude},
+file = {:C$\backslash$:/Users/zc256224/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Chalampalakis et al. - 2019 - Whole-Body dynamic PET Effect of temporal gaps on FDG Ki quantification from 3D and 4D reconstruction algo.pdf:pdf},
+isbn = {9781728141640},
+mendeley-groups = {PhD/MIC2020},
+pages = {2019--2021},
+title = {{Whole-Body dynamic PET: Effect of temporal gaps on FDG Ki quantification from 3D and 4D reconstruction algorithms}},
+year = {2019}
+}
+
+@article{Matthews2012,
+abstract = {Methods for adaptively fitting kinetic models to image data are explored. In conducting this fitting two goals are set: 1) that good fits are obtained for all image voxels; and 2) that where a primary biologically based model is appropriate, this model is used. The first goal is obtained through the inclusion of a more general secondary model. The second goal is achieved through the penalisation of estimates from this secondary model with the weighting of this penalisation optimised using generalised cross validation. The result is a modelling scheme where the secondary model is adaptively included for voxels that the primary model is unable to fit. The envisaged application is in 4D (space and time) reconstruction to prevent spatial propagation of errors from regions where a primary model is not appropriate. An evaluation of reconstructed clinical data using a dataset with challenging kinetics has been conducted. Application to the clinical dataset showed promising results with the modelling scheme able to fit kinetics associated with activity in the region of the injection site veins, the right ventricle, right atrium and the gall bladder. The method requires the careful selection of the secondary model and further work is needed to optimise this selection and evaluate the benefit for 4D reconstruction. {\textcopyright} 2012 IEEE.},
+author = {Matthews, Julian C. and Reader, Andrew J. and Angelis, Georgios I. and Price, Pat M. and Markiewicz, Pawel J. and Kotasidis, Fotis A.},
+doi = {10.1109/NSSMIC.2012.6551900},
+file = {:C$\backslash$:/Users/zc256224/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Matthews et al. - 2012 - Adaptive parametric kinetic modelling for improved full field of view fitting of PET data.pdf:pdf},
+isbn = {9781467320306},
+issn = {10957863},
+journal = {IEEE Nuclear Science Symposium Conference Record},
+keywords = {Image reconstruction,adaptive kinetic modelling,parametric maps},
+pages = {3925--3929},
+publisher = {IEEE},
+title = {{Adaptive parametric kinetic modelling for improved full field of view fitting of PET data}},
+year = {2012}
+}
+
+@article{Kotasidis2014c,
+abstract = {Direct 4D image reconstruction algorithms can improve kinetic parameter precision and accuracy in dynamic PET/CT body imaging but in contrast to post-reconstruction kinetic analysis, errors in badly modeled regions will spatially propagate to regions which are well modeled. To reduce error propagation from erroneous model fits, we propose a new approach to direct 4D image reconstruction by incorporating a newly proposed kinetic modeling strategy. This uses a secondary model to allow a less constrained model fit in regions where an erroneous kinetic model is used and adaptively include a portion of the residuals back into the image, whilst preserving the primary model characteristics in other well modeled regions. Using a digital 4-D phantom to simulate [15O]-H2O kinetics, we demonstrate substantial bias reduction due to propagation in all kinetic parameters using the proposed 4-D method. Under noisy conditions improvements in bias due to propagation are obtained at the expense of a small increase in bias due to noise and selective inclusion of residuals coming from erroneous kinetic modeling, as opposed to noise, becomes more challenging. However, the overall bias is reduced with improvements depending on the proximity of regions of interest to badly modeled regions and the choice of the secondary model space. {\textcopyright} 2012 IEEE.},
+author = {Kotasidis, F. A. and Matthews, J. C. and Reader, A. J. and Angelis, G. I. and Zaidi, H.},
+doi = {10.1088/0031-9155/59/20/6061},
+file = {:C$\backslash$:/Users/zc256224/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Kotasidis et al. - 2014 - Application of adaptive kinetic modelling for bias propagation reduction in direct 4D image reconstruction(2).pdf:pdf},
+isbn = {9781467320306},
+issn = {13616560},
+journal = {Physics in Medicine and Biology},
+keywords = {PET,direct 4D reconstruction,kinetic modelling,parametric imaging},
+mendeley-groups = {PhD/Andrew Reader/Nested,PhD/MIC2020},
+number = {20},
+pages = {6061--6084},
+pmid = {25254427},
+title = {{Application of adaptive kinetic modelling for bias propagation reduction in direct 4D image reconstruction}},
+volume = {59},
+year = {2014}
+}

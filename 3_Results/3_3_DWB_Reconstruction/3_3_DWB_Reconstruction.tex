@@ -1,13 +1,14 @@
 \section{Introduction}
-Acquisition of DWB datasets in S\&S mode with overlapping bed positions results in complex datasets of PET RAW data, in relation to timing and positional information. Moreover, the addition of an initial DSB acquisition, conducted for IDIF derivation purposes or for the sampling of fast kinetics to allow for more complex kinetic modeling~\cite{Zaker2020}, increase the complexity of the PET RAW dataset. 
+Acquisition of DWB datasets in S\&S mode with overlapping bed positions result in complex datasets of PET RAW data, in relation to timing and positional information. Moreover, the addition of an initial DSB acquisition, conducted for IDIF derivation purposes or for the sampling of fast kinetics to allow for more complex kinetic modeling~\cite{Zaker2020}, increases the complexity of the PET RAW dataset. 
 
 Suggested practices~\cite{Karakatsanis2013} and state of the art implementations~\cite{Hu2020} of DWB protocols regard the two datasets (DSB and DWB) as independent and suggest performing independent reconstructions on each dataset. Post-reconstruction kinetic model fitting is then used to combine the TAC information over both datasets. 
-Furthermore, the DWB dataset contains locations at the overlapping bed regions which are sampled twice as much as central bed regions, as a result of the overlap sampling necessary to increase sensitivity at the bed position edges. The overlap timing information combines the timing of the adjacent bed positions. In post-reconstruction kinetic modelling, which is applied independently on each voxel TAC, suggested practices make use of modified timing information (average of two bed position timings) for voxels that fall at overlapping regions~\cite{Karakatsanis2013} which result in a degree of degradation of the timing information. Another suggestion is to make use of independent dynamic reconstruction of each bed position from the DWB dataset and apply post-reconstruction overlapping of parametric images ~\cite{Karakatsanis2016a}.
+Furthermore, the DWB dataset contains locations at the overlapping bed regions which are sampled twice as much as central bed regions, as a result of the overlap sampling necessary to increase sensitivity at the bed position edges. The overlap timing information combines the timing of the adjacent bed positions. In post-reconstruction kinetic modelling, which is applied independently on each voxel TAC, suggested practices make use of modified timing information (average of two bed position timings) for voxels that fall at overlapping regions~\cite{Karakatsanis2013} which result in a degree of degradation of the timing information. Another suggestion is to make use of independent dynamic reconstruction of each bed position from the DWB dataset, as it was conducted in the previous chapter, and apply post-reconstruction overlapping of parametric images ~\cite{Karakatsanis2016a}. In this case if the DSB data are to be included in the dynamic reconstruction, the placement of the DSB bed position needs to be identical to one of the bed positions of the multi-bed dynamic study.
+
 It is important to note that DWB acquired in CBM mode, although free of the need of overlapping bed positions still require similar considerations to be taken into account for each axial location of the DWB acquisition~\cite{Karakatsanis2016b,Hu2020}.
 
-The flexibility offered by the CASToR reconstruction platform that allows for direct reconstruction of multi-bed data~\cite{Ross2004} can be expanded to direct multi-bed dynamic reconstruction of DWB data, using the exact timing information of the dataset and all bed positions within the same iterative loop. Furthermore, the offered flexibility can allow for the use of both DSB and DWB datasets within one unique reconstruction loop.
+The flexibility offered by the CASToR reconstruction platform that allows for direct reconstruction of multi-bed data~\cite{Ross2004} can be expanded to direct multi-bed dynamic reconstruction of DWB data, using the exact timing information of the dataset and all bed positions within the same iterative loop. Furthermore, the offered flexibility can allow for the use of both DSB and DWB datasets within one unique reconstruction loop, with no constrains in the positioning of the DSB acquisition.
 In this chapter, we describe how this novel DWB protocol reconstruction concept was implemented in CASToR and present results from a dynamic reconstruction of real DWB data from the IsotoPK study, which were also presented in the EANM2020 conference~\cite{chalampalakis2020EANM}.
-Finally, we discuss the complications arising from kinetic model fitting errors in dynamic reconstruction with respect to data from DWB acquisitions and present our work towards the reduction of these errors using adaptive residual modelling for dynamic reconstruction, as presented in the IEEE-MIC2020 conference. To our knowledge is the first time a method of this type has been applied to real DWB data.
+Finally, we discuss the complications arising from kinetic model fitting errors in dynamic reconstruction with respect to data from DWB acquisitions and present our work towards the reduction of these errors using adaptive residual modelling for dynamic reconstruction, as presented in the IEEE-MIC2020 conference. To our knowledge, it is the first time a method of this type has been applied to real DWB data.
 
 \section{Methods}
 \subsection{Dynamic Whole Body Datasets}
@@ -45,23 +46,24 @@ This provides
 {\sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{tij}} 
 \sum_{t=1}^{n_t} B_{tp}  \sum_{i=1}^{n_i} P_{tij} 
 \frac{y_{ti}}
-{\sum_{d=1}^{n_j} P_{tid} \sum_{p=1}^{n_p} B_{tp}\theta_{pj}^{(k)} + C_{ti} } \\, \\
+{\sum_{d=1}^{n_j} P_{tid} \sum_{p=1}^{n_p} B_{tp}\theta_{pd}^{(k)} + C_{ti} } \\, \\
 \label{eqn:4DMLEM_Multibed}
 \end{equation} 
 
-where the set of basis functions $B$ is precomputed for all time frames of the DWB acquisition, but is effectively applied in each voxel $j$ for the time frames that provide non-zero contribution by the back-projection operation $\sum_{t=1}^{n_t} \sum_{i=1}^{n_i} P_{tij}$.
+where the set of basis functions $B$ is precomputed for all time frames of the DWB acquisition, but is effectively applied in each voxel $j$ for the time frames $t$ that result to non-zero contribution by the back-projection operation $\sum_{i=1}^{n_i} P_{tij}$.
 It is important to note that with this unique iterative loop there is no need for additional considerations after reconstruction of the overlapping operation and regions. The result parametric images $\boldsymbol\theta$ have dimensions of the effective FOV, having accounted for the overlap spatial sensitivity and timing information within the reconstruction.
 
 Use of the same framework to perform individual frame reconstructions of DWB data is also possible, by setting the matrix $\boldsymbol{B}$ to be the identity matrix of size equal to the number of total frames. 
-An example from the use of this framework for frame reconstructions is shown in figure~\ref{fig_3_3:Macaque} for a group of three consecutive frames from the \gls{nhp} study. The sensitivity images for the same frames, as estimated by the back-projection operation $\sum_{t=1}^{n_t} \sum_{i=1}^{n_i} P_{tij}$, are shown in figure~\ref{fig_3_3:Macaque_Sensitivity}.
+An example from the use of this framework for frame reconstructions is shown in figure~\ref{fig_3_3:Macaque} for a group of three consecutive frames from the \gls{nhp} study of chapter~\ref{Chap3_1:AcquisitionOptimization}. The sensitivity images for the same frames, as estimated by the back-projection operation $\sum_{i=1}^{n_i} P_{tij}$, are shown in figure~\ref{fig_3_3:Macaque_Sensitivity}.
 The sensitivity images clearly show the sampled locations per frame and the overlapping locations for adjacent frames. 
-Individual frame reconstruction of DWB data results directly to images that account for the bed offset in image space, which can subsequently be directly used for post-reconstruction kinetic model fitting without the need for positional considerations. Additionally, for post-reconstruction kinetic model fitting, the result sensitivity frame images can be used as a mask for the applied dynamic model to identify sampled frames at each voxels location.
+Individual frame reconstruction of DWB data results directly to images that account for the bed offset in image space, which can subsequently be directly used for post-reconstruction kinetic model fitting without the need for positional considerations. 
+Additionally, for post-reconstruction kinetic model fitting, the result sensitivity frame images can be used as a mask for the application of the dynamic model on each frame and voxel combination.
 
 %
 \begin{figure} [h!]
 %\centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/Macaque_3D.pdf}
-\caption{Example three frame images from a three bed DWB acquisition.} 
+\caption{Example three frame images from a three bed DWB acquisition (NHP study of chapter~\ref{Chap3_1:AcquisitionOptimization})} 
 \label{fig_3_3:Macaque}
 \end{figure} 
 %
@@ -72,7 +74,7 @@ Individual frame reconstruction of DWB data results directly to images that acco
 \label{fig_3_3:Macaque_Sensitivity}
 \end{figure} 
 %
-In addition to DWB data alone, the described methodology for direct multi-bed dynamic reconstruction allows for any sequence of the acquired bed/frames to be used within the iterative reconstruction loop. Furthermore, the use of the DSB dataset can also be included in the iterative loop, while also being sub-divided into multiple short frames.
+In addition to DWB data alone, the described methodology for direct multi-bed dynamic reconstruction allows for any sequence of the acquired bed/frames to be used within the iterative reconstruction loop. Furthermore, the use of the DSB dataset can also be included in the iterative loop, regardless of its axial position, while also being sub-divided into multiple short frames.
 
 \subsection{Dynamic reconstruction: nested optimization for DWB datasets}
 As described previously, dynamic reconstruction is often performed using the nested optimization framework, to accelerate convergence~\cite{Wang2010,Matthews2010}.
@@ -80,9 +82,10 @@ Some additional considerations need to be made before the use of this multi-bed 
 
 The nested optimization framework decouples the tomographic update process over the PET data from the dynamic model fitting process on image space. The two steps are conducted respectively with an MLEM update over the PET raw data using equation~\ref{eqn:EM_Update_image} to get an individual EM update image for each frame, followed by kinetic model fitting which optimises the likelihood function of equation~\ref{eqn:NestedOptimization}. 
 
-For single bed dynamic data the sensitivity term of the likelihood function over image space can be ignored, assuming that it is constant over time for each voxel, and the likelihood function can be optimised using an image based EM update over image space with equation~\ref{eqn:NestedEM}~\cite{Wang2010,Reader2014}.
+For single bed dynamic data the sensitivity term of the likelihood function, $\big[\sum_{i=1}^{n_i} P_{ib}\big]$ of equation~\ref{eqn:NestedOptimization}, can be ignored assuming that it is constant over time for each voxel, and the likelihood function can be optimised using an image based EM update over image space with equation~\ref{eqn:NestedEM}~\cite{Wang2010,Reader2014}.
+It is important to note that if dead-time corrections, necessary for accurate quantitative reconstruction, are included in the system matrix then the sensitivity term needs to be kept and accounted for in the nested optimisation. But in most applications of nested optimisation on single-bed dynamic data in the literature this term is ignored.
 
-In the case of DWB data and overlapping bed positions, the sensitivity term has to be maintained, as its value will change with different frames for voxels in the overlapping regions.
+In the case of DWB data and overlapping bed positions, the sensitivity term $\big[\sum_{i=1}^{n_i} P_{tib}\big]$ has to be maintained, as its value will change with different frames for voxels in the overlapping regions.
 Thus the two step process, for direct multi-bed dynamic reconstruction with nested optimization, can be written as
 
 \begin{equation}
@@ -92,7 +95,7 @@ Thus the two step process, for direct multi-bed dynamic reconstruction with nest
 f_{tj}^{(\textrm{EM})}(\bm\theta^{(k)}) = \frac{f_{tj}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i} P_{tij}} 
 \sum_{i=1}^{n_i} P_{tij} 
 \frac{y_{ti}}{\sum_{d=1}^{n_j} P_{tid} f_{td}(\bm\theta^{(k)}) + C_{ti} } \\ \\
-\argmax{\bm{\theta}} 
+\bm{\theta}^{(k+1)} = \argmax{\bm{\theta}} 
 \sum_{t=1}^{n_t} \sum_{b=1}^{n_j} \left[ \sum_{i=1}^{n_i}  P_{tib} \right]
 \left[ -f_{tb}(\bm\theta) + 
 ln( f_{tb}(\bm\theta)) 
@@ -101,7 +104,7 @@ f_{tb}^{(\mathrm{EM})}(\bm{\theta}^{(k)})
 \end{cases}
 \end{equation}
 
-The tomographic update of this two-step optimization process is effectively an update over the DWB data for independent frame reconstruction, followed by an image space optimization process that now needs to consider the sensitivity $\sum_{t=1}^{n_t} \sum_{i=1}^{n_i}  P_{tib}$ of each time point $t$ in the TAC of each voxel $j$. For linear models, where before an image based MLEM algorithm was used for this image space optimization process, a weighted MLEM update can be used with the sensitivity of each time point $t$ as the weight. Alternatively, for linear and non-linear models LS based optimization algorithms can be used with the addition of the sensitivity value as weight. Both of these options were implemented in CASToR, with results shown in this chapter were produced by the use of the nested EM approach.
+The tomographic update of this two-step optimization process is effectively an update over the DWB data for independent frame reconstruction, followed by an image space optimization process that now needs to consider the sensitivity $\big[\sum_{i=1}^{n_i} P_{tib}\big]$ of each time point $t$ in the TAC of each voxel $j$. For linear models, where before an image based MLEM algorithm was used for this image space optimization process, a weighted MLEM update can be used with the sensitivity of each time point $t$ as the weight. Alternatively, for linear and non-linear models, WLS based optimization algorithms can be used with the sensitivity value used as the weight. Both of these options were implemented in CASToR, with results shown in this chapter were produced by the use of the nested EM approach.
 %
 \iffalse 
 \begin{equation}
@@ -114,19 +117,19 @@ The tomographic update of this two-step optimization process is effectively an u
 \fi
 %
 \subsection{Real Data}
-Two DWB scans from the IsotoPK study were used for assessing the described direct multi-bed dynamic reconstruction method. Both scans were conducted on a single volunteer in a single day, without and with the use of the inhibitor (rifampicin) respectively. The two scans will be referred to as \textit{CTRL} and \textit{RIF} scans, standing for control and rifampicin. The volunteer was a male (25y) weighing 66 Kg on the examination day. The two dynamic scans were conducted with the injection of 141.53 MBq and 90.77 MBq of [$^{11}$C] Glyburide respectively. The first scan was conducted with 14 WB passes, with 9$\times$20, 5$\times$30 s frames per bed position. The second scan included 15 WB passes, with 9$\times$20, 6$\times$30 s frames per bed position. Both scans begin with a 180 s DSB acquisition centred over the liver, starting at the time of injection, before the DWB acquisition. By splitting the DSB into 18x10 s frames and considering each Step and Shoot acquisition as an individual frame, the two scans resulted in a total of 88 and 93 frames respectively. 
+Two DWB scans from the IsotoPK study were used for assessing the described direct multi-bed dynamic reconstruction method. Both scans were conducted on a single volunteer in a single day, without and with the use of the inhibitor (rifampicin) respectively. The two scans will be referred to as \textit{CTRL} and \textit{RIF} scans, standing for control and rifampicin. %The volunteer was a male (25y) weighing 66 Kg on the examination day.
+The two dynamic scans were conducted with the injection of 141.53 MBq and 90.77 MBq of [$^{11}$C]Glyburide respectively. The first scan was conducted with 14 WB passes, with 9$\times$20, 5$\times$30 s frames per bed position. The second scan included 15 WB passes, with 9$\times$20, 6$\times$30 s frames per bed position. Both scans begin with a 180 s DSB acquisition centred over the liver, starting at the time of injection, before the DWB acquisition. By splitting the DSB into 18x10 s frames and considering each Step and Shoot acquisition as an individual frame, the two scans resulted in a total of 88 and 93 frames respectively. 
 The planned bed positions are shown in figure~\ref{fig_3_3:IsotoPK_BedPositionsOnMR} for the DSB and DWB phase of the \textit{CTRL} scan. 
 
 The complete \textit{CTRL} and \textit{RIF} datasets, including the DSB and DWB data, were reconstructed within the developed direct multi-bed dynamic reconstruction platform, using an OSEM algorithm with 28 subsets and EM nested optimization of 20 sub-iterations. Both datasets made use of TOF information within the reconstruction. 
 As the IsotoPK study is an exploratory pharmacokinetic study, dynamic reconstructions were performed with the spectral model for temporal regularisation of frame activity estimates as well as for the direct estimation of $K_1$ parametric images, without imposing strong assumptions about the underlying kinetics.
 Additional dynamic reconstructions were performed for DWB data, without the use of the initial DSB data, to test extrapolation of the spectral model on early (non-sampled) frames. 
-A total number of 17 spectral basis functions were used, with $\beta_1 ... \beta_{M-1}$ logarithmically spaced within the range of 3 to 0.001 $min^{-1}$, while including $\beta_0$ and $\beta_{M}$ to account for trapping and the blood fraction in the data. Similarly to the simulation study, the assumption of the total blood activity concentration $C_{B}$ being proportional to the arterial blood plasma $C_{P}$ was used in the estimation of the basis functions.
+A total number of 17 spectral basis functions ($M=$ 16) were used, with $\beta_1 ... \beta_{M-1}$ logarithmically spaced within the range of 3 to 0.001 $min^{-1}$, while including $\beta_0$ and $\beta_{M}$ to account for trapping and the blood fraction in the data. Similarly to the simulation study, the assumption of the total blood activity concentration $C_{B}$ being proportional to the arterial blood plasma $C_{P}$ was used in the estimation of the basis functions.
+Manual arterial blood samples were taken during both scans, to derive the input function and for blood analysis (to measure the metabolites fraction and for plasma binding of the tracer). The measured input functions were linearly interpolated and then used in the estimation of the spectral basis functions. 
+Initial results on the study have shown very little metabolic activity of Glyburide, which did not require modelling, allowing for the assumption of constant ratio of arterial to total blood to be made.
+
 Using the fitted spectral model, the approximate $\boldsymbol{K_1^*}$ parametric images were estimated similar to the methodology used in the simulation study of chapter~\ref{Chap3_2:SimStudy}.
 In addition to the dynamic reconstructions, individual frames (3D) reconstruction was performed using the same framework and OSEM algorithm with 28 subsets.
-
-Manual arterial blood samples were taken during both scans, to derive the input function and for blood analysis (to measure the metabolites fraction and for plasma binding of the tracer). The measured input functions were linearly interpolated and then used in the estimation of the spectral basis functions. 
-
-The VOIs listed in table~\ref{tab:IsotoPK_VOIs}  were manually drawn and used to validate and compare the reconstruction methods.
 
 \begin{figure} [h!]
 \centering
@@ -135,7 +138,7 @@ The VOIs listed in table~\ref{tab:IsotoPK_VOIs}  were manually drawn and used to
 \label{fig_3_3:IsotoPK_BedPositionsOnMR}
 \end{figure} 
 
-The VOIs listed in table~\ref{tab:IsotoPK_VOIs}  were drawn manually to and used to validated and compare the reconstruction methods.
+The VOIs listed in table~\ref{tab:IsotoPK_VOIs} were drawn manually and used to validated and compare the reconstruction methods.
 
 \begin{table}[h!]
 \centering
@@ -167,7 +170,7 @@ A toy simulation was conducted to study how quantification of $K_1^{*}$ is affec
 \subsection{Comparison between 3D and 4D spectral reconstruction on DWB data}
 Coronal \gls{mip} images of 3D reconstructions from the \textit{CTRL} scan are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_3D} and figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_3D}, for a late frame of the DSB acquisition and early frames of the DWB acquisition respectively. 
 Similarly, \gls{mip} images of 4D spectral reconstruction of the \textit{CTRL} scan are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_4D} and figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D} for the same respective frames. 
-As the spectral model is applied to the image space of the entire effective FOV, the 4D reconstruction results in frame images that are estimated from the fitted model of the entire FOV. As such, activity estimates of locations that are not sampled for a given frame within the DWB scan are interpolated from the frame data of the entire DWB scan. For the frames of the DSB scan, locations that are not sampled by the single bed acquisition have activity estimates that are extrapolated from the fitted spectral model of later frames.
+As the spectral model is applied to the image space of the entire effective FOV, the 4D reconstruction results in frame images that are estimated from the fitted model on the entire FOV. As such, activity estimates of locations that are not sampled for a given frame within the DWB scan are interpolated from the frame data of the entire DWB scan. For the frames of the DSB scan, locations that are not sampled by the single bed acquisition have activity estimates that are extrapolated from the fitted spectral model of later frames.
 
 \begin{figure} [h!]
 \centering
@@ -200,7 +203,7 @@ As the spectral model is applied to the image space of the entire effective FOV,
 Plots of mean VOI activity against iteration, for early and late frames over the liver and the leg muscle VOI were used to evaluate at which iteration the mean values begin to converge. These plots are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_Convergence} and figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_3D_Convergence} of the appendix~\ref{chap:AppendixC}. For 4D spectral reconstruction, the evaluated mean values showed relatively stable behaviour from the 15th iteration onwards, which was chosen for subsequent comparisons of reconstructions. For 3D reconstruction mean values did not show stable behaviour in both regions within the first 8 iterations and the 4th iteration was chosen in subsequent comparisons as a comprise between the reliability of mean values convergence and image noise.  
 
 TACs of the evaluated VOIs are plotted in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central} and~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}, for VOIs sampled in both DSB and DWB acquisitions and for VOIs sampled only during the DWB acquisition respectively. In figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral} the time point of the start of the DWB acquisition is indicated by the red dotted line.
-As already mentioned, the 4D spectral reconstruction results in an activity estimate of every location of the image for every frame of the study, while 3D reconstruction results in activity estimates for the sampled frames only at each location. This is why the TACs from the 4D reconstruction of the \textit{CTRL} data show a total of 88 frame points for all VOIs and a total of 32 frame points (18 from DSB plus 14 from DWB) for regions included in the DSB acquisition and only 14 frames for regions seen solely by the DWB acquisition. 
+As already mentioned, the 4D spectral reconstruction results in an activity estimate of every location of the image for every frame of the study, while 3D reconstruction results in activity estimates for the sampled frames only at each location. This is why the TACs from the 4D reconstruction of the \textit{CTRL} data show a total of 88 frame points for all VOIs, while for 3D reconstruction a total of 32 frame points (18 from DSB plus 14 from DWB) is seen for regions included in the DSB acquisition and 14 frame points for regions seen solely by the DWB acquisition. 
 
 For the VOIs seen by both DSB and DWB acquisitions, the TACs between 3D and 4D spectral reconstruction are in good agreement for all evaluated VOIs, as seen in~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central}. For the brain and muscle VOIs seen by the DWB acquisition alone, there is a relatively good agreement, with slight overestimation in early frames of the brain region and underestimation on later frames as seen in~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}. By contrast, at the bladder VOI there is a strong mismatch of the 3D and 4D spectral reconstruction, with the 3D reconstruction showing clearly the bladder filling process and the 4D spectral reconstruction showing an increasing behaviour produced by the exponential functions. 
 The VOI means of the spectral parametric images are given in the appendix material, where it is seen that the component of full trapping $\phi_0$ is strongly used in the bladder region, in an attempt to fit the underlying process. But the use of the input function and the decaying exponentials is not enough to fit this process. Further considerations to this issue are addressed in the section~\ref{sub_section:residuals}.
@@ -220,9 +223,10 @@ The VOI means of the spectral parametric images are given in the appendix materi
 \end{figure} 
 
 \subsection{Comparison of 4D Spectral reconstruction on DWB data, with and without the use of DSB data}
-A comparison between 4D spectral reconstruction with and without the use of the initial DSB data is made in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_4D_Central}, for VOIs covered by both DSB and DWB acquisitions. These show a good agreement of the two spectral reconstructions, with a consistent slight error in the early frame estimations of the reconstruction without the use of DSB data. This error is relatively small compared to the mean activity of each VOI (maximum of 12.7\% error seen in Spleen VOI). A very good agreement is seen on the liver between the two reconstructions.
+A comparison between 4D spectral reconstructions, with and without the use of the initial DSB data, is made in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_4D_Central}, for VOIs covered by both DSB and DWB acquisitions. These show a good agreement of the two spectral reconstructions, with a consistent slight error in the early DWB frame estimations of the reconstruction without the use of DSB data. This error is relatively small compared to the mean activity of each VOI (maximum of 12.7\% error seen in Spleen VOI). A very good agreement is seen on the liver between the two reconstructions.
 
 The extrapolation of the fitted spectral model from DWB data alone can be made for the early non sampled frames. These show a sharp drop of the fitted TACs, indicating the inadequacy of the used data for extrapolation of the fast early frame behaviour and the cause for the systematic mismatch at early frames of the DWB acquisition.
+In particular, the extrapolated model is unable to reproduce the early peak, as seen clearly in the ventricle, the myocardium and the spleen, which indicates that separation between the exchange components and the blood fraction component of the spectral model is compromised when the early dynamic data are not available.
 
 \begin{figure} [h!]
 \centering
@@ -232,7 +236,7 @@ The extrapolation of the fitted spectral model from DWB data alone can be made f
 \end{figure} 
 
 \subsection{Direct WB parametric image estimation from 4D Spectral reconstructions}
-Using the set of equations~\ref{eqn:AllSpectralEqns} and specifically the equation for the derivation of $K_1$, the parametric maps of $K_1^{*}$ were produced by summation of basis $(\phi_0-\phi_{M-1})$. Similar to the simulation study before, the blood fraction correction was neglected in favour of avoiding voxel-to-voxel division and induction of excessive image noise. The result parametric maps for both \textit{CTRL} and \textit{RIF} scans are shown in figure~\ref{fig_3_3:IsotoPK_K1_MIP} and figure~\ref{fig_3_3:IsotoPK_K1_SingleSlice}, as a \gls{mip} in the coronal plane and as a single coronal slice showing the the liver, kidneys and the spleen.
+Using the set of equations~\ref{eqn:AllSpectralEqns} and specifically the equation for the derivation of $K_1$, the parametric maps of $K_1^{*}$ were produced by summation of basis $(\phi_0-\phi_{M-1})$. Similar to the simulation study before, the blood fraction correction was neglected in favour of avoiding voxel-to-voxel division and induction of excessive image noise. The result parametric maps for both \textit{CTRL} and \textit{RIF} scans are shown in figure~\ref{fig_3_3:IsotoPK_K1_MIP} and figure~\ref{fig_3_3:IsotoPK_K1_SingleSlice}, as a \gls{mip} in the coronal plane and as a single coronal slice showing the liver, the kidneys and the spleen.
 Mean VOI $K_1^{*}$ values, shown in figure~\ref{fig_3_3:IsotoPK_K1_drop}, show a considerable reduction from the \textit{CTRL} to the \textit{RIF} scan by the administration of the inhibitor.
 
 The results of the dual input simulation study, given in appendix~\ref{chap:AppendixC}, indicate that accurate quantification of $K_1$ (or $K_1^{*}$) in the liver using only the arterial input function as an input is not achievable as expected. 
@@ -261,14 +265,12 @@ But the simulation showed that a relative comparison of spectral model $K_1^{*}$
 
 \subsection{Fit errors and residual modelling}
 \label{sub_section:residuals}
-As seen in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}, the mismatch of the 3D and 4D spectral reconstruction at the bladder TAC is the strongest from all the evaluated VOIs. The source of this error is the inability of the spectral model to fit the bladder filling process, by any combination of the decaying exponentials convolved with the arterial input function. This mishmash is of particular concern for dynamic reconstruction as it can be the source of errors that propagate spatially during the dynamic reconstruction process over the entire field of view. 
-This issue has been addressed in the following work by making use of adaptive residual modelling within the dynamic reconstruction. It was presented during the IEEE/MIC-2020 conference and the following conference record has been submitted for publication. 
+As seen in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}, the mismatch between the 3D and 4D spectral reconstructions at the bladder TAC is the strongest from all the evaluated VOIs. The source of this error is the inability of the spectral model to fit the bladder filling process, by any combination of the decaying exponentials convolved with the arterial input function. This mishmash is of particular concern for dynamic reconstruction as it can be the source of errors that propagate spatially during the dynamic reconstruction process over the entire field of view. 
+This issue has been addressed in the following work by making use of adaptive residual modelling within the dynamic reconstruction. It was presented during the IEEE/MIC-2020 conference for which the following conference record has been prepared. 
 
-\cleardoublepage
-
+%\cleardoublepage
 %\include{3_Results/3_3_DWB_Reconstruction/MIC2020/mic_summary_pe2i_2016_cc}
-\includepdf[pages=-,pagecommand={}]{3_Results/3_3_DWB_Reconstruction/MIC2020/Whole_Body_dynamic_PET_direct_4D_reconstruction_with_adaptive_modelling__Conference_Record_.pdf}
-
+%\includepdf[pages=-,pagecommand={}]{3_Results/3_3_DWB_Reconstruction/MIC2020/Whole_Body_dynamic_PET_direct_4D_reconstruction_with_adaptive_modelling__Conference_Record_.pdf}
 \section{Discussion}
 
 We have developed and presented a framework for direct multi-bed dynamic reconstruction of DWB data, that allows for synchronous use of both DSB and DWB PET raw data, typically acquired in dynamic studies over the whole body~\cite{Karakatsanis2013}. 

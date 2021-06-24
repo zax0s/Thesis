@@ -4,16 +4,15 @@ But an important limitation of DWB protocols in scanners with limited A-FOV is t
 In practice for scanners that have no in-build DWB protocols, such as the Signa PET/MR, a large fraction of the temporal gaps in DWB protocols can be attributed to a greater extend to system processes that are launched automatically between WB sweeps rather than to time taken to move the bed between bed positions. These processes include the transfer of raw data files and reconstructions performed during scanning. More acquisition time could be gained if those could be avoided and temporal gaps were decreased.
 
 In this chapter, we review results of acquisition performance from a DWB protocol implemented on the Signa PET/MR scanner as part of the IsotoPK pharmacokinetic study~\cite{Marie2019}. A short introduction on the design of the protocol using current scanner features is provided, with additional details on the protocol and data processing of this protocol's data provided in Appendix~\ref{chap:AppendixA}.
-We then describe the implementation of an experimental fully-automated protocol for DWB acquisitions on the Signa PET/MR, that was designed with the aim of reducing acquisition delays and allowing for greater flexibility in the selection of bed positions. The development of this protocol was conducted as part of this project and in collaboration with GE Healthcare. 
+We then describe the implementation of an experimental fully-automated protocol for DWB acquisitions on the Signa PET/MR, that was designed with the aim of reducing acquisition delays and allowing for greater flexibility in the selection of bed positions. The development of this protocol was conducted in collaboration with GE Healthcare, as part of this PhD project (which was also a milestone within \gls{hybrid}). 
 Finally, we present results from the use of the experimental acquisition protocol on a \glsfirst{nhp} study and compare against the standard DWB protocol used in the IsotoPK study using data from fourteen volunteer scans.
 
 \section{Methods \& Results}
-
 \subsection{Design of IsotoPK DWB protocol on the Signa PET/MR}
 Prior to commencing this PhD project and in perpetration for the IsotoPK study, a DWB protocol was designed on the GE Signa PET/MR scanner. The desired axial coverage was achieved using 5 bed positions and a reduced overlap, as shown in diagram (C) of figure~\ref{fig3_1:BodyCoverage}. The relatively small overlap (half compared to routine clinical protocols) was selected to reduce the number of beds and subsequently the acquisition temporal gaps.
 The study design was limited to a total duration of 1 hour from injection and includes an initial dynamic single bed (DSB) phase centred over the liver, where the highest expression of the transporters under study was expected. 
 The DSB position was imaged for 3 minutes from injection, prior to the start of DWB acquisition.
-Because the system has no in-build protocols for DWB imaging, a custom protocol had to be made using a sequence of static WB acquisitions. Each WB pass had to be individually pre-planned, which resulted in fixed bed positions (identical for all scans, relevant to a reference mark). Each volunteer positioning was made using a chest-landmark, with no further adjustments of the protocol being possible for the optimum arrangement of the bed positions, relative to each patient's size.
+Because the system has no in-build protocols for DWB imaging, a custom protocol had to be made using a sequence of static WB acquisitions. Each WB pass had to be individually pre-planned, which resulted in hard-coded bed positions (identical positions for all subjects, relevant to a reference mark). Each volunteer positioning was made using a chest-landmark, with no further adjustments of the protocol being possible for the optimum arrangement of the bed positions, relative to each patient's size.
 
 For the design of the framing used in the IsotoPK DWB protocol, the following empirical metric has been taken under consideration. We define the Delays to Acquisition ratio (DAR) as the ratio of total delays to acquisition time for every WB sweep, using the relationship
 \begin{equation} \label{eqn:acq_to_dead_time}
@@ -28,7 +27,8 @@ First estimations of the delay times for the Signa PET/MR had shown a delay of a
 \label{tab:IsotoPK_Framing}
 \begin{tabular}{|l|l|l|l|l|}
 \toprule
-\textbf{Phase ID} & \textbf{Description}              & \textbf{Frame Duration (s)} & \textbf{Number of Frames} & \textbf{DAR} \\
+\textbf{Phase ID} & \textbf{Description}              & \textbf{Frame Duration (s)} & \textbf{Number of frames} & \textbf{DAR} \\
+\textbf{} & \textbf{} & \textbf{} & \textbf{per bed position} & \textbf{} \\
 \midrule
 1        & DSB & 10                 & 18        & N/A                 \\
 2        & DWB                      & 20                 & 9         & 44\%                \\
@@ -38,20 +38,18 @@ First estimations of the delay times for the Signa PET/MR had shown a delay of a
 \end{tabular}
 \end{table}
 
-The MR sequences required for attenuation correction (MRACs) were performed prior to and during the DWB protocol acquisition. The first MRAC sequence at each bed location lasted approximately 35 seconds (conducted prior to injection), with subsequent scans over the same locations lasting approximately 21 seconds per bed. MRAC acquisitions were not repeated for all WB sweeps of the DWB protocol, to allow for staff entry in the room for blood sampling which is required for the derivation of the input function and metabolite analysis. 
-%A details description of the WB sweeps is given in the appendix. %(referred in protocol naming as \textit{CE}, standing for whole body "corps entier" in French)
+The MR sequences required for attenuation correction (MRACs) were performed prior to injection and during the DWB protocol acquisition. The first MRAC sequence at each bed location lasted approximately 35 seconds (conducted prior to injection), with subsequent scans over the same locations lasting approximately 21 seconds per bed. This difference in time requirements between initial and subsequent MRAC sequences is caused by the MR shimming sequences that are performed before MR imaging. At first, shimming is conducted in full to optimise MR homogeneity, while only a faster shimming update is conducted on subsequent scans of the same bed positions.
+MRAC acquisitions were not repeated for all WB sweeps of the DWB protocol, to allow for staff entry in the room for blood sampling which is required for the derivation of the input function and metabolite analysis. 
 
 The acquired DWB data were initially reconstructed at the system console.
-Then, as part of this PhD project, the raw data were retrospectively exported for offline processing and treated with the steps of an automated pipe-line described in Appendix~\ref{chap:AppendixA}.
+Then, as part of this PhD project, the raw data were retrospectively exported for offline processing and reconstruction with \gls{castor}, using an automated pipeline which is described in Appendix~\ref{chap:AppendixA}.
 
 \subsection{Results from IsotoPK study}
 
 The result beds positions of the DWB protocol can be seen in figures~\ref{fig3_1:ctrl_mips} and ~\ref{fig3_1:rif_mips} for the included fourteen studies from the IsotoPK protocol.
 Using the timing information of the extracted raw PET data, the average delay times per imaged subject were estimated, shown in the form of box-plots for $dl_{bed}$ in figure~\ref{fig3_1:BoxPlots_beds} and for $dl_{Sweep}^{(5)}$ in figure~\ref{fig3_1:BoxPlots_sweeps}.
 
-It is noteworthy that with the accumulation of experience in using the PET/MR system for performing the DWB protocol the delays between sweeps were reduced considerably, which can be seen by comparing the most recent examinations against the first. This can be attributed to improved preparation of the PET/MR system before performing the protocol (ex. reboot of the system prior to study, etc.).
-For the 3 more recent subject examinations the average intra-bed delay time ${dl_{bed}}$ was 5.69 s (95\%CI: 5.63, 5.75) and the average delay time between sweeps $dl_{Sweep}^{(5)}$ was 26.17 s (95\%CI: 26.13, 26.22).
-This measured average $dl_{Sweep}^{(5)}$ value is slightly higher than the value considered in the design of the protocol. With these average measurements, the DAR for the WB sweeps of beds with 20 s frame duration becomes approximately 49\%. \\
+It is noteworthy that with the accumulation of experience in using the PET/MR system for performing the DWB protocol, the delays between sweeps were reduced considerably, which can be seen by comparing the most recent examinations against the first. This can be attributed in part to improved preparation of the PET/MR system before performing the protocol (ex. reboot of the system prior to study, etc.). Before this practice was established, as the system software has not been designed for acquiring multiple whole-body passes many system crashes had been experienced using this custom protocol. These have caused losses of acquisition time (which has not been included in this evaluation) and also resulted in differences in the number of WB passes per subject. Secondly, in part, the reduction in delays can be attributed to improved staff training on the use of the protocol and awareness of common problems.
 %
 %
 \begin{figure} [ht!]
@@ -70,7 +68,8 @@ This measured average $dl_{Sweep}^{(5)}$ value is slightly higher than the value
 \label{fig3_1:rif_mips}
 \end{figure}
 %
-%
+For the 3 more recent subject examinations the average intra-bed delay time ${dl_{bed}}$ was 5.69 s (95\%CI: 5.63, 5.75) and the average delay time between sweeps $dl_{Sweep}^{(5)}$ was 26.17 s (95\%CI: 26.13, 26.22).
+This measured average $dl_{Sweep}^{(5)}$ value is slightly higher than the value considered in the design of the protocol. With these average measurements, the DAR for the WB sweeps of beds with 20 s frame duration becomes approximately 49\%. \\
 %
 \begin{figure} [ht!]
 \centering
@@ -92,7 +91,7 @@ This measured average $dl_{Sweep}^{(5)}$ value is slightly higher than the value
 %
 \subsection{Design of a fully-automated DWB protocol on the Signa PET/MR}
 Part of this PhD project was allocated for the development of a fully automated DWB protocol on the Signa PET/MR. 
-The main requirement for the envisioned protocol was to allow for continuous capture of PET data during DWB acquisition, into a single list-mode file for all bed positions. Then the data would be processed after the acquisition, split into individual data for each bed position and reconstructed with the correct bed positional information. Using such an acquisition strategy the delays between bed positions and WB sweeps could be brought down to the time taken by the physical motion of the scanner table alone. 
+The main requirement for the envisioned protocol was to allow for continuous capture of PET data during DWB acquisition, into a single list-mode file for all bed positions and WB sweeps. Then the data would be processed after the acquisition, split into individual data for each bed position and reconstructed with the correct bed positional information. Using such an acquisition strategy, the delays between bed positions and WB sweeps could be brought down to the time taken by the physical motion of the scanner table alone. 
 
 Towards this goal a three week secondment was planned at factory facilities of GE healthcare (Waukesha, Wisconsin, USA). %with the opportunity the gain insights on the operations of the Signa PET-MR scanner. 
 There with help of the PET/MR team it was made possible to exploit in-build factory tools of the Signa PET/MR for the purposes of DWB automation. The two key tools necessary were: 
@@ -108,12 +107,13 @@ The protocol was named "Auto-IsotoPK", but despite its name is a generic DWB pro
 Because MR acquisitions cannot be performed after \textit{Table Emulation} is enabled, all bed position MRACs must be acquired before the PET examination and used for all WB sweeps of the study.
 A short \gls{sop} on the operation of the protocol is given in Appendix~\ref{chap:AppendixA}.
 
-After the procedure is completed, the whole PET study is stored as a single list-mode file. The precise timing information of the acquired bed positions is saved in a log file, to be used for the post-processing procedure prior to reconstruction.  
+After the procedure is completed, the whole PET study is stored as a single list-mode file, but without bed positional information. The precise timing information of the acquired bed positions is saved in a separate log file, which is used for post-processing the data and separation of the bed positions before reconstruction.  
 
 \subsection{Results from NHP study}
-After initial tests using phantoms, the automated DWB protocol was tested on an actual pre-clinical DWB study. A macaque was scanned under full sedation with a novel $^{18}$F-Crizotinib tracer, that was being investigated for uses in \gls{nsclc} disease. The DWB study was required to examine tracer uptake in the brain as well as uptake and excretion from other organs. The macaque was injected with 185 \si{\mega \becquerel} of the novel tracer. Directly after injection an initial DSB scan was conducted, centred over the brain for a duration of 90 s, followed by DWB acquisition of three bed positions. The study was planned for an approximate total duration of one hour. A total of 28 WB sweeps were fitted in the study, with the framing of 3$\times$10~{s}, 5$\times$20~{s}, 5$\times$30~{s}, 5$\times$45~{s}, 10$\times$60~{s} for each of the three bed positions.
+After initial tests using phantoms, the automated DWB protocol was tested on an actual pre-clinical DWB study. A macaque was scanned under full sedation with a novel [$^{18}$F]Crizotinib tracer. Crizotinib is an anti-cancer drug used in the therapy of \gls{nsclc}.
+The DWB study was conducted to examine the tracer uptake in the brain as well as uptake and excretion from other organs. The macaque was injected with 185 \si{\mega \becquerel} of the novel tracer. Directly after injection an initial DSB scan was conducted, centred over the brain for a duration of 90 s, followed by DWB acquisition of three bed positions. The study was planned for an approximate total duration of one hour. A total of 28 WB sweeps were fitted in the study, with the framing of 3$\times$10~{s}, 5$\times$20~{s}, 5$\times$30~{s}, 5$\times$45~{s}, 10$\times$60~{s} for each of the three bed positions.
 
-Acquisition of the required MRACs was performed prior to injection, at the planned bed positions shown in figure~\ref{fig3_1:Macaque_MRI}. In this acquisition, only the body coils of the PET-MR system were used, which are optimised for use with the human body size. Their use resulted in sub-optimal quality of MR images and generated attenuation maps. The attenuation maps were edited manually before being used for PET data reconstruction.
+Acquisition of the required MRACs was performed prior to injection, at the planned bed positions shown in figure~\ref{fig3_1:Macaque_MRI}. In this acquisition, only the body coil of the PET-MR system was used, which is optimised for use with the human body size. Their use resulted in sub-optimal quality of MR images and generated attenuation maps. The attenuation maps were edited manually before being used for PET data reconstruction.
 
 \begin{figure} [ht!]
 \centering
@@ -138,8 +138,8 @@ The complete study dataset was recorded in a single list-mode file, of which the
 \label{fig3_1:Macaque_Head_Curve_Phases}
 \end{figure}
 %
-Using the timing information recorded in the acquisition log file, the data were split into four individual bed position datasets and were processed with the GE-PET toolbox individually as single bed dynamic studies. The list-mode data along with the generated corrections were then exported into the CASToR data-file format for subsequent reconstruction tests. A coronal \gls{mip} view of 3D reconstructions (averaged across all dynamic frames) is shown in figure~\ref{fig3_1:Macaque_PET}. \\
-An IDIF was estimated from the reconstructed PET data. A right carotid VOI, that was visible on both phases of the acquisition, and a left ventricle VOI were used for the estimation. Both VOIs provided similar blood activity values for the DWB phase and were averaged to produce the final IDIF, shown in figure~\ref{fig3_1:Macaque_PET_input_function}.
+Using the timing information recorded in the acquisition log file, the data were split into four individual bed position datasets (one from DSB and three from DWB) and were processed with the GE-PET toolbox as individual single bed dynamic studies, to generate corrections necessary for reconstructions using \gls{castor}. The list-mode data along with the generated corrections were then converted into the CASToR data-file format for subsequent reconstruction tests. A coronal \gls{mip} view of 3D reconstructions (averaged across all dynamic frames) is shown in figure~\ref{fig3_1:Macaque_PET}. \\
+An \gls{idif} was estimated from the reconstructed PET data. A right carotid VOI, that was visible on both phases of the acquisition, and a left ventricle VOI were used for the estimation. Both VOIs provided similar blood activity values for the DWB phase and were averaged to produce the final \gls{idif}, shown in figure~\ref{fig3_1:Macaque_PET_input_function}. This test showed that extraction of an \gls{idif}, using multiple VOIs on both phases of the acquisition was possible and in good agreement between the used VOIs.
 %
 \begin{figure} [ht!]
 \centering
@@ -182,22 +182,32 @@ This gain can be used towards improving acquisition statistics by reducing the D
 A limitation in this assessment is that the comparisons were based on the empirical metric of DAR, without relating directly to the final kinetic analysis performed on the data and produced parametric images. In practice, faster sampling could also be achieved with larger acquisition gaps at the cost of reduced acquisition statistics and vice versa with higher statistics achieved at the cost of reduced sampling frequency. 
 These trade-offs are expected to affect mostly kinetic estimations that are sensitive to fast dynamic information shortly after injection. 
 Ideally, the DWB acquisition protocol should be optimised for the expected kinetics under study and the parameters of interest. Nevertheless, towards this optimisation, the developed fully-automated protocol can allow for greater variability in the available trade-off options of acquisition statistics vs. sampling frequency of early frames. 
-Another aspect where fast sampling can be beneficial is for the derivation of the IDIF from DWB data. Given the fast initial sampling that can be achieved using a fully-automated protocol, it is possible to reduce the initial DSB acquisition duration or remove it completely while still sampling frequently enough for an estimation of the IDIF.
+Another aspect where fast sampling can be beneficial is for the derivation of the \gls{idif} from DWB data. Given the fast initial sampling that can be achieved using a fully-automated protocol, it is possible to reduce the initial DSB acquisition duration or remove it completely while still sampling frequently enough for an estimation of the \gls{idif}.
+In the \gls{nhp} application presented in this chapter we showed that it is possible to combine \glspl{idif} from multiple VOIs and from both DSB and DWB phases, without need for an identical bed position between the two acquisition phases. This flexibility can also allow flexibility in the DSB position placement over the WB scan, without compromising the derivation of the \gls{idif}. 
 
-Additionally, another consideration that needs to be accounted for concerning fast sampling of early frames is the acquisition of MRAC sequences.  For the Signa PET/MR the fastest update MRAC sequence is performed at approximately 21 seconds (including preparation sequences) and as such shorter PET frames would have to be conducted without MRACs.
+Additionally, another consideration that needs to be accounted for concerning fast sampling of early frames is the acquisition of MRAC sequences. For the Signa PET/MR the fastest MRAC sequence is performed in approximately 21 seconds (including preparation sequences) and as such shorter PET frames would have to be conducted without MRACs. In the IsotoPK DWB protocol, multiple MRACs are acquired in order to best account for any potential subject motion in the attenuation correction used for each WB pass. Their use can also be potentially expanded to the investigation of motion correction techniques. But if motion can be assumed to be small and negligible, then multiple MRACs would not be required and shorter PET frames can be acquired using MRACs acquired prior to injection. 
 
 In this evaluation, a practical limitation that has not been considered is safety limits on table movement that are needed to avoid undesirable effects from electromagnetic induction on patients/volunteers, which are caused by the fast movement of the bed within the MR field. For the tests conducted on the NHP, these limits have not been considered. These limits are expected to reduce the speed that would be permissive for human subjects, in compliance also with patient comfort requirements, and thus reduce to some degree the potential gains from the use of the fully automated DWB protocol. 
 
-Finally, in our tests we have considered only the use of S\&S acquisition in the implementation and optimisation of DWB protocols. 
+In our tests we have considered only the use of S\&S acquisition in the implementation and optimisation of DWB protocols. 
 In a previous study on DWB protocols utilising CBM acquisition, advantages favouring the use CBM acquisition for DWB protocols were seen~\cite{Karakatsanis2016a}. Beyond the aspects of reduced acquisition delays, CBM offers other benefits such as uniform axial sensitivity of acquisition, flexibility in sampling frequency by adjustments in table speed within each WB sweep, improved patient comfort, etc. 
 Overall, use of CBM naturally overcomes many of the limitations posed by the use of multi-bed DWB protocols and S\&S acquisition. 
 Additionally, CBM protocols can also allow for bi-directional motion that eliminates delays between WB sweeps. 
 These acquisition modes, their effects on acquisition gaps and result parametric image quality were considered further in the simulation study presented in chapter~\ref{Chap3_2:SimStudy}.
 Using the fully automated protocol and the developed tools we were able to emulate a CBM acquisition for the \gls{nhp} study, by selecting a relatively slow table speeds and recording PET data continuously. But normalization and quantitative reconstruction of the acquired CBM datasets is a demanding, task as previously described~\cite{Panin2014}, and thus quantitative reconstruction of these data was not considered further for the needs of this project.
 
+Overall the implementation of this fully automated protocol serves as proof of concept for flexible bed position placement and selection of frames duration, being limited only by the bed speed of the GE Signa PET/MR and not by software or other system components. This protocol is a significant improvement from the currently used DWB protocol of the IsotoPK study. As the system has not been designed with DWB capabilities, the current DWB protocol involves manual planning of each WB sweep, multiple delays in data transfers and individual WB sweep reconstructions, etc. 
+
+However, the automated method does not allow for bed positional information to be recorded in the raw data and necessitate ad-hoc techniques to record bed positions and bed movements in separate files. These limitations necessitate custom processing steps to be performed after acquisition and prior to reconstruction, to allow for accurate and quantitative reconstruction of the acquired data. 
+Furthermore, the current implementation of the automated protocol does not allow for MRI to be acquired during PET acquisition. Although a mixed acquisition using the automated protocol and the current implemented DWB protocol could allow for MR in the acquisition, it would further increase complexity and risk of system failures.
+
+Due to the discussed limitations of the automated protocol and the considerations for safety, it was not used for subsequent DWB acquisitions within the IsotoPK study and was not considered further in the context of this thesis. It served only as a proof of concept for future developments.
+
 \section{Conclusion}
-A fully automated DWB protocol was developed on the GE Signa PET/MR. Data using this protocol were successfully acquired, processed and reconstructed in a test NHP study.
+A fully automated DWB protocol was developed on the GE Signa PET/MR as a proof of concept for fully automated and flexible acquisition of DWB imaging, recorded on a single list-mode file for the whole study. 
+Data using this protocol were successfully acquired, processed and reconstructed in a test NHP study.
 Use of the protocol allowed for considerable reduction of delay times, enabling faster sampling without loss of PET data statistics.
+Thanks to the automated protocol, the minimum bed frame duration can be reduced from 20 to 10 s while maintaining the same DAR , compared to the DWB protocol currently in use.
 A considerable limitation of the implementation of this protocol is the unavailability of the MR system for MRI acquisitions during the DWB acquisition, which is caused by the bespoke utilities on which our experimental protocol was based upon.
 Finally, further considerations of permissible table speeds for patient safety and comfort need to be applied before using this protocol on human subjects.
 
