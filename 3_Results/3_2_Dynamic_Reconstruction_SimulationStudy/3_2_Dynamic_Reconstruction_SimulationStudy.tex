@@ -1,48 +1,12 @@
-\section{Introduction}
-
+%\section{Introduction}
 As shown previously in multiple applications in the literature, dynamic reconstruction can improve activity and parametric image estimates by making use of dynamic models directly in the reconstruction process, resulting in more accurate modelling of the noise from the raw PET data~\cite{Reader2014}. 
-In this chapter, we describe the implementation of a dynamic reconstruction framework and dynamic reconstruction functionalities in CASToR. A fraction of this PhD project was focused on the development and validation of these functionalities that were necessary to achieve the project aims. The developments were conducted in collaboration with other CASToR developers, mainly with Dr Thibaut Merlin, Dr Simon Stute and Dr Marina Filipović.
-In addition, dynamic functionalities were implemented within a generic framework that allows for future expansion and contributions by developers of CASToR, to include more dynamic models and enable more complex and higher dimensional modelling (eg. dynamic and respiratory "5D" modelling , etc.)
-In the rest of this chapter, we present work conducted with simulated data on the use and benefits of dynamic reconstruction for DWB imaging. This study has been submitted to the journal of \textbf{Physics in Medicine \& Biology} for review in May 2021. 
 
-\section{Methods}
+In this chapter, we shortly describe the implementation of a dynamic reconstruction framework and dynamic reconstruction functionalities in CASToR. A fraction of this PhD project was focused on the development and validation of these functionalities that were necessary to achieve the project aims. The developments were conducted in collaboration with other CASToR developers, mainly with Dr Thibaut Merlin, Dr Simon Stute and Dr Marina Filipović.
+In addition, dynamic functionalities were implemented within a generic framework that allows for future expansion and contributions by developers of CASToR, to include more dynamic models and enable more complex and higher dimensional modelling (eg. dynamic and respiratory "5D" modelling , etc.).
 
-\subsection{Development of dynamic reconstruction framework in CASToR}
-The framework for dynamic reconstruction was developed within the general CASToR framework and following its general principles, to allow for future expansions and in order to make our developments publicly available within the public release of CASToR.
-To handle the use of dynamic models in reconstruction a new component was implemented in the code (called Dynamic-Model-Manager) that interacts with the reconstruction process within the main CASToR iterative loop (steps \textit{Estimate/Fit dynamic model} and \textit{Estimate image from fitted dynamic model} of algorithm~\ref{algo:CASToR_Core}). 
-The main tasks of the Dynamic-Model-Manager are to prepare dynamic models for use and to fit these models if needed, given an estimate of a time series of image data, and subsequently estimate the time series image data from the fitted dynamic model. 
-As described in section~\ref{section:Fully_4D_reconstruction}, dynamic reconstruction for linear dynamic models can be made using a set of basis functions directly implemented within the system matrix~\cite{Matthews1995,Wang2008,Reader2014}. But as this method results in algorithms with substantially slow overall convergence properties, the nested framework~\cite{Wang2010,Matthews2010} is preferred, which decouples the dynamic model fitting process over image space from the tomographic update process over the raw PET data.
-We have designed the Dynamic-Model-Manager in order to allow for both options of dynamic reconstruction, which we will refer to as non-nested and nested dynamic reconstruction respectively.
-In the examples and evaluations in this project, we made exclusive use of the nested framework, for practical computational requirements, which is also the method that predominates in most applications of dynamic reconstruction. But the availability of the non-nested option can allow for comparisons between the two approaches as well as the use of dynamic reconstruction with optimisation methods that might not necessarily support extension to nested optimization.
-
-A diagram of the implemented framework within the dynamic-model-manager is given in figure~\ref{fig3_2:DynamicModelManager}. 
-A generic dynamic model (vDynamicModel) was designed as a virtual function, which implements the requirements for model fitting processes, as well as some common optimization algorithms (Least-Squares (LS) and Non-Negative Least-Squares (NNLS) optimization algorithms).
-Specific dynamic models can be directly implemented by inheriting these functions from the vDynamicModel class, such as for example the implemented 1TC and 2TC models. These are specific models, that are based on micro-parameters estimation of the respective compartmental models and make use of non-linear optimization or linearization techniques that are unique to these specific implementations. 
-Beyond these specific models, many models used in practice for parametric imaging are linear models and share common optimization methods. For this reason, a generic Linear model (iLinearModel) was developed, which includes EM, LS and NNLS optimization algorithms for model fitting over voxel TACs. This linear model can be used directly if an input of basis functions is provided or alternatively other more specific linear models can inherit its functions and make use of model specific functions for defining temporal basis functions.
-In our implementation, we have implemented two specific linear models, the Patlak model~\cite{Patlak1985} and the spectral analysis model~\cite{Cunningham1993}. 
-Furthermore, as many dynamic models that relate to physiological kinetic parameters require information of the blood input function an input function class was created (oArterialInputFunction). This class takes a provided input function and performs linear interpolation of the input data, before providing it for use in the dynamic model. 
-Finally, an additional castor toolkit (castor-imageDynamicTools) was included in the public release to allow the use of the developed models for post-reconstruction model fitting using the included image space optimization algorithms. 
-
-\begin{figure} [ht!]
-\centering
-\includegraphics[scale=0.48,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/oDynamicModelManager.pdf}
-\caption{CASToR framework for dynamic reconstructions.} 
-%TODO: Add over-scan in the CBM DWB protocols. 
-\label{fig3_2:DynamicModelManager}
-\end{figure}
-
-\subsection{Simulation of dynamic data}
-In a similar fashion to the design of the dynamic reconstruction framework, a dynamic modelling framework was implemented within an existing in-house developed analytical PET simulator~\cite{Stute2015}. Specifically the 1TC and 2TC models were implemented, using equation~\ref{eqn:1TCM} and equation~\ref{eqn:2TCM}, while also accounting for blood fraction using equation~\ref{eqn:CPET}.
-The simulator was used to validate the implemented dynamic reconstruction framework in CASToR and to conduct the simulation study that is presented in this chapter.
-
-\section{Simulation-Study}
-In this section, we present a simulation study for the use of dynamic reconstruction in DWB imaging. This version has been slightly modified from the version submitted for publication, by including an additional analysis for $K_1$ parametric imaging.
-
-\cleardoublepage
-\includepdf[pages={1}]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/GAP_STUDY_IOP_Submission_final_first_page.pdf}
+In the remaining of this chapter, we present work conducted with simulated and real data on the use and respective benefits of various dynamic reconstruction strategies for DWB parametric imaging. This study has been submitted to the journal of \textbf{Physics in Medicine \& Biology} for review in May 2021. 
 
 \input{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/GAP_STUDY_IOP}
-
 
 \section{Conclusions to this Chapter}
 Dynamic reconstruction capabilities were successfully developed and validated in CASToR, for multiple dynamic models and optimization algorithms. Along with dynamic developments for a PET analytical simulator, those tools have enabled an extensive evaluation of dynamic reconstruction methods for application in DWB imaging. The developed tools were used for the application of dynamic reconstruction on real data and were further evaluated and expanded, in the work that is described in the following chapter, for real DWB data.
