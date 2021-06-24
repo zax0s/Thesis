@@ -17,26 +17,26 @@ The end objective was to assess if adaptive residual modelling can be permanentl
 
 \section{Methods}
 \subsection{Data acquisition}
-Dynamic whole body data using a novel Glyburide (${}^{11}C$-GLB) tracer were acquired from healthy volunteers on a GE Signa PET-MR, using a dedicated dynamic protocol of 5 bed positions to provide sufficient coverage of the body. Glyburide is a substrate of hepatic and extrahepatic Organic Anion Transporting Polypeptides (OATP) which can be isotopically radiolabelled with carbon-11 for PET imaging. The data were acquired as part of the exploratory pharmacokinetic study IsotoPK which is conducted in our centre for studying the distribution of OATP transporters in the body and their role in the delivery of drugs to tissues~\cite{Marie2019}. 
-Data from a single volunteer study were used in this work. In detail the dynamic acquisition consisted of a single bed acquisition centred over the liver, imaged for 3 minutes from tracer injection, followed by 14 whole body passes of 9x20s and 5x30s frames for each bed position. 
-Arterial blood samples were collected manually during the whole study, to measure the input function.
+Dynamic whole body (DWB) data using a novel ${}^{11}$C-Glyburide tracer were acquired from a healthy volunteer on the GE Signa PET/MR, using a dedicated DWB protocol of 5 bed positions to provide sufficient coverage of the body. The data were acquired as part of the exploratory pharmacological study IsotoPK which is conducted in our centre for studying the distribution of OATP transporters in the body and their role in the delivery of drugs to tissues~\cite{Marie2019}. In this work a control scan was used (\textit{CTRL} scan from chapter~\ref{Chap3_3:IsotoPK}).
+In detail the dynamic acquisition consisted of a single bed acquisition centred over the liver, imaged for 3 minutes from tracer injection, followed by 14 whole body passes of 9x20s and 5x30s frames for each bed position. 
+Arterial blood samples were collected manually during the whole study, to derive the input function.
 \subsection{Reconstruction}
-The spectral analysis model was used in all 4D reconstructions, using 4 spectral functions with decay rates ranging from 3 \(min^{-1}\) to 0.001 \(min^{-1}\). A constant and a delta function were also included to model tracer trapping and blood fraction. The 4D reconstruction algorithm with adaptive residual modelling was developed using the spectral model as primary model and an adaptive secondary model, similar to the proposed method by Matthews et al.~\cite{Matthews2012}. 
+The spectral analysis model was used in all 4D reconstructions, using 6 spectral basis functions ($M=$ 5) with $\beta_1 ... \beta_{M-1}$ logarithmically spaced within the range of 3 to 0.001 $min^{-1}$, while including $\beta_0$ and $\beta_{M}$ to account for trapping and the blood fraction in the data. The 4D reconstruction algorithm with adaptive residual modelling was developed using the spectral model as primary model and an adaptive secondary model, similar to the proposed method by Matthews et al.~\cite{Matthews2012}. 
  
 The steps of the adaptive residual modelling 4D reconstruction algorithm are:
 
 \begin{enumerate}
-  \item Start with image estimate $\lambda_{jf}^{(k)}$, for voxel $j$ and frame $f$ at iteration $k$. 
-  \item Perform tomographic update using MLEM to get the EM update image $\lambda_{jf}^{(EM)}$.
-  \item Perform primary model fit using the NNLS algorithm on $\lambda_{jf}^{(EM)}$ and estimate model parameters $\bm{\theta}_{j}^{(k+1)}$.
-  \item Calculate residuals as $ r_{jf} = \lambda_{jf}^{(EM)} - f_{spectral}(\bm{\theta}_{j}^{(k+1)}) $.
+  \item Start with image estimate $\lambda_{tj}^{(k)}$, for voxel $j$ and frame $t$ at iteration $k$. 
+  \item Perform tomographic update using MLEM to get the EM update images $f_{tj}^{(EM)}$.
+  \item Perform primary model fit using the NNLS algorithm on $f_{tj}^{(EM)}$ and estimate model parameters $\bm{\theta}_{j}^{(k+1)}$.
+  \item Calculate residuals as $ r_{tj} = f_{tj}^{(EM)} - f_{tj}^{(spectral)}(\bm{\theta}_{j}^{(k+1)}) $.
   \item Perform PCA analysis on residuals to estimate a set of residual basis functions (RBF) which form the secondary (adaptive) model. 
-  \item Estimate modelled residuals $g_{jf}$ from the LS fit of the secondary model on the $r_{jf}$ data. 
+  \item Estimate modelled residuals $g_{tj}$ from the LS fit of the secondary model on the $r_{tj}$ data. 
   \item Estimate optimal fraction $K_{j}$ for residuals re-introduction, using generalised cross validation.
-  \item Add fraction of modelled residuals in image estimate $\lambda_{jf}^{(k+1)} = f_{spectral}(\bm{\theta}_{j}^{(k+1)}) + K_{j} g_{jf} $ and repeat from step 2.
+  \item Add fraction of modelled residuals in image estimate $\lambda_{tj}^{(k+1)} = f_{tj}^{(spectral)}(\bm{\theta}_{j}^{(k+1)}) + K_{j} g_{tj} $ and repeat from step 2, 
 \end{enumerate}
 
-where NNLS stands for Non-Negative Least Squares and $f_{spectral}$ is the spectral model which provides activity distribution maps for all frames, given model parameters $\bm{\theta}_{j}$. 
+where NNLS stands for Non-Negative Least Squares and $f_{tj}^{(spectral)}(\bm{\theta}_{j})$ is the spectral model which provides activity estimates for voxel $j$ at frame $t$ given model parameters $\bm{\theta}_{j}$.
         
 In step (5) of our adaptive modelling implementation, the residual data were spatially smoothed with an isotropic Gaussian kernel of 32mm FWHM, to enhance the PCA analysis results. Smoothing of the residuals was not however applied in the fitting process of the secondary model in step (6). A fixed number of the most significant PCA components was used as basis functions of the adaptive residual model. The components were updated on each iteration of the 4D algorithm.
 
@@ -48,9 +48,11 @@ K_{j} = \frac{1-\frac{r_{df}}{r_{RSS}}}{1-r_{df}} ,
 
 where $r_{df} = \frac{n_s}{n_f - n_p}$, with $n_p$ and $n_s$ being the number of parameters of the primary and secondary model respectively, and $r_{RSS}$ being the fraction of modelled to measured residuals sum of squares. 
 
-The dynamic data from each bed of the study were reconstructed as individual frames using 3D MLEM (150it), using 4D reconstruction (300it) and with the developed adaptive algorithm 4D-ResidMod (300it). The adaptive reconstruction algorithm was evaluated using the 2 and 3 most significant PCA components as RBFs, referred to as 4D-ResidMod-2RBF and 4D-ResidMod-3RBF respectively. We also implemented a version of the adaptive algorithm with the addition of temporal Gaussian smoothing of 62s FWHM applied on the residual data used for PCA analysis in step (5) of the algorithm, referred as reconstruction 4D-ResidMod-3RBF-Tempfilt.
+The dynamic data from each bed of the study were reconstructed as individual frames using 3D MLEM (150it), using 4D reconstruction (300it) and with the developed adaptive algorithm 4D-ResidMod (300it).
+No subsets were used for the reconstructions performed in this work.
+The adaptive reconstruction algorithm was evaluated using the 2 and 3 most significant PCA components as RBFs, referred to as 4D-ResidMod-2RBF and 4D-ResidMod-3RBF respectively. We also implemented a version of the adaptive algorithm with the addition of temporal Gaussian smoothing of 62s FWHM applied on the residual data used for PCA analysis in step (5) of the algorithm, referred as reconstruction 4D-ResidMod-3RBF-Tempfilt.
 
-All reconstructions were performed with the open source reconstruction platform CASToR~\cite{Merlin2018}, using PSF modelling and TOF information. Correction for motion has not been included in the reconstructions. PCA analysis was performed using the Eigen library~\cite{eigenweb}. 
+All reconstructions were performed with the open source reconstruction platform CASToR~\cite{Merlin2018}, using resolution modelling and TOF information. Correction for motion has not been included in the reconstructions. PCA analysis was performed using the Eigen library~\cite{eigenweb}. 
 
 \section{Results}
 As seen in Fig.~\ref{fig:Frame14Differences} (top row) by the difference in activity estimates from 3D and 4D reconstruction in a late frame, the 4D algorithm with the spectral model alone resulted in lower activity estimates over the bladder region and higher activity estimates in some large blood vessels at the shoulders and pelvic regions. No noticeable differences were seen in other areas, apart from random variations in activity due to differences in noise levels of the compared reconstructions.
