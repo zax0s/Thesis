@@ -75,14 +75,14 @@ Since physiological kinetic processes, whether sufficiently modelled or not, are
 \begin{figure} [!htbp]
 \centering
 \includegraphics[scale=0.64,angle=0]{3_Results/3_4_Residual/figures/TACs.png}
-\caption{Average and standard deviation time curves of the liver and bladder VOIs, for the comparison of 3D to 4D reconstruction results as well as 4D reconstruction with residual modeling using different number of residual basis functions.} 
+\caption{Average and standard deviation time curves of the liver and bladder VOIs, for the comparison of 3D to 4D reconstruction results as well as 4D reconstruction with residual modelling using different number of residual basis functions.} 
 \label{fig:TACs}
 \end{figure}
 
 \begin{figure} [!htbp]
 \centering
 \includegraphics[scale=0.74 ,angle=0]{3_Results/3_4_Residual/figures/TACsFilt.png}
-\caption{Average and standard deviation time curves of the dome of the liver the whole liver and bladder VOIs, for the comparison of 4D reconstruction with residual modeling with and without temporal filtering of residuals.} 
+\caption{Average and standard deviation time curves of the dome of the liver the whole liver and bladder VOIs, for the comparison of 4D reconstruction with residual modelling with and without temporal filtering of residuals.} 
 \label{fig:TACsFilt}
 \end{figure}
 
@@ -119,7 +119,7 @@ In this work we conclude that the use of the secondary adaptive model based on P
 
 In this work, we presented the application of a previously suggested method for adaptive residual modelling in dynamic reconstruction to reduce errors that arise from poorly modelled regions. As the spectral model is quite generic in the assumptions of underlying model behaviour, by only assuming a generic compartmental model structure and a single input function, the use of a generic adaptive modelling approach can be included in the reconstruction to model processes that do not fall in these assumptions while maintaining overall genericity. 
 Although spatial and temporal filtering in pre-treatment of residual data successfully avoided the fitting of motion induced residuals, these types of residuals should ideally not be considered as model errors since they involve motion of the areas described within each voxel's TAC. Motion correction can be easily integrated in the dynamic reconstruction with adaptive modelling, and should be performed when reliable motion estimations are available. Nevertheless, temporal filtering did reduce the induction of noise by the residual modelling process and thus can still be considered for general use even with motion corrected data.
-Another limitation in adaptive modelling within multi-bed dynamic reconstruction is that each bed position is sampled at different time points. In our implementation PCA analysis was performed in a bed-by-bed basis, which enforced the use of individual bed dynamic reconstruction. Subsequently, for the application presented in the included conference record, the reconstructed images of each bed were combined after reconstruction using weighted averaging. Further considerations are required for extracting residual information over different regions of the DWB scan, with attention to structures giving rise to residuals that fall in the overlap regions, to enable the use of this approach with direct multi-bed reconstruction. Segmentation approaches on residual space, previously proposed for residual modeling~\cite{Germino2016}, could be employed for the extensions of residual modelling in direct multi-bed dynamic reconstruction.
+Another limitation in adaptive modelling within multi-bed dynamic reconstruction is that each bed position is sampled at different time points. In our implementation PCA analysis was performed in a bed-by-bed basis, which enforced the use of individual bed dynamic reconstruction. Subsequently, for the application presented in the included conference record, the reconstructed images of each bed were combined after reconstruction using weighted averaging. Further considerations are required for extracting residual information over different regions of the DWB scan, with attention to structures giving rise to residuals that fall in the overlap regions, to enable the use of this approach with direct multi-bed reconstruction. Segmentation approaches on residual space, previously proposed for residual modelling~\cite{Germino2016}, could be employed for the extensions of residual modelling in direct multi-bed dynamic reconstruction.
 
 \section{Conclusion}
 To improve on estimation over the bladder, an adaptive residual model was used in dynamic reconstruction of DWB data, which showed promising results of selectivity and modelling of the errors. Further work is required to enable the use of data-driven adaptive modelling approaches for direct multi-bed reconstruction on the DWB setup. 
