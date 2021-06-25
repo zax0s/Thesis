@@ -237,10 +237,8 @@ In particular, the extrapolated model is unable to reproduce the early peak, as 
 
 \subsection{Direct WB parametric image estimation from 4D Spectral reconstructions}
 Using the set of equations~\ref{eqn:AllSpectralEqns} and specifically the equation for the derivation of $K_1$, the parametric maps of $K_1^{*}$ were produced by summation of basis $(\phi_0-\phi_{M-1})$. Similar to the simulation study before, the blood fraction correction was neglected in favour of avoiding voxel-to-voxel division and induction of excessive image noise. The result parametric maps for both \textit{CTRL} and \textit{RIF} scans are shown in figure~\ref{fig_3_3:IsotoPK_K1_MIP} and figure~\ref{fig_3_3:IsotoPK_K1_SingleSlice}, as a \gls{mip} in the coronal plane and as a single coronal slice showing the liver, the kidneys and the spleen.
-Mean VOI $K_1^{*}$ values, shown in figure~\ref{fig_3_3:IsotoPK_K1_drop}, show a considerable reduction from the \textit{CTRL} to the \textit{RIF} scan by the administration of the inhibitor.
 
-The results of the dual input simulation study, given in appendix~\ref{chap:AppendixC}, indicate that accurate quantification of $K_1$ (or $K_1^{*}$) in the liver using only the arterial input function as an input is not achievable as expected. 
-But the simulation showed that a relative comparison of spectral model $K_1^{*}$ estimates reflects approximately linearly the differences of the true underlying $K_1$, without the explicit need for modelling the dual input function.
+Mean VOI $K_1^{*}$ values, shown in figure~\ref{fig_3_3:IsotoPK_K1_drop}, show a considerable reduction from the \textit{CTRL} to the \textit{RIF} scan by the administration of the inhibitor. This drop reflects the difference between specific and non-specific uptake of the novel Glyburide tracer in the various imaged organs, with the strongest apparent difference seen in the liver.
 
 \begin{figure} [h!]
 \centering
@@ -263,14 +261,15 @@ But the simulation showed that a relative comparison of spectral model $K_1^{*}$
 \label{fig_3_3:IsotoPK_K1_drop}
 \end{figure} 
 
+The results of a short dual input simulation study, given in appendix~\ref{chap:AppendixC}, indicate that accurate quantification of $K_1$ (or $K_1^{*}$) in the liver using only the arterial input function as an input is not achievable as expected. 
+But the simulation showed that a relative comparison of spectral model $K_1^{*}$ estimates reflects approximately linearly the differences of the true underlying $K_1$, without the explicit need for modelling the dual input function.
+Further investigations are needed in the use of the spectral model within the liver, starting from simple mathematical formulations of the problem before testing further using PET simulated data or the real data. In any case, knowledge or valid assumptions on the rate of dispersion and the ratio of portal to arterial blood in the liver can be advantageous as they would reduce the number of unknown parameters. Furthermore, joint estimation approaches in the estimation of parameters in the liver could be assessed for uses in WB dynamic studies.
+
 \subsection{Fit errors and error propagation}
 \label{sub_section:residuals}
 As seen in figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}, the mismatch between the 3D and 4D spectral reconstructions at the bladder TAC is the strongest from all the evaluated VOIs. The source of this error is the inability of the spectral model to fit the bladder filling process, by any combination of the decaying exponentials convolved with the arterial input function. This mishmash is of particular concern for dynamic reconstruction as it can be the source of errors that propagate spatially during the dynamic reconstruction process over the entire field of view~\cite{Kotasidis2014c,Kotasidis2016a}. 
 This issue is addressed further in the work presented in chapter~\ref{Chap3_4:Residual} by use of adaptive residual modelling for dynamic reconstruction.
 
-%\cleardoublepage
-%\include{3_Results/3_3_DWB_Reconstruction/MIC2020/mic_summary_pe2i_2016_cc}
-%\includepdf[pages=-,pagecommand={}]{3_Results/3_3_DWB_Reconstruction/MIC2020/Whole_Body_dynamic_PET_direct_4D_reconstruction_with_adaptive_modelling__Conference_Record_.pdf}
 \section{Discussion}
 
 We have developed and presented a framework for direct multi-bed dynamic reconstruction of DWB data, that allows for synchronous use of both DSB and DWB PET raw data, typically acquired in dynamic studies over the whole body~\cite{Karakatsanis2013}. 
