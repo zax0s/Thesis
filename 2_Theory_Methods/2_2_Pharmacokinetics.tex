@@ -1,6 +1,5 @@
 % Brief introduction with 
-\Gls{pet} is a quantitative imaging technique that makes use of 
-positron-emitting radionuclides for the study of biochemical and physiological processes \textit{in vivo}. The molecules of interest for the processes under study are labelled with a radionuclide and then introduced in the body. The PET imaging system provides information about the distribution of the labelled molecules \textit{in vivo} over time and can be used to deduce information about the underlying process kinetics. 
+\Gls{pet} makes use of positron-emitting radionuclides for the study of biochemical and physiological processes \textit{in vivo}. The molecules of interest for the processes under study are labelled with a radionuclide and then introduced in the body. The PET imaging system provides information about the distribution of the labelled molecules \textit{in vivo} over time and can be used to deduce information about the underlying process kinetics. 
 
 \section{Principles of pharmacokinetic modelling}
 Pharmacokinetics refers to the study of absorption, distribution, metabolism and excretion of drugs in living systems. The study of pharmacokinetics is based on measurements of the concentration of drugs and their metabolites in tissues over time. Pharmacokinetic models are mathematical relationships, derived from prior knowledge or previous observations, which can be tested against the measurements in order to describe the underlying behaviour. These models describe the transport and binding rates of tracer from local concentration differences across boundaries, that can be either physical (such as a membrane or an organ outline) or conceptual boundaries as for example between bound and unbound tracer. These boundaries define separate compartments with distinct activity concentration which form the basis of pharmacokinetic models, also referred to as compartmental models.
@@ -91,13 +90,14 @@ C_T(t) =  C_F(t) + C_B(t) = K_1 ( e^{-(k_2+k_3)t} + \frac{k_3}{k_2+k_3}(1-e^{-(k
 
 The parameters $K_1$, $k_2$ and $k_3$, which are referred to as micro-parameters, can be estimated by fitting equation~\ref{eqn:2TCM} on measured \gls{tac} data. 
 
-A parameter of interest for clinical studies is the influx rate constant $K_i$, given by equation~\ref{eqn:FDG_Ki}. This is considered as a macro-parameter of the system and can be understood as the proportion of flux $K_1$ that results in trapped tracer. 
+A parameter of interest for clinical studies is the influx rate constant $K_i$, given by equation~\ref{eqn:FDG_Ki}. This is considered as a macro-parameter of the system and can be understood as the proportion of flux $K_1$ that results in trapped tracer.
 
 \begin{equation}
-K_i = \frac{K_1 k_3}{k_2+k_3}
+K_i = \frac{K_1 k_3}{k_2+k_3} . 
 \label{eqn:FDG_Ki}
 \end{equation}
 
+The $K_i$ is related to the glucose metabolic rate 
 
 \section{Gjedde-Patlak linearisation method}
 Direction estimation of model micro-parameters, such as those of equation~\ref{eqn:2TCM}, requires non-linear fitting optimization procedures. These are commonly time consuming and their estimations are heavily susceptible to noise.
