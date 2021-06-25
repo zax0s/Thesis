@@ -697,19 +697,15 @@ volume = {35},
 year = {2011}
 }
 
-@article{Matthews2010,
-abstract = {Direct application of the expectation maximisation (EM) algorithm to the spatiotemporal maximum likelihood problem results in a convenient separation of the image based problem from the projection based problem. This enables any spatiotemporal 4D image model to be incorporated into MLEM image reconstruction with relative ease, only requiring tailored calculation of the fitting weights. As a preliminary example, assessment using direct estimation of spectral analysis coefficients is presented, exploiting an image based non-negative least squares algorithm, where a specially-weighted least squares update is equivalent to the required update towards the maximum likelihood estimate. The proposed approach demonstrates a reduced root mean square error (RMSE) in the estimates of volume of distribution. Future work will include the exploration of alternative spatiotemporal models.},
-author = {Matthews, Julian C. and Angelis, Georgios I. and Kotasidis, Fotis A. and Markiewicz, Pawel J. and Reader, Andrew J.},
-doi = {10.1109/NSSMIC.2010.5874225},
-file = {:C\:/Users/chalampalakis/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Matthews et al. - 2010 - Direct reconstruction of parametric images using any spatiotemporal 4D image based model and maximum likelihood.pdf:pdf},
-isbn = {9781424491063},
-issn = {10957863},
-journal = {IEEE Nuclear Science Symposium Conference Record},
-mendeley-groups = {PhD/Andrew Reader/Nested,Thesis,Thesis/Reconstruction/4DReview},
-number = {4},
-pages = {2435--2441},
-title = {{Direct reconstruction of parametric images using any spatiotemporal 4D image based model and maximum likelihood expectation maximisation}},
-year = {2010}
+@inproceedings{Matthews2010,
+  doi = {10.1109/nssmic.2010.5874225},
+  url = {https://doi.org/10.1109/nssmic.2010.5874225},
+  year = {2010},
+  month = oct,
+  publisher = {{IEEE}},
+  author = {J C Matthews and G I Angelis and F A Kotasidis and P J Markiewicz and A J Reader},
+  title = {Direct reconstruction of parametric images using any spatiotemporal 4D image based model and maximum likelihood expectation maximisation},
+  booktitle = {{IEEE} Nuclear Science Symposuim {\&} Medical Imaging Conference}
 }
 
 @article{Wang2013,
@@ -1778,23 +1774,14 @@ year = {2015}
 }
 
 @incollection{Zhou2020,
-abstract = {Gating is commonly used in PET imaging to reduce respiratory motion blurring and facilitate more sophisticated motion correction methods. In the applications of low dose PET, however, reducing injection dose causes increased noise and reduces signal-to-noise ratio (SNR), subsequently corrupting the motion estimation/correction steps, causing inferior image quality. To tackle these issues, we first propose a Siamese adversarial network (SAN) that can efficiently recover high dose gated image volume from low dose gated image volume. To ensure the appearance consistency between the recovered gated volumes, we then utilize a pre-trained motion estimation network incorporated into SAN that enables the constraint of gate-to-gate (G2G) consistency. With high-quality recovered gated volumes, gate-to-gate motion vectors can be simultaneously outputted from the motion estimation network. Comprehensive evaluations on a low dose gated PET dataset of 29 subjects demonstrate that our method can effectively recover the low dose gated PET volumes, with an average PSNR of 37.16 and SSIM of 0.97, and simultaneously generate robust motion estimation that could benefit subsequent motion corrections.},
-archivePrefix = {arXiv},
-arxivId = {2009.06757},
-author = {Zhou, Bo and Tsai, Yu-Jung and Liu, Chi},
-booktitle = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
-doi = {10.1007/978-3-030-59728-3_72},
-eprint = {2009.06757},
-file = {:C\:/Users/chalampalakis/Downloads/2009.06757.pdf:pdf},
-isbn = {9783030597276},
-issn = {16113349},
-keywords = {Denoising,Low-dose Gated PET,Motion correction,Motion estimation},
-mendeley-groups = {PhD/FinallDiscussion},
-pages = {743--752},
-title = {{Simultaneous Denoising and Motion Estimation for Low-Dose Gated PET Using a Siamese Adversarial Network with Gate-to-Gate Consistency Learning}},
-url = {https://link.springer.com/10.1007/978-3-030-59728-3_72},
-volume = {12267 LNCS},
-year = {2020}
+  doi = {10.1007/978-3-030-59728-3_72},
+  url = {https://doi.org/10.1007/978-3-030-59728-3_72},
+  year = {2020},
+  publisher = {Springer International Publishing},
+  pages = {743--752},
+  author = {Bo Zhou and Yu-Jung Tsai and Chi Liu},
+  title = {Simultaneous Denoising and Motion Estimation for Low-Dose Gated {PET} Using a Siamese Adversarial Network with Gate-to-Gate Consistency Learning},
+  booktitle = {Medical Image Computing and Computer Assisted Intervention {\textendash} {MICCAI} 2020}
 }
 
 @article{Jiao2017,
@@ -1973,18 +1960,15 @@ year = {2013}
    url =       {http://gen.lib.rus.ec/book/index.php?md5=1f452e73c3ef0cb6e48448790df2cbc9}
 }
 
-@article{Gallezot2018,
-abstract = {Direct Expectation-Maximization (EM) reconstruction of parametric images from PET data has been proposed, to take advantage of the known Poisson character of raw PET data. However, direct reconstruction algorithms are then dependent on the properties of the kinetic model and of the radiotracer used. Moreover, the first direct EM reconstruction algorithm proposed, the Parametric Iterative Reconstruction (PIR) algorithm, based on the Patlak plot, converges slowly when applied to [^{18\mathrm{F}}]FDG data. Thus, alternative algorithms have been proposed to accelerate convergence. In this study, we propose additional strategies to improve the PIR algorithm. One strategy is to use a line search procedure to increase the size of steps taken at each iteration (PIR-LS). Another group of strategies is to apply physiological constraints (PIR-PC) on the intercept parameter of the Patlak plot, since this parameter has a small dynamic range and is more stable across subjects and across physiological and disease states. The third strategy is to apply a linear transform to the independent variables of the Patlak model (PIR-LTIV) to obtain new independent variables more favorable for convergence. PIR-LS, PIR-PC and PIR-LTIV were first compared to PIR and the Nested EM algorithm on simulated 2D data. Results showed that all new methods could increase the convergence speed of PIR, with PIR-LTIV having the fastest convergence among the new methods, and similar to that of the Nested EM algorithm. Then, PIR and PIR-LS were compared using a simulated dynamic brain dataset, PIR andPIR-PC were compared on a real lung tumor data set, and PIR-LTIV was tested on simulated brain data, real brain data, and the real lung tumor dataset. These data confirmed that all new methodscould increase PIR convergence, with PIR-LTIV being the most promising since convergence speed was visually similar to that of indirect reconstructions, with lower image noise.},
-author = {Gallezot, Jean Dominique and Lu, Yihuan and Fontaine, Kathryn and Liu, Chi and Carson, Richard E.},
-doi = {10.1109/NSSMIC.2017.8532674},
-file = {:C\:/Users/chalampalakis/Downloads/339f638942c3ba614d3bca1440cd29ad.pdf:pdf},
-isbn = {9781538622827},
-journal = {2017 IEEE Nuclear Science Symposium and Medical Imaging Conference, NSS/MIC 2017 - Conference Proceedings},
-mendeley-groups = {Thesis},
-number = {7},
-pages = {0--4},
-title = {{Strategies to Improve Direct em Patlak Reconstructions}},
-year = {2018}
+@inproceedings{Gallezot2018,
+  doi = {10.1109/nssmic.2017.8532674},
+  url = {https://doi.org/10.1109/nssmic.2017.8532674},
+  year = {2017},
+  month = oct,
+  publisher = {{IEEE}},
+  author = {Jean-Dominique Gallezot and Yihuan Lu and Kathryn Fontaine and Chi Liu and Richard E Carson},
+  title = {Strategies to Improve Direct {EM} Patlak Reconstructions},
+  booktitle = {2017 {IEEE} Nuclear Science Symposium and Medical Imaging Conference ({NSS}/{MIC})}
 }
 
 @article{Zuo2019,
@@ -2042,16 +2026,14 @@ year = {2005}
 }
 
 @incollection{Watson1996,
-abstract = {3D PET emission data acquired without interplane septa contain a component of scattered radiation which may exceed 30\% for brain scans and 50\% for chest studies. In order to obtain quantitative images by means of conventional 3D reconstruction algorithms, correction for this scatter component is essential. To this end, we have developed and implemented a single scatter simulation technique for scatter correction which is closely integrated with standard 3D filtered backprojection reconstruction. In this paper we describe this technique, and present scatter correction results from phantom studies.},
-author = {Watson, C. C. and Newport, D. and Casey, M. E.},
-doi = {10.1007/978-94-015-8749-5_18},
-file = {:C\:/Users/chalampalakis/Downloads/watson1996.pdf:pdf},
-mendeley-groups = {PhD/PET introduction},
-pages = {255--268},
-title = {{A Single Scatter Simulation Technique for Scatter Correction in 3D PET}},
-booktitle = {{A Single Scatter Simulation Technique for Scatter Correction in 3D PET}},
-url = {http://link.springer.com/10.1007/978-94-015-8749-5_18},
-year = {1996}
+  doi = {10.1007/978-94-015-8749-5_18},
+  url = {https://doi.org/10.1007/978-94-015-8749-5_18},
+  year = {1996},
+  publisher = {Springer Netherlands},
+  pages = {255--268},
+  author = {C. C. Watson and D. Newport and M. E. Casey},
+  title = {A Single Scatter Simulation Technique for Scatter Correction in 3D {PET}},
+  booktitle = {Computational Imaging and Vision}
 }
 
 @inproceedings{cherry2004pet,
@@ -2226,18 +2208,14 @@ year = {2020}
 }
 
 @article{Liu2021,
-abstract = {Purpose: To investigate the feasibility of ultra-low-activity total-body positron emission tomography (PET) dynamic imaging for quantifying kinetic metrics of 2-[18F]-fluoro-2-deoxy-D-glucose (18F-FDG) in normal organs and to verify its clinical relevance with full-activity imaging. Methods: Dynamic total-body PET imaging was performed in 20 healthy volunteers, with eight using full activity (3.7 MBq/kg) of 18F-FDG and 12 using 10× activity reduction (0.37 MBq/kg). Image contrast, in terms of liver-to-muscle ratio (LMR), liver-to-blood ratio (LBR), and blood-to-muscle ratio (BMR) of radioactivity concentrations were assessed. A two-tissue compartment model was fitted to the time-to-activity curves in organs based on regions of interest (ROIs) delineation using PMOD, and constant rates (k1, k2, and k3) were generated. Kinetic constants, corresponding coefficients of variance (CoVs), image contrast, radiation dose, prompt counts, and data size were compared between full- and low-activity groups. Results: All constant rates, corresponding CoVs, and image contrast in different organs were comparable with none significant differences between full- and ultra-low-activity groups. PET images in the ultra-low-activity group generated significantly lower effective radiation dose (median, 0.419 vs. 4.886 mSv, P < 0.001), reduced prompt counts (median, 2.79 vs. 55.68 billion, P < 0.001), and smaller data size (median, 71.11 vs. 723.18 GB, P < 0.001). Conclusion: Total-body dynamic PET imaging using 10× reduction of injected activity could achieve relevant kinetic metrics of 18F-FDG and comparable image contrast with full-activity imaging. Activity reduction results in significant decrease of radiation dose and data size, rendering it more acceptable and easier for data reconstruction, transmission, and storage for clinical practice.},
-author = {Liu, Guobing and Hu, Pengcheng and Yu, Haojun and Tan, Hui and Zhang, Yiqiu and Yin, Hongyan and Hu, Yan and Gu, Jianying and Shi, Hongcheng},
-doi = {10.1007/s00259-020-05173-3},
-file = {:C\:/Users/chalampalakis/Downloads/Liu2021_Article_Ultra-low-activityTotal-bodyDy.pdf:pdf},
-issn = {16197089},
-journal = {European Journal of Nuclear Medicine and Molecular Imaging},
-keywords = {2-[18F]-fluoro-2-deoxy-D-glucose (18F-FDG),Dynamic imaging,Low-activity imaging,Positron emission tomography (PET),Total-body imaging},
-mendeley-groups = {PhD/PET introduction},
-number = {180},
-publisher = {European Journal of Nuclear Medicine and Molecular Imaging},
-title = {{Ultra-low-activity total-body dynamic PET imaging allows equal performance to full-activity PET imaging for investigating kinetic metrics of 18F-FDG in healthy volunteers}},
-year = {2021}
+  doi = {10.1007/s00259-020-05173-3},
+  url = {https://doi.org/10.1007/s00259-020-05173-3},
+  year = {2021},
+  month = jan,
+  publisher = {Springer Science and Business Media {LLC}},
+  author = {Guobing Liu and Pengcheng Hu and Haojun Yu and Hui Tan and Yiqiu Zhang and Hongyan Yin and Yan Hu and Jianying Gu and Hongcheng Shi},
+  title = {Ultra-low-activity total-body dynamic {PET} imaging allows equal performance to full-activity {PET} imaging for investigating kinetic metrics of 18F-{FDG} in healthy volunteers},
+  journal = {European Journal of Nuclear Medicine and Molecular Imaging}
 }
 
 @article{Filipovic_2019,
@@ -2256,20 +2234,14 @@ year = {2021}
 }
 
 @article{Slart2021,
-abstract = {In this contribution, several opportunities and challenges for long axial field of view (LAFOV) PET are described. It is an anthology in which the main issues have been highlighted. A consolidated overview of the camera system implementation, business and financial plan, opportunities and challenges is provided. What the nuclear medicine and molecular imaging community can expect from these new PET/CT scanners is the delivery of more comprehensive information to the clinicians for advancing diagnosis, therapy evaluation and clinical research.},
-author = {Slart, Riemer H. J. A. and Tsoumpas, Charalampos and Glaudemans, Andor W. J. M. and Noordzij, Walter and Willemsen, Antoon T. M. and Borra, Ronald J. H. and Dierckx, Rudi A. J. O. and Lammertsma, Adriaan A.},
-doi = {10.1007/s00259-021-05461-6},
-file = {:C\:/Users/chalampalakis/Downloads/Slart2021_Article_LongAxialFieldOfViewPETScanner.pdf:pdf},
-isbn = {0025902105},
-issn = {1619-7070},
-journal = {European Journal of Nuclear Medicine and Molecular Imaging},
-keywords = {Diagnosis,Field of view,PET,diagnosis,field of view,financial,implementation,opportunities,pet},
-mendeley-groups = {PhD/Total-Body PET},
-number = {0123456789},
-publisher = {Springer Berlin Heidelberg},
-title = {{Long axial field of view PET scanners: a road map to implementation and new possibilities}},
-url = {https://doi.org/10.1007/s00259-021-05461-6},
-year = {2021}
+  doi = {10.1007/s00259-021-05461-6},
+  url = {https://doi.org/10.1007/s00259-021-05461-6},
+  year = {2021},
+  month = jun,
+  publisher = {Springer Science and Business Media {LLC}},
+  author = {Riemer H. J. A. Slart and Charalampos Tsoumpas and Andor W. J. M. Glaudemans and Walter Noordzij and Antoon T. M. Willemsen and Ronald J. H. Borra and Rudi A. J. O. Dierckx and Adriaan A. Lammertsma},
+  title = {Long axial field of view {PET} scanners: a road map to implementation and new possibilities},
+  journal = {European Journal of Nuclear Medicine and Molecular Imaging}
 }
 
 @article{Leahy2018,
@@ -2313,14 +2285,15 @@ volume = {61},
 year = {2016}
 }
 
-@article{Chalampalakis2019,
-author = {Chalampalakis, Zacharias and Stute, Simon and Filipovi, Marina and Merlin, Thibaut and Comtat, Claude},
-file = {:C$\backslash$:/Users/zc256224/AppData/Local/Mendeley Ltd./Mendeley Desktop/Downloaded/Chalampalakis et al. - 2019 - Whole-Body dynamic PET Effect of temporal gaps on FDG Ki quantification from 3D and 4D reconstruction algo.pdf:pdf},
-isbn = {9781728141640},
-mendeley-groups = {PhD/MIC2020},
-pages = {2019--2021},
-title = {{Whole-Body dynamic PET: Effect of temporal gaps on FDG Ki quantification from 3D and 4D reconstruction algorithms}},
-year = {2019}
+@inproceedings{Chalampalakis2019,
+  doi = {10.1109/nss/mic42101.2019.9059840},
+  url = {https://doi.org/10.1109/nss/mic42101.2019.9059840},
+  year = {2019},
+  month = oct,
+  publisher = {{IEEE}},
+  author = {Zacharias Chalampalakis and Simon Stute and Marina Filipovic and Thibaut Merlin and Claude Comtat},
+  title = {Whole-Body dynamic {PET}: Effect of temporal gaps on {FDG} Ki quantification from 3D and 4D reconstruction algorithms},
+  booktitle = {2019 {IEEE} Nuclear Science Symposium and Medical Imaging Conference ({NSS}/{MIC})}
 }
 
 @article{Matthews2012,
