@@ -21,7 +21,7 @@ For the design of the framing used in the IsotoPK DWB protocol, the following em
 where $n_s$ is the number of beds in the acquisition, $t_{duration}$ is the frame duration for a single bed of the WB sweep, $dl_{bed}$ the delays between adjacent beds and $dl_{Sweep}^{(n_s)}$ the delay between WB sweeps (for a DWB protocol of $n_s$ bed positions). This relationship is based on the assumption that all beds in a WB sweep have the same frame duration.
 First estimations of the delay times for the Signa PET/MR had shown a delay of approximately 6 seconds between adjacent bed positions and 20 seconds between WB sweeps. Using this information, the framing sequence shown in table~\ref{tab:IsotoPK_Framing} was chosen with the shortest frame duration set to 20 seconds in order to maintain a DAR below 50\% at the early phases of the DWB study. 
 
-\begin{table}[h!]
+\begin{table}[ht!]
 \centering
 \caption{Framing of IsotoPK DWB protocol.}
 \label{tab:IsotoPK_Framing}

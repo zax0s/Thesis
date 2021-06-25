@@ -51,7 +51,7 @@ On the other hand, the 511 \si{k\electronvolt} photons have fewer chances of int
 
 The two most probable interactions for photons of 511~\si{k\electronvolt} in tissue are photoelectric absorption and Compton scattering. In photoelectric absorption, the photon is completely absorbed while interacting with an atomic electron of the inner shell, to which it provides all of its energy. In Compton scattering, the photon interacts with an atomic electron of an outer shell, to which it passes part of its energy. This scattering process results in a change of direction and reduction of the energy of the original photon, while the loosely bound electron is ejected from the interacting atom. Between the two processes, the Compton effect is the dominant interaction for 511~\si{k\electronvolt} photons in tissue. Elastic scattering (Rayleigh scattering) is another interacting process in which no loss of energy occurs and the direction of the incident photon is changed by a relatively small angle. This interaction is more dominant in lower energies than 511~\si{k\electronvolt} photons.
 %
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/Interactions.pdf}
 \caption{Illustration of the described interactions. (A) No interaction resulting in transmission of photon. (B) Photoelectric absorption from inner shell electron, resulting in its ejection and followed by an inner electron transition and characteristic X-Ray emission. (C) Elastic (Rayleigh) scattering conserving the energy of the photons but resulting in small angle change in direction. (D) Compton scattering with outer shell electron resulting to change of energy and direction of incident photon. Adapted from \textit{Seibert et al.}~\cite{Seibert2005}.} 
@@ -67,7 +67,7 @@ where $\mu$ is the linear attenuation coefficient (in cm$^{-1}$). This factor ac
 %
 %Specifically for \gls{pet} where we are interested in the detection of both annihilation photons, the attenuation in the direction of the photon pair can be summed up, resulting in a factor that is independent of the depth of the annihilation and is only depended of the attenuation coefficient of the tissues or materials crossed by the line connecting the two photon detections and the total length of the line within the body, as shown in figure~\ref{fig_2:511_attenuation}~\cite{Phelps1975}. 
 %
-%\begin{figure} [h!]
+%\begin{figure} [ht!]
 %\centering
 %\includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/Phelps_LOR_attenuation_correction.png}
 %\caption{Attenuation of LORs TODO:  to include in text ! } 
@@ -81,13 +81,13 @@ The goal of a PET imaging system is to stop and detect the annihilation photon p
 The basic component for the detection of annihilation gammas is the scintillation crystal. These are inorganic crystals that emit light (lower energy photons) upon interaction with the gammas. The amount of produced light is proportional to the energy deposited by the gamma interactions and can be used to deduce energy information of the interaction. Photosensitive detectors are coupled with the crystals to capture the produced light and output an electronic signal that can be digitally registered. Traditionally \glspl{pmt} are used in most PET systems, while some more recent systems make use of \glspl{sipm}. Depending on their mode of operation \glspl{sipm} can allow for better efficiency and response speed and can be used in conditions where \glspl{pmt} could not, such as within the MR field of PET-MR hybrid systems. More details on \gls{sipm} integration in PET/MR are given in section~\ref{sec:PET_MR_Systems}.
 %
 %\footnotetext{https://www.radiologycafe.com/radiology-trainees/frcr-physics-notes/pet-imaging}
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.28,angle=0]{2_Theory_Methods/figures/block_detector.png}
 \caption{Example illustration of PMT based block detector diagram and their placement within a PET ring (Adapted from www.radiologycafe.com) } 
 \label{fig_2:BlockDetectorAndRing}
 \end{figure} 
-%\begin{figure} [h!]
+%\begin{figure} [ht!]
 %\centering
 %\includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/SignaPETMR_Integrated_System.png}
 %\caption{Schematic of an hybrid PET-MR system with, comprising of detector module units (bottom) in a ring formation within the MR RF body coil (top)~\cite{Levin2016}.} 
@@ -106,7 +106,7 @@ The line connecting the two detectors that record the coincident event is define
 Improved timing resolution of detector systems has enabled for further information of the annihilation point to be made by capturing the detector arrival difference of the two annihilation photons. This difference can help localise the point on the \gls{lor} where the annihilation took place, within some range of uncertainty defined by the detector timing resolution. This capability of PET is referred to as \textit{time-of-flight} (TOF).
 This information, collected for each coincidence event, can then be used within the image reconstruction process for improved results, as it will be shortly described in chapter~\ref{Chap2_3:Reconstruction}.
 
-%\begin{figure} [h!]
+%\begin{figure} [ht!]
 %\centering
 %\includegraphics[scale=0.55,angle=0]{2_Theory_Methods/figures/TOF_bin.png}
 %\caption{Illustration of non-TOF (top) and TOF (bottom) information regarding the annihilation %event's position across an LOR~\cite{Conti2009}.} 
@@ -143,7 +143,7 @@ These are pre-corrected or used directly in the reconstruction process along wit
 
 
 %
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.22,angle=0]{2_Theory_Methods/figures/Bailey_Scatter_Random_events.png}
 \caption{Representation of different types of detected coincidence events. Adapted from Bailey~\textit{et al.}~\cite{Bailey2005}.} 
@@ -157,14 +157,14 @@ As described the ring formation of PET detectors is the dominant geometry used i
 With evolving detector and electronics technology, 3D acquisition became possible and is now the standard acquisition mode. 3D acquisition offers the same data as 2D acquisition and also includes all the oblique \glspl{lor} data resulting in an increase of sensitivity (4 to 6 times)~\cite{Fahey2002}. The use of oblique views leads to non-uniform sensitivity profiles in the axial direction due to the higher number of \glspl{lor} closer to the centre of the \gls{afov}, with the maximum sensitivity at the centre and a minimum at the edges of the \gls{afov}. A comparison between the 2D and 3D sensitivity profiles is shown as an example in figure~\ref{fig_2:2D3DSensitivityProfiles}.
 In addition to more coincidence events, the higher sensitivity and acceptance of single events result in an increase of randoms and scatter events, which in addition may now be originating from activity outside the \gls{afov} of the system. 
 %
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.40,angle=0]{2_Theory_Methods/figures/Phelps_2D_3D_Acquisition.pdf}
 \caption{Example illustration of LORs for 2D acquisition mode using direct and cross planes (left) and 3D  acquisition mode (right) for an 8 ring scanner with 15 axial slices. Adapted from Cherry S. and Magnus D.~\cite{cherry2004pet}} 
 \label{fig_2:2D3D}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.50,angle=0]{2_Theory_Methods/figures/2_2_2D3DSensitivityProfiles.pdf}
 \caption{Example of 2D and 3D axial sensitivity profiles, with and without maximum ring difference limits, for a scanner with 45 crystal rings which provide 45 direct and 44 cross-planes.} 
@@ -197,7 +197,7 @@ The use of sinograms is inherited from other tomographic imaging methods where d
 %In \gls{pet}, contrary to list-mode and histograms where the data are directly related to detector elements, conversion of data to sinograms requires certain processing steps to ensure 
 %As seen in figure~\ref{fig_2:Sinogram_detector_to_Sino}, parallel \glspl{lor} at a specific direction are used to form the sinogram along a particular row. The sampling of the sinogram space will depend on the size of the sinograms required, and data conversions will be required  to match the required sinogram sampling \cite{Fahey2002}. 
 %
-%\begin{figure} [h!]
+%\begin{figure} [ht!]
 %\centering
 %\includegraphics[scale=0.15,angle=0]{2_Theory_Methods/figures/Sinogram_detector_to_Sino.png}
 %\caption{Example projection through the PET field of view for a specific direction~\cite{Fahey2002}.} 
@@ -257,7 +257,7 @@ The Signa PET/MR scanner was designed based on an existing 3 Tesla MR scanner (3
 
 It is interesting to note that the latest GE PET/CT systems make use of similar detector configuration and type which provide similar performance for PET imaging~\cite{Pan2019}.
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/SignaPETMR_Integrated_System.pdf}
 \caption{Schematic of the GE Signa hybrid PET-MR system, comprising of detector module units (bottom) in a ring formation within the MR RF body coil (top)~\cite{Levin2016}.} 

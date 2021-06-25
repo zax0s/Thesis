@@ -10,7 +10,7 @@ Each "manager" component is utilising abstract classes which include a represent
 Using this strategy, generic code of basic functionalities is implemented only once while specific classes require coding of only the basic functionalities that are specific to the implementation. This allows for the development of specific classes with a minimal amount of coding, that can be used as plug-ins to the existing generic architecture. 
 An example of this design is shown in figure~\ref{fig_2_4:oProjectorManager}, with the \textit{oProjectorManager} as the main component, the \textit{vProjector} as the virtual class which includes all the generic functionalities of a projector, and finally the projector implementations which include code that calculates a projection using a specific implementation. Template classes are also provided for instructing how new implementations, of projectors in this example, can be made. 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.50,angle=0]{2_Theory_Methods/figures/oProjectorManager.pdf}
 \caption{Example of \gls{castor} abstraction design for the projection component.} 
@@ -49,7 +49,7 @@ The use of generic functions and generic datafile definition allows for the reco
 
 The platform is designed to handle three temporal levels of binning. It makes temporal binning for dynamic frames and binning in two levels of gating (for example cardiac and respiratory motions). %Alternatively, one of the two levels of gating can be used for splitting dynamic data for involuntary motion corrections.
 
-\begin{algorithm} [h!]
+\begin{algorithm} [ht!]
   \For{$i\leftarrow 1$ \KwTo nb of iterations}
   {
    \For{$j\leftarrow 1$ \KwTo nb of subsets}

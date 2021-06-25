@@ -5,14 +5,14 @@ Supplementary graphs, used in the analysis of the evaluated IsotoPK studies of c
 
 \section*{Supplementary graphs}
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_3D_Convergence.pdf}
 \caption{Liver (top) and Muscle (bottom) VOI mean versus iteration curves for 3D reconstruction. Shown for early (left) and late (right) frames of the \textit{CTRL} DWB acquisition including the DSB phase.}
 \label{fig_3_3:IsotoPK_CTRL_DWB_4D_Convergence}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_4D_Convergence.pdf}
 \caption{Liver (top) and Muscle (bottom) VOI mean versus iteration curves for 4D spectral reconstruction. Shown for early (left) and late (right) frames of the \textit{CTRL} DWB acquisition including the DSB phase.}
@@ -20,14 +20,14 @@ Supplementary graphs, used in the analysis of the evaluated IsotoPK studies of c
 \end{figure} 
 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.48,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_SpectralParams_central_.pdf}
 \caption{Spectral model coefficients average in VOIs. VOI regions shown which are included in both DSB and DWB acquisition.}
 \label{fig_3_3:IsotoPK_CTRL_DWB_Spectrals}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.48,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_SpectralParams_peripheral_.pdf}
 \caption{Spectral model coefficients average in VOIs. VOI regions shown which are covered only by the DWB acquisition.}
@@ -64,14 +64,14 @@ C_T(t) = K_1 ( e^{-(k_2+k_3)t} + \frac{k_3}{k_2+k_3}(1-e^{-(k_2+k_3)t})) \ast C_
 %
 The simulated TACs are shown in figure~\ref{fig_3_3:K1_Sims}, while the result $K_1^{*}$ values of the spectral analysis against simulated $K_1$ values are shown in~\ref{fig_3_3:K1_Sims_Results}. The results show an closely linear relationship between simulated $K_1$ and estimate $K_1^{*}$ values, with a deviation from a slope of 1. A part of this deviation is attributed to not correcting the $K_1^{*}$ values for blood fraction, but mostly it is due to unaccounted behaviour of the dual input function.
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.48,angle=0]{appendices/figures/ApendixC_multiple_K1.pdf}
 \caption{Simulation of Liver TACs, using dual input function model and varying $K_1$ values.}
 \label{fig_3_3:K1_Sims}
 \end{figure} 
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.48,angle=0]{appendices/figures/ApendixC_multiple_K1_solution.pdf}
 \caption{Result estimates of $K_1^{*}$ from spectral analysis on noiseless simulations of Liver TACs against ground truth simulated value.}

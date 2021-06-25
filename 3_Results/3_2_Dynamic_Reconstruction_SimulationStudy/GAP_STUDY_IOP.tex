@@ -178,7 +178,7 @@ With the exception of 4D Patlak reconstructions that directly output parametric 
 
 The reconstruction's namings and parameters are summarised in table~\ref{tab:ReconstructionNames} and table~\ref{tab:ReconstructionNamesTss}.
 
-\begin{table}[h!]
+\begin{table}[ht!]
 \caption{\label{tab:ReconstructionNames}Evaluated reconstruction parameters.}
 \begin{tabular}{lllll}
 \toprule
@@ -196,7 +196,7 @@ The reconstruction's namings and parameters are summarised in table~\ref{tab:Rec
 \end{tabular}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[ht!]
 \caption{\label{tab:ReconstructionNamesTss}Additional reconstructions characteristics.}
 \begin{tabular}{lll}
 \toprule
@@ -253,7 +253,7 @@ in order to be less susceptible to partial volume effects. By contrast the corte
 %
 \textcolor{blue}{The same metrics were applied to the parametric $\boldsymbol{K_1^*}$ images, for which $\theta_{j}$ represents the parametric image $K_1^*$ value for voxel $j$ and $\theta_{VOI}^{GT}$ the ground truth $K_1$ values.}
 
-\begin{table}[h!]
+\begin{table}[ht!]
 \centering
 \caption{\label{tab:GTvalues}$\theta_{VOI}^{GT}$ and true $K_i$ values for the simulated acquisition protocols ($\mathrm{min}^{-1}$).}
 \begin{tabular}{lllllll}
@@ -342,7 +342,7 @@ Nevertheless the use of a single run of NNLS optimization in each nested loop, i
 \end{figure} 
 % Simulation: Eroded thalamus $K_i$ RMS Bias vs. RMS CoV for 4D reconstructions, with MLEM and NNLS nested optimization
 
-\begin{table}[h!]
+\begin{table}[ht!]
 \centering
 \caption{\label{tab:ReconTimes}Average reconstruction times for 1 full iteration (28 subsets) over DWB-1 data using CASToR.}
 \begin{tabular}{lll}
@@ -397,7 +397,7 @@ Parametric $K_i$ images from 3D and 4D reconstructions with TOF at iterations wi
 \label{fig:RealData_CNR_CoVBias}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.28,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/RealData/3_5_RealDataExample.png}
 \caption{Real Data: Parametric $K_i$ images (with 5mm Gaussian Filtering) from SB and DWB replay datasets from 3D and 4D reconstructions, using TOF information, at matched SD values over the liver.} 
@@ -421,7 +421,7 @@ Parametric $K_i$ images of 3D and 4D reconstructions at matched RMS CoV values, 
 \label{fig:3_2_SingleReplicateMeanCov}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.47,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/BrainCuts/BrainCuts.pdf}
 \caption{Single slice through parametric $K_i$ images of one noise replicate (with 3mm Gaussian Filtering) (top) and their corresponding Bias images (over noise replicates) (bottom) from SB and DWB data 3D and 4D reconstructions at matched RMS CoV in the eroded thalamus.}
@@ -448,7 +448,7 @@ Parametric $\boldsymbol{K_1^*}$ images of the evaluated acquisition protocols at
 \label{fig:K1_SB_WB4}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.47,angle=0]{3_Results/3_2_Dynamic_Reconstruction_SimulationStudy/figures/BrainCuts/K1_BrainCuts.pdf}
 \caption{Single slice through parametric $K_1^*$ images of one noise replicate (with 3mm Gaussian Filtering) (top) and their corresponding Bias images (over noise replicates) (bottom) from SB and DWB data, for 4D Spectral reconstructions at matched RMS CoV in the eroded thalamus.}

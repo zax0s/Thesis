@@ -16,14 +16,14 @@ A diagram of axial position against time for an example three bed position DWB p
 As it can be seen at the left diagram of figure~\ref{fig_3_3:OverlapFraming} axial positions that fall outside of the overlap region result in framing that is equal to the framing of their respective bed positions. Positions over the overlap regions, seen at the right diagram of figure~\ref{fig_3_3:OverlapFraming}, result in framing equal to that of both adjacent bed positions, which gives twice the number of frames compared to locations outside the overlap. Locations at the overlap regions are not sampled continuously from both contributing bed positions due to the interruption by the movement of the bed and system delays.  
 Finally, complexity is increased when the DSB data are included, as shown in figure~\ref{fig_3_3:CompleteProtocolFraming}, with that information contributing to different locations of the DWB acquisition that might fall in overlap regions or not depending on the protocol setup. 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.50,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/OverlapTiming.pdf}
 \caption{Axial slice number vs time for an example three bed positions DWB acquisition. Central axial slices (left) and slices at the overlapping regions (right) considered for the result framing.} 
 \label{fig_3_3:OverlapFraming}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.28,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/CompleteProtocolTiming.pdf}
 \caption{Axial slice number vs time for an example three bed positions DWB acquisition, including an initial DSB phase of 180 s.}
@@ -60,14 +60,14 @@ Individual frame reconstruction of DWB data results directly to images that acco
 Additionally, for post-reconstruction kinetic model fitting, the result sensitivity frame images can be used as a mask for the application of the dynamic model on each frame and voxel combination.
 
 %
-\begin{figure} [h!]
+\begin{figure} [ht!]
 %\centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/Macaque_3D.pdf}
 \caption{Example three frame images from a three bed DWB acquisition (NHP study of chapter~\ref{Chap3_1:AcquisitionOptimization})} 
 \label{fig_3_3:Macaque}
 \end{figure} 
 %
-\begin{figure} [h!]
+\begin{figure} [ht!]
 %\centering
 \includegraphics[scale=0.42,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/Macaque_Sensitivity.pdf}
 \caption{Example three frame sensitivity images from a three bed positions DWB acquisition.} 
@@ -131,7 +131,7 @@ Initial results on the study have shown very little metabolic activity of Glybur
 Using the fitted spectral model, the approximate $\boldsymbol{K_1^*}$ parametric images were estimated similar to the methodology used in the simulation study of chapter~\ref{Chap3_2:SimStudy}.
 In addition to the dynamic reconstructions, individual frames (3D) reconstruction was performed using the same framework and OSEM algorithm with 28 subsets.
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.42,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_PositionsOnMR.pdf}
 \caption{Planned DSB and DWB bed positions shown on coronal MRAC image, with bed start (\protect\tikz[baseline]{\protect\draw[line width=0.5mm] (0,.8ex)--++(1,0) ;}) and end (\protect\tikz[baseline]{\protect\draw[line width=0.5mm,densely dashed] (0,.8ex)--++(1,0) ;}) positions.} 
@@ -140,7 +140,7 @@ In addition to the dynamic reconstructions, individual frames (3D) reconstructio
 
 The VOIs listed in table~\ref{tab:IsotoPK_VOIs} were drawn manually and used to validated and compare the reconstruction methods.
 
-\begin{table}[h!]
+\begin{table}[ht!]
 \centering
 \caption{\label{tab:IsotoPK_VOIs} VOIs used for evaluation of DWB scans.}
 \begin{tabular}{lll}
@@ -172,28 +172,28 @@ Coronal \gls{mip} images of 3D reconstructions from the \textit{CTRL} scan are s
 Similarly, \gls{mip} images of 4D spectral reconstruction of the \textit{CTRL} scan are shown in figure~\ref{fig_3_3:IsotoPK_CTRL_DSB_4D} and figure~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D} for the same respective frames. 
 As the spectral model is applied to the image space of the entire effective FOV, the 4D reconstruction results in frame images that are estimated from the fitted model on the entire FOV. As such, activity estimates of locations that are not sampled for a given frame within the DWB scan are interpolated from the frame data of the entire DWB scan. For the frames of the DSB scan, locations that are not sampled by the single bed acquisition have activity estimates that are extrapolated from the fitted spectral model of later frames.
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.52,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DSB_3D.pdf}
 \caption{Coronal MIP image of 3D reconstruction (4it28sub) of a single frame from the DSB acquisition on the \textit{CTRL} scan}
 \label{fig_3_3:IsotoPK_CTRL_DSB_3D}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.52,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_3D.pdf}
 \caption{Coronal MIP images of 3D reconstructions (4it28sub) of a single frame per bed position from the first whole-body pass of the DWB acquisition on the \textit{CTRL} scan.}
 \label{fig_3_3:IsotoPK_CTRL_DWB_3D}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.52,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DSB_4D.pdf}
 \caption{MIP image of a single frame from 4D reconstruction (15it28sub) of the CTRL scan}
 \label{fig_3_3:IsotoPK_CTRL_DSB_4D}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.52,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_4D.pdf}
 \caption{MIP image of the first whole-body pass frames from 4D reconstruction (15it28sub) of the CTRL scan.}
@@ -208,14 +208,14 @@ As already mentioned, the 4D spectral reconstruction results in an activity esti
 For the VOIs seen by both DSB and DWB acquisitions, the TACs between 3D and 4D spectral reconstruction are in good agreement for all evaluated VOIs, as seen in~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central}. For the brain and muscle VOIs seen by the DWB acquisition alone, there is a relatively good agreement, with slight overestimation in early frames of the brain region and underestimation on later frames as seen in~\ref{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Peripheral}. By contrast, at the bladder VOI there is a strong mismatch of the 3D and 4D spectral reconstruction, with the 3D reconstruction showing clearly the bladder filling process and the 4D spectral reconstruction showing an increasing behaviour produced by the exponential functions. 
 The VOI means of the spectral parametric images are given in the appendix material, where it is seen that the component of full trapping $\phi_0$ is strongly used in the bladder region, in an attempt to fit the underlying process. But the use of the input function and the decaying exponentials is not enough to fit this process. Further considerations to this issue are addressed in the section~\ref{sub_section:residuals}.
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_3D_vs_4D_central.pdf}
 \caption{VOI mean time activity curves for 3D and 4D spectral reconstruction. VOI regions shown which are included in both DSB and DWB acquisition.}
 \label{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central}
 \end{figure}
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_3D_vs_4D_peripheral.pdf}
 \caption{VOI mean time activity curves for 3D and 4D spectral reconstruction. VOI regions shown which are covered only by the DWB acquisition, whose start time is designated with a vertical dotted line.}
@@ -228,7 +228,7 @@ A comparison between 4D spectral reconstructions, with and without the use of th
 The extrapolation of the fitted spectral model from DWB data alone can be made for the early non sampled frames. These show a sharp drop of the fitted TACs, indicating the inadequacy of the used data for extrapolation of the fast early frame behaviour and the cause for the systematic mismatch at early frames of the DWB acquisition.
 In particular, the extrapolated model is unable to reproduce the early peak, as seen clearly in the ventricle, the myocardium and the spleen, which indicates that separation between the exchange components and the blood fraction component of the spectral model is compromised when the early dynamic data are not available.
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_CTRL_DWB_4D_vs_4D_central.pdf}
 \caption{VOI mean time activity curves for 4D spectral reconstructions, with and without the use of DSB data. VOI regions shown are included in both DSB and DWB acquisitions.}
@@ -240,21 +240,21 @@ Using the set of equations~\ref{eqn:AllSpectralEqns} and specifically the equati
 
 Mean VOI $K_1^{*}$ values, shown in figure~\ref{fig_3_3:IsotoPK_K1_drop}, show a considerable reduction from the \textit{CTRL} to the \textit{RIF} scan by the administration of the inhibitor. This drop reflects the difference between specific and non-specific uptake of the novel Glyburide tracer in the various imaged organs, with the strongest apparent difference seen in the liver.
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_K1_MIPs.pdf}
 \caption{$K_1$ MIP images from the 4D spectral reconstruction using both DSB and DWB acquisitions, shown for the \textit{CTRL} and \textit{RIF} scan.}
 \label{fig_3_3:IsotoPK_K1_MIP}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_K1_SingleSlice.pdf}
 \caption{$K_1^{*}$ values as estimated from the 4D spectral reconstruction for VOI regions included in both DSB and DWB acquisitions , shown for the \textit{CTRL} and \textit{RIF} scan}
 \label{fig_3_3:IsotoPK_K1_SingleSlice}
 \end{figure} 
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.5,angle=0]{3_Results/3_3_DWB_Reconstruction/figures/3_3_IsotoPK_K1_drop.pdf}
 \caption{$K_1^{*}$ values as estimated from the 4D spectral reconstruction for VOI regions included in both DSB and DWB acquisitions , shown for the \textit{CTRL} and \textit{RIF} scan}
