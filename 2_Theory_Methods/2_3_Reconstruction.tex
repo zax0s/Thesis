@@ -26,8 +26,8 @@ For the linear model case, the set of functions describing the distribution are 
    \bm\lambda = \big\{ \lambda_j| j=1,\cdots,n_j \big\} \\.
 \end{equation}
 If we now consider the temporal domain of the activity distribution as well, the $rect$ function can be used 
-on the time domain to define a set of $n_t$ independent temporal bins (frames). Later in this chapter, we will show how dynamic models can be used to describe the behaviour of voxel values across the temporal domain, but traditional reconstruction treats frames as independent static detests.
-In this case, the activity distribution of each frame can be written as
+on the time domain to define a set of $n_t$ independent temporal bins (frames). Later in this chapter, we will show how dynamic models can be used to describe the behaviour of voxel values across the temporal domain, but traditional reconstruction treats frames as independent static datasets.
+In this case, the activity distribution of each frame $t$ can be written as
 %\begin{equation}
 %   \bm{\lambda} = \Big\{ {\bm{\lambda}_m,m=1,..,n_m} \Big\} \\,
 %\end{equation}
@@ -50,7 +50,7 @@ Forward projection of image to data space can be treated by summing contribution
 As this is a computationally heavy process in practice, different methods have been proposed that balance between accuracy and consistency and computing requirements. %A short follows list with basic description of the methods that are implemented in CASToR.
 Some of these methods, which are also implemented in the CASToR reconstruction software, are listed below with a short description.
 \begin{itemize}
-\item  \textbf{Siddon projector}~\cite{Siddon1985}: Weights the contribution of an LOR to each by the length of the line that intersects the voxel.
+\item  \textbf{Siddon projector}~\cite{Siddon1985}: Weights the contribution of an LOR to each voxel by the length of the line that intersects the voxel.
 \item  \textbf{Distance driven}~\cite{DeMan2004}: An optimised method for calculating weights by mapping pixel boundaries and detector boundaries for each projection to a common axis .
 %\item  \textbf{Incremental Siddon}~\cite{Jacobs2015}:
 \item  \textbf{Joseph}~\cite{Joseph1982}: Estimates contribution of voxels to LOR based on linear interpolation and their distance from the LOR. 
@@ -83,7 +83,7 @@ The model of the data at bin $i$ from an image $\bm{\lambda}$ can be written as 
    \hat{y_i} = \sum_{j=1}^{n_j} P_{ij} \lambda_j + b_i ,
    \label{eqn:system_model}
 \end{equation}
-where $\hat{y_i}$ is the modelled data or expectation of the data.
+where $\hat{y_i}$ is the modelled data mean.
 
 The system matrix can be decomposed to the individual contributing components as separate sparse matrices and vectors
 \begin{equation}
@@ -114,9 +114,9 @@ With the assumption that measurements of counts in each bin are independent rand
 p(\bm{y}|\bm{\hat{y}}) = L(\bm{\hat{y}}|\bm{y}) = \prod_i^{n_i} e^{-\hat{y_i}} \frac{\hat{y_i}^{y_i}}{{y_i}!} . 
 \label{eqn:probability}
 \end{equation}
-By substituting the system model equation \ref{eqn:system_model} in equation~\ref{eqn:probability}, we can write an expression of likelihood of the image $\bm{\lambda}$ given the measured data $\bm{y}$.
+By substituting the system model equation \ref{eqn:system_model} in equation~\ref{eqn:probability}, we can write an expression of likelihood of the image $\bm{\lambda}$ given the measured data $\bm{y}$
 \begin{equation}
-    L(\bm{\lambda}|\bm{y})  = \prod_i^{n_i} e^{-(\sum_{j=1}^{n_j} P_{ij} \lambda_j + b_{i} )} \frac{(\sum_{j=1}^{n_j} P_{ij} \lambda_j + b_{i} )^{y_i}}{{y_i}!}
+    L(\bm{\lambda}|\bm{y})  = \prod_i^{n_i} e^{-(\sum_{j=1}^{n_j} P_{ij} \lambda_j + b_{i} )} \frac{(\sum_{j=1}^{n_j} P_{ij} \lambda_j + b_{i} )^{y_i}}{{y_i}!} \\ . \\
 \end{equation}
 This expression can be used as the objective function in the optimisation process of seeking the most likely (ML) estimate of $\bm{\lambda}$ from a measurement $\bm{y}$ . 
 It is more convenient to take the expression of the log likelihood and since the log function is monotonic the log likelihood can be used to arrive to the same ML estimate.
@@ -126,13 +126,13 @@ The log likelihood expression is
     lnL(\bm{\lambda}|\bm{y})  = \sum_{i=1}^{n_i}\left[ y_i ln(\sum_{j=1}^{n_j} P_{ij} \lambda_j + b_i) -\sum_{j=1}^{n_j} P_{ij} \lambda_j - b_i - ln({y_i}!) \right] \\.
 \label{eqn:log_likelihood}
 \end{equation}
-This expression of the Poisson log-likelihood will be used to arrive to the maximum likelihood estimate image $\bm\lambda$, which will be noted as $\bm{\lambda}^{ML}$, that maximises the likelihood of the modelled data given the measured \mbox{data $\bm{y}$}. 
+This expression of the Poisson log-likelihood will be used to arrive to the maximum likelihood estimate image $\bm\lambda$, which will be noted as $\bm{\lambda}^{ML}$, that maximises the likelihood of the modelled data given the measured \mbox{data $\bm{y}$}
 \begin{equation}
-\bm{\lambda}^{\textrm{ML}} = \argmax{\bm{\lambda}}(lnL(\bm{\lambda}|\bm{y}))
+\bm{\lambda}^{\textrm{ML}} = \argmax{\bm{\lambda}}(lnL(\bm{\lambda}|\bm{y})) \\ . \\
 \end{equation}
 \section{Maximum Likelihood - Expectation Maximisation}
 \label{section:MLEM}
-The second partial derivative of the log-likelihood to $\lambda_j$ can be shown to be negative semidefinite to all allowed images and thus the log-likelihood function is a concave function. This means that a found local maximum through the optimisation process will be the global maximum of the function.
+The second partial derivative of the log-likelihood to $\lambda$ can be shown to be negative semidefinite to all allowed images and thus the log-likelihood function is a concave function. This means that a found local maximum through the optimisation process will be the global maximum of the function.
 
 Seeking to solve equation~\ref{eqn:log_likelihood} to find analytically the maximum likelihood image $\bm{\lambda}^{ML}$, we can take its first partial derivative to $\lambda_j$ and set it to be equal to zero. 
 \begin{equation}
@@ -142,7 +142,7 @@ Seeking to solve equation~\ref{eqn:log_likelihood} to find analytically the maxi
 but this expression has no closed form solution.
 The arrival to this expression shows the need for iterative methods to seek the $\bm{\lambda}^{\textrm{ML}}$ solution. 
 
-The most common algorithm used for this problem is the Expectation Maximisation algorithm that was first applied on statistical PET reconstruction by two key works by Shepp and Vardi~\cite{Vardi1985} and Lange and Carson~\cite{Lange1984}. In these works the solution is derived through the introduction of the "complete data" concept~\cite{Dempster1977}. \\
+The most common algorithm used for this problem is the \gls{em} algorithm that was first applied on statistical PET reconstruction by two key works by Shepp and Vardi~\cite{Vardi1985} and Lange and Carson~\cite{Lange1984}. In these works the solution is derived through the introduction of the "complete data" concept~\cite{Dempster1977}. \\
 Let $\bm{z}$ be the complete data random dataset of $x_{ij} + g_i$ values which describes the exact number of emissions from voxel $j$ that contribute to the measurement at projection bin $i$, with the many to one mapping 
 \mbox{$y_i = \sum_{j=1}^{n_j} x_{ij} + g_i$}.
 The complete dataset is unknown, but the conditional expectation of the complete data can be expressed using an image estimate (a guess) noted as $\bm{\lambda}^{(k)}$ and the measured data $\bm{y}$ as 
@@ -175,18 +175,19 @@ If we replace the expectation of the complete data using equations~\ref{eq:Compl
 \frac{y_i}{\sum_{d=1}^{n_j} P_{id}\lambda_d^{(k)} + b_i } \\,
 \label{eqn:MLEM}
 \end{equation} 
-that provides a new estimate $\bm{\lambda}^{(k+1)}$. This single update equation combines the two steps of the optimisation process. First, given an image estimate $\bm{\lambda}^{(k)}$ the expectation of the complete data is estimated. Then, the log-likelihood of the expectation of the complete data is maximised. This iterative process results in monotonic increase of the original log-likelihood function. This process is the \textit{MLEM} algorithm.
+that provides a new estimate $\bm{\lambda}^{(k+1)}$. This single update equation combines the two steps of the optimisation process. First, given an image estimate $\bm{\lambda}^{(k)}$ the expectation of the complete data is estimated. Then, the log-likelihood of the expectation of the complete data is maximised. This iterative process results in monotonic increase of the original log-likelihood function. As the original log-likelihood is concave, the process will result to convergence to the global maximum.
+This process is the \gls{mlem} algorithm.
 %Together with the expression for the conditional expectation of the complete data, the two step process of Expectation Maximisation and  Maximum likelihood estimation can be written in a single update equation. Given data $\bm{y}$ and an image estimate $\bm{\lambda}^{(k)}$ , the updated image estimate $\bm{\lambda}^{(k+1)}$ is given from:
 %This equation forms a single update of the MLEM algorithm, which when evaluated over all voxels $j$ provides an updated image $\bm{\lambda}^{(k+1)}$. 
 
 The use of the conditional expectation of the data is an example of the general concept of optimisation transfer, where the construction of surrogate functions is made to be used with a simpler optimisation process, that leads to optimisation of the main function as well. One advantage of this algorithm is that an update over all voxels of the image can be made with a single pass over the data. The disadvantage is that it results in very slow convergence speeds. 
-To accelerate convergence the Ordered Subsets algorithm is used in most practices, which makes use of subsets of the data at each update step (each subset) to reduce computing time for each image update. 
+To accelerate convergence the \gls{osem} algorithm is used in most practices, which makes use of subsets of the data at each update step (each subset) to reduce computing time for each image update. 
 
 \section{Dynamic reconstruction}
 \label{section:Fully_4D_reconstruction}
-Soon after the proposition of the EM algorithm for iterative PET reconstruction by Shepp and Vardi~\cite{Vardi1985} and Lange and Carson~\cite{Lange1984}, the former group proposed an extension of the EM algorithm to update parameters of a dynamic model and a version of the update algorithm that iterates through the whole of dynamic PET data in each iteration~\cite{Carson1985}. Dynamic PET data are traditionally divided among many time bins (frames) resulting in limited counts in each frame. Independent reconstruction of each frame dataset and post-reconstruction kinetic modelling results in noisy and potentially biased parameter estimates. Furthermore, the noise in each frame image estimate is spatially correlated and is hard to be accounted for in the post-reconstruction modelling. The use of a dynamic reconstruction approach that updates over parameters using all the dynamic PET raw data offers the advantages of accurate noise modelling of the raw data and accurate system modelling directly in the process of the dynamic model parameter estimation. Unfortunately, one major disadvantage of this approach was very slow convergence properties making it difficult for use in practice and the topic was not researched further at that time~\cite{Carson1985}. \\
-More than 10 years later the approach was revisited by Matthews \textit{et al}~\cite{Matthews1995} where it was combined with linear models. As it will be shown in this chapter the MLEM algorithm can be easily extended to parametric space with the use of linear dynamic models. On their application, the benefits in reducing parametric image noise were seen, at the cost of very slow convergence speeds. For use with linear models, attempts to accelerate convergence were made by use of OSEM~\cite{Tsoumpas2008} and computing acceleration and compression techniques~\cite{Hong2008}. In the case of dynamic reconstruction with OSEM it was shown that the algorithms exhibits the common OSEM problem of limit-cycles, for which a decreasing subsets scheme was used to eliminate this effect~\cite{Angelis2011}. \\
-It was not until the work of two groups in 2010, Wang \textit{et al}~\cite{Wang2010} and Matthews \textit{et al}~\cite{Matthews2010}, that allowed for practical and more widespread use of dynamic reconstruction. Their methods, based on principles of optimisation transfer by Lange~\cite{Lange2000}, decouple the dynamic reconstruction process to an EM update over all data and to an ML problem in image space. The first step iterates through the tomographic data and updates the activity estimate images, while the second simply updates the dynamic model parameters using the updated activity images. With the second step being much faster, multiple dynamic model updates can be conducted for each update over data which results in acceleration of overall convergence. Results were demonstrated by Wang \textit{et al}~\cite{Wang2010} for EM and PCG based optimisations using linear models. While that work was limited to linear dynamic models, the work by Matthews \textit{et al}~\cite{Matthews2010} generalised on the optimisation of the image space ML problem by the use of an equivalence to a weighted least-square minimisation problem. This formulation allowed for use of existing LS optimisation algorithms, that are commonly used for post-reconstruction model fitting, to be used in 4D reconstruction for linear and non-linear models. The disadvantage of this approach is that the resulting formulation is not strictly concave and thus does not guarantee monotonic convergence to a global maximum. Nevertheless, convergence behaviour has been observed in practice with different weighting schemes~\cite{Gravel2015,Wang2013}. \\
+Soon after the proposition of the \gls{em} algorithm for iterative PET reconstruction by Shepp and Vardi~\cite{Vardi1985} and Lange and Carson~\cite{Lange1984}, the former group proposed an extension of the \gls{em} algorithm to update parameters of a dynamic model and a version of the update algorithm that iterates through the whole of dynamic PET data in each iteration~\cite{Carson1985}. Dynamic PET data are traditionally divided among many time bins (frames) resulting in limited counts in each frame. Independent reconstruction of each frame dataset and post-reconstruction kinetic modelling results in noisy and potentially biased parameter estimates. Furthermore, the noise in each frame image estimate is spatially correlated and is hard to be accounted for in the post-reconstruction modelling. The use of a dynamic reconstruction approach that updates over parameters using all the dynamic PET raw data offers the advantages of accurate noise modelling of the raw data and accurate system modelling directly in the process of the dynamic model parameter estimation. Unfortunately, one major disadvantage of this approach was very slow convergence properties making it difficult for use in practice and the topic was not researched further at that time~\cite{Carson1985}. \\
+More than 10 years later the approach was revisited by Matthews \textit{et al}~\cite{Matthews1995} where it was combined with linear models. As it will be shown in this chapter the MLEM algorithm can be easily extended to parametric space with the use of linear dynamic models. On their application, the benefits in reducing parametric image noise were seen, at the cost of very slow convergence speeds. For use with linear models, attempts to accelerate convergence were made by use of OSEM~\cite{Tsoumpas2008} and computing acceleration and compression techniques~\cite{Hong2008}. In the case of dynamic reconstruction with OSEM it was shown that the algorithm exhibits the common OSEM problem of limit-cycles, for which a decreasing subsets scheme was used to eliminate this effect~\cite{Angelis2011}. \\
+It was not until the work of two groups in 2010, Wang \textit{et al}~\cite{Wang2010} and Matthews \textit{et al}~\cite{Matthews2010}, that allowed for practical and more widespread use of dynamic reconstruction. Their methods, based on principles of optimisation transfer by Lange~\cite{Lange2000}, decouple the dynamic reconstruction process to an EM update over all data and to a ML problem in image space. The first step iterates through the tomographic data and updates the activity estimate images, while the second step simply updates the dynamic model parameters using the updated activity images. With the second step being much faster, multiple dynamic model updates can be conducted for each update over data which results in acceleration of overall convergence. Results were demonstrated by Wang \textit{et al}~\cite{Wang2010} for \gls{em} and \gls{pcg} based optimisations using linear models. While that work was limited to linear dynamic models, the work by Matthews \textit{et al}~\cite{Matthews2010} generalised on the optimisation of the image space ML problem by the use of an equivalence to a weighted least-square minimisation problem. This formulation allowed for use of existing Least Squares (LS)  optimisation algorithms, that are commonly used for post-reconstruction model fitting, to be used in 4D reconstruction for linear and non-linear models. The disadvantage of this approach is that the resulting formulation is not strictly concave and thus does not guarantee monotonic convergence to a global maximum. Nevertheless, convergence behaviour has been observed in practice with different weighting schemes~\cite{Gravel2015,Wang2013}. \\
 The use of non-linear models within dynamic reconstruction has shown clear benefits in precision and accuracy~\cite{Angelis2014,Kotasidis2012,Gravel2015} but are more sensitive to initialisation and reconstruction parameters and could lead to unpredictable behaviour.
 
 \subsection{Dynamic models}
@@ -224,16 +225,16 @@ Similar to~\ref{section:MLEM}, the conditional expectation of the complete data 
 \label{eq:Dynamic_complete_Data_Expectation}
 \hat{x}_{tij}(\bm{\theta}^{(k)},y_{ti}) = y_{ti}
 \frac{P_{ij} f_{tj}(\bm\theta^{(k)})}
-{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + C_{ti}}\\,
+{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + b_{ti}}\\,
 \end{equation}
 %
 \begin{equation}
 \label{eq:Dynamic_complete_Data_Expectation2}
 \hat{g}_{ti}(\bm{\theta}^{(k)},y_{ti}) = y_{ti}
-\frac{C_{ti}}{\sum_{d=1}^{n_j} P_{id} f_t(\bm\theta^{(k)}) + C_{ti}} ,
+\frac{b_{ti}}{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + b_{ti}} ,
 \end{equation}
 %
-where now the additive corrections are symbolised with the matrix $C$ for the known corrections on each frame and data bin.
+where now the additive corrections vector $b$ is used for the known corrections on each frame $t$ and data bin $i$.
 %\begin{equation}
 %lnL(\bm{\theta}|\bm{\hat{z}})  =
 %\sum_{t=1}^{n_t} \sum_{i=1}^{n_i} \sum_{b=1}^{n_j} 
@@ -262,15 +263,15 @@ The last part of the expression is equivalent to an EM update over all tomograph
 \begin{equation}
 \frac{\sum_{i=1}^{n_i} \hat{x}_{tib} }
 {\sum_{i=1}^{n_i}  P_{ib}}  =
-\frac{f_{tj}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i}  P_{ib}}
+\frac{f_{tb}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i}  P_{ib}}
 \sum_{i=1}^{n_i} P_{ib}
 \frac{y_{ti}}
 {\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + C_{ti}}\\.
 \end{equation}
-This set of images can be referred to as the EM update image.
+This set of images can be referred to as the EM update image
 \begin{equation}
-f_{tj}^{(\textrm{EM})}(\bm{\theta}^{(k)}) = 
-\frac{f_{tj}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i}  P_{ib}}
+f_{tb}^{(\textrm{EM})}(\bm{\theta}^{(k)}) = 
+\frac{f_{tb}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i}  P_{ib}}
 \sum_{i=1}^{n_i} P_{ib}
 \frac{y_{ti}}
 {\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + C_{ti}}\\.
@@ -291,15 +292,15 @@ Equations~\ref{eqn:EM_Update_image} and~\ref{eqn:NestedOptimization} form the tw
 %
 \subsection{Linear dynamic models - direct 4D reconstruction}
 As described in chapter~\ref{Chap2_2:Pharmacokinetics}, many dynamic models utilised in practice for parametric imaging are linear models. These can be expressed in the form of matrices, which effectively are a set of temporal basis functions of the dynamic model.
-The modeled activity using a linear model of $n_b$ number of parameters is
+The modeled activity using a linear model of $n_p$ number of parameters is
 \begin{equation}
-\lambda_{tj} = \sum_{p=1}^{n_p} B_{tp}   \theta_{pj} \\, 
+\lambda_{tj} = \sum_{p=1}^{n_p} B_{tp}   \theta_{pj} \\ . \\
 \label{eqn:2_3_LinearBasis}
 \end{equation}
-or in the form of an image vector per frame
-\begin{equation}
-\bm\lambda_{t} = \sum_{p=1}^{n_p} B_{tp}  \bm\theta_{p}  \\.
-\end{equation}
+%or in the form of an image vector per frame
+%\begin{equation}
+%\bm\lambda_{t} = \sum_{p=1}^{n_p} B_{tp}  \bm\theta_{p}  \\.
+%\end{equation}
 %The model parameters can be easily estimated from a dynamic series of images using
 %\begin{equation}
 %\bm\theta_{p}  = \sum_{t=1}^{n_t} B_{tp} \bm\lambda_{t}  \\.
@@ -313,30 +314,41 @@ In this particular case of linear dynamic models it is straightforward to incorp
 {\sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{ij}} 
 \sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{ij}
 \frac{y_{ti}}
-{\sum_{d=1}^{n_j} P_{id} \sum_{p=1}^{n_p} B_{tp}\theta_{pj}^{(k)} + C_{ti} } \\.
+{\sum_{d=1}^{n_j} P_{id} \sum_{p=1}^{n_p} B_{tp}\theta_{pj}^{(k)} + b_{ti} } \\.
 \label{eqn:4DMLEM}
 \end{equation} 
 %
 Unfortunately, this simple form of the dynamic reconstruction problem using linear models suffers from very slow convergence speeds, as found previously~\cite{Carson1985,Matthews1995}. Strategies to improve the convergence speed are still being investigated~\cite{Gallezot2018}, as this direct reconstruction approach can be beneficial in applications of list-mode level motion correction and other potential applications.
 %
 \subsection{Linear dynamic models - Nested EM}
-To accelerate convergence of dynamic reconstruction using linear models the nested optimization framework can be utilised. By substituting the linear model equation~\ref{eqn:LinearDynamicModel} into equation~\ref{eqn:NestedOptimization} we have
+To accelerate convergence of dynamic reconstruction using linear models the nested optimization framework can be utilised. By substituting the linear model equation~\ref{eqn:2_3_LinearBasis} into equation~\ref{eqn:NestedOptimization} we have
 \begin{equation}
 \bm{\theta}^{(k+1)} = 
 \argmax{\bm{\theta}}
 \sum_{t=1}^{n_t} \sum_{b=1}^{n_j} \left[ \sum_{i=1}^{n_i}  P_{ib} \right]
 \left[ 
--\sum_{p=1}^{n_p} B_{tp} \bm\theta_{p} + 
-ln( \sum_{p=1}^{n_p} B_{tp} \bm\theta_{p}) 
+-\sum_{p=1}^{n_p} B_{tp} \theta_{pb} + 
+ln( \sum_{p=1}^{n_p} B_{tp} \theta_{pb}) 
 f_{tb}^{(EM)}(\bm{\theta}^{(k)})
 \right] \\ .
 \end{equation}
-The right parenthesis of this expression is similar to the log-likelihood from the static reconstruction problem in equation~\ref{eqn:log_likelihood}, with different parameters and data being optimised. This function can be optimised using a similar MLEM update solution that is now applied over image space for the estimation of the model parameters 
+This expression can be optimised for each voxel independently as
 \begin{equation}
-\theta_j^{(k+1)} = \frac{\theta_j^{(k)}}
-{\sum_{p=1}^{n_p} B_{pj}} 
-\sum_{p=1}^{n_p} B_{pj} 
-\frac{f_{j}^{(EM)}(\bm{\theta}^{(k)})}{\sum_{d=1}^{n_j} B_{pd}\theta_d^{(k)} } \\.
+{\theta}_{j}^{(k+1)} = 
+\argmax{\theta_{j}}
+\sum_{t=1}^{n_t} \left[ \sum_{i=1}^{n_i}  P_{ij} \right]
+\left[ 
+-\sum_{p=1}^{n_p} B_{tp} \theta_{pj} + 
+ln( \sum_{p=1}^{n_p} B_{tp} \theta_{pj}) 
+f_{tj}^{(EM)}(\bm{\theta}^{(k)})
+\right] \\ .
+\end{equation}
+As we have assumed that the system matrix $P$ is does not depend on time, the sensitivity term $\left[ \sum_{i=1}^{n_i}  P_{ij} \right]$ can be dropped as it does not affect the optimisation. Then the right parenthesis of this expression is similar to the log-likelihood from the static reconstruction problem in equation~\ref{eqn:log_likelihood}, with different parameters and data being optimised. This function can be optimised using a similar MLEM update solution that is now applied over image space for the estimation of the model parameters 
+\begin{equation}
+\theta_{pj}^{(k+1)} = \frac{\theta_{pj}^{(k)}}
+{\sum_{t=1}^{n_t} B_{tp}} 
+\sum_{t=1}^{n_t} B_{tp} 
+\frac{f_{tj}^{(EM)}(\bm{\theta}^{(k)})}{\sum_{d=1}^{n_p} B_{td}\ \theta_{dj}^{(k)} } \\.
 \label{eqn:NestedEM}
 \end{equation}
 
