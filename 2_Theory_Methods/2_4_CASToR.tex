@@ -31,6 +31,13 @@ Use of other framing definitions would require re-processing of the data before 
 In this project, when possible, the use of list-mode datafiles was preferred due to the offered flexibility. 
 List-mode datafiles were used for reconstructions of real PET datasets, while histograms were used for reconstructions of simulated datasets (from analytical simulations).
 
+\subsection{Real Data Corrections}
+Although in simulations it is relatively easy to get an estimate of corrections, these are harder to obtain for real data. Various estimation methods, as outlined in chapter~\ref{Chap2_1:PET}, are employed by scanner manufacturers to generate corrections that are necessary for quantitatively accurate reconstruction.
+CASToR does not provide any functionalities for estimation of corrections. These must be pre-computed and included in the construction process of the castor datafile. 
+
+In this project we made use of real data from GE and Siemens PET systems. Both manufacturers provide offline processing tools (\textit{GE-PET toolbox} for GE systems and \textit{E7 tools} for Siemens systems) for reconstruction, which permit the extraction of corrections.
+These tools were used in this project for generation of all the corrections, when using real data in our evaluations.
+
 \section{Geometry}
 A generic description of the geometry of an imaging system in \gls{castor} allows for the definition of any \gls{pet} system. Individual detector elements are defined by 3D Cartesian coordinates and an orientation vector. These are pre-computed and input as look-up tables, or are computed by \gls{castor} using a system definition similar to that used for GATE simulations~\cite{Jan2011}.
 
