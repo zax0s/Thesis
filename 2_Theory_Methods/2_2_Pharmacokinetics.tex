@@ -97,7 +97,12 @@ K_i = \frac{K_1 k_3}{k_2+k_3} .
 \label{eqn:FDG_Ki}
 \end{equation}
 
-The $K_i$ is related to the glucose metabolic rate 
+The influx of FDG is proportional to the influx of glucose, also referred as the glucose metabolic rate $MR_{glu}$. The proportionality constant is called the lumped constant $LC$ and along with the concentration of blood glucise $C_{P}^{glu}$ can be used to express
+\begin{equation}
+MR_{glu} = K_i \Big(\frac{C_{P}^{glu}}{LC}\Big)
+\label{eqn:MR_glu}
+\end{equation}
+
 
 \section{Gjedde-Patlak linearisation method}
 Direction estimation of model micro-parameters, such as those of equation~\ref{eqn:2TCM}, requires non-linear fitting optimization procedures. These are commonly time consuming and their estimations are heavily susceptible to noise.
@@ -116,14 +121,14 @@ where $K_i$ is the steady state trapping rate and $V_{\alpha}$ the apparent volu
 The Gjedde-Patlak linearisation method referred to simpler as \textit{Patlak model}, is commonly used with the 2TCM model for FDG, under the assumption of $k_4=0$. In this case, the Patlak model parameters can be related to micro-parameters using equation~\ref{eqn:FDG_Ki} and 
 
 \begin{equation} 
-V_a  = \frac{K_1 k_2}{(k_2+k_3)^2} \\ . \\ 
+V_{\alpha}  = \frac{K_1 k_2}{(k_2+k_3)^2} \\ . \\ 
 \end{equation}
 
 %For a PET measurement the observed activity $C_{PET}(t)$ described by equation~\ref{eqn:CPET}.
 With the assumption of $C_{B}(t) = r C_{P}(t)$, we can substitute equation~\ref{eqn:PatlakModel} into equation~\ref{eqn:CPET} and describe the observed activity $C_{PET}(t)$ using the Patlak model as
 
 \begin{equation} 
-{C_{PET}}(t)  = \underbrace{(1-V_{B})K_i}_{\theta_1} \int_{0}^{t} C_{P}(\tau) d\tau +  (\underbrace{V_{\alpha}(1-V_{B})+r V_{B}}_{\theta_2}) C_{P}(t) \\ , \\
+\frac{C_{PET}(t)}{C_{P}(t)} = \underbrace{(1-V_{B})K_i}_{\theta_1} \frac{\int_{0}^{t} C_{P}(\tau) d\tau}{ C_{P}(t)} +  (\underbrace{V_{\alpha}(1-V_{B})+r V_{B}}_{\theta_2}) \\ , \\
 \label{eqn:PatlakCPET}
 \end{equation}
 
@@ -163,7 +168,7 @@ For irreversible kinetics, a parameter of the model is used to account for the t
 
 \begin{equation} 
 \label{eqn:SpectralModel_Complete}
-C_{T}(t)  =  \sum_{b=0}^{M-1} {\phi_b}  e^{-\beta_b t} \ast C_P(t)  =  \phi_0 \ast C_P(t) + \sum_{b=1}^{M-1} {\phi_b}  e^{-\beta_b t} \ast C_P(t)  \\ , \\
+C_{T}(t)  = \phi_0 \ast C_P(t) + \sum_{b=1}^{M-1} {\phi_b}  e^{-\beta_b t} \ast C_P(t)  \\ , \\
 \end{equation}
 
 for which $K_i = {\phi_0}$. 
@@ -182,7 +187,7 @@ If we account for the parameter $(1-V_{B})$ into the weights $\phi_b$, the equat
 \label{eqn:SpectralCPET_short}
 \end{equation}
 
-for which $\beta_M \xrightarrow[]{}\inf$ and $\phi_M = r V_{B}$. 
+for which $\beta_M \xrightarrow[]{}\infty$ and $\phi_M = r V_{B}$. 
 When fitted on measured ${C_{PET}}(t)$ data, the spectral model in equation~\ref{eqn:SpectralCPET_short} can be used to deduce $K_1$, and either $V_D$ or $K_i$ depending respectively on reversibility or non-reversibility tracer behaviour, using
 
 \begin{subequations}
@@ -203,10 +208,10 @@ As a rule of thumb, the lower limit of the range can be set to $\beta_1 = 1/(3 T
 In spectral analysis, the number of the spectral parameters used is empirically set in the 10$^2$ order of magnitude. This relatively large number allows for clear separation of the underlying exchange rates, for deduction of models of the underlying behaviour. 
 For use with dynamic reconstruction a smaller number of parameters is used, ideally less than the number of time bins (frames) of the data, which is still adequate to model the PET measurements while maintaining low image noise.
 
-\section{IsotoPK pharmacokinetic study}
+\section{IsotoPK pharmacological study}
 Traditionally it has been assumed that passive diffusion is the main mechanism controlling drug delivery to tissues. 
 But more recently, it is recognised that the presence of membrane transporters at blood-tissue interfaces suggests that transporters play an important role in drug pharmacokinetics. DWB imaging studies can play an important role in the study of transporter distribution and function in regards to drug delivery to tissues over the body~\cite{Marie2017}. 
-To this purpose, a novel PET tracer has been developed using Glyburide (glibenclamide, GLB) and $^{11}$C, targeting many transporters of the Solute Carrier O (SLCO) family~\cite{Tournier2013,Caille2020}. Preliminary studies have indicated that these transporters are expressed mainly in the liver and the kidneys~\cite{Tournier2013}.
+To this purpose, a novel PET tracer has been developed using Glyburide (glibenclamide, GLB) labelled with $^{11}$C. Glyburide is a drug used for treatment of diabetes and targets many transporters of the Solute Carrier O (SLCO) family~\cite{Tournier2013,Caille2020}. Preliminary pre-clinical studies have indicated that these transporters are expressed mainly in the liver and the kidneys~\cite{Tournier2013}.
 
 A first in man study, named \textit{IsotoPK}, was designed and is being conducted in our centre for the study of the distribution of these transporters in healthy volunteers~\cite{Marie2019}.
 The study is conducted on the Signa PET/MR, using a Dynamic Whole Body (DWB) acquisition protocol, with two acquisitions per volunteer to study the distribution without and with the administration of an inhibitor substance prior to PET imaging.
@@ -216,10 +221,12 @@ Data from this study are presented in chapter~\ref{Chap3_3:IsotoPK}, showing exa
 Initial results on three volunteers have shown that Glyburide is very slowly metabolised and this process did not require to be accounted for in PET analysis, as their impact on PET quantification would be minimal. Findings also showed strong binding of tracer with plasma ($\geq$ 90\%).
 Predominant uptake of the tracer was seen in the liver and also the kidneys. Lower uptake was observed in the spleen, the aorta wall and the pancreas. At all other tissues, no strong tracer uptake was seen.
 
+Data coming from this protocol were used in this thesis. The IsotoPK study was the first DWB protocol to be conducted on the Signa PET/MR. 
+
 \subsection{PET analysis in the liver}
 \label{liver_PV_theory}
-One of the unique characteristics of the liver, in regards to pharmacokinetic modelling, is that it is supplied with blood via two routes. The hepatic artery (HA) accounts for approximately 25\% of the blood supply in the liver, while the portal vein (PV) accounts for the rest 75\%. The portal vein delivers blood that has been filtered mainly by the gastrointestinal tract, a process that alters the characteristics of the input function associated with the portal vein in relation to the arterial input function. 
-Studies on pigs and non-invasive studies on humans have produced methods to model the PV input function as a dispersion of the arterial input function~\cite{Kudomi2008,Winterdahl2011}, which can be modelled using 
+One of the unique characteristics of the liver, in regards to pharmacokinetic modelling, is that it is supplied with blood via two routes. The hepatic artery (HA) accounts for approximately 25\% of the blood supply in the liver, while the portal vein (PV) accounts for the rest 75\%~\cite{Winterdahl2011}. The portal vein delivers blood that has been filtered mainly by the gastrointestinal tract, a process that alters the characteristics of the portal vein input function. 
+Studies on pigs and non-invasive studies on humans have produced methods to model the PV input function as a dispersion of the arterial input function~\cite{Kudomi2008}, which can be modelled using 
 
 \begin{equation} 
 {C_{PV}}(t)  = {k_g} e^{-k_g t} \ast C_P(t)   \\ . \\
