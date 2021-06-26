@@ -23,7 +23,7 @@ and finally (4) the impact of different DWB acquisition strategies.
 
 \section{Methods}
 
-\subsection{Development of dynamic reconstruction framework in CASToR}
+\subsection{Development of the dynamic reconstruction framework in CASToR}
 The framework for dynamic reconstruction was developed within the general CASToR framework and following its general principles, to allow for future expansions and in order to make our developments publicly available within the public release of CASToR.
 To handle the use of dynamic models in reconstruction a new component was implemented in the code (called Dynamic-Model-Manager) that interacts with the reconstruction process within the main CASToR iterative loop (steps \textit{Estimate/Fit dynamic model} and \textit{Estimate image from fitted dynamic model} of algorithm~\ref{algo:CASToR_Core}). 
 The main tasks of the Dynamic-Model-Manager are to prepare dynamic models for use and to fit these models if needed, given an estimate of a time series of image data, and subsequently estimate the time series image data from the fitted dynamic model. 
@@ -42,10 +42,10 @@ A generic dynamic model (vDynamicModel) was designed as a virtual function, whic
 \label{fig3_2:DynamicModelManager}
 \end{figure}
 
-Specific dynamic models can be directly implemented by inheriting these functions from the vDynamicModel class, such as for example the implemented 1TC and 2TC models. These are specific models, that are based on micro-parameters estimation of the respective compartmental models and make use of non-linear optimization or linearization techniques that are unique to these specific implementations. 
-Beyond these specific models, many models used in practice for parametric imaging are linear models and share common optimization methods. For this reason, a generic Linear model (iLinearModel) was developed, which includes EM, LS and NNLS optimization algorithms for model fitting over voxel TACs. This linear model can be used directly if an input of basis functions is provided or alternatively other more specific linear models can inherit its functions and make use of model specific functions for defining temporal basis functions.
+Specific dynamic models can be directly implemented by inheriting these functions from the vDynamicModel class, such as for example the implemented 1TC and 2TC models. These models are based on micro-parameters estimation of the respective compartmental models and make use of non-linear optimization or linearization techniques that are unique to these specific models. 
+Beyond these specific models, many models used in practice for parametric imaging are linear models and share common optimization methods. For this reason, a generic Linear model (iLinearModel) was developed, with EM, LS and NNLS optimization algorithms included for model fitting over voxel TACs. This linear model can be used directly if basis functions are provided as input or alternatively other more specific linear models can inherit its functions and define their own temporal basis functions.
 In our implementation, we have implemented two specific linear models, the Patlak model~\cite{Patlak1985} and the spectral analysis model~\cite{Cunningham1993}. 
-Furthermore, as many dynamic models that relate to physiological kinetic parameters require information of the blood input function an input function class was created (oArterialInputFunction). This class takes a provided input function and performs linear interpolation of the input data, before providing it for use in the dynamic model. 
+Furthermore, as many dynamic models that relate to physiological kinetic parameters require a blood input function, a specific class was created (oArterialInputFunction). This class takes a provided input function and performs linear interpolation of the input data points, before its use by the dynamic model. 
 Finally, an additional castor toolkit (castor-imageDynamicTools) was included in the public release to allow the use of the developed models for post-reconstruction model fitting using the included image space optimization algorithms. 
 
 \subsection{Development of analytical simulator for dynamic data}
