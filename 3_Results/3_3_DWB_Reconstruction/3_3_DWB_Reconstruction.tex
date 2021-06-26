@@ -46,7 +46,7 @@ This provides
 {\sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{tij}} 
 \sum_{t=1}^{n_t} B_{tp}  \sum_{i=1}^{n_i} P_{tij} 
 \frac{y_{ti}}
-{\sum_{d=1}^{n_j} P_{tid} \sum_{p=1}^{n_p} B_{tp}\theta_{pd}^{(k)} + C_{ti} } \\, \\
+{\sum_{d=1}^{n_j} P_{tid} \sum_{q=1}^{n_p} B_{tq}\theta_{qd}^{(k)} + b_{ti} } \\, \\
 \label{eqn:4DMLEM_Multibed}
 \end{equation} 
 
@@ -82,10 +82,10 @@ Some additional considerations need to be made before the use of this multi-bed 
 
 The nested optimization framework decouples the tomographic update process over the PET data from the dynamic model fitting process on image space. The two steps are conducted respectively with an MLEM update over the PET raw data using equation~\ref{eqn:EM_Update_image} to get an individual EM update image for each frame, followed by kinetic model fitting which optimises the likelihood function of equation~\ref{eqn:NestedOptimization}. 
 
-For single bed dynamic data the sensitivity term of the likelihood function, $\big[\sum_{i=1}^{n_i} P_{ib}\big]$ of equation~\ref{eqn:NestedOptimization}, can be ignored assuming that it is constant over time for each voxel, and the likelihood function can be optimised using an image based EM update over image space with equation~\ref{eqn:NestedEM}~\cite{Wang2010,Reader2014}.
+For single bed dynamic data the sensitivity term of the likelihood function, $\big[\sum_{i=1}^{n_i} P_{ib}\big]$ of equation~\ref{eqn:NestedOptimization}, can be ignored assuming that it is constant over time for each voxel $b$, and the likelihood function can be optimised using an image based EM update over image space with equation~\ref{eqn:NestedEM}~\cite{Wang2010,Reader2014}.
 It is important to note that if dead-time corrections, necessary for accurate quantitative reconstruction, are included in the system matrix then the sensitivity term needs to be kept and accounted for in the nested optimisation. But in most applications of nested optimisation on single-bed dynamic data in the literature this term is ignored.
 
-In the case of DWB data and overlapping bed positions, the sensitivity term $\big[\sum_{i=1}^{n_i} P_{tib}\big]$ has to be maintained, as its value will change with different frames for voxels in the overlapping regions.
+In the case of DWB data and overlapping bed positions, the sensitivity term $\big[\sum_{i=1}^{n_i} P_{tij}\big]$ has to be maintained, as its value will change with different frames for voxels $j$ in the overlapping regions.
 Thus the two step process, for direct multi-bed dynamic reconstruction with nested optimization, can be written as
 
 \begin{equation}
@@ -94,17 +94,17 @@ Thus the two step process, for direct multi-bed dynamic reconstruction with nest
 \begin{cases}  
 f_{tj}^{(\textrm{EM})}(\bm\theta^{(k)}) = \frac{f_{tj}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i} P_{tij}} 
 \sum_{i=1}^{n_i} P_{tij} 
-\frac{y_{ti}}{\sum_{d=1}^{n_j} P_{tid} f_{td}(\bm\theta^{(k)}) + C_{ti} } \\ \\
+\frac{y_{ti}}{\sum_{d=1}^{n_j} P_{tid} f_{td}(\bm\theta^{(k)}) + b_{ti} } \\ \\
 \bm{\theta}^{(k+1)} = \argmax{\bm{\theta}} 
-\sum_{t=1}^{n_t} \sum_{b=1}^{n_j} \left[ \sum_{i=1}^{n_i}  P_{tib} \right]
-\left[ -f_{tb}(\bm\theta) + 
-ln( f_{tb}(\bm\theta)) 
-f_{tb}^{(\mathrm{EM})}(\bm{\theta}^{(k)})
+\sum_{t=1}^{n_t} \sum_{j=1}^{n_j} \left[ \sum_{i=1}^{n_i}  P_{tij} \right]
+\left[ -f_{tj}(\bm\theta) + 
+ln( f_{tj}(\bm\theta)) 
+f_{tj}^{(\mathrm{EM})}(\bm{\theta}^{(k)})
 \right] .\\
 \end{cases}
 \end{equation}
 
-The tomographic update of this two-step optimization process is effectively an update over the DWB data for independent frame reconstruction, followed by an image space optimization process that now needs to consider the sensitivity $\big[\sum_{i=1}^{n_i} P_{tib}\big]$ of each time point $t$ in the TAC of each voxel $j$. For linear models, where before an image based MLEM algorithm was used for this image space optimization process, a weighted MLEM update can be used with the sensitivity of each time point $t$ as the weight. Alternatively, for linear and non-linear models, WLS based optimization algorithms can be used with the sensitivity value used as the weight. Both of these options were implemented in CASToR, with results shown in this chapter were produced by the use of the nested EM approach.
+The tomographic update of this two-step optimization process is effectively an update over the DWB data for independent frame reconstruction, followed by an image space optimization process that now needs to consider the sensitivity $\big[\sum_{i=1}^{n_i} P_{tij}\big]$ of each time point $t$ in the TAC of each voxel $j$. For linear models, where before an image based MLEM algorithm was used for this image space optimization process, a weighted MLEM update can be used with the sensitivity of each time point $t$ as the weight. Alternatively, for linear and non-linear models, WLS based optimization algorithms can be used with the sensitivity value used as the weight. Both of these options were implemented in CASToR, with results shown in this chapter were produced by the use of the nested EM approach.
 %
 \iffalse 
 \begin{equation}

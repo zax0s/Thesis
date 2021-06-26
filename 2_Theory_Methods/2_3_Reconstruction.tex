@@ -234,7 +234,7 @@ Similar to~\ref{section:MLEM}, the conditional expectation of the complete data 
 \frac{b_{ti}}{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + b_{ti}} ,
 \end{equation}
 %
-where now the additive corrections vector $b$ is used for the known corrections on each frame $t$ and data bin $i$.
+where now the additive corrections vector $b$ is used for the known corrections on each frame $t$ and data \mbox{bin $i$}. Here we have assumed that the system matrix $P$ does not depend on time frame $t$.
 %\begin{equation}
 %lnL(\bm{\theta}|\bm{\hat{z}})  =
 %\sum_{t=1}^{n_t} \sum_{i=1}^{n_i} \sum_{b=1}^{n_j} 
@@ -266,7 +266,7 @@ The last part of the expression is equivalent to an EM update over all tomograph
 \frac{f_{tb}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i}  P_{ib}}
 \sum_{i=1}^{n_i} P_{ib}
 \frac{y_{ti}}
-{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + C_{ti}}\\.
+{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + b_{ti}}\\.
 \end{equation}
 This set of images can be referred to as the EM update image
 \begin{equation}
@@ -274,7 +274,7 @@ f_{tb}^{(\textrm{EM})}(\bm{\theta}^{(k)}) =
 \frac{f_{tb}(\bm\theta^{(k)})}{\sum_{i=1}^{n_i}  P_{ib}}
 \sum_{i=1}^{n_i} P_{ib}
 \frac{y_{ti}}
-{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + C_{ti}}\\.
+{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + b_{ti}}\\.
 \label{eqn:EM_Update_image}
 \end{equation}
 By substituting the equation~\ref{eqn:EM_Update_image} in the log-likelihood maximisation we have
@@ -288,7 +288,7 @@ f_{tb}^{(EM)}(\bm{\theta}^{(k)})
 \right] \\ .
 \label{eqn:NestedOptimization}
 \end{equation}
-Equations~\ref{eqn:EM_Update_image} and~\ref{eqn:NestedOptimization} form the two step process of nested optimisation. An update over PET raw data for each voxel and each time frame is performed using~\ref{eqn:EM_Update_image}, followed by an image based optimisation of the dynamic model parameters using equation~\ref{eqn:NestedOptimization}. 
+Equations~\ref{eqn:EM_Update_image} and~\ref{eqn:NestedOptimization} form the two step process of nested optimisation. An update over PET raw data for each voxel and each time frame is performed using~\ref{eqn:EM_Update_image}, followed by an image based optimisation of the dynamic model parameters for each voxel using equation~\ref{eqn:NestedOptimization}. It is important to note that the model fitting process of equation~\ref{eqn:NestedOptimization} can be performed independently for each voxel.
 %
 \subsection{Linear dynamic models - direct 4D reconstruction}
 As described in chapter~\ref{Chap2_2:Pharmacokinetics}, many dynamic models utilised in practice for parametric imaging are linear models. These can be expressed in the form of matrices, which effectively are a set of temporal basis functions of the dynamic model.
@@ -314,7 +314,7 @@ In this particular case of linear dynamic models it is straightforward to incorp
 {\sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{ij}} 
 \sum_{t=1}^{n_t} B_{tp} \sum_{i=1}^{n_i} P_{ij}
 \frac{y_{ti}}
-{\sum_{d=1}^{n_j} P_{id} \sum_{p=1}^{n_p} B_{tp}\theta_{pj}^{(k)} + b_{ti} } \\.
+{\sum_{d=1}^{n_j} P_{id} \sum_{q=1}^{n_p} B_{tq}\theta_{qd}^{(k)} + b_{ti} } \\.
 \label{eqn:4DMLEM}
 \end{equation} 
 %
@@ -343,12 +343,12 @@ ln( \sum_{p=1}^{n_p} B_{tp} \theta_{pj})
 f_{tj}^{(EM)}(\bm{\theta}^{(k)})
 \right] \\ .
 \end{equation}
-As we have assumed that the system matrix $P$ is does not depend on time, the sensitivity term $\left[ \sum_{i=1}^{n_i}  P_{ij} \right]$ can be dropped as it does not affect the optimisation. Then the right parenthesis of this expression is similar to the log-likelihood from the static reconstruction problem in equation~\ref{eqn:log_likelihood}, with different parameters and data being optimised. This function can be optimised using a similar MLEM update solution that is now applied over image space for the estimation of the model parameters 
+As we have assumed that the system matrix $P$ does not depend on time, the sensitivity term $\left[ \sum_{i=1}^{n_i}  P_{ij} \right]$ can be dropped from this optimisation. The right parenthesis of this voxel-wise optimisation expression is similar to the log-likelihood from the static reconstruction problem in equation~\ref{eqn:log_likelihood}, with different parameters and data being optimised. This function can be optimised using a similar MLEM update solution that is now applied over image space for the estimation of the model parameters 
 \begin{equation}
 \theta_{pj}^{(k+1)} = \frac{\theta_{pj}^{(k)}}
 {\sum_{t=1}^{n_t} B_{tp}} 
 \sum_{t=1}^{n_t} B_{tp} 
-\frac{f_{tj}^{(EM)}(\bm{\theta}^{(k)})}{\sum_{d=1}^{n_p} B_{td}\ \theta_{dj}^{(k)} } \\.
+\frac{f_{tj}^{(EM)}(\bm{\theta}^{(k)})}{\sum_{q=1}^{n_p} B_{tq}\ \theta_{qj}^{(k)} } \\.
 \label{eqn:NestedEM}
 \end{equation}
 
