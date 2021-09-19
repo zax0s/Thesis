@@ -1,32 +1,4 @@
-\documentclass[a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[]{graphicx}
-%Bibliography style
-\usepackage[sort&compress, square, numbers]{natbib}
-\bibliographystyle{unsrtnat}
-
-\setlength{\columnseprule}{0pt}
-\setlength\columnsep{10pt}
-\renewcommand{\baselinestretch}{1.5}
-
-\usepackage{geometry}
-\geometry{
-left=22mm,
-top=30mm,
-right=22mm,
-bottom=30mm
-}
-\usepackage[acronym, toc]{glossaries}
-\glsdisablehyper 
-%\makeglossaries
-\input{acronyms}
-
-\title{Résumé de thèse}
-\author{Zacharias Chalampalakis}
-\date{June-2021}
-
-\begin{document}
-\maketitle
+\chapter{Résumé de thèse}
 \section*{Introduction}
 La tomographie par émission de positons (TEP) est passée, dans les dernières décennies, d'un outil utilisé principalement dans les applications de recherche à un outil d'imagerie clinique qui a un rôle majeur dans de nombreuses applications cliniques et applications de recherche clinique~\cite{Meikle2021}. 
 En combinaison avec plusieurs radiotraceurs disponibles, qui permettent à l'imagerie TEP de cibler et de recueillir des informations sur la fonction au niveau moléculaire, la TEP peut fournir des informations uniques sur les biomarqueurs. La nature non invasive de l'imagerie TEP, combinée à son potentiel de reproductibilité entièrement quantitative et fiable des informations sur les biomarqueurs, sont des aspects très importants qui la rendent désirable dans le cadre de la médecine de précision~\cite{Subramaniam2017,Meikle2021}.
@@ -60,14 +32,14 @@ Pour faire une comparaison entre le protocole IsotoPK de 5 positions de lit et l
 
 \begin{figure} [ht!]
 \centering
-\includegraphics[scale=0.45,angle=0]{3_1_Macaque_Head_curve_Phases.pdf}
+\includegraphics[scale=0.45,angle=0]{./Resume/3_1_Macaque_Head_curve_Phases.pdf}
 \caption{Courbe de tête (taux de détections en fonction du temps) de l'étude du primate acquis montrant les phases DSB et DWB de l'acquisition et les trois positions du lit DWB.}
 \label{fig3_1:Macaque_Head_Curve_Phases}
 \end{figure}
 
 \begin{figure} [ht!]
 \centering
-\includegraphics[scale=0.45,angle=0]{3_1_Macaque_PET.pdf}
+\includegraphics[scale=0.45,angle=0]{./Resume/3_1_Macaque_PET.pdf}
 \caption{Vues de projection d'intensité maximale des images TEP reconstruites de l'étude primate, pour les deux phases de l'acquisition.}
 \label{fig3_1:Macaque_PET}
 \end{figure}
@@ -90,21 +62,21 @@ Les images paramétriques $K_i$ issues des reconstructions 3D et 4D des données
 %
 \begin{figure} [ht!]
 \centering
-\includegraphics[scale=0.42,angle=0]{3_2.pdf}
+\includegraphics[scale=0.42,angle=0]{./Resume/3_2.pdf}
 \caption{Simulation: Courbes de compromis entre le bruit et le biais du thalamus (gauche) et du cortex (droite) pour les reconstructions 4D des données du protocole DWB-1. Métriques basées sur les VOI (haut) et sur les voxels (bas).}
 \label{fig:3_2_DynamicModels}
 \end{figure} 
 %
 \begin{figure} [ht!]
 \centering
-\includegraphics[scale=0.45,angle=0]{3_5_tumour_Lung_NoTOF.pdf}
+\includegraphics[scale=0.45,angle=0]{./Resume/3_5_tumour_Lung_NoTOF.pdf}
 \caption{Données réelles: Rapport contraste/bruit (gauche) et SD du foie par rapport à la moyenne des VOI de la tumeur (droite) pour les reconstructions 3D et 4D.} 
 \label{fig:RealData_CNR_CoVBias_NoTOF}
 \end{figure} 
 %
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.28,angle=0]{3_5_RealDataExample.png}
+\includegraphics[scale=0.28,angle=0]{./Resume/3_5_RealDataExample.png}
 \caption{Données réelles: Les images paramétriques $K_i$ (avec filtrage Gaussien à 5mm) de SB et DWB rejouent des ensembles de données provenant de reconstructions 3D et 4D à des valeurs SD appariées sur le foie.} 
 \label{fig:RealKiMontage}
 \end{figure} 
@@ -124,14 +96,14 @@ Les résultats de l'analyse VOI, donnés dans la figure~\ref{fig_3_3:IsotoPK_CTR
 %
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.5,angle=0]{3_3_IsotoPK_CTRL_DWB_3D_vs_4D_central.pdf}
+\includegraphics[scale=0.5,angle=0]{./Resume/3_3_IsotoPK_CTRL_DWB_3D_vs_4D_central.pdf}
 \caption{Courbes d'activité temporelle moyenne des VOI pour la reconstruction spectrale 3D et 4D. Régions VOI indiquées qui sont incluses dans l'acquisition DSB et DWB.}
 \label{fig_3_3:IsotoPK_CTRL_DWB_4D_vs_3D_Central}
 \end{figure}
 %
 \begin{figure} [h!]
 \centering
-\includegraphics[scale=0.5,angle=0]{3_3_IsotoPK_K1_SingleSlice.pdf}
+\includegraphics[scale=0.5,angle=0]{./Resume/3_3_IsotoPK_K1_SingleSlice.pdf}
 \caption{$K_1$ estimé à partir de la reconstruction spectrale 4D pour les régions VOI incluses dans les acquisitions DSB et DWB, présentées pour les balayages \textit{CTRL} et \textit{RIF}.}
 \label{fig_3_3:IsotoPK_K1_SingleSlice}
 \end{figure} 
@@ -151,6 +123,3 @@ Plusieurs aspects liés à l'estimation des types de mouvements complexes prése
 Récemment, avec le développement de nouveaux scanners à FOV étendu~\cite{Karp2020,Siegel2020} et de scanners corps total~\cite{Cherry2018}, il y a un regain d'intérêt pour résoudre ces problèmes pour l'imagerie dynamique du corps entier. 
 Bien que les scanners à A-FOV étendu puissent certainement bénéficier de l'estimation des images paramétriques de la DWB, en particulier celles sensibles à la cinétique rapide précoce après l'injection, leur disponibilité dans les environnements cliniques sera un sujet de préoccupation pendant au moins un certain temps. Les processus dynamiques plus lents peuvent encore être échantillonnés efficacement sur l'ensemble du corps avec les scanners actuels et les protocoles de DWB multi-lits, tels que ceux récemment introduits dans certains scanners commerciaux~\cite{Hu2020}, qui peuvent être plus rentables et plus facilement accessibles dans les environnements cliniques.
 Nous nous attendons donc à ce que le regain d'intérêt pour l'imagerie paramétrique du corps entier et l'imagerie quantitative complète se traduise par des avancées qui bénéficieront à l'imagerie DWB pour les scanners de tous les A-FOV et pour différents protocoles d'acquisition. 
-
-\bibliography{bibliography.bib}
-\end{document}
