@@ -21,8 +21,10 @@ As such the tissue activity concentration $C_T(t)$ can be modelled as
 \begin{equation}
  C_T(t) = C_P(t) \ast \textrm{IRF}(t)  \\ , \\ 
 \end{equation}
-where $\ast$ is the convolution operator. 
-
+where $\ast$ is the convolution operator. In this thesis, the convolution operation always denotes convolution in the time domain, from 0 to infinity with
+\begin{equation}
+C_P(t) \ast \textrm{IRF}(t) = \int_{0}^{\infty} C_P(\tau) \textrm{IRF}(t-\tau) d\tau \  \\ . \\ 
+\end{equation}
 When a measurement of activity concentration is made with \gls{pet}, the measurement will include the underlying tissue activity and activity from the intravascular blood in this tissue. The proportion of tissue volume occupied by intravascular blood $V_B$ is commonly referred to as blood fraction.The measured activity concentration $C_{PET}$ can be expressed as
 \begin{equation}
 {C_{PET}}(t)  = (1-V_{B}){C_{T}}(t) + V_{B}C_{B}(t) \\ , \\
@@ -36,7 +38,7 @@ For the tracers of interest in this PhD project, the ratio of the two concentrat
 \section{One-tissue compartment model}
 As the simplest model, the one-tissue compartment model (1TCM) can be described using two constant rates for the input and output of tracer from the tissue, $K_1$ and $k_2$ respectively. A representation can be seen in figure~\ref{fig:1_2TCM}.
 
-\begin{figure}[ht]
+\begin{figure}[ht!]
 	\includegraphics[width=0.8\textwidth]{2_Theory_Methods/figures/TissueCompartmentModels.pdf}
 	\centering
 	\caption{Representation of compartments and exchanges rates for 1TCM (top) and 2TCM (bottom)}
@@ -44,47 +46,58 @@ As the simplest model, the one-tissue compartment model (1TCM) can be described 
 	\label{fig:1_2TCM}
 \end{figure}
 
-The rate of change of the activity concentration in tissue $C_T$ will depend on the metabolite corrected arterial plasma input function $C_P$ and the activity concentration in tissue, described by the differential equation~\ref{eqn:1TCM_Diff}.
+The rate of change of the activity concentration in tissue $C_T$ will depend on the metabolite corrected arterial plasma input function $C_P$ and the activity concentration in tissue, described by the differential equation
 
 \begin{equation}
-  \frac{\mathrm d C_T(t)}{\mathrm d t} = K_1 C_P(t) - k_2 C_T(t)
+  \frac{\mathrm d C_T(t)}{\mathrm d t} = K_1 C_P(t) - k_2 C_T(t) \\ . \\
   \label{eqn:1TCM_Diff}
 \end{equation}
+By applying the Laplace transform on equation \ref{eqn:1TCM_Diff}, we have
 \begin{equation}
-   C_T(t) = K_1 e^{-k_2 t} \ast C_P(t) 
+  s \overline{C}_T - C_T(0) = K_1 \overline{C}_P - k_2 \overline{C}_T  \\  ,  \\ 
+  \label{eqn:1TCM_Diff_Laplace}
+\end{equation}
+where $\overline{C}_T$ and $\overline{C}_P$ are the transforms of ${C_T}$ and ${C_P}$ respectively. With $C_T(0)=0$, this relationship can be solved for $\overline{C}_T$ providing
+\begin{equation}
+\overline{C}_T =  \frac{K_1}{s+k_2} \overline{C}_P  \\  .  \\ 
+  \label{eqn:1TCM_Diff_Laplace_solved}
+\end{equation}
+The inverse transform of equation \ref{eqn:1TCM_Diff_Laplace_solved} provides
+\begin{equation}
+   C_T(t) = K_1 e^{-k_2 t} \ast C_P(t)  \\  .  \\  
   \label{eqn:1TCM}
 \end{equation}
+Equation \ref{eqn:1TCM} is the solution of the differential equation \ref{eqn:1TCM_Diff}, which becomes equation \ref{eqn:1TCM_CPET} for the PET measurement that includes the fractional blood volume. 
+
 \begin{equation}
    C_{PET}(t) =   K_1 e^{-k_2 t} \ast C_P(t) (1-V_B) + C_B(t) V_B
   \label{eqn:1TCM_CPET}
 \end{equation}
 
-Equation \ref{eqn:1TCM} is the solution of the differential equation \ref{eqn:1TCM_Diff}, which becomes \ref{eqn:1TCM_CPET} for the PET measurement that includes the fractional blood volume. %In equation \ref{eqn:1TCM_CPET} it is important to note that the blood fraction is related to the whole blood activity concentration $C_B$ , rather than the metabolite corrected activity concentration $C_A$. When the tracer metabolic activity is negligible and under the assumption of negligible tracer delay and diffusion from arterial to venous blood TACs, the two concentrations ($C_A = C_B$) can be set equal in favour if simplified models and estimations. 
 
 \section{Two-tissue compartment model}
-The two-tissue compartment model (2TCM) is a commonly used model as it describes the behaviour of ${}^{18}F$-Fluorodeoxyglucose (${}^{18}\mathrm{F}$-FDG), which is commonly used tracer in clinical and research PET protocols. The separation into two tissue compartments is made to distinguish between free and trapped (bound) tracer, represented as $C_F(t)$ and $C_B(t)$ respectively, with the trapping caused by the tracer being metabolised in the cells by mitochondria. The set of differential equations describing the 2TCM is shown in equations~\ref{eqn:2TCM_Diff}.
+The two-tissue compartment model (2TCM) is a commonly used model as it describes the behaviour of ${}^{18}F$-Fluorodeoxyglucose (${}^{18}\mathrm{F}$-FDG), which is commonly used tracer in clinical and research PET protocols. The separation into two tissue compartments is made to distinguish between free and trapped (bound) tracer, represented as $C_{Free}(t)$ and $C_{Bound}(t)$ respectively, with the trapping caused by the tracer being metabolised in the cells by mitochondria. The set of differential equations describing the 2TCM is shown in equations~\ref{eqn:2TCM_Diff}.
 
 \begin{subequations}
 \begin{align}
 %C_{PET} = (C_F + C_B)(1-V_B) + V_B C_A \\
-\frac{d}{dt}C_F(t) = K_1 C_A(t) - (k_2 + k_3)C_F(t) + k_4 C_B(t) \\ 
-\frac{d}{dt}C_B(t) = k_3 C_F(t) - k_4 C_B(t)  
+\frac{d}{dt}C_{Free}(t) = K_1 C_P(t) - (k_2 + k_3)C_{Free}(t) + k_4 C_{Bound}(t) \\ 
+\frac{d}{dt}C_{Bound}(t) = k_3 C_{Free}(t) - k_4 C_{Bound}(t)  
 \end{align}
 \label{eqn:2TCM_Diff}
 \end{subequations}
 
-The pathway of tracer from the trapped to the free state, via the process of dephosphorylation, is commonly considered negligible for the duration of common PET studies. With the assumption of $k_4=0$ the two differential equations in \ref{eqn:2TCM_Diff} simplify to the system \ref{eqn:2TCM_Diff_k4=0} which when solved results in equation \ref{eqn:2TCM}. 
-
+The pathway of tracer from the trapped to the free state, via the process of dephosphorylation, is commonly considered negligible for the duration of common PET studies. With the assumption of $k_4=0$ the two differential equations in \ref{eqn:2TCM_Diff} simplify to the system \ref{eqn:2TCM_Diff_k4=0}. 
 \begin{subequations}
 \begin{align}
-\frac{d}{dt}C_F(t) = K_1 C_A(t) - (k_2 + k_3)C_F(t) \\ 
-\frac{d}{dt}C_B(t) = k_3 C_F(t)  
+\frac{d}{dt}C_{Free}(t) = K_1 C_P(t) - (k_2 + k_3)C_{Free}(t) \\ 
+\frac{d}{dt}C_{Bound}(t) = k_3 C_{Free}(t)  
 \end{align}
 \label{eqn:2TCM_Diff_k4=0}
 \end{subequations}
-%
+Similarly to the 1TCM, the Laplace transform can be used to solve this system and result in equation \ref{eqn:2TCM}.
 \begin{equation}
-C_T(t) =  C_F(t) + C_B(t) = K_1 ( e^{-(k_2+k_3)t} + \frac{k_3}{k_2+k_3}(1-e^{-(k_2+k_3)t})) \ast C_P(t)   
+C_T(t) =  C_{Free}(t) + C_{Bound}(t) = K_1 ( e^{-(k_2+k_3)t} + \frac{k_3}{k_2+k_3}(1-e^{-(k_2+k_3)t})) \ast C_P(t)   
 \label{eqn:2TCM}
 \end{equation}
 
@@ -97,9 +110,9 @@ K_i = \frac{K_1 k_3}{k_2+k_3} .
 \label{eqn:FDG_Ki}
 \end{equation}
 
-The influx of FDG is proportional to the influx of glucose, also referred as the glucose metabolic rate $MR_{glu}$. The proportionality constant is called the lumped constant $LC$ and along with the concentration of blood glucise $C_{P}^{glu}$ can be used to express
+The influx of FDG is proportional to the influx of glucose, also referred as the glucose metabolic rate $\textrm{MR}_{glu}$. The proportionality constant is called the lumped constant $LC$ and along with the concentration of blood glucose $C_{P}^{glu}$ can be used to express
 \begin{equation}
-MR_{glu} = K_i \Big(\frac{C_{P}^{glu}}{LC}\Big)
+\textrm{MR}_{glu} = K_i \Big(\frac{C_{P}^{glu}}{LC}\Big)
 \label{eqn:MR_glu}
 \end{equation}
 
@@ -116,9 +129,19 @@ With the assumption of irreversible tracer behaviour the Gjedde-Patlak method ha
 \frac{C_{T}(t)}{C_{P}(t)} = K_i \frac{\int_{0}^{t} C_{P}(\tau) d\tau}{ C_{P}(t)} + V_{\alpha}   \ , \;  t>t_{ss} \ ,
 \end{equation}
 
-where $K_i$ is the steady state trapping rate and $V_{\alpha}$ the apparent volume of distribution. The transformation is valid for time points $t$ after steady state conditions are achieved at time $t_{ss}$. Steady state conditions are achieved when the reversible compartments are in steady-state equilibrium with the plasma blood compartment. 
+where $K_i$ is the steady state trapping rate and $V_{\alpha}$ the apparent volume of distribution.
+An example of the transformation applied on a 2TCM TAC is shown in figure~\ref{fig:2TCM_Patlak_Example}.
+\begin{figure}[ht!]
+	\includegraphics[width=1\textwidth]{2_Theory_Methods/figures/ExamplePatlak.png}
+	\centering
+	\caption{2TCM example TAC (left) and its Patlak transformation and linear fit (right).}
+	\centering
+	\label{fig:2TCM_Patlak_Example}
+\end{figure}
 
-The Gjedde-Patlak linearisation method referred to simpler as \textit{Patlak model}, is commonly used with the 2TCM model for FDG, under the assumption of $k_4=0$. In this case, the Patlak model parameters can be related to micro-parameters using equation~\ref{eqn:FDG_Ki} and 
+The transformation is valid for time points $t$ after steady state conditions are achieved at time $t_{ss}$, a shown in the example plot above. Steady state conditions are achieved when the reversible compartments are in steady-state equilibrium with the plasma blood compartment. 
+
+The Gjedde-Patlak linearisation method, referred to simpler as \textit{Patlak model}, is commonly used with the 2TCM model for FDG, under the assumption of $k_4=0$. In this case, the Patlak model parameters can be related to micro-parameters using equation~\ref{eqn:FDG_Ki} and 
 
 \begin{equation} 
 V_{\alpha}  = \frac{K_1 k_2}{(k_2+k_3)^2} \\ . \\ 
@@ -242,7 +265,7 @@ With knowledge of the $k_g$ dispersion value and ratio between PV and HA input, 
 
 An toy example demonstration of the two components of ${C_{H}}(t)$ is shown in figure~\ref{fig_2_2:LiverDualInputFunction}.
 
-\begin{figure} [h!]
+\begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.53,angle=0]{2_Theory_Methods/figures/2_2_LiverDualInputFunction.pdf}
 \caption[Example measured arterial input function $C_{P}(t)$ and modelled PV input function (using $k_g$=0.5 min$^{-1}$) (left). Combination of arterial and PV input function to provide ${C_{H}}(t)$, assuming a 25/75 ratio (right).]{Example measured arterial input function $C_{P}(t)$ and modelled PV input function (using $k_g$=0.5 min$^{-1}$~\cite{Kudomi2008}) (left). Combination of arterial and PV input function to provide ${C_{H}}(t)$, assuming a 25/75 ratio (right).} 

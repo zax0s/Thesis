@@ -16,17 +16,16 @@ The projection's dual operation is back-projection, which translates from the da
 %
 \subsection{Image representation}
 In practice, the spatio-temporal radiotracer distribution is described using a model with a finite number of parameters. The most common choice in common practice is the use of equally sized non-overlapping voxels that cover the useful \gls{fov}. Their use can also extend to the temporal domain with a set of voxels describing the \gls{fov} for each non overlapping temporal bin. In this case, the sets of voxels per temporal bin are considered temporally independent.
-If for a moment we consider only the spatial domain and static imaging, we can model the spatial radiotracer distribution $\bm{\lambda}$ using voxels with the $rect$ function as
-\begin{equation}
-   g(\bm{r};\bm\lambda) = \sum_{j=1}^{n_{j}} \lambda_j {rect}(\bm{r}-\bm{r}_j)  \\, 
-\end{equation}
-for an ${n_{j}}$ number of voxels with $r_j$ coordinates and intensity $\lambda_j$.
-For the linear model case, the set of functions describing the distribution are referred to as \textit{spatial basis functions}. From here on we will be using the $\bm\lambda$ symbol to refer to the ${n_{j}}$ dimension vector of $\lambda_j$ voxel weights that describe the spatial activity distribution as 
-\begin{equation}
+If for a moment we consider only the spatial domain and static imaging, we can model the spatial radiotracer distribution $\bm{\lambda}$
+%using voxels with the $rect$ function as
+%\begin{equation}
+%   g(\bm{r};\bm\lambda) = \sum_{j=1}^{n_{j}} \lambda_j {rect}(\bm{r}-\bm{r}_j)  \\, 
+%\end{equation}
+with an ${n_{j}}$ number of voxels%with $r_j$ coordinates 
+of intensity $\lambda_j$. For the linear model case, the set of functions describing the distribution are referred to as \textit{spatial basis functions}. From here on we will be using the $\bm\lambda$ symbol to refer to the ${n_{j}}$ dimension vector of $\lambda_j$ voxel weights that describe the spatial activity distribution as \begin{equation}
    \bm\lambda = \big\{ \lambda_j| j=1,\cdots,n_j \big\} \\.
 \end{equation}
-If we now consider the temporal domain of the activity distribution as well, the $rect$ function can be used 
-on the time domain to define a set of $n_t$ independent temporal bins (frames). Later in this chapter, we will show how dynamic models can be used to describe the behaviour of voxel values across the temporal domain, but traditional reconstruction treats frames as independent static datasets.
+If we now consider the temporal domain of the activity distribution as well, we can define a set of $n_t$ independent temporal bins (frames). Later in this chapter, we will show how dynamic models can be used to describe the behaviour of voxel values across the temporal domain, but traditional reconstruction treats frames as independent static datasets.
 In this case, the activity distribution of each frame $t$ can be written as
 %\begin{equation}
 %   \bm{\lambda} = \Big\{ {\bm{\lambda}_m,m=1,..,n_m} \Big\} \\,
@@ -35,19 +34,19 @@ In this case, the activity distribution of each frame $t$ can be written as
 \begin{equation}
    \bm{\lambda_t} = \big\{ {\lambda_{tj}| j=1,\cdots,n_j} \big\} \\.
 \end{equation}
-Equivalently the projection data are binned according to the discretization imposed by the \glspl{lor} in $y_i$, where $i$ is the projection bin index and $n_i$ the total number of \glspl{lor}. Similarly to the image data, the projection data are binned temporally into $y_{ti}$ for each projection bin $i$ at frame $t$ for a total number of number of $n_t$ frames. 
-The data of each frame can then be written as
+%Equivalently the projection data are binned according to the discretization imposed by the \glspl{lor} in $y_i$, where $i$ is the projection bin index and $n_i$ the total number of \glspl{lor}. Similarly to the image data, the projection data are binned temporally into $y_{ti}$ for each projection bin $i$ at frame $t$ for a total number of number of $n_t$ frames. 
+%The data of each frame can then be written as
 %\begin{equation}
 %   \bm{y} = \Big\{ {\bm{y}_m,m=1,...,n_m} \Big\} \\,
 %\end{equation}
 %where
-\begin{equation}
-   \bm{y_t} = \big\{ {y_{ti}| i=1,\cdots,n_i} \big\} \\.
-\end{equation}
+%\begin{equation}
+%   \bm{y_t} = \big\{ {y_{ti}| i=1,\cdots,n_i} \big\} \\.
+%\end{equation}
 %
 \subsection{Projection \& Analytical reconstruction}
 Forward projection of image to data space can be treated by summing contributions of voxels across each~\gls{lor}. %Different projection strategies exist that model the contribution of voxels differently depending on their placement in the \gls{lor}. 
-As this is a computationally costly process in practice, different methods have been proposed that balance between accuracy and consistency and computing requirements. %A short follows list with basic description of the methods that are implemented in CASToR.
+The geometrical projection matrix $\bm{X}$ can be defined, with elements $X_{ij}$ to describe the contribution of each voxel $j$ in each ~\gls{lor} bin $i$. As the projection is a computationally costly process in practice, different methods have been proposed that balance between accuracy and consistency and computing requirements. %A short follows list with basic description of the methods that are implemented in CASToR.
 Some of these methods, which are also implemented in the CASToR reconstruction software, are listed below with a short description.
 \begin{itemize}
 \item  \textbf{Siddon projector}~\cite{Siddon1985}: Weights the contribution of a voxel to a given LOR by the length of the LOR that intersects the voxel.
@@ -126,15 +125,15 @@ The log likelihood expression is
     lnL(\bm{\lambda}|\bm{y})  = \sum_{i=1}^{n_i}\left[ y_i ln(\sum_{j=1}^{n_j} P_{ij} \lambda_j + b_i) -\sum_{j=1}^{n_j} P_{ij} \lambda_j - b_i - ln({y_i}!) \right] \\.
 \label{eqn:log_likelihood}
 \end{equation}
-This expression of the Poisson log-likelihood will be used to arrive to the maximum likelihood estimate image $\bm\lambda$, which will be noted as $\bm{\lambda}^{ML}$, that maximises the likelihood of the modelled data given the measured \mbox{data $\bm{y}$}
+\section{Maximum Likelihood - Expectation Maximisation}
+\label{section:MLEM}
+Equation~\ref{eqn:log_likelihood} of the Poisson log-likelihood will be used to arrive to the maximum likelihood estimate image $\bm\lambda$, which will be noted as $\bm{\lambda}^{ML}$, that maximises the likelihood of the modelled data given the measured \mbox{data $\bm{y}$}
 \begin{equation}
 \bm{\lambda}^{\textrm{ML}} = \argmax{\bm{\lambda}}(lnL(\bm{\lambda}|\bm{y})) \\ . \\
 \end{equation}
-\section{Maximum Likelihood - Expectation Maximisation}
-\label{section:MLEM}
 The second partial derivative of the log-likelihood to $\lambda$ can be shown to be negative semidefinite to all allowed images and thus the log-likelihood function is a concave function. This means that a found local maximum through the optimisation process will be the global maximum of the function.
 
-Seeking to solve equation~\ref{eqn:log_likelihood} to find analytically the maximum likelihood image $\bm{\lambda}^{ML}$, we can take its first partial derivative to $\lambda_j$ and set it to be equal to zero. 
+Seeking to solve equation~\ref{eqn:log_likelihood} to find analytically the maximum likelihood image $\bm{\lambda}^{ML}$, using the Kuhn-Tucker conditions we arrive to its first partial derivative to $\lambda_j$ and seek to solve by setting it to be equal to zero. 
 \begin{equation}
 \frac{\partial lnL(\bm{\lambda}|\bm{y})}{\partial \lambda_j} = \sum_{i=1}^{n_i}\left[  y_i \frac{\sum_{j=1}^{n_j} P_{ij} }{\sum_{j=1}^{n_j} P_{ij} \lambda_j + b_i} -\sum_{j=1}^{n_j} P_{ij}
 \right]  = 0 \\,
@@ -143,7 +142,7 @@ but this expression has no closed form solution.
 The arrival to this expression shows the need for iterative methods to seek the $\bm{\lambda}^{\textrm{ML}}$ solution. 
 
 The most common algorithm used for this problem is the \gls{em} algorithm that was first applied on statistical PET reconstruction by two key works by Shepp and Vardi~\cite{Vardi1985} and Lange and Carson~\cite{Lange1984}. In these works the solution is derived through the introduction of the "complete data" concept~\cite{Dempster1977}. \\
-Let $\bm{z}$ be the complete data random dataset of $x_{ij} + g_i$ values which describes the exact number of emissions from voxel $j$ that contribute to the measurement at projection bin $i$, with the many to one mapping 
+Let $\bm{z}$ be the complete data random dataset of $x_{ij} + g_i$ values which describes the exact number of emissions from voxel $j$ and the background data $g_i$ that contribute to the measurement at projection bin $i$, with the many to one mapping 
 \mbox{$y_i = \sum_{j=1}^{n_j} x_{ij} + g_i$}.
 The complete dataset is unknown, but the conditional expectation of the complete data can be expressed using an image estimate (a guess) noted as $\bm{\lambda}^{(k)}$ and the measured data $\bm{y}$ as 
 %
@@ -168,7 +167,7 @@ g_i ln(b_i) - b_i \right] \\ ,
 \label{eqn:log_likelihood_z}
 \end{equation}
 where parameters not related to its optimisation to $\lambda$ have been dropped. 
-If we replace the expectation of the complete data using equations~\ref{eq:Complete_Data_Expectation1} and ~\ref{eq:Complete_Data_Expectation2} we can then seek to maximise this likelihood function to obtain the ML image estimate of the expected complete data. Using the Kuhn-Tucker conditions we arrive at a closed form solution
+If we replace the expectation of the complete data using equations~\ref{eq:Complete_Data_Expectation1} and ~\ref{eq:Complete_Data_Expectation2} we can then seek to maximise this likelihood function to obtain the ML image estimate of the expected complete data. By using the first derivative of this expression and setting to zero we arrive at a closed form solution
 \begin{equation}
 \lambda_j^{(k+1)} = \frac{\lambda_j^{(k)}}{\sum_{i=1}^{n_i} P_{ij}} 
 \sum_{i=1}^{n_i} P_{ij} 
@@ -190,17 +189,23 @@ More than 10 years later the approach was revisited by Matthews \textit{et al}~\
 It was not until the work of two groups in 2010, Wang \textit{et al}~\cite{Wang2010} and Matthews \textit{et al}~\cite{Matthews2010}, that allowed for practical and more widespread use of dynamic reconstruction. Their methods, based on principles of optimisation transfer by Lange~\cite{Lange2000}, decouple the dynamic reconstruction process to an EM update over all data and to a ML problem in image space. The first step iterates through the tomographic data and updates the activity estimate images, while the second step simply updates the dynamic model parameters using the updated activity images. With the second step being much faster, multiple dynamic model updates can be conducted for each update over data which results in acceleration of overall convergence. Results were demonstrated by Wang \textit{et al}~\cite{Wang2010} for \gls{em} and \gls{pcg} based optimisations using linear models. While that work was limited to linear dynamic models, the work by Matthews \textit{et al}~\cite{Matthews2010} generalised on the optimisation of the image space ML problem by the use of an equivalence to a weighted least-square minimisation problem. This formulation allowed for use of existing Least Squares (LS) optimisation algorithms, that are commonly used for post-reconstruction model fitting, to be used in 4D reconstruction for linear and non-linear models. The disadvantage of this approach is that the resulting formulation is not strictly concave and thus does not guarantee monotonic convergence to a global maximum. Nevertheless, convergence behaviour has been observed in practice with different weighting schemes~\cite{Gravel2015,Wang2013}. \\
 The use of non-linear models within dynamic reconstruction has shown clear benefits in precision and accuracy~\cite{Angelis2014,Kotasidis2012,Gravel2015} but are more sensitive to initialisation and reconstruction parameters and could lead to unpredictable behaviour.
 
-\subsection{Dynamic models}
-As described in chapter~\ref{Chap2_2:Pharmacokinetics}, dynamic data are used to seek parameters of kinetic models for the understanding of underlying molecular processes. Conventionally the data of each frame are reconstructed as individual static datasets and the resulting images are used for post-reconstruction modelling. When the parameters sought are calculated at the voxel level, the result is a set of parameters for each voxel in the FOV, which are referred to as parametric maps.
-
+\subsection{Dynamic data and models}
+As described in chapter~\ref{Chap2_2:Pharmacokinetics}, dynamic data are used to seek parameters of kinetic models for the understanding of underlying molecular processes. 
+Similarly to the image data, the projection data are binned temporally into $y_{ti}$ for each projection bin $i$ at frame $t$ for a total number of number of $n_t$ frames. 
+The data of each frame can then be written as
+\begin{equation}
+   \bm{y_t} = \big\{ {y_{ti}| i=1,\cdots,n_i} \big\} \\.
+\end{equation}
+%
+Conventionally the data of each frame are reconstructed as individual static datasets and the resulting images are used for post-reconstruction modelling. When the parameters sought are calculated at the voxel level, the result is a set of parameters for each voxel in the FOV, which are referred to as parametric maps.
 
 If we assume an example dynamic model that describes the dynamic behaviour of the radiotracer distribution with $n_p$ number of $p$ parameters, then the set of parameters for each voxel $j$ can be expressed as
 \begin{equation}
    \bm{\theta_j} = \big\{ {\theta_{pj}| p=1,\cdots,n_p} \big\} \\.
 \end{equation}
-These can be used to model the activity behaviour at each time frane $t$ according to
+These can be used to model the activity behaviour at each time frame $t$ according to
 \begin{equation}
-   \lambda_{tj} = f_{tj}(\bm\theta_{j}) \\,
+   \lambda_{tj} = f_{t}(\bm\theta_{j}) \\,
 \label{eqn:LinearDynamicModel}
 \end{equation}
 where $f()$ is the function of the dynamic model that estimates radiotracer activity values over $n_t$ time frames given a set of $n_{p}$ model parameters.
@@ -220,7 +225,14 @@ The dynamic model $f()$ can be either linear or non-linear to the set of paramet
 %Instead of this two-step process, it is possible to derive reconstruction algorithms that include dynamic models and can be applied on the whole of the dynamic PET data. These reconstruction algorithms, which are referred to as 4D reconstruction algorithms due to their application in 4 dimensions, seek to reduce the problem of limited counts that would else be used in individual frame bins by making use of the whole of the dynamic PET data. The dynamic models used are chosen to provide meaningful constrains and when the model of interest that would otherwise be used post-reconstruction is included, the 4D reconstruction algorithms can directly provide the parameters and parametric images of interest.
 %Typically (although its not always the case) the number of parameters of dynamic models is smaller than the number of time frames in a study and so the use of 4D reconstruction effectively reduces the number of parameters to estimate, that along with the constraints imposed by the dynamic model result in an important reduction of noise and potentially improved bias. Furthermore direct use of dynamic models in reconstructions allows for the use of the noise-model that describes the PET data detection to be accounted for in the estimation of the final dynamic model parameters.
 \subsection{Dynamic reconstruction - Nested optimisation}
-Similar to~\ref{section:MLEM}, the conditional expectation of the complete data can be written using the generic dynamic model $f()$  
+The log likelihood expression for dynamic data and the dynamic model becomes
+\begin{equation}
+    lnL(\bm{\theta}|\bm{y})  = \sum_{t=1}^{n_t}\sum_{i=1}^{n_i}\left[ y_{ti} ln(\sum_{j=1}^{n_j} P_{ij} f_{tj}(\bm\theta) + b_i) -\sum_{j=1}^{n_j} P_{ij} f_{tj}(\bm\theta) - b_{ti} - ln({y_{ti}}!) \right] \\, \\
+\label{eqn:dynamic_log_likelihood}
+\end{equation}
+%
+where now the additive corrections vector $b$ is used for the known corrections on each frame $t$ and data \mbox{bin $i$}. Here we have assumed that the system matrix $P$ does not depend on time frame $t$.
+Similar to~\ref{section:MLEM}, the conditional expectation of the complete data can be written using the generic dynamic model $f()$ as 
 \begin{equation}
 \label{eq:Dynamic_complete_Data_Expectation}
 \hat{x}_{tij}(\bm{\theta}^{(k)},y_{ti}) = y_{ti}
@@ -231,10 +243,10 @@ Similar to~\ref{section:MLEM}, the conditional expectation of the complete data 
 \begin{equation}
 \label{eq:Dynamic_complete_Data_Expectation2}
 \hat{g}_{ti}(\bm{\theta}^{(k)},y_{ti}) = y_{ti}
-\frac{b_{ti}}{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + b_{ti}} ,
+\frac{b_{ti}}{\sum_{d=1}^{n_j} P_{id} f_{td}(\bm\theta^{(k)}) + b_{ti}} .
 \end{equation}
 %
-where now the additive corrections vector $b$ is used for the known corrections on each frame $t$ and data \mbox{bin $i$}. Here we have assumed that the system matrix $P$ does not depend on time frame $t$.
+
 %\begin{equation}
 %lnL(\bm{\theta}|\bm{\hat{z}})  =
 %\sum_{t=1}^{n_t} \sum_{i=1}^{n_i} \sum_{b=1}^{n_j} 
@@ -294,7 +306,8 @@ Equations~\ref{eqn:EM_Update_image} and~\ref{eqn:NestedOptimization} form the tw
 As described in chapter~\ref{Chap2_2:Pharmacokinetics}, many dynamic models utilised in practice for parametric imaging are linear models. These can be expressed in the form of matrices, which effectively are a set of temporal basis functions of the dynamic model.
 The modeled activity using a linear model of $n_p$ number of parameters is
 \begin{equation}
-\lambda_{tj} = \sum_{p=1}^{n_p} B_{tp}   \theta_{pj} \\ . \\
+%\lambda_{tj} = \sum_{p=1}^{n_p} B_{tp}   \theta_{pj} \\ . \\
+\lambda_{tj} = f_t(\theta_{j}) = \sum_{p=1}^{n_p} B_{tp}   \theta_{pj} \\ . \\
 \label{eqn:2_3_LinearBasis}
 \end{equation}
 %or in the form of an image vector per frame
