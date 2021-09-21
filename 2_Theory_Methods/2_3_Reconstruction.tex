@@ -32,7 +32,7 @@ In this case, the activity distribution of each frame $t$ can be written as
 %\end{equation}
 %where
 \begin{equation}
-   \bm{\lambda_t} = \big\{ {\lambda_{tj}| j=1,\cdots,n_j} \big\} \\.
+   \bm{\lambda}_t = \big\{ {\lambda_{tj}| j=1,\cdots,n_j} \big\} \\.
 \end{equation}
 %Equivalently the projection data are binned according to the discretization imposed by the \glspl{lor} in $y_i$, where $i$ is the projection bin index and $n_i$ the total number of \glspl{lor}. Similarly to the image data, the projection data are binned temporally into $y_{ti}$ for each projection bin $i$ at frame $t$ for a total number of number of $n_t$ frames. 
 %The data of each frame can then be written as
@@ -93,8 +93,8 @@ where
 \begin{itemize}
     \item $n_i$ are the normalisation factors for each LOR bin
     \item $a_i$ are the attenuation factors for each LOR bin
-    \item $X_{ij}$ is the geometrical projection matrix
-    \item $H_{jk}$ is the resolution modelling matrix, applied as a convolution in image space to account for different effects impacting resolution (positron range, detector size, etc.)
+    \item $X_{ij}$ is the geometrical projection matrix entry
+    \item $H_{jk}$ is the resolution modelling matrix entry, applied as a convolution in image space to account for different effects impacting resolution (positron range, detector size, etc.)
     \item $b_i$ the background events for each LOR bin.
 \end{itemize}
 %
@@ -142,7 +142,7 @@ but this expression has no closed form solution.
 The arrival to this expression shows the need for iterative methods to seek the $\bm{\lambda}^{\textrm{ML}}$ solution. 
 
 The most common algorithm used for this problem is the \gls{em} algorithm that was first applied on statistical PET reconstruction by two key works by Shepp and Vardi~\cite{Vardi1985} and Lange and Carson~\cite{Lange1984}. In these works the solution is derived through the introduction of the "complete data" concept~\cite{Dempster1977}. \\
-Let $\bm{z}$ be the complete data random dataset of $x_{ij} + g_i$ values which describes the exact number of emissions from voxel $j$ and the background data $g_i$ that contribute to the measurement at projection bin $i$, with the many to one mapping 
+Let $\bm{z}$ be the complete data random dataset of $x_{ij} + g_i$ values which describes the exact number of emissions from voxel $j$ and the background data $g_i$ that contribute to the measurement at projection bin $i$, with the many-to-one mapping 
 \mbox{$y_i = \sum_{j=1}^{n_j} x_{ij} + g_i$}.
 The complete dataset is unknown, but the conditional expectation of the complete data can be expressed using an image estimate (a guess) noted as $\bm{\lambda}^{(k)}$ and the measured data $\bm{y}$ as 
 %
@@ -194,14 +194,14 @@ As described in chapter~\ref{Chap2_2:Pharmacokinetics}, dynamic data are used to
 Similarly to the image data, the projection data are binned temporally into $y_{ti}$ for each projection bin $i$ at frame $t$ for a total number of number of $n_t$ frames. 
 The data of each frame can then be written as
 \begin{equation}
-   \bm{y_t} = \big\{ {y_{ti}| i=1,\cdots,n_i} \big\} \\.
+   \bm{y}_t = \big\{ {y_{ti}| i=1,\cdots,n_i} \big\} \\.
 \end{equation}
 %
 Conventionally the data of each frame are reconstructed as individual static datasets and the resulting images are used for post-reconstruction modelling. When the parameters sought are calculated at the voxel level, the result is a set of parameters for each voxel in the FOV, which are referred to as parametric maps.
 
 If we assume an example dynamic model that describes the dynamic behaviour of the radiotracer distribution with $n_p$ number of $p$ parameters, then the set of parameters for each voxel $j$ can be expressed as
 \begin{equation}
-   \bm{\theta_j} = \big\{ {\theta_{pj}| p=1,\cdots,n_p} \big\} \\.
+   \bm{\theta}_j = \big\{ {\theta_{pj}| p=1,\cdots,n_p} \big\} \\.
 \end{equation}
 These can be used to model the activity behaviour at each time frame $t$ according to
 \begin{equation}
@@ -232,7 +232,7 @@ The log likelihood expression for dynamic data and the dynamic model becomes
 \end{equation}
 %
 where now the additive corrections vector $b$ is used for the known corrections on each frame $t$ and data \mbox{bin $i$}. Here we have assumed that the system matrix $P$ does not depend on time frame $t$.
-Similar to~\ref{section:MLEM}, the conditional expectation of the complete data can be written using the generic dynamic model $f()$ as 
+Similar to~\ref{eq:Complete_Data_Expectation1} and~\ref{eq:Complete_Data_Expectation2}, the conditional expectation of the complete data can be written using the generic dynamic model $f()$ as 
 \begin{equation}
 \label{eq:Dynamic_complete_Data_Expectation}
 \hat{x}_{tij}(\bm{\theta}^{(k)},y_{ti}) = y_{ti}

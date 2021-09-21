@@ -1,4 +1,4 @@
-\Gls{castor} stands for Customizable and Advanced Software for Tomographic Reconstruction and is an open source fully quantitative reconstruction platform that has been developed within a collaboration project, partly financed by France Life Imaging (FLI). It is available on the website of the collaboration project {(\url{https://castor-project.org/})}.
+\Gls{castor} stands for Customizable and Advanced Software for Tomographic Reconstruction and is an open-source fully quantitative reconstruction platform that has been developed within a collaboration project, partly financed by France Life Imaging (FLI). It is available on the website of the collaboration project {(\url{https://castor-project.org/})}.
 This PhD project relied heavily on the use of \gls{castor} for developing and performing reconstructions, on both simulated and real patient data. The work conducted in this project resulted in the development and evaluation of new functionalities, which are now part of the released public version 3.1.1. These are described in detail in chapter~\ref{Chap3_2:SimStudy}. 
 
 In this chapter, we provide a short introduction to the functionalities and innovative reconstruction methods provided in \gls{castor} that play an important role in the work performed in this PhD project. Further information, instructions and examples on the use of \gls{castor} can be found at the website of the collaboration project {(\url{https://castor-project.org/})}.
@@ -31,7 +31,7 @@ Use of other framing definitions would require re-processing of the data before 
 In this project, when possible, the use of list-mode datafiles was preferred due to the offered flexibility. 
 List-mode datafiles were used for reconstructions of real PET datasets, while histograms were used for reconstructions of simulated datasets (from analytical simulations).
 
-\subsection{Real Data Corrections}
+\subsubsection*{Real Data Corrections}
 Although in simulations it is relatively easy to get an estimate of corrections, these are harder to obtain for real data. Various estimation methods, as outlined in chapter~\ref{Chap2_1:PET}, are employed by scanner manufacturers to generate corrections that are necessary for quantitatively accurate reconstruction.
 CASToR does not provide any functionalities for estimation of corrections. These must be pre-computed and included in the construction process of the castor datafile. 
 
@@ -125,7 +125,7 @@ By incorporating the offset of each bed position in the projection operation, eq
 \label{eqn2_4:MLEM_multibed}
 \end{equation} 
 
-where now the image $\bm{\lambda}$ has the dimensions of the whole effective \gls{fov}, and the additive correction terms $C_{si}$ is provided for each respective bed position $s$. 
+where now the image $\bm{\lambda}$ has the dimensions of the whole effective \gls{fov}, and the additive correction terms $b_{si}$ is provided for each respective bed position $s$. 
 
 Direct reconstruction of multi-bed data, which combines data from overlapping acquisitions within the iterative reconstruction loop, improves the statistics of the overlapping region that are available for each iteration. It has been shown that this technique can result in improved contrast to noise ratios at the overlapping regions, for specific levels of acquisition statistics~\cite{Ross2004}. 
 

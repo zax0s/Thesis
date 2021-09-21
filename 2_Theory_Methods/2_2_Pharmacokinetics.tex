@@ -70,7 +70,7 @@ The inverse transform of equation \ref{eqn:1TCM_Diff_Laplace_solved} provides
 Equation \ref{eqn:1TCM} is the solution of the differential equation \ref{eqn:1TCM_Diff}, which becomes equation \ref{eqn:1TCM_CPET} for the PET measurement that includes the fractional blood volume. 
 %
 \begin{equation}
-   C_{PET}(t) =   K_1 e^{-k_2 t} \ast C_P(t) (1-V_B) + C_B(t) V_B
+   C_{PET}(t) =   \left(K_1 e^{-k_2 t} \ast C_P(t)\right) (1-V_B) + C_B(t) V_B
   \label{eqn:1TCM_CPET}
 \end{equation}
 %
@@ -97,12 +97,12 @@ The pathway of tracer from the trapped to the free state, via the process of dep
 \end{subequations}
 Similarly to the 1TCM, the Laplace transform can be used to solve this system and result in equation \ref{eqn:2TCM}.
 \begin{equation}
-C_T(t) =  C_{Free}(t) + C_{Bound}(t) = K_1 ( e^{-(k_2+k_3)t} + \frac{k_3}{k_2+k_3}(1-e^{-(k_2+k_3)t})) \ast C_P(t)   
+C_T(t) =  C_{Free}(t) + C_{Bound}(t) = K_1 \left( e^{-(k_2+k_3)t} + \frac{k_3}{k_2+k_3}(1-e^{-(k_2+k_3)t})\right) \ast C_P(t)   
 \label{eqn:2TCM}
 \end{equation}
 %
 The parameters $K_1$, $k_2$ and $k_3$, which are referred to as micro-parameters, can be estimated by fitting equation~\ref{eqn:2TCM} on measured \gls{tac} data. 
-
+%
 A parameter of interest for clinical studies is the influx rate constant $K_i$, given by equation~\ref{eqn:FDG_Ki}. This is considered as a macro-parameter of the system and can be understood as the proportion of flux $K_1$ that results in trapped tracer.
 %
 \begin{equation}
