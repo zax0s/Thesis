@@ -227,7 +227,7 @@ The dynamic model $f()$ can be either linear or non-linear to the set of paramet
 \subsection{Dynamic reconstruction - Nested optimisation}
 The log likelihood expression for dynamic data and the dynamic model becomes
 \begin{equation}
-    lnL(\bm{\theta}|\bm{y})  = \sum_{t=1}^{n_t}\sum_{i=1}^{n_i}\left[ y_{ti} ln(\sum_{j=1}^{n_j} P_{ij} f_{tj}(\bm\theta) + b_i) -\sum_{j=1}^{n_j} P_{ij} f_{tj}(\bm\theta) - b_{ti} - ln({y_{ti}}!) \right] \\, \\
+    lnL(\bm{\theta}|\bm{y})  = \sum_{t=1}^{n_t}\sum_{i=1}^{n_i}\left[ y_{ti} ln(\sum_{j=1}^{n_j} P_{ij} f_{tj}(\bm\theta) + b_{ti}) -\sum_{j=1}^{n_j} P_{ij} f_{tj}(\bm\theta) - b_{ti} - ln({y_{ti}}!) \right] \\, \\
 \label{eqn:dynamic_log_likelihood}
 \end{equation}
 %
