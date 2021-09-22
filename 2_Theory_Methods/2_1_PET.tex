@@ -257,16 +257,16 @@ The use of PMT based detectors for synchronous PET/MR imaging was only possible 
 There are currently two PET/MR integrated systems by commercial manufacturers, the Siemens mMR and the GE Signa. In this project, we relied on access and real PET data from a GE Signa PET/MR that is available in our centre. But we also made use of Siemens mMR data in a collaboration project with the Medical University of Vienna that is described in the Secondary Contributions section at the end of this manuscript. 
 
 The Signa PET/MR scanner was designed based on an existing 3 Tesla MR scanner (3T MR750w MR scanner) that was modified to accommodate the PET detector ring. The ring comprises of 28 transverse modules (seen in figure~\ref{fig_2:SignaPETMR_Integrated_System}) with 720 scintillator crystals per module. Those are coupled with SiPM detector modules, which are capable of capturing TOF information. A schematic of the modules and their integration in the system ring is shown in figure~\ref{fig_2:SignaPETMR_Integrated_System}. The PET ring configuration results to 45 crystal rings which provide a total of 89 slices and an \gls{afov} coverage of approximately 25 cm with a slice thickness of 2.78 mm. Details on the system characteristics and evaluation of performance can be found in the work of Grant \textit{et al}~\cite{Grant2016}.
-
+%
 It is interesting to note that the latest GE PET/CT systems make use of similar detector configuration and type which provide similar performance for PET imaging~\cite{Pan2019}.
-
+%
 \begin{figure} [ht!]
 \centering
 \includegraphics[scale=0.45,angle=0]{2_Theory_Methods/figures/SignaPETMR_Integrated_System.pdf}
 \caption[Schematic of the GE Signa hybrid PET-MR system, comprising of detector module units (bottom) in a ring formation within the MR RF body coil (top).]{Schematic of the GE Signa hybrid PET-MR system, comprising of detector module units (bottom) in a ring formation within the MR RF body coil (top)~\cite{Levin2016}.} 
 \label{fig_2:SignaPETMR_Integrated_System}
 \end{figure} 
-
+%
 \section{Whole Body PET: Static Imaging}
 For many clinical applications, as for example in oncology, PET imaging over the whole body is essential for the detection and characterisation of primary and metastatic disease. Developments in PET detectors technology and reduction of production costs have resulted in increasing axial length of PET scanners using additional detector rings, with currently widespread clinical models offering between 15 to 26 cm of axial coverage~\cite{Vandenberghe2020}.
 In practice for static imaging whole-body coverage is achieved using multiple bed positions. The first suggestion and optimization work in extending the effective A-FOV of PET scans using multiple bed positions was made by Dahlbom~\textit{et al.}~\cite{Dahlbom1992}. This work was made on PET systems operated in 2D mode, where a bed displacement of approximately equal to the system's A-FOV was used to increase the acquisition's effective A-FOV. As systems became capable of acquiring in 3D mode, offering increased sensitivity but resulting in axial varying sensitivity profiles, different strategies were needed for multi-bed acquisitions. The two methods suggested and developed are the \textit{Step and Shoot} (SS)~\cite{Schubert1996} and the \textit{Continuous Bed Motion} (CBM)~\cite{Panin2014} acquisition methods.
