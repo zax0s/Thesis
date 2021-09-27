@@ -1,7 +1,7 @@
 % created on 2019-12-13
 % @author : bmazoyer
 \newenvironment{dedication}
-  {\clearpage           % we want a new page
+  {%\clearpage           % we want a new page
    \thispagestyle{empty}% no header and footer
    \vspace*{\stretch{1}}% some space at the top 
    \itshape             % the text is in italics
@@ -13,6 +13,6 @@
   }
   
 \begin{dedication}
-Dedication
+%Dedication
 \end{dedication}
 \afterpage{\blankpage}

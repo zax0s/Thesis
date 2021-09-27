@@ -149,12 +149,16 @@ bottom=30mm
     %\input{layout/firstpage.tex}
     \includepdf[pages=-]{couverture_de_these_ChalampalakisZ.pdf}
     \afterpage{\blankpage}
-    %\cleardoublepage
-    
-    \input{layout/dedication.tex}
+    \pagenumbering{roman}
+    \newpage
     \cleardoublepage
-    
+
+    %\input{layout/dedication.tex}
+    %\cleardoublepage
+
     \input{layout/acknowledgements.tex}
+    \newpage
+    \phantom{invisible} 
     \cleardoublepage
     
     %\pagenumbering{arabic}
