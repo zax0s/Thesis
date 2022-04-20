@@ -1,9 +1,9 @@
 # My PhD thesis at Paris-Saclay University (Université Paris-Saclay)
-Compile using the compile.sh script. Thesis also available at: https://tel.archives-ouvertes.fr/tel-03512696
+Compile using the [compile.sh](compile.sh) script. Thesis also available [here](https://tel.archives-ouvertes.fr/tel-03512696): 
 
-# Title: Modelling and reconstruction of Whole-Body parametric maps in PET-MRI pharmacological imaging
+### Title: Modelling and reconstruction of Whole-Body parametric maps in PET-MRI pharmacological imaging ###
 
-# Titre: Modélisation et reconstruction de cartes paramétriques corps-entier en imagerie pharmacologique TEP-IRM
+###  Titre: Modélisation et reconstruction de cartes paramétriques corps-entier en imagerie pharmacologique TEP-IRM  ###
 
 # Abstract
 Positron Emission Tomography (PET) is used extensively for clinical applications, with the majority of practices relying on qualitative and semi-quantitative measures. But PET imaging has the ability to deliver fully quantitative functional information of underlying imaged processes by use of dynamic imaging and kinetic modelling. That unique quantitative information can be utilised as biomarkers for clinical applications, especially in precision medicine. But clinical applications often require imaging over the whole body and the majority of clinical scanners provide a limited axial Field of View (FOV). Multiple bed position protocols for dynamic whole-body (DWB) imaging have been developed to extend the effective FOV, at the cost of considerable limitations in acquisition counts and sampling frequency. The objective of this thesis is to improve the quality of whole-body parametric imaging for DWB imaging applications on a hybrid PET/MR scanner.
