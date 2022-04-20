@@ -1,8 +1,8 @@
 # My PhD thesis at Paris-Saclay University (Université Paris-Saclay)
 
-## Title: Modelling and reconstruction of Whole-Body parametric maps in PET-MRI pharmacological imaging ##
+### Title: Modelling and reconstruction of Whole-Body parametric maps in PET-MRI pharmacological imaging ###
 
-## Titre: Modélisation et reconstruction de cartes paramétriques corps-entier en imagerie pharmacologique TEP-IRM  ##
+### Titre: Modélisation et reconstruction de cartes paramétriques corps-entier en imagerie pharmacologique TEP-IRM  ###
 
 Compile using the [compile.sh](compile.sh) script. Thesis also available at [tel.archives-ouvertes.fr](https://tel.archives-ouvertes.fr/tel-03512696): 
 
