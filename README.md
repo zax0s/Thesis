@@ -1,34 +1,17 @@
-# Latex template for my PhD thesis at Paris-Saclay University (Université Paris-Saclay)
-Please check on the 
-[university website](https://www.universite-paris-saclay.fr/fr/documents-de-reference-relatifs-a-la-soutenance-de-la-these) 
-that this template still matches their recommendations (first page and last page) before using it for yourself.
+# My PhD thesis at Paris-Saclay University (Université Paris-Saclay)
 
+Title: Modelling and reconstruction of Whole-Body parametric maps in PET-MRI pharmacological imaging
+Titre: Modélisation et reconstruction de cartes paramétriques corps-entier en imagerie pharmacologique TEP-IRM
+# Abstract
+Positron Emission Tomography (PET) is used extensively for clinical applications, with the majority of practices relying on qualitative and semi-quantitative measures. But PET imaging has the ability to deliver fully quantitative functional information of underlying imaged processes by use of dynamic imaging and kinetic modelling. That unique quantitative information can be utilised as biomarkers for clinical applications, especially in precision medicine. But clinical applications often require imaging over the whole body and the majority of clinical scanners provide a limited axial Field of View (FOV). Multiple bed position protocols for dynamic whole-body (DWB) imaging have been developed to extend the effective FOV, at the cost of considerable limitations in acquisition counts and sampling frequency. The objective of this thesis is to improve the quality of whole-body parametric imaging for DWB imaging applications on a hybrid PET/MR scanner.
 
-## How to use this template
-The main file is [thesis.tex](thesis.tex).
+In our first contribution we presented the development of a fully automated acquisition protocol for DWB imaging on a clinical PET/MR system, which resulted in reduced delays between whole body sweeps of the dynamic whole-body acquisition. These improvements can be used towards increasing acquisition counts and sampling frequency. Furthermore, the use of full automation enabled optimized planning of the individual bed positions for the best use of the effective FOV. 
 
-To add your name, the title of your thesis, the jury members, the school logo, you should modify:
-* [layout/firstpage](layout/firstpage.tex)
-* [layout/lastpage](layout/lastpage.tex) 
-* [thesis.tex](thesis.tex)
+For the second contribution we developed dynamic reconstruction algorithms within an existing open source reconstruction software. We evaluated benefits offered by use of various dynamic models in reconstruction, using simulated and real dynamic PET data. These evaluations were focused on reconstructions of individual beds from DWB acquisition protocols.
+Our results agreed with previous findings on the use of dynamic reconstruction. In the particular case of DWB imaging, dynamic reconstruction showed desirable properties for whole-body parametric image accuracy and precision, while providing images of comparable image noise to regular single bed dynamic protocols processed with regular reconstruction techniques.
 
-To add acknowledgements or a dedication, you should modify:
-* [layout/acknowledgements](layout/acknowledgements.tex)
-* [layout/dedication](layout/dedication.tex)
+In our third contribution we present an extension of the developed functionalities on the reconstruction software for direct multi-bed dynamic reconstruction of DWB data. This methodology enables the synchronous use of all acquired DWB data within a single reconstruction loop. The method was applied on a DWB pharmacological study performed on a clinical PET/MR system and comparison was made with regular frame static reconstructions followed by post reconstruction parametric modelling. The results between the two methods were in good agreement, with no introduction of bias on the evaluated metrics. Furthermore, the use of dynamic reconstruction resulted in noticeable noise reduction in activity and parametric images.
 
-The content of the thesis chapters is in:
-* [1](1.tex)
-* [2](2.tex)
-...
+In the fourth and final contribution, an adaptive residual modelling method was applied in reconstruction and evaluated on the DWB pharmacological study, to address modelling errors. This method showed promising results in reducing modelling errors and error propagation while also allowing for genericity in the use of dynamic reconstruction algorithms.
 
-The content of the appendices is in:
-* [appendices/1](appendices/1.tex)
-* [appendices/2](appendices/2.tex)
-...
-
-In case you add or remove a chapter file or an appendix file, don't forget to update 
-the corresponding variable (`\NumOfChapters` or `\NumOfAppendices`) in [thesis.tex](thesis.tex).
-
-I am not a latex expert so I tried to keep things as simple as possible. 
-If you want to improve this template, feel free to make pull requests!
-
+Overall, our findings showed that dynamic reconstruction is necessary in DWB parametric imaging to achieve accurate and stable quantification. Many methods have been proposed in this project that showed how reconstruction can be optimised for multi-bed DWB imaging, by making best use of all dynamic and bed PET raw data in the reconstruction process. But before widespread use of dynamic reconstruction, some methodological improvements need to be addressed further to guarantee artefact free and reliable parametric imaging. Most notably there is need for accurate estimation of underlying complex elastic motion in the dynamic datasets, followed by the correction of these motion types within the dynamic reconstruction process.
