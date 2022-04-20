@@ -1,5 +1,5 @@
 # My PhD thesis at Paris-Saclay University (Université Paris-Saclay)
-Compile using the [compile.sh](compile.sh) script. Thesis also available [here](https://tel.archives-ouvertes.fr/tel-03512696): 
+Compile using the [compile.sh](compile.sh) script. Thesis also available at [tel.archives-ouvertes.fr](https://tel.archives-ouvertes.fr/tel-03512696): 
 
 ### Title: Modelling and reconstruction of Whole-Body parametric maps in PET-MRI pharmacological imaging ###
 
