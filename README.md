@@ -4,7 +4,7 @@
 
 ### Titre: Modélisation et reconstruction de cartes paramétriques corps-entier en imagerie pharmacologique TEP-IRM  ###
 
-Compile using the [compile.sh](compile.sh) script. Thesis also available at [tel.archives-ouvertes.fr](https://tel.archives-ouvertes.fr/tel-03512696): 
+Compile using the [compile.sh](compile.sh) script. Thesis also available at [tel.archives-ouvertes.fr](https://tel.archives-ouvertes.fr/tel-03512696). 
 
 # Abstract
 Positron Emission Tomography (PET) is used extensively for clinical applications, with the majority of practices relying on qualitative and semi-quantitative measures. But PET imaging has the ability to deliver fully quantitative functional information of underlying imaged processes by use of dynamic imaging and kinetic modelling. That unique quantitative information can be utilised as biomarkers for clinical applications, especially in precision medicine. But clinical applications often require imaging over the whole body and the majority of clinical scanners provide a limited axial Field of View (FOV). Multiple bed position protocols for dynamic whole-body (DWB) imaging have been developed to extend the effective FOV, at the cost of considerable limitations in acquisition counts and sampling frequency. The objective of this thesis is to improve the quality of whole-body parametric imaging for DWB imaging applications on a hybrid PET/MR scanner.
